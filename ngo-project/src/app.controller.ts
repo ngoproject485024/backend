@@ -10,6 +10,7 @@ export class AppController {
 
 
   @Get('/home')
+  @ApiOperation({ summary: 'دیتاهای صفحه هوم' })
   @ApiResponse({
     status: 200, description: 'get home page data',
     schema: {
