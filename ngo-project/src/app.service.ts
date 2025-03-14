@@ -31,6 +31,23 @@ export class AppService {
   }
 
 
+
+  async aboutUs(req: any, res: any) {
+    let projects = await this.projectRepository.find().sort({'createdAt' : -1}).limit(4)
+    let ngo = await this.ngoRepository.find().sort({'createdAt' : -1}).limit(3)
+    return {
+      message: 'get about us successfully',
+      statusCode: 200,
+      data : {
+        title : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,',
+        middlePartText : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatu',
+        middlePartPic : 'https://thecsruniverse.com/adminxsafe/uploads/20231027105644',
+        missionAndGoal : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,',
+      }
+    }
+    }
+
+
   async projectPage(req: any, res: any) {
     let ongoing = await this.projectRepository.countDocuments({ status: 'Ongoing' })
     let completed = await this.projectRepository.countDocuments({ status: 'Completed' })

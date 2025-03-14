@@ -36,6 +36,35 @@ export class AppController {
     return this.appService.homeData(req , res)
   }
 
+
+
+
+  @Get('/aboutus')
+  @ApiOperation({ summary: 'دیتاهای صفحه درباره ما' })
+  @ApiResponse({
+    status: 200, description: 'get about us page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get about us page data done',
+        error: null,
+        data: {
+          title : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,',
+          middlePartText : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatu',
+          middlePartPic : 'https://thecsruniverse.com/adminxsafe/uploads/20231027105644',
+          missionAndGoal : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,',  
+        }
+      }
+    }    
+  })
+  async getaboutUsData(@Req() req: any, @Res() res: any) {
+    return this.appService.aboutUs(req , res)
+  }
+
+
+
+
+
   /**this is project page data */
   @Get('/projects')
   @ApiOperation({ summary: 'دیتاهای صفحه پروژه ها' })
