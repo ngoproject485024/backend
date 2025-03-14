@@ -1,0 +1,145 @@
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose, { Document, mongo } from "mongoose";
+
+
+export interface ngoInterface extends Document {
+    name : string;
+
+    nationalId : string;
+
+    establishmentYear : string;
+
+    activityField : string;
+
+    address : string;
+
+    postal : string;
+
+    phone : string;
+
+    email : string;
+
+    website : string;
+
+    areaAndScope : string;
+
+    specificCultureGroup : {has : boolean , descibtion : string};
+
+    specificActiveAreas : string;
+
+    areaOfExpertise:string;
+
+    PopulationConcentration : string;
+
+    group : string;
+    
+    additionalInformation : string;
+    
+    socialMedia : {instagram : string , telegram : string , linkedIn : string};
+    
+    cooperation : boolean;
+    
+    license : {has : boolean, descibtion : Boolean};
+
+    issuedBy : boolean;
+
+    expiryDate : boolean;
+
+    publish : boolean;
+
+    documents :  mongoose.Types.ObjectId[];
+
+    projects :  mongoose.Types.ObjectId[];
+}
+
+
+@Schema({timestamps : true})
+export class Ngo {
+
+    @Prop({type : String})
+    name : string;
+
+    @Prop({type : String})
+    nationalId : string;
+
+    @Prop({type : String})
+    establishmentYear : string;
+
+    @Prop({type : String})
+    activityField : string;
+
+    @Prop({type : String})
+    address : string;
+
+
+    @Prop({type : String})
+    postal : string;
+
+
+    @Prop({type : String})
+    phone : string;
+
+    @Prop({type : String})
+    email : string;
+
+    @Prop({type : String})
+    website : string;
+
+    @Prop({type : String})
+    areaAndScope : string;
+
+    @Prop({type : {has:{type : Boolean} , descibtion : {type : String}}})
+    specificCultureGroup : {has : boolean , descibtion : string};
+
+    @Prop({type : {type : String}})
+    specificActiveAreas : string;
+
+    @Prop({type : String})
+    areaOfExpertise:string;
+
+    @Prop({type : String})
+    PopulationConcentration : string;
+
+    @Prop({type : String})
+    group : string;
+    
+    @Prop({type : String})
+    additionalInformation : string;
+    
+    @Prop({type : {instagram : {type : String} , telegram : {type : String} , linkedIn : {type : String}}})
+    socialMedia : {instagram : string , telegram : string , linkedIn : string};
+    
+    @Prop({type : Boolean})
+    cooperation : boolean;
+    
+    @Prop({type : {has : {type : Boolean} , descibtion : {type : String}}})
+    license : {has : boolean, descibtion : Boolean};
+
+    @Prop({type : Boolean})
+    issuedBy : boolean;
+
+    @Prop({type : Boolean})
+    expiryDate : boolean;
+
+    @Prop({type : Boolean})
+    publish : boolean;
+
+
+    @Prop({type : String})
+    logo : string;
+
+    @Prop({type : [String]})
+    images : string[];
+    
+
+    @Prop({type :[mongoose.Schema.Types.ObjectId] , default : [] , ref : 'document'})
+    documents :  mongoose.Types.ObjectId[];
+
+    @Prop({type :[mongoose.Schema.Types.ObjectId] , default : [] , ref : 'project'})
+    projects :  mongoose.Types.ObjectId[];
+
+
+}
+
+
+export const ngoSchema = SchemaFactory.createForClass(Ngo);
