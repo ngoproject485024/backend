@@ -7,6 +7,14 @@ export interface ngoInterface extends Document {
 
     nationalId : string;
 
+    username : string;
+
+    passwod : string;
+
+    city : string;
+
+    country : string;
+
     establishmentYear : string;
 
     activityField : string;
@@ -58,6 +66,18 @@ export class Ngo {
 
     @Prop({type : String})
     name : string;
+
+    @Prop({type : String})
+    username : string;
+
+    @Prop({type : String})
+    passwod : string;
+    
+    @Prop({type : String})
+    city : string;
+    
+    @Prop({type : String})
+    country : string;
 
     @Prop({type : String})
     nationalId : string;
