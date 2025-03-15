@@ -6,6 +6,7 @@ import { createDocumentsDto } from './dto/createdocument.dto';
 import { createProject } from './dto/createProject.dto';
 import { ApiBody, ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Ngo } from './entities/ngo.entity';
+import { loginDTO } from './dto/login.dto';
 
 
 @Controller('ngo')
@@ -68,6 +69,51 @@ export class NgoController {
     return this.ngoService.createNewNgo(req, res, body)
   }
 
+
+
+
+  @Post('/login')
+  @ApiOperation({ summary: 'وقتی سمن ها میخان وارد بشن به اکانتشون' })
+  @ApiResponse({
+    status: 200, description: 'the ngos login successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo login successfully',
+        error: null,
+        data: {username : 'a;dsfkja' , name : 'a;slkfjma;f' , token : 'as;dfilkjm;lkfamsd;lkfmas;ldfjk'}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 403, description: 'Forbidden.',
+    schema: {
+      example: {
+        success: false,
+        message: 'the ngo login failed',
+        error: 'wrong password',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: loginDTO,
+    description: 'Json structure for ngo object',
+  })
+  login(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: loginDTO) {
+    return this.ngoService.login(req, res, body)
+  }
 
 
 

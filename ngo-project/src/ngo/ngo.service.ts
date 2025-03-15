@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateNgoDto } from './dto/create-ngo.dto';
 import { UpdateNgoDto } from './dto/update-ngo.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -9,6 +9,9 @@ import { documentsInterface } from './entities/document.entity';
 import { createProject } from './dto/createProject.dto';
 import { projectsInterface } from './entities/project.entity';
 import * as bcrypt from 'bcrypt';
+import { loginDTO } from './dto/login.dto';
+import { jwtService } from 'src/jwt/jwt.service';
+import { tokenizeInterface } from 'src/interfaces/interfaces.interface';
 
 
 
@@ -18,7 +21,8 @@ export class NgoService {
   saltRounds = 10;
   constructor(@InjectModel('ngo') private ngoRepository : Model<ngoInterface> , 
   @InjectModel('document') private ngoDocument : Model<documentsInterface>,
-  @InjectModel('project') private ngoProject : Model<projectsInterface>
+  @InjectModel('project') private ngoProject : Model<projectsInterface>,
+  private readonly jwtService : jwtService
 ){}
 
   async createNewNgo(req : any , res : any , body: CreateNgoDto) {
@@ -29,6 +33,48 @@ export class NgoService {
       statusCode: 200,
       data : newNgo
     }
+  }
+
+  /**
+   * this rout is for login the ngos
+   * @param req 
+   * @param res 
+   * @param body 
+   * @returns 
+   */
+  async login(req : any , res : any , body: loginDTO){
+    let ngo = await this.ngoRepository.findOne({username : body.username})
+    if (!ngo){
+      return {
+        message : 'login failed!',
+        statusCode : 400,
+        error : 'account not found!'
+      }
+    }
+    let compare = await bcrypt.compare(ngo.passwod , body.password)
+    if (!compare){
+      return {
+        message : 'login failed!',
+        statusCode : 403,
+        error : 'wrong password'
+      }
+    }
+
+    let jwtData: tokenizeInterface = {
+      id: ngo._id.toString(),
+      email: ngo.email,
+      userName: ngo.username,
+      name: ngo.name,
+    }
+    let token = await this.jwtService.tokenize(jwtData , '12H')
+    return {
+      message : 'login successfull!',
+      statusCode : 200,
+      data : {
+        ...ngo , token : token
+      }
+    }
+
   }
 
 
