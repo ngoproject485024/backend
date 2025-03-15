@@ -8,16 +8,21 @@ import { createDocumentsDto } from './dto/createdocument.dto';
 import { documentsInterface } from './entities/document.entity';
 import { createProject } from './dto/createProject.dto';
 import { projectsInterface } from './entities/project.entity';
+import * as bcrypt from 'bcrypt';
+
+
+
 
 @Injectable()
 export class NgoService {
-
+  saltRounds = 10;
   constructor(@InjectModel('ngo') private ngoRepository : Model<ngoInterface> , 
   @InjectModel('document') private ngoDocument : Model<documentsInterface>,
   @InjectModel('project') private ngoProject : Model<projectsInterface>
 ){}
 
   async createNewNgo(req : any , res : any , body: CreateNgoDto) {
+    body.passwod = await bcrypt.hash(body.passwod , this.saltRounds)
     let newNgo = await this.ngoRepository.create(body)
     return {
       message: 'ngo created successfully',
