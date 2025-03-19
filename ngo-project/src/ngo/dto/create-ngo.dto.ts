@@ -49,7 +49,8 @@ export class CreateNgoDto {
     @ApiProperty({
         example: 'iranian ngo',
         required: true
-    }) country: string;
+    }) 
+    country: string;
 
     @IsNotEmpty()
     @IsString()
@@ -209,13 +210,12 @@ export class CreateNgoDto {
     })
     issuedBy: boolean;
 
-    @IsNotEmpty()
-    @IsBoolean()
+    @IsString()
     @ApiProperty({
         example: true,
-        required: true
+        required: true,
     })
-    expiryDate: boolean;
+    expiryDate: string;
 
     @IsNotEmpty()
     @IsArray()

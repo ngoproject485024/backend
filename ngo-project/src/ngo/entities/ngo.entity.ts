@@ -51,7 +51,7 @@ export interface ngoInterface extends Document {
 
     issuedBy : boolean;
 
-    expiryDate : boolean;
+    expiryDate : string;
 
     publish : string[];
 
@@ -144,8 +144,8 @@ export class Ngo {
     @Prop({type : Boolean})
     issuedBy : boolean;
 
-    @Prop({type : Boolean})
-    expiryDate : boolean;
+    @Prop({type : String})
+    expiryDate : string;
 
     @Prop({type : [String]})
     publish : string[];
