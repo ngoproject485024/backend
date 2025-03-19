@@ -17,11 +17,12 @@ export class auth implements NestMiddleware {
     // Set token from Bearer token in header
     token = req.headers.authorization.split(" ")[1];
   }
-
+  console.log('token>>>>>>' , token)
   // console.log(token)
   // console.log(token)
 
   if (!token) {
+    console.log('its hereeeeeeeeeeee')
     return{
       message :'token expired!',
       statusCode : 401,
@@ -31,18 +32,20 @@ export class auth implements NestMiddleware {
   
   try {
     // Verify token
-    const decoded = this.jwt.verify(token)    
+    const decoded = this.jwt.verify(token)
     if (!decoded) {
+    console.log('its hereeeeeeeeeeee222')
       return{
         message :'token expired!',
         statusCode : 401,
         error : 'token expired'
       }
-  
     }
     req.user = decoded;
     next();
   } catch (err) {
+    console.log('its hereeeeeeeeeeee333')
+    
     return{
       message :'token expired!',
       statusCode : 401,
