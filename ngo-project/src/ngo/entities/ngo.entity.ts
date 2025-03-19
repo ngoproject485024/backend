@@ -9,7 +9,7 @@ export interface ngoInterface extends Document {
 
     username : string;
 
-    passwod : string;
+    password : string;
 
     city : string;
 
