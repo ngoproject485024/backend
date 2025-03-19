@@ -174,7 +174,7 @@ export class NgoService {
 
   async getNgosDocument(req :any , res:any ){
     let ngoId : string = req.user.id;
-    let ngo = (await this.ngoRepository.findById({ngoId})).populated('documents')
+    let ngo = (await this.ngoRepository.findById(ngoId)).populated('documents')
     return {
       message: 'get ngo documents successfully',
       statusCode: 200,
