@@ -77,7 +77,8 @@ export class NgoService {
       name: ngo.name,
     }
     let token = await this.jwtService.tokenize(jwtData , '12H')
-    let finalNgo = await this.ngoProject.findOne({username : body.username}).select(['-password'])
+    let finalNgo = await this.ngoProject.findOne({username : body.username}).select({password : 0})
+    console.log(finalNgo)
     let finalNgo2 = finalNgo.toObject()
     return {
       message : 'login successfull!',
