@@ -14,7 +14,7 @@ export class AppController {
 
 
 
-  @Post('uploadStory')
+  @Post('uploadFile')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'picture' , maxCount : 10 }] 
     , {
     storage: diskStorage({
