@@ -1,6 +1,10 @@
 import { IsBoolean, IsNotEmpty, IsString } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
+
+
+
+
 export class CreateNgoDto {
     @IsNotEmpty()
     @IsString()
@@ -34,7 +38,7 @@ export class CreateNgoDto {
     })
     confirmPassword : string;
 
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -69,7 +73,7 @@ export class CreateNgoDto {
         example: 'iranian ngo',
         required: true
     })
-    activityField: string;
+    activityField: string[];
 
 
     @IsNotEmpty()
@@ -118,7 +122,7 @@ export class CreateNgoDto {
         example: 'iranian ngo',
         required: true
     })
-    areaAndScope: string;
+    areaAndScope: string[];
 
 
     @IsNotEmpty()
@@ -134,7 +138,7 @@ export class CreateNgoDto {
         example: 'iranian ngo',
         required: true
     })
-    specificActiveAreas: string;
+    specificActiveAreas: string[];
 
     @IsNotEmpty()
     @IsString()
@@ -142,7 +146,7 @@ export class CreateNgoDto {
         example: 'iranian ngo',
         required: true
     })
-    areaOfExpertise: string;
+    areaOfExpertise: string[];
 
     @IsNotEmpty()
     @IsString()
@@ -150,7 +154,7 @@ export class CreateNgoDto {
         example: 'iranian ngo',
         required: true
     })
-    PopulationConcentration: string;
+    PopulationConcentration: string[];
 
     @IsNotEmpty()
     @IsString()
@@ -213,5 +217,15 @@ export class CreateNgoDto {
         example: false,
         required: true
     })
-    publish: boolean;
+    publish: string[];
+
+
+
+    @IsNotEmpty()
+    @IsBoolean()
+    @ApiProperty({
+        example: [''],
+        required: true
+    })
+    documents : string[]
 }
