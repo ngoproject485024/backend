@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigService, ConfigModule } from '@nestjs/config'
 import { jwtService } from './jwt/jwt.service';
 import { MulterModule } from '@nestjs/platform-express';
+import { auth } from './auth/auth.middleware';
 
 
 
@@ -29,4 +30,10 @@ import { MulterModule } from '@nestjs/platform-express';
   controllers: [AppController],
   providers: [AppService, jwtService],
 })
-export class AppModule { }
+
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+      consumer.apply(auth).forRoutes({path : '/ngo/document/create' , method : RequestMethod.POST} , 
+        {path : '/ngo/project/create' , method : RequestMethod.POST})
+  }
+}
