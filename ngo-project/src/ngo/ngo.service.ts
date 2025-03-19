@@ -158,7 +158,7 @@ export class NgoService {
   async getNgoProjects(req :any , res:any ){
     console.log('innnnnnnnn')
     let ngoId : string = req.user.id;
-    let ngo = await this.ngoRepository.findById({ngoId})
+    let ngo = await this.ngoRepository.findById(ngoId)
     let ongoing = await this.ngoRepository.findOne({id : ngoId}).populate({path : 'projects' , match:{status : 'Ongoing'}})
     let completed = await this.ngoRepository.findOne({id : ngoId}).populate({path : 'projects' , match:{status : 'Completed'}})
     let goodPractice = await this.ngoRepository.findOne({id : ngoId}).populate({path : 'projects' , match:{status : 'GoodPractice'}})
