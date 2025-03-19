@@ -37,9 +37,9 @@ export interface ngoInterface extends Document {
 
     areaOfExpertise:string[];
 
-    PopulationConcentration : string[];
+    populationConcentration : string[];
 
-    group : string;
+    group : string[];
     
     additionalInformation : string;
     
@@ -121,7 +121,7 @@ export class Ngo {
     areaOfExpertise:string[];
 
     @Prop({type : [String]})
-    PopulationConcentration : string[];
+    populationConcentration : string[];
 
     @Prop({type : [String]})
     group : string[];
@@ -140,7 +140,7 @@ export class Ngo {
     
     @Prop({type : {has : {type : Boolean} , descibtion : {type : String}}})
     license : {has : boolean, descibtion : Boolean};
-    
+
     @Prop({type : Boolean})
     issuedBy : boolean;
 

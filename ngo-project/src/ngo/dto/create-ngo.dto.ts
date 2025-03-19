@@ -1,8 +1,5 @@
-import { IsBoolean, IsNotEmpty, IsString } from "@nestjs/class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsObject, IsString } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
-
-
-
 
 
 export class CreateNgoDto {
@@ -28,7 +25,7 @@ export class CreateNgoDto {
         example: 'iranian ngo',
         required: true
     })
-    passwod: string;
+    password: string;
 
     @IsNotEmpty()
     @IsString()
@@ -36,7 +33,7 @@ export class CreateNgoDto {
         example: 'iranian ngo',
         required: true
     })
-    confirmPassword : string;
+    confirmPassword: string;
 
 
     @IsNotEmpty()
@@ -47,7 +44,12 @@ export class CreateNgoDto {
     })
     city: string;
 
-    country: string;
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example: 'iranian ngo',
+        required: true
+    }) country: string;
 
     @IsNotEmpty()
     @IsString()
@@ -56,7 +58,6 @@ export class CreateNgoDto {
         required: true
     })
     nationalId: string;
-
 
     @IsNotEmpty()
     @IsString()
@@ -68,7 +69,7 @@ export class CreateNgoDto {
 
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example: 'iranian ngo',
         required: true
@@ -117,7 +118,7 @@ export class CreateNgoDto {
     website: string;
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example: 'iranian ngo',
         required: true
@@ -133,7 +134,7 @@ export class CreateNgoDto {
     specificCultureGroup: { has: boolean, descibtion: string };
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example: 'iranian ngo',
         required: true
@@ -141,7 +142,7 @@ export class CreateNgoDto {
     specificActiveAreas: string[];
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example: 'iranian ngo',
         required: true
@@ -149,20 +150,20 @@ export class CreateNgoDto {
     areaOfExpertise: string[];
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example: 'iranian ngo',
         required: true
     })
-    PopulationConcentration: string[];
+    populationConcentration: string[];
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example: 'iranian ngo',
         required: true
     })
-    group: string;
+    group: string[];
 
     @IsNotEmpty()
     @IsString()
@@ -172,12 +173,15 @@ export class CreateNgoDto {
     })
     additionalInformation: string;
 
+
     @IsNotEmpty()
+    @IsObject()
     @ApiProperty({
         example: { instagram: 'insta', telegram: 'its telegram', linkedIn: 'its linkedin' },
         required: true
     })
     socialMedia: { instagram: string, telegram: string, linkedIn: string };
+
 
     @IsNotEmpty()
     @IsBoolean()
@@ -187,7 +191,9 @@ export class CreateNgoDto {
     })
     cooperation: boolean;
 
+
     @IsNotEmpty()
+    @IsObject()
     @ApiProperty({
         example: { has: false, describtion: 'its describtion' },
         required: true
@@ -212,20 +218,18 @@ export class CreateNgoDto {
     expiryDate: boolean;
 
     @IsNotEmpty()
-    @IsBoolean()
+    @IsArray()
     @ApiProperty({
         example: false,
         required: true
     })
     publish: string[];
 
-
-
     @IsNotEmpty()
-    @IsBoolean()
+    @IsArray()
     @ApiProperty({
         example: [''],
         required: true
     })
-    documents : string[]
+    documents: string[]
 }
