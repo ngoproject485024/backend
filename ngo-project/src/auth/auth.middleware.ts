@@ -2,6 +2,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 // const jwt = require('j')
 
+
 @Injectable()
 export class auth implements NestMiddleware {
   constructor(private readonly jwt:JwtService){}
@@ -23,11 +24,10 @@ export class auth implements NestMiddleware {
 
   if (!token) {
     console.log('its hereeeeeeeeeeee')
-    return{
+    return res.status(401).json({
       message :'token expired!',
-      statusCode : 401,
       error : 'token is not exist'
-    }
+    })
   }
   
   try {
@@ -35,22 +35,20 @@ export class auth implements NestMiddleware {
     const decoded = this.jwt.verify(token)
     if (!decoded) {
     console.log('its hereeeeeeeeeeee222')
-      return{
+      return res.status(401).json({
         message :'token expired!',
-        statusCode : 401,
         error : 'token expired'
-      }
+      })
     }
     req.user = decoded;
     next();
   } catch (err) {
     console.log('its hereeeeeeeeeeee333')
-    
-    return{
+    return res.status(401).json({
       message :'token expired!',
-      statusCode : 401,
+      data : null,
       error : 'token expired!'
-    }  
+    })
   }
   }
 }
