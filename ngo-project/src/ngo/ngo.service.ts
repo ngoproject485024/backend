@@ -25,6 +25,13 @@ export class NgoService {
   private readonly jwtService : jwtService
 ){}
 
+  /**
+   * 
+   * @param req 
+   * @param res 
+   * @param body 
+   * @returns 
+   */
   async createNewNgo(req : any , res : any , body: CreateNgoDto) {
     console.log(body)
     body.password = await bcrypt.hash(body.password , this.saltRounds)
@@ -74,7 +81,7 @@ export class NgoService {
       message : 'login successfull!',
       statusCode : 200,
       data : {
-        ...ngo , token : token
+        ...ngo.toObject() , token : token
       }
     }
   }
