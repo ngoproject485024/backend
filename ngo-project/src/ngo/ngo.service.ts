@@ -94,6 +94,7 @@ export class NgoService {
     let ngo = await this.ngoRepository.findById(req.user.id)
     let newDocument :any = await this.ngoDocument.create({...body , ngo : ngo._id})
     ngo.ownDocuments.push(newDocument._id)
+    await ngo.save()
     return {
       message: 'document created successfully',
       statusCode: 200,
