@@ -26,7 +26,7 @@ export class NgoService {
 ){}
 
   async createNewNgo(req : any , res : any , body: CreateNgoDto) {
-
+    console.log(body)
     body.password = await bcrypt.hash(body.password , this.saltRounds)
     let newNgo = await this.ngoRepository.create(body)
     return {
