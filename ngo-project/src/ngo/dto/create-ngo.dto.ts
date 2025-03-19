@@ -218,12 +218,12 @@ export class CreateNgoDto {
     expiryDate: string;
 
     @IsNotEmpty()
-    @IsArray()
+    @IsObject()
     @ApiProperty({
-        example: false,
+        example: {},
         required: true
     })
-    publish: string[];
+    publish: {status : number , description : string};
 
     @IsNotEmpty()
     @IsArray()

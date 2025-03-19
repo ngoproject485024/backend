@@ -53,7 +53,7 @@ export interface ngoInterface extends Document {
 
     expiryDate : string;
 
-    publish : string[];
+    publish: {status : number , description : string};
 
     conditionAndConfirm : string[];
 
@@ -147,8 +147,8 @@ export class Ngo {
     @Prop({type : String})
     expiryDate : string;
 
-    @Prop({type : [String]})
-    publish : string[];
+    @Prop({type : {status : {type : Number} , description : {type : String}}})
+    publish : {status : number , description : string};
 
     @Prop({type : String})
     logo : string;

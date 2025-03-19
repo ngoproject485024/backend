@@ -75,7 +75,6 @@ export class NgoService {
         ...ngo , token : token
       }
     }
-
   }
 
 
