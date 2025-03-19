@@ -10,15 +10,15 @@ export interface documentsInterface extends Document {
 
     interfaceName : string;
 
-    describtion : string;
+    description : string;
 
     phone : string;
 
-    type : string;
+    type : string[];
 
     title : string;
 
-    file : string;
+    file : string[];
     
     ngo : mongoose.Types.ObjectId;
 
@@ -38,20 +38,20 @@ export class documents {
     interfaceName : string;
 
     @Prop({type : String})
-    describtion : string;
+    description : string;
 
     @Prop({type : String})
     phone : string;
 
 
-    @Prop({type : String})
-    type : string;
+    @Prop({type : [String]})
+    type : string[];
 
     @Prop({type : String})
     title : string;
 
-    @Prop({type : String})
-    file : string;    
+    @Prop({type : [String]})
+    file : string[];    
 
     @Prop({type : mongoose.Schema.Types.ObjectId , ref : 'ngo'})
     ngo : mongoose.Types.ObjectId;

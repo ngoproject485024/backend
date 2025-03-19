@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "@nestjs/class-validator";
+import { IsArray, IsNotEmpty, IsString } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class createDocumentsDto {
@@ -35,7 +35,7 @@ export class createDocumentsDto {
         example : 'document example',
         required : true
     })
-    describtion : string;
+    description : string;
 
     
     @IsNotEmpty()
@@ -47,12 +47,12 @@ export class createDocumentsDto {
     phone : string;
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example : 'document example',
         required : true
     })
-    type : string;
+    type : string[];
 
     @IsNotEmpty()
     @IsString()
@@ -63,10 +63,10 @@ export class createDocumentsDto {
     title : string;
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example : 'document example',
         required : true
     })
-    file : string;
+    file : string[];
 }
