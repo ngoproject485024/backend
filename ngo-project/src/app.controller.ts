@@ -1,11 +1,41 @@
-import { Controller, Get, Param, Req, Res } from '@nestjs/common';
+import { Controller, Get, Param, Post, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer'
+import { extname } from 'path';
+
 
 @ApiTags('pages data')
 @Controller('page')
 export class AppController {
   constructor(private readonly appService: AppService) { }
+
+
+
+
+  @Post('uploadStory')
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'picture' , maxCount : 10 }] 
+    , {
+    storage: diskStorage({
+      destination: './ngo/uploadFile'
+      , filename: (req, files, cb) => {
+        // console.log(files)
+        // Generating a 32 random chars long string
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
+        //Calling the callback passing the random name generated with the original extension name
+        cb(null, `${randomName}${extname(files.originalname)}`)
+      }
+  })}))
+  async upload( @Req() req , @Res() res, @UploadedFiles(
+  ) picture) {
+    // console.log()
+    console.log(picture.picture)
+    console.log(req.user)
+    return this.appService.uploadPicture(req, res, picture.picture)
+    // return profile
+  }
+
 
 
 

@@ -10,10 +10,12 @@ import { projectSchema } from './ngo/entities/project.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService, ConfigModule } from '@nestjs/config'
 import { jwtService } from './jwt/jwt.service';
+import { MulterModule } from '@nestjs/platform-express';
+
 
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true, envFilePath: 'config.env' }),
+  imports: [ConfigModule.forRoot({ isGlobal: true, envFilePath: 'config.env' }), MulterModule.register({ dest: './ngo-uploads' }),
   MongooseModule.forRoot('mongodb+srv://ngoProject:ngo25255225@cluster0.qvlj4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'),
   MongooseModule.forFeature([{ name: 'ngo', schema: ngoSchema }, { name: 'document', schema: documentSchema }, { name: 'project', schema: projectSchema }]),
   JwtModule.registerAsync({

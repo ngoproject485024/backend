@@ -48,6 +48,28 @@ export class AppService {
     }
 
 
+    async uploadPicture(req : any , res : any ,filename){
+
+
+      console.log(filename)
+
+      let pathes = []
+
+      filename.forEach((element) => {
+        let url = `https://ngoupload.oceanjourney.ir/${element.filename}`
+        pathes.push(url)
+      });
+
+      return {
+        message: 'uploading pictures',
+        statusCode: 200,
+        data : pathes
+      }
+
+
+    }
+
+
   async projectPage(req: any, res: any) {
     let ongoing = await this.projectRepository.countDocuments({ status: 'Ongoing' })
     let completed = await this.projectRepository.countDocuments({ status: 'Completed' })
