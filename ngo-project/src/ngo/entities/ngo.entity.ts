@@ -49,7 +49,7 @@ export interface ngoInterface extends Document {
     
     license : {has : boolean, description : Boolean};
 
-    issuedBy : boolean;
+    // issuedBy : boolean;
 
     expiryDate : string;
 
@@ -141,8 +141,8 @@ export class Ngo {
     @Prop({type : {has : {type : Boolean} , description : {type : String}}})
     license : {has : boolean, descibtion : Boolean};
 
-    @Prop({type : Boolean})
-    issuedBy : boolean;
+    // @Prop({type : Boolean})
+    // issuedBy : boolean;
 
     @Prop({type : String})
     expiryDate : string;

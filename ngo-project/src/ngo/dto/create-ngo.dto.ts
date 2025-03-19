@@ -202,13 +202,13 @@ export class CreateNgoDto {
     license: { has: boolean, desciption: Boolean };
 
 
-    @IsNotEmpty()
-    @IsBoolean()
-    @ApiProperty({
-        example: false,
-        required: true
-    })
-    issuedBy: boolean;
+    // @IsNotEmpty()
+    // @IsBoolean()
+    // @ApiProperty({
+    //     example: false,
+    //     required: true
+    // })
+    // issuedBy: boolean;
 
     @IsString()
     @ApiProperty({
