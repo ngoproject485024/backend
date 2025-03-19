@@ -76,7 +76,7 @@ export class Ngo {
     username : string;
 
     @Prop({type : String})
-    passwod : string;
+    password : string;
     
     @Prop({type : String})
     city : string;

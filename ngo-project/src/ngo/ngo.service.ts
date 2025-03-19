@@ -52,7 +52,7 @@ export class NgoService {
         error : 'account not found!'
       }
     }
-    let compare = await bcrypt.compare(ngo.passwod , body.password)
+    let compare = await bcrypt.compare(ngo.password , body.password)
     if (!compare){
       return {
         message : 'login failed!',
