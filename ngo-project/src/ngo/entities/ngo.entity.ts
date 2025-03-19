@@ -47,7 +47,7 @@ export interface ngoInterface extends Document {
     
     cooperation : boolean;
     
-    license : {has : boolean, descibtion : Boolean};
+    license : {has : boolean, description : Boolean};
 
     issuedBy : boolean;
 
@@ -138,7 +138,7 @@ export class Ngo {
     @Prop({type : Boolean})
     cooperation : boolean;
     
-    @Prop({type : {has : {type : Boolean} , descibtion : {type : String}}})
+    @Prop({type : {has : {type : Boolean} , description : {type : String}}})
     license : {has : boolean, descibtion : Boolean};
 
     @Prop({type : Boolean})

@@ -196,10 +196,10 @@ export class CreateNgoDto {
     @IsNotEmpty()
     @IsObject()
     @ApiProperty({
-        example: { has: false, describtion: 'its describtion' },
+        example: { has: false, description: 'its describtion' },
         required: true
     })
-    license: { has: boolean, descibtion: Boolean };
+    license: { has: boolean, desciption: Boolean };
 
 
     @IsNotEmpty()
