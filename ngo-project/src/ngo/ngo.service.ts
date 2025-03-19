@@ -26,6 +26,7 @@ export class NgoService {
 ){}
 
   async createNewNgo(req : any , res : any , body: CreateNgoDto) {
+
     body.passwod = await bcrypt.hash(body.passwod , this.saltRounds)
     let newNgo = await this.ngoRepository.create(body)
     return {
@@ -81,7 +82,7 @@ export class NgoService {
   async createNewDocument(req : any , res : any , body: createDocumentsDto){
     let ngo = await this.ngoRepository.findById(req.user.id)
     let newDocument :any = await this.ngoDocument.create({...body , ngo : ngo._id})
-    ngo.documents.push(newDocument._id)
+    ngo.ownDocuments.push(newDocument._id)
     return {
       message: 'document created successfully',
       statusCode: 200,

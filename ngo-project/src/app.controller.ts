@@ -18,7 +18,7 @@ export class AppController {
   @UseInterceptors(FileFieldsInterceptor([{ name: 'picture' , maxCount : 10 }] 
     , {
     storage: diskStorage({
-      destination: './ngo/uploadFile'
+      destination: '/home/ngo/uploadFile'
       , filename: (req, files, cb) => {
         // console.log(files)
         // Generating a 32 random chars long string

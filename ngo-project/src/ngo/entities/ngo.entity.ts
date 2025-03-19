@@ -17,7 +17,7 @@ export interface ngoInterface extends Document {
 
     establishmentYear : string;
 
-    activityField : string;
+    activityField : string[];
 
     address : string;
 
@@ -29,15 +29,15 @@ export interface ngoInterface extends Document {
 
     website : string;
 
-    areaAndScope : string;
+    areaAndScope : string[];
 
     specificCultureGroup : {has : boolean , descibtion : string};
 
-    specificActiveAreas : string;
+    specificActiveAreas : string[];
 
-    areaOfExpertise:string;
+    areaOfExpertise:string[];
 
-    PopulationConcentration : string;
+    PopulationConcentration : string[];
 
     group : string;
     
@@ -53,12 +53,17 @@ export interface ngoInterface extends Document {
 
     expiryDate : boolean;
 
-    publish : boolean;
+    publish : string[];
 
-    documents :  mongoose.Types.ObjectId[];
+    conditionAndConfirm : string[];
+
+    ownDocuments :  mongoose.Types.ObjectId[];
+
+    documents : string[]
 
     projects :  mongoose.Types.ObjectId[];
 }
+
 
 
 @Schema({timestamps : true})
@@ -85,16 +90,14 @@ export class Ngo {
     @Prop({type : String})
     establishmentYear : string;
 
-    @Prop({type : String})
-    activityField : string;
+    @Prop({type : [String]})
+    activityField : string[];
 
     @Prop({type : String})
     address : string;
 
-
     @Prop({type : String})
     postal : string;
-
 
     @Prop({type : String})
     phone : string;
@@ -105,24 +108,27 @@ export class Ngo {
     @Prop({type : String})
     website : string;
 
-    @Prop({type : String})
-    areaAndScope : string;
+    @Prop({type : [String]})
+    areaAndScope : string[];
 
     @Prop({type : {has:{type : Boolean} , descibtion : {type : String}}})
     specificCultureGroup : {has : boolean , descibtion : string};
 
-    @Prop({type : {type : String}})
-    specificActiveAreas : string;
+    @Prop({type : [String]})
+    specificActiveAreas : string[];
 
-    @Prop({type : String})
-    areaOfExpertise:string;
+    @Prop({type : [String]})
+    areaOfExpertise:string[];
 
-    @Prop({type : String})
-    PopulationConcentration : string;
+    @Prop({type : [String]})
+    PopulationConcentration : string[];
 
-    @Prop({type : String})
-    group : string;
-    
+    @Prop({type : [String]})
+    group : string[];
+
+    @Prop({type : [String]})
+    documents : string[]
+
     @Prop({type : String})
     additionalInformation : string;
     
@@ -134,26 +140,27 @@ export class Ngo {
     
     @Prop({type : {has : {type : Boolean} , descibtion : {type : String}}})
     license : {has : boolean, descibtion : Boolean};
-
+    
     @Prop({type : Boolean})
     issuedBy : boolean;
 
     @Prop({type : Boolean})
     expiryDate : boolean;
 
-    @Prop({type : Boolean})
-    publish : boolean;
-
+    @Prop({type : [String]})
+    publish : string[];
 
     @Prop({type : String})
     logo : string;
 
     @Prop({type : [String]})
-    images : string[];
+    documentsFile : string[];
     
+    @Prop({type : [String]})
+    termsAndCondition:string[];
 
     @Prop({type :[mongoose.Schema.Types.ObjectId] , default : [] , ref : 'document'})
-    documents :  mongoose.Types.ObjectId[];
+    ownDocuments :  mongoose.Types.ObjectId[];
 
     @Prop({type :[mongoose.Schema.Types.ObjectId] , default : [] , ref : 'project'})
     projects :  mongoose.Types.ObjectId[];

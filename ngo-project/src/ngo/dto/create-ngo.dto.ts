@@ -32,6 +32,15 @@ export class CreateNgoDto {
         example: 'iranian ngo',
         required: true
     })
+    confirmPassword : string;
+
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example: 'iranian ngo',
+        required: true
+    })
     city: string;
 
     country: string;
