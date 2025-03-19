@@ -51,10 +51,10 @@ export class AppService {
     async uploadPicture(req : any , res : any ,filename){
 
 
-      console.log(filename)
+      console.log('here is for pictures' , filename)
 
       let pathes = []
-
+      // if (fin)
       filename.forEach((element) => {
         let url = `https://ngoupload.oceanjourney.ir/${element.filename}`
         pathes.push(url)
