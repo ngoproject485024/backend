@@ -163,6 +163,7 @@ export class NgoService {
     console.log('innnnnnnnn')
     let ngoId : string = req.user.id;
     let ngo = await this.ngoRepository.findById(ngoId).populate('projects')
+    console.log(ngo.projects)
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
