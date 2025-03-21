@@ -162,16 +162,11 @@ export class NgoService {
   async getNgoProjects(req :any , res:any ){
     console.log('innnnnnnnn')
     let ngoId : string = req.user.id;
-    let ngo = await this.ngoRepository.findById(ngoId)
-    console.log('ngo founder'  , ngo)
-    let ongoing = await this.ngoRepository.findOne({_id : ngoId}).populate({path : 'projects' , match:{status : 'Ongoing'}})
-    let completed = await this.ngoRepository.findOne({_id : ngoId}).populate({path : 'projects' , match:{status : 'Completed'}})
-    let goodPractice = await this.ngoRepository.findOne({_id : ngoId}).populate({path : 'projects' , match:{status : 'GoodPractice'}})
-    let collaborationOpportunities = await this.ngoRepository.findOne({_id : ngoId}).populate({path : 'projects' , match:{status : 'CollaborationOpportunities'}})
+    let ngo = await this.ngoRepository.findById(ngoId).populate('projects')
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
-      data : {ongoing : ongoing.projects , completed : completed.projects , goodPractice : goodPractice.projects , collaborationOpportunities : collaborationOpportunities.projects }
+      data:ngo
     }
   }
 
