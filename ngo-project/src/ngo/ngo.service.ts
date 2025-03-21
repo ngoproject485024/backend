@@ -167,7 +167,7 @@ export class NgoService {
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
-      data:ngo
+      data:ngo.projects
     }
   }
 
