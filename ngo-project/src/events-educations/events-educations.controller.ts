@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Res, ValidationPipe } from '@nestjs/common';
 import { EventsEducationsService } from './events-educations.service';
-import { UpdateEventsEducationDto } from './dto/update-events-education.dto';
+// import { UpdateEventsEducationDto } from './dto/update-events-education.dto';
 import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { CreateEvetsDto } from './dto/events.dto';
@@ -243,5 +243,5 @@ export class EventsEducationsController {
     return this.eventsEducationsService.getSpecificEvents(req ,res , eventId)
   }
 
-  
+
 }

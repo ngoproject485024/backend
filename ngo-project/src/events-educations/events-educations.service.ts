@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UpdateEventsEducationDto } from './dto/update-events-education.dto';
+// import { UpdateEventsEducationDto } from './dto/update-events-education.dto';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { Model } from 'mongoose';
 import { EducationInterface } from './entities/education.entity';
