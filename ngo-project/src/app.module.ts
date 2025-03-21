@@ -40,7 +40,7 @@ import { EventsEducationsController } from './events-educations/events-education
 export class AppModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {
       consumer.apply(auth).forRoutes({path : '/ngo/document/create' , method : RequestMethod.POST} , 
-        // {path : '/ngo/project/create' , method : RequestMethod.POST},
+        {path : '/ngo/project/create' , method : RequestMethod.POST},
         {path : '/ngo/pannel/documents' , method : RequestMethod.GET},
         {path : '/ngo/pannel/projects' , method : RequestMethod.GET})
   }
