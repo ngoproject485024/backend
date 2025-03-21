@@ -105,7 +105,7 @@ export class NgoService {
 
 
   async createNewProject(req : any , res : any , body: createProject){
-    let ngo = await this.ngoRepository.findById(req.user._id)
+    let ngo = await this.ngoRepository.findById(req.user.id)
     let newProject : any = await this.ngoProject.create({...body , ngo : ngo._id})
     ngo.projects.push(newProject._id)
     await ngo.save()
