@@ -25,8 +25,6 @@ export class AppService {
         },
         ngo,
       }
-
-
     }
   }
 
@@ -49,10 +47,7 @@ export class AppService {
 
 
     async uploadPicture(req : any , res : any ,filename){
-
-
       console.log('here is for pictures' , filename)
-
       let pathes = []
       // if (fin)
       filename.forEach((element) => {
