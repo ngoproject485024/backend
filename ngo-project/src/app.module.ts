@@ -12,6 +12,7 @@ import { ConfigService, ConfigModule } from '@nestjs/config'
 import { jwtService } from './jwt/jwt.service';
 import { MulterModule } from '@nestjs/platform-express';
 import { auth } from './auth/auth.middleware';
+import { AdminModule } from './admin/admin.module';
 
 
 
@@ -22,10 +23,11 @@ import { auth } from './auth/auth.middleware';
   JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({
-      secret: process.env.JWT_SECRET,
+      // secret: process.env.JWT_SECRET,
+      global : true
     }),
   })
-    , NgoModule, EventsEducationsModule,
+    , NgoModule, EventsEducationsModule, AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService, jwtService],

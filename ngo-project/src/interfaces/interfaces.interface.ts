@@ -10,6 +10,12 @@ export interface refeshTokenInterface{
 
 
 
+export interface adminJwtInterface{
+    userName : string;
+    firstName : string;
+    lastName : string;
+}
+
 
 export interface tokenizeInterface{
     id : string;

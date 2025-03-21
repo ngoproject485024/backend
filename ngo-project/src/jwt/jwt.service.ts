@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { refeshTokenInterface, tokenizeInterface } from 'src/interfaces/interfaces.interface';
+import { adminJwtInterface, refeshTokenInterface, tokenizeInterface } from 'src/interfaces/interfaces.interface';
 
 
 
@@ -19,6 +19,14 @@ export class jwtService  {
     async refrshTokenize(user: Partial<refeshTokenInterface> , time : string): Promise<string> {
         return this.jwt.sign(user, {
             secret: process.env.REFRESHTOKEN,
+            expiresIn: time
+        })
+    }
+
+
+    async adminToken(user : adminJwtInterface , time : string) : Promise<string>{
+        return this.jwt.sign(user, {
+            secret: process.env.JWT_ADMIN_SECRET,
             expiresIn: time
         })
     }

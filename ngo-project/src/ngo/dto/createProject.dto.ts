@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "@nestjs/class-validator";
+import { IsArray, IsNotEmpty, IsObject, IsString } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class createProject {
@@ -32,17 +32,18 @@ export class createProject {
         example : 'project example data',
         required : true
     })
-    describtion: string;
+    description: string;
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example : 'project example data',
         required : true
     })
-    status: string;
+    status: string[];
 
     @IsNotEmpty()
+    @IsObject()
     @ApiProperty({
         example : {country : 'iran' , city : 'tehran'}
     })
@@ -62,7 +63,7 @@ export class createProject {
         example : 'project example data',
         required : true
     })
-    managerName: string;
+    projectManagerName: string;
 
     @IsNotEmpty()
     @IsString()
@@ -70,7 +71,7 @@ export class createProject {
         example : 'project example data',
         required : true
     })
-    managerEmail: string;
+    projectManagerEmail: string;
 
     @IsNotEmpty()
     @IsString()
@@ -78,7 +79,7 @@ export class createProject {
         example : 'project example data',
         required : true
     })
-    managerPhone: string;
+    projectManagerPhone: string;
 
     @IsNotEmpty()
     @IsString()
@@ -86,26 +87,27 @@ export class createProject {
         example : 'project example data',
         required : true
     })
-    stakeHolder: string;
+    colleaguesAndStakeholders: string;
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     @ApiProperty({
         example : 'project example data',
         required : true
     })
-    goalAndAchievements: string;
+    goalAndAchievements: string[];
 
     @IsNotEmpty()
-    @IsString()
+    @IsObject()
     @ApiProperty({
         example : 'project example data',
         required : true
     })
-    documentsAndReport: string;
+    documentsAndReport: {title : string , files : string[]};
 
     @IsNotEmpty()
-    visualDocuments: string[];
+    @IsObject()
+    visualDocuments: {title : string , files : string[]}[];
 
     @IsNotEmpty()
     @IsString()

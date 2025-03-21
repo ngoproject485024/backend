@@ -10,28 +10,28 @@ export interface projectsInterface extends Document {
 
     endDate : string;
 
-    describtion : string;
+    description : string;
 
-    status : string;
+    status : string[];
 
     location : {country : string, city : string};
 
     organazationName : string;
 
-    managerName : string;
+    projectManagerName : string;
 
-    managerEmail : string;
+    projectManagerEmail : string;
 
-    managerPhone : string;
+    projectManagerPhone : string;
 
 
-    stakeHolder : string;
+    colleaguesAndStakeholders : string;
 
-    goalAndAchievements:string;
+    goalAndAchievements:string[];
 
-    documentsAndReport : string;
+    documentsAndReport :  {title : string , files : string[]};
 
-    visualDocuments : string[];
+    visualDocuments : {title : string , files : string[]}[];
     
     moreInformation : string;
 
@@ -54,10 +54,10 @@ export class projects {
     endDate : string;
 
     @Prop({type : String})
-    describtion : string;
+    description : string;
 
-    @Prop({type : String})
-    status : string;
+    @Prop({type : [String]})
+    status : string[];
 
     @Prop({type : {country : {type : String} , city : {type : String}}})
     location : {country : string, city : string};
@@ -66,25 +66,25 @@ export class projects {
     organazationName : string;
 
     @Prop({type : String})
-    managerName : string;
+    projectManagerName : string;
 
     @Prop({type : String})
-    managerEmail : string;
+    projectManagerEmail : string;
 
     @Prop({type : String})
-    managerPhone : string;
+    projectManagerPhone : string;
 
     @Prop({type : String})
-    stakeHolder : string;
-
-    @Prop({type : String})
-    goalAndAchievements:string;
-
-    @Prop({type : String})
-    documentsAndReport : string;
+    colleaguesAndStakeholders : string;
 
     @Prop({type : [String]})
-    visualDocuments : string[];
+    goalAndAchievements:string[];
+
+    @Prop({type : {title : {type : String} , files : [String]}})
+    documentsAndReport :  {title : string , files : string[]};
+
+    @Prop({type : []})
+    visualDocuments : {title : string , files : string[]}[];
     
     @Prop({type : String})
     moreInformation : string;

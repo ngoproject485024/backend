@@ -108,6 +108,7 @@ export class NgoService {
     let ngo = await this.ngoRepository.findById(req.user._id)
     let newProject : any = await this.ngoProject.create({...body , ngo : ngo._id})
     ngo.projects.push(newProject._id)
+    await ngo.save()
     return {
       message: 'project created successfully',
       statusCode: 200,
