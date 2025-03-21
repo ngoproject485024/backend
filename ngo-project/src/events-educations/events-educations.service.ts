@@ -4,14 +4,14 @@ import { CreateEducationDto } from './dto/create-education.dto';
 import { Model } from 'mongoose';
 import { EducationInterface } from './entities/education.entity';
 import { CreateEvetsDto } from './dto/events.dto';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class EventsEducationsService {
 
-  constructor(@Inject('educations') private educationRepository: Model<EducationInterface>,
-    @Inject('events') private eventRepository: Model<EducationInterface>
+  constructor(@InjectModel('educations') private educationRepository: Model<EducationInterface>,
+    @InjectModel('events') private eventRepository: Model<EducationInterface>
   ) { }
-
 
 
   /**
