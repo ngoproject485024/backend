@@ -16,7 +16,7 @@ export interface projectsInterface extends Document {
 
     location : {country : string, city : string};
 
-    organazationName : string;
+    organizationName : string;
 
     projectManagerName : string;
 
@@ -63,7 +63,7 @@ export class projects {
     location : {country : string, city : string};
 
     @Prop({type : String})
-    organazationName : string;
+    organizationName : string;
 
     @Prop({type : String})
     projectManagerName : string;

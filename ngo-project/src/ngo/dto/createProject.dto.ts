@@ -55,7 +55,7 @@ export class createProject {
         example : 'project example data',
         required : true
     })
-    organazationName: string;
+    organizationName: string;
 
     @IsNotEmpty()
     @IsString()
