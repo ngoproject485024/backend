@@ -163,10 +163,6 @@ export class NgoService {
     console.log('innnnnnnnn')
     let ngoId : string = req.user.id;
     let ngo = await this.ngoRepository.findById(ngoId)
-    let test = await this.ngoProject.find({$and : [{
-      ngo : {$in : ngoId}
-    } , {status : {$in : 'ongoing'}}]})
-    console.log(test)
     let ongoing = await this.ngoRepository.findById(ngoId).populate({path : 'projects' , match:{ status: {$in : 'ongoing'}}})
     let completed = await this.ngoRepository.findById(ngoId).populate({path : 'projects' , match:{ status: {$in : 'completed'}}})
     let goodPractice = await this.ngoRepository.findById(ngoId).populate({path : 'projects' , match:{ status: {$in : 'goodPractice'}}})
