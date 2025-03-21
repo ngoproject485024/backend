@@ -106,7 +106,7 @@ export class createProject {
     documentsAndReport: {title : string , files : string[]};
 
     @IsNotEmpty()
-    @IsObject()
+    @IsArray()
     visualDocuments: {title : string , files : string[]}[];
 
     @IsNotEmpty()
