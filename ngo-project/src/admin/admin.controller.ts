@@ -21,5 +21,11 @@ export class AdminController {
   }
 
 
+  @Get('/token/check')
+  async checkAdminToken(@Req() req : any , @Res() res : any){
+    return this.adminService.checkToken(req , res )
+  }
+
+
 
 }

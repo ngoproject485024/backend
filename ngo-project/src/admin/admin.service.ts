@@ -90,4 +90,12 @@ export class AdminService {
 
 
 
+    async checkToken(req , res){
+        return{
+            message : 'ok',
+            statusCode : 200
+        }
+    }
+
+
 }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { AdminController } from './admin.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,22 +11,29 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AdminSchema } from './entities/admin.entity';
 import { jwtService } from 'src/jwt/jwt.service';
+import { adminAuth } from 'src/admin-auth/admin-auth.middleware';
 
 
 @Module({
-  imports : [MongooseModule.forRoot('') , 
-        MongooseModule.forFeature([{name : 'educations' , schema : EducationSchema} , 
-        {name : 'admin' , schema : AdminSchema},
-        {name : 'events' , schema : EventsSchema},{name : 'ngo' , schema : ngoSchema} , {name : 'document' , schema : documentSchema} , {name : 'project' , schema : projectSchema}]),
-        JwtModule.registerAsync({
-            imports: [ConfigModule],
-            useFactory: async (configService: ConfigService) => ({
-              secret: process.env.JWT_SECRET,
-            }),
-          }),
-    ],
+  imports: [
+    , MongooseModule.forRoot(''),
+    MongooseModule.forFeature([{ name: 'educations', schema: EducationSchema },
+    { name: 'admin', schema: AdminSchema },
+    { name: 'events', schema: EventsSchema }, { name: 'ngo', schema: ngoSchema }, { name: 'document', schema: documentSchema }, { name: 'project', schema: projectSchema }]),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: process.env.JWT_SECRET,
+      }),
+    }),
+  ],
   controllers: [AdminController],
-  providers: [AdminService , jwtService],
+  providers: [AdminService, jwtService],
 })
 
-export class AdminModule {}
+export class AdminModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(adminAuth).forRoutes({ path: '/token/check', method: RequestMethod.GET },
+    )
+  }
+}
