@@ -35,9 +35,7 @@ export class CreateEvetsDto {
         required: true
     })
     peDescription: string;
-
-
-
+    
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -45,8 +43,6 @@ export class CreateEvetsDto {
         required: true
     })
     enDescription: string;
-
-
 
     @IsNotEmpty()
     @IsString()
@@ -56,7 +52,6 @@ export class CreateEvetsDto {
     })
     ruDescription: string;
 
-
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -64,7 +59,6 @@ export class CreateEvetsDto {
         required: true
     })
     peEventsBody: string;
-
 
     @IsNotEmpty()
     @IsString()
@@ -74,7 +68,6 @@ export class CreateEvetsDto {
     })
     enEventsBody: string;
 
-
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -82,8 +75,6 @@ export class CreateEvetsDto {
         required: true
     })
     ruEventsBody: string;
-
-
 
     // @IsNotEmpty()
     @IsArray()
@@ -93,8 +84,6 @@ export class CreateEvetsDto {
     })
     peVideo: string[];
 
-
-    
     // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
@@ -102,8 +91,6 @@ export class CreateEvetsDto {
         required: true
     })
     enVideo: string[];
-
-
 
     // @IsNotEmpty()
     @IsArray()
@@ -113,8 +100,6 @@ export class CreateEvetsDto {
     })
     ruVideo: string[];
 
-
-
     // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
@@ -122,7 +107,6 @@ export class CreateEvetsDto {
         required: true
     })
     pePictures: string[]
-
 
     // @IsNotEmpty()
     @IsArray()
@@ -132,8 +116,6 @@ export class CreateEvetsDto {
     })
     enPictures: string[]
 
-
-
     // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
@@ -141,8 +123,5 @@ export class CreateEvetsDto {
         required: true
     })
     ruPictures: string[]
-
-
-
 }
 

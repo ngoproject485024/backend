@@ -17,6 +17,7 @@ import { EventsEducationsService } from './events-educations/events-educations.s
 import { EventsSchema } from './events-educations/entities/events.entity';
 import { EducationSchema } from './events-educations/entities/education.entity';
 import { EventsEducationsController } from './events-educations/events-educations.controller';
+import { adminAuth } from './admin-auth/admin-auth.middleware';
 
 
 
@@ -42,6 +43,13 @@ export class AppModule implements NestModule{
       consumer.apply(auth).forRoutes({path : '/ngo/document/create' , method : RequestMethod.POST} , 
         {path : '/ngo/project/create' , method : RequestMethod.POST},
         {path : '/ngo/pannel/documents' , method : RequestMethod.GET},
-        {path : '/ngo/pannel/projects' , method : RequestMethod.GET})
+        {path : '/ngo/pannel/projects' , method : RequestMethod.GET}),
+        consumer.apply(adminAuth).forRoutes({path : '/events-educations/education/create' , method : RequestMethod.POST} ,
+                  {path : '/events-educations/event/create' , method : RequestMethod.POST} ,
+                  // {path : '/education/create' , method : RequestMethod.POST}  
+                  // {path : '' , method : RequestMethod.POST},
+                  // {path : '' , method : RequestMethod.GET},
+                  // {path : '' , method : RequestMethod.GET})
+      )
   }
 }
