@@ -45,8 +45,10 @@ export class AdminService {
         }
 
         let token = await this.jwtService.adminToken(adminTokenData , '24H')
+        
 
         let allData = {...admin.toObject() , tokne : token}
+        delete allData.password
         return {
             message: 'ورود موفق',
             statusCode: 200,
