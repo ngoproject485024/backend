@@ -15,25 +15,23 @@ import { adminAuth } from 'src/admin-auth/admin-auth.middleware';
 
 
 @Module({
-  imports: [
-    , MongooseModule.forRoot(''),
-    MongooseModule.forFeature([{ name: 'educations', schema: EducationSchema },
-    { name: 'admin', schema: AdminSchema },
-    { name: 'events', schema: EventsSchema }, { name: 'ngo', schema: ngoSchema }, { name: 'document', schema: documentSchema }, { name: 'project', schema: projectSchema }]),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        secret: process.env.JWT_SECRET,
-      }),
-    }),
-  ],
+  imports : [MongooseModule.forRoot('') , 
+        MongooseModule.forFeature([{name : 'educations' , schema : EducationSchema} , 
+        {name : 'admin' , schema : AdminSchema},
+        {name : 'events' , schema : EventsSchema},{name : 'ngo' , schema : ngoSchema} , {name : 'document' , schema : documentSchema} , {name : 'project' , schema : projectSchema}]),
+        JwtModule.registerAsync({
+            imports: [ConfigModule],
+            useFactory: async (configService: ConfigService) => ({
+              secret: process.env.JWT_SECRET,
+            }),
+          }),
+    ],
   controllers: [AdminController],
-  providers: [AdminService, jwtService],
+  providers: [AdminService , jwtService],
 })
 
 export class AdminModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(adminAuth).forRoutes({ path: '/token/check', method: RequestMethod.GET },
-    )
-  }
+        consumer.apply(adminAuth).forRoutes({path : '/token/check' , method : RequestMethod.GET} ,
+    )}
 }
