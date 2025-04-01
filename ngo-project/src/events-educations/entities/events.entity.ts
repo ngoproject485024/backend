@@ -4,15 +4,35 @@ export interface EventsInterface extends Document {
 
     type: number;
 
-    title: string;
+    peTitle: string;
 
-    description: string;
+    enTitle: string;
 
-    EventsBody: { head: string, body: string };
+    ruTitle: string;
 
-    video: string[];
+    peDescription: string;
 
-    pictures: string[]
+    enDescription: string;
+
+    ruDescription: string;
+
+    peEventsBody: { head: string, body: string};
+
+    enEventsBody: { head: string, body: string};
+
+    ruEventsBody: { head: string, body: string};
+
+    peVideo: string[];
+
+    enVideo: string[];
+
+    ruVideo: string[];
+
+    pePictures: string[]
+
+    enPictures: string[]
+
+    ruPictures: string[]
 
     admin: { userName: string, firstName: string, lastName: string }
 
@@ -26,19 +46,48 @@ export class Events {
     type: number;
 
     @Prop({ type: String })
-    title: string;
+    peTitle: string;
 
     @Prop({ type: String })
-    description: string;
+    enTitle: string;
+
+    @Prop({ type: String })
+    ruTitle: string;
+
+    @Prop({ type: String })
+    peDescription: string;
+
+    @Prop({ type: String })
+    enDescription: string;
+
+    @Prop({ type: String })
+    ruDescription: string;
 
     @Prop({ type: { head: { type: String }, body: { type: String } }})
-    EventsBody: { head: string, body: string};
+    peEventsBody: { head: string, body: string};
+
+    @Prop({ type: { head: { type: String }, body: { type: String } }})
+    enEventsBody: { head: string, body: string};
+
+    @Prop({ type: { head: { type: String }, body: { type: String } }})
+    ruEventsBody: { head: string, body: string};
+    @Prop({ type: [String] })
+    peVideo: string[];
 
     @Prop({ type: [String] })
-    video: string[];
+    enVideo: string[];
 
     @Prop({ type: [String] })
-    pictures: string[]
+    ruVideo: string[];
+
+    @Prop({ type: [String] })
+    pePictures: string[]
+
+    @Prop({ type: [String] })
+    enPictures: string[]
+
+    @Prop({ type: [String] })
+    ruPictures: string[]
 
     @Prop({ type: { userName: { type: String }, firstName: { type: String }, lastName: { type: String } } })
     admin: { userName: string, firstName: string, lastName: string }

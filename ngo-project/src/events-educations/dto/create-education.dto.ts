@@ -9,7 +9,15 @@ export class CreateEducationDto {
         example : 'asdfadsfadf',
         required : true
     })
-    title: string;
+    peTitle: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'asdfadsfadf',
+        required : true
+    })
+    enTitle: string;
 
 
     @IsNotEmpty()
@@ -18,7 +26,35 @@ export class CreateEducationDto {
         example : 'asdfadsfadf',
         required : true
     })
-    description: string;
+    ruTitle: string;
+
+
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'asdfadsfadf',
+        required : true
+    })
+    peDescription: string;
+
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'asdfadsfadf',
+        required : true
+    })
+    enDescription: string;
+
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'asdfadsfadf',
+        required : true
+    })
+    ruDescription: string;
 
 
     @IsNotEmpty()
@@ -27,7 +63,27 @@ export class CreateEducationDto {
         example: { head1: 'string', body1: 'string', head2: 'string', body2: 'string' },
         required: true
     })
-    EducationBody: { head1: string, body1: string, head2: string, body2: string };
+    peEducationBody: { head1: string, body1: string, head2: string, body2: string };
+
+
+
+    @IsNotEmpty()
+    @IsObject()
+    @ApiProperty({
+        example: { head1: 'string', body1: 'string', head2: 'string', body2: 'string' },
+        required: true
+    })
+    enEducationBody: { head1: string, body1: string, head2: string, body2: string };
+
+
+
+    @IsNotEmpty()
+    @IsObject()
+    @ApiProperty({
+        example: { head1: 'string', body1: 'string', head2: 'string', body2: 'string' },
+        required: true
+    })
+    ruEducationBody: { head1: string, body1: string, head2: string, body2: string };
 
     
     
@@ -38,7 +94,26 @@ export class CreateEducationDto {
         example: ['' , ''],
         required: true
     })
-    video: string[];
+    peVideo: string[];
+
+
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example: ['' , ''],
+        required: true
+    })
+    enVideo: string[];
+
+
+
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example: ['' , ''],
+        required: true
+    })
+    ruVideo: string[];
 
 
     
@@ -48,6 +123,25 @@ export class CreateEducationDto {
         example: ['' , ''],
         required: true
     })
-    pictures: string[]
+    pePictures: string[]
+
+
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example: ['' , ''],
+        required: true
+    })
+    enPictures: string[]
+
+
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example: ['' , ''],
+        required: true
+    })
+    ruPictures: string[]
+
 
 }

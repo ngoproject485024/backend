@@ -5,15 +5,35 @@ export interface EducationInterface extends Document {
 
     type: number;
 
-    title: string;
+    peTitle: string;
 
-    description: string;
+    enTitle: string;
 
-    EducationBody: { head1: string, body1: string, head2: string, body2: string };
+    ruTitle: string;
 
-    video: string[];
+    peDescription: string;
 
-    pictures: string[]
+    enDescription: string;
+
+    ruDescription: string;
+
+    peEducationBody: { head1: string, body1: string, head2: string, body2: string };
+
+    enEducationBody: { head1: string, body1: string, head2: string, body2: string };
+
+    ruEducationBody: { head1: string, body1: string, head2: string, body2: string };
+
+    peVideo: string[];
+
+    enVideo: string[];
+
+    ruVideo: string[];
+
+    pePictures: string[]
+
+    enPictures: string[]
+
+    ruPictures: string[]
 
     admin: { userName: string, firstName: string, lastName: string }
 
@@ -27,24 +47,55 @@ export class Education {
     type: number;
 
     @Prop({ type: String })
-    title: string;
+    peTitle: string;
 
     @Prop({ type: String })
-    description: string;
+    enTitle: string;
+
+    @Prop({ type: String })
+    ruTitle: string;
+
+    @Prop({ type: String })
+    peDescription: string;
+
+    @Prop({ type: String })
+    enDescription: string;
+
+    @Prop({ type: String })
+    ruDescription: string;
+
 
     @Prop({ type: { head1: { type: String }, body1: { type: String }, head2: { type: String }, body2: { type: String } } })
-    EducationBody: { head1: string, body1: string, head2: string, body2: string };
+    peEducationBody: { head1: string, body1: string, head2: string, body2: string };
+
+    @Prop({ type: { head1: { type: String }, body1: { type: String }, head2: { type: String }, body2: { type: String } } })
+    enEducationBody: { head1: string, body1: string, head2: string, body2: string };
+
+    @Prop({ type: { head1: { type: String }, body1: { type: String }, head2: { type: String }, body2: { type: String } } })
+    ruEducationBody: { head1: string, body1: string, head2: string, body2: string };
+
 
     @Prop({ type: [String] })
-    video: string[];
+    peVideo: string[];
 
     @Prop({ type: [String] })
-    pictures: string[]
+    enVideo: string[];
+
+    @Prop({ type: [String] })
+    ruVideo: string[];
+
+    @Prop({ type: [String] })
+    pePictures: string[]
+
+    @Prop({ type: [String] })
+    enPictures: string[]
+
+    @Prop({ type: [String] })
+    ruPictures: string[]
 
     @Prop({ type: { userName: { type: String }, firstName: { type: String }, lastName: { type: String } } })
     admin: { userName: string, firstName: string, lastName: string }
 
-    
 }
 
 export const EducationSchema = SchemaFactory.createForClass(Education);

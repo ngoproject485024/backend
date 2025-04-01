@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 
 
 @Injectable()
-export class auth implements NestMiddleware {
+export class adminAuth implements NestMiddleware {
   constructor(private readonly jwt:JwtService){}
   use(req: any, res: any, next: () => void) {
     // console.log(req.headers)
