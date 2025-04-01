@@ -25,7 +25,7 @@ export class EventsEducationsService {
   async createNewEducation(req: any, res: any, body: CreateEducationDto) {
     let newEducation = await this.educationRepository.create(body)
     let type = 0;            // 0 : blog      1 : photo        2 : video
-
+    console.log(body)
     await newEducation.updateOne({
       admin: {
         userName: req.user.userName,
