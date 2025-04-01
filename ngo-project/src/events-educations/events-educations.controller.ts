@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Res, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Res, ValidationPipe, Query } from '@nestjs/common';
 import { EventsEducationsService } from './events-educations.service';
 // import { UpdateEventsEducationDto } from './dto/update-events-education.dto';
 import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -147,8 +147,8 @@ export class EventsEducationsController {
         }
       },
     })
-  async getAllEducations(@Req() req: any, @Res() res: any){
-    return this.eventsEducationsService.getAllEducations(req ,res)
+  async getAllEducations(@Req() req: any, @Res() res: any , @Query('type') type : string , @Query('sort') sort : string){
+    return this.eventsEducationsService.getAllEducations(req ,res , +type , sort)
   }
 
 
@@ -177,8 +177,8 @@ export class EventsEducationsController {
       }
     },
   })
-  async getAllEvents(@Req() req: any, @Res() res: any){
-    return this.eventsEducationsService.getAllEvents(req ,res)
+  async getAllEvents(@Req() req: any, @Res() res: any , @Query('type') type : string , @Query('sort') sort : string){
+    return this.eventsEducationsService.getAllEvents(req ,res , +type , sort)
   }
 
 

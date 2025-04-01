@@ -68,6 +68,7 @@ export class Events {
 
     @Prop({ type: String})
     enEventsBody:string;
+    
 
     @Prop({ type: String})
     ruEventsBody:string;
