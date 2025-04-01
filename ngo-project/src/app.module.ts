@@ -46,10 +46,7 @@ export class AppModule implements NestModule{
         {path : '/ngo/pannel/projects' , method : RequestMethod.GET}),
         consumer.apply(adminAuth).forRoutes({path : '/events-educations/education/create' , method : RequestMethod.POST} ,
                   {path : '/events-educations/event/create' , method : RequestMethod.POST} ,
-                  // {path : '/education/create' , method : RequestMethod.POST}  
-                  // {path : '' , method : RequestMethod.POST},
-                  // {path : '' , method : RequestMethod.GET},
-                  // {path : '' , method : RequestMethod.GET})
+                 
       )
   }
 }

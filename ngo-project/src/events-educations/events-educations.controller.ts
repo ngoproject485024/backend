@@ -122,6 +122,62 @@ export class EventsEducationsController {
 
 
 
+  @Post('/event/delete')
+  @ApiOperation({ summary: 'حذف رویداد توسط ادمین' })
+  @ApiResponse({
+    status: 200, description: 'the ADMIN craete events successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the admin created events successfully',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this events already created',
+        error: 'duplicate evets',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: CreateEvetsDto,
+    description: 'Json structure for events object',
+  })
+  async delete(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: CreateEvetsDto) {
+    return this.eventsEducationsService.createNewEvents(req , res , body) 
+  }
+
+
+
   @Get('/education/all')
   @ApiOperation({ summary: 'گرفتن تمام اموزش ها از سمت وب سایت' })
     @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })

@@ -24,13 +24,4 @@ JwtModule.registerAsync({
   providers: [EventsEducationsService , jwtService],
 })
 
-export class EventsEducationsModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-        consumer.apply(adminAuth).forRoutes({path : '/education/create' , method : RequestMethod.POST} ,
-          {path : '/event/create' , method : RequestMethod.POST} ,
-          // {path : '/education/create' , method : RequestMethod.POST}  
-          // {path : '' , method : RequestMethod.POST},
-          // {path : '' , method : RequestMethod.GET},
-          // {path : '' , method : RequestMethod.GET})
-    )}
-}
+export class EventsEducationsModule {}

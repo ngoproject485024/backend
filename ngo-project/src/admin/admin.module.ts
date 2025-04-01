@@ -32,6 +32,6 @@ import { adminAuth } from 'src/admin-auth/admin-auth.middleware';
 
 export class AdminModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-        consumer.apply(adminAuth).forRoutes({path : '/token/check' , method : RequestMethod.GET} ,
+        consumer.apply(adminAuth).forRoutes({path : 'admin/token/check' , method : RequestMethod.GET} ,
     )}
 }

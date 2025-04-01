@@ -98,7 +98,7 @@ export class EventsEducationsService {
   async getAllEducations(req: any, res: any , type : number , sort : string) {
 
     let educations = await this.educationRepository.find()
-   
+
     return {
       message: 'get educations by admin',
       statusCode: 200,
