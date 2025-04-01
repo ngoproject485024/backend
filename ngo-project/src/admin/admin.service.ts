@@ -20,6 +20,7 @@ export class AdminService {
 
     async loginAdmin(req, res, body: adminLoginDto) {
         //admin existance
+        console.log(body)
         try {
             let admin = await this.adminModel.findOne({ userName: body.userName })
         if (!admin) {
