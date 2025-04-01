@@ -34,7 +34,7 @@ export class EventsEducationsService {
     })
 
     return {
-      message: 'create new Education by admin',
+      message: 'ساخت آموزش با موفقیت انجام شد',
       statusCode: 200,
       data: newEducation
     }
@@ -60,12 +60,14 @@ export class EventsEducationsService {
     })
 
     return {
-      message: 'create new Events by admin',
+      message: 'رویداد با موفقیت ایجاد شد',
       statusCode: 200,
       data: newEvents
     }
   }
 
+
+  
   /**
    * for getting all events by user
    * @param req 

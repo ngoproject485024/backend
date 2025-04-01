@@ -44,8 +44,7 @@ export class Education {
     @Prop({ type: { userName: { type: String }, firstName: { type: String }, lastName: { type: String } } })
     admin: { userName: string, firstName: string, lastName: string }
 
-
-
+    
 }
 
 export const EducationSchema = SchemaFactory.createForClass(Education);

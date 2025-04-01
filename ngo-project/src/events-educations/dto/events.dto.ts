@@ -31,8 +31,6 @@ export class CreateEvetsDto {
     EventsBody: { head: string, body: string };
 
 
-
-
     @IsNotEmpty()
     @IsArray()
     @ApiProperty({
@@ -41,8 +39,7 @@ export class CreateEvetsDto {
     })
     video: string[];
 
-
-
+    
     @IsNotEmpty()
     @IsArray()
     @ApiProperty({
