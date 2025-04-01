@@ -5,11 +5,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EducationSchema } from './entities/education.entity';
 import { EventsSchema } from './entities/events.entity';
 import { adminAuth } from 'src/admin-auth/admin-auth.middleware';
+import { jwtService } from 'src/jwt/jwt.service';
 
 @Module({
   imports:[MongooseModule.forFeature([{name : 'educations' , schema : EducationSchema} , {name : 'events' , schema : EventsSchema}])],
   controllers: [EventsEducationsController],
-  providers: [EventsEducationsService],
+  providers: [EventsEducationsService , jwtService],
 })
 
 export class EventsEducationsModule implements NestModule {
