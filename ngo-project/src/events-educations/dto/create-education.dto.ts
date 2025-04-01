@@ -88,7 +88,7 @@ export class CreateEducationDto {
     
     
     
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['' , ''],
@@ -97,7 +97,7 @@ export class CreateEducationDto {
     peVideo: string[];
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['' , ''],
@@ -107,7 +107,7 @@ export class CreateEducationDto {
 
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['' , ''],
@@ -117,7 +117,7 @@ export class CreateEducationDto {
 
 
     
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['' , ''],
@@ -126,7 +126,7 @@ export class CreateEducationDto {
     pePictures: string[]
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['' , ''],
@@ -135,7 +135,7 @@ export class CreateEducationDto {
     enPictures: string[]
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['' , ''],

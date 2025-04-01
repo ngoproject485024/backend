@@ -85,7 +85,7 @@ export class CreateEvetsDto {
 
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['', ''],
@@ -95,7 +95,7 @@ export class CreateEvetsDto {
 
 
     
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['', ''],
@@ -105,7 +105,7 @@ export class CreateEvetsDto {
 
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['', ''],
@@ -115,7 +115,7 @@ export class CreateEvetsDto {
 
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['', ''],
@@ -124,7 +124,7 @@ export class CreateEvetsDto {
     pePictures: string[]
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['', ''],
@@ -134,7 +134,7 @@ export class CreateEvetsDto {
 
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsArray()
     @ApiProperty({
         example: ['', ''],
