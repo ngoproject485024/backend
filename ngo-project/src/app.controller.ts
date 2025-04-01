@@ -9,7 +9,7 @@ import { extname } from 'path';
 @ApiTags('pages data')
 @Controller('page')
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
 
   @Post('uploadFile')

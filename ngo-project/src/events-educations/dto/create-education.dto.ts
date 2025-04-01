@@ -58,32 +58,32 @@ export class CreateEducationDto {
 
 
     @IsNotEmpty()
-    @IsObject()
+    @IsString()
     @ApiProperty({
-        example: { head1: 'string', body1: 'string', head2: 'string', body2: 'string' },
+        example: 'asdddddddddddddddddddddddddddddddddddddddddddddddddd',
         required: true
     })
-    peEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    peEducationBody: string;
 
 
 
     @IsNotEmpty()
-    @IsObject()
+    @IsString()
     @ApiProperty({
-        example: { head1: 'string', body1: 'string', head2: 'string', body2: 'string' },
+        example: 'asdddddddddddddddddddddddddddddddddddddddddddddddddd',
         required: true
     })
-    enEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    enEducationBody: string;
 
 
 
     @IsNotEmpty()
-    @IsObject()
+    @IsString()
     @ApiProperty({
-        example: { head1: 'string', body1: 'string', head2: 'string', body2: 'string' },
+        example: 'asdddddddddddddddddddddddddddddddddddddddddddddddddd',
         required: true
     })
-    ruEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    ruEducationBody: string;
 
     
     

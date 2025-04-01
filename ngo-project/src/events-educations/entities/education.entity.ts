@@ -17,11 +17,11 @@ export interface EducationInterface extends Document {
 
     ruDescription: string;
 
-    peEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    peEducationBody:string;
 
-    enEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    enEducationBody:string;
 
-    ruEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    ruEducationBody:string;
 
     peVideo: string[];
 
@@ -65,14 +65,14 @@ export class Education {
     ruDescription: string;
 
 
-    @Prop({ type: { head1: { type: String }, body1: { type: String }, head2: { type: String }, body2: { type: String } } })
-    peEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    @Prop({ type: String})
+    peEducationBody: string;
 
-    @Prop({ type: { head1: { type: String }, body1: { type: String }, head2: { type: String }, body2: { type: String } } })
-    enEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    @Prop({ type: String })
+    enEducationBody: string;
 
-    @Prop({ type: { head1: { type: String }, body1: { type: String }, head2: { type: String }, body2: { type: String } } })
-    ruEducationBody: { head1: string, body1: string, head2: string, body2: string };
+    @Prop({ type: String })
+    ruEducationBody: string;
 
 
     @Prop({ type: [String] })

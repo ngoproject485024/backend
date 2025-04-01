@@ -58,30 +58,30 @@ export class CreateEvetsDto {
 
 
     @IsNotEmpty()
-    @IsObject()
+    @IsString()
     @ApiProperty({
-        example: { head: 'string', body: 'string' },
+        example: 'ffffffffffffffffffffffffffffff',
         required: true
     })
-    peEventsBody: { head: string, body: string };
+    peEventsBody: string;
 
 
     @IsNotEmpty()
-    @IsObject()
+    @IsString()
     @ApiProperty({
-        example: { head: 'string', body: 'string' },
+        example: 'ffffffffffffffffffffffffffffff',
         required: true
     })
-    enEventsBody: { head: string, body: string };
+    enEventsBody: string;
 
 
     @IsNotEmpty()
-    @IsObject()
+    @IsString()
     @ApiProperty({
-        example: { head: 'string', body: 'string' },
+        example: 'ffffffffffffffffffffffffffffff',
         required: true
     })
-    ruEventsBody: { head: string, body: string };
+    ruEventsBody: string;
 
 
 

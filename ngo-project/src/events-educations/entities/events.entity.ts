@@ -16,11 +16,11 @@ export interface EventsInterface extends Document {
 
     ruDescription: string;
 
-    peEventsBody: { head: string, body: string};
+    peEventsBody:string;
 
-    enEventsBody: { head: string, body: string};
+    enEventsBody:string;
 
-    ruEventsBody: { head: string, body: string};
+    ruEventsBody:string;
 
     peVideo: string[];
 
@@ -63,14 +63,14 @@ export class Events {
     @Prop({ type: String })
     ruDescription: string;
 
-    @Prop({ type: { head: { type: String }, body: { type: String } }})
-    peEventsBody: { head: string, body: string};
+    @Prop({ type: String})
+    peEventsBody:string;
 
-    @Prop({ type: { head: { type: String }, body: { type: String } }})
-    enEventsBody: { head: string, body: string};
+    @Prop({ type: String})
+    enEventsBody:string;
 
-    @Prop({ type: { head: { type: String }, body: { type: String } }})
-    ruEventsBody: { head: string, body: string};
+    @Prop({ type: String})
+    ruEventsBody:string;
     @Prop({ type: [String] })
     peVideo: string[];
 
