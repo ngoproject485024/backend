@@ -33,7 +33,7 @@ export class EventsEducationsService {
         lastName: req.user.lastName
       }
     })
-
+    console.log(newEducation)
     return {
       message: 'ساخت آموزش با موفقیت انجام شد',
       statusCode: 200,
