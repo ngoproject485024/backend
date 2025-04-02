@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -59,6 +59,13 @@ export class AppController {
   })
   async getHomeData(@Req() req: any, @Res() res: any) {
     return this.appService.homeData(req , res)
+  }
+
+
+
+  @Post('/file/delete')
+  async deleteFiles(@Req() req: any, @Res() res: any , @Body() body : any){
+      return this.appService.deleteFile(req , res , body)
   }
 
 

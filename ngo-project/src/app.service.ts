@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { projectsInterface } from './ngo/entities/project.entity';
 import { ngoInterface } from './ngo/entities/ngo.entity';
+import * as fs from 'fs';
 
 @Injectable()
 export class AppService {
@@ -25,6 +26,28 @@ export class AppService {
         },
         ngo,
       }
+    }
+  }
+
+
+
+  async deleteFile(req , res , body : {fileName : string}){
+    try {
+      let name = body.fileName.split('/')
+      let mainName = name[name.length-1]
+      console.log('main nameeeeee' , mainName)
+      let file = fs.readFileSync(`/home/ngo/uploadFile/${mainName}`)
+      console.log(file)
+      return {
+        message : "delete file",
+        statusCode : 200,
+      }
+
+    } catch (error) {
+      return {
+        message : 'delete file',
+        statusCode : 200,
+      }      
     }
   }
 
