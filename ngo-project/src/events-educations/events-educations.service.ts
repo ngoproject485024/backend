@@ -51,9 +51,9 @@ export class EventsEducationsService {
   async updateEducation(req: any, res: any, body: any , id :string) {
     console.log(body)
     let education = await this.educationRepository.findById(id)
-    console.log(education)
+    // console.log()
     // delete body.id;
-    let data = {...education.toObject() , body}
+    let data = {...education.toObject() , ...body}
     let updated = await education.updateOne(data)
     console.log(await this.educationRepository.findById(id))
     return {
@@ -77,7 +77,7 @@ export class EventsEducationsService {
     console.log(body)
     let event = await this.eventRepository.findById(id)
     // delete body.id;
-    let newData = {...event.toObject() , body}
+    let newData = {...event.toObject() , ...body}
     let updated = await event.updateOne(newData)
     return {
       message: 'اپدیت رویداد با موفقیت انجام شد',
