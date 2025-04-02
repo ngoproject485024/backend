@@ -41,6 +41,50 @@ export class EventsEducationsService {
     }
   }
 
+  /**
+   * for creating new education
+   * @param req 
+   * @param res 
+   * @param body 
+   * @returns 
+   */
+  async updateEducation(req: any, res: any, body: any , id :string) {
+    console.log(body)
+    let education = await this.educationRepository.findById(id)
+    // delete body.id;
+    let data = {...education.toObject() , body}
+    let updated = await education.updateOne(data)
+    return {
+      message: 'اپدیت آموزش با موفقیت انجام شد',
+      statusCode: 200,
+      data: updated
+    }
+  }
+
+
+
+
+  /**
+   * for creating new education
+   * @param req 
+   * @param res 
+   * @param body 
+   * @returns 
+   */
+  async updateEvent(req: any, res: any, body: any , id :string) {
+    console.log(body)
+    let event = await this.eventRepository.findById(id)
+    // delete body.id;
+    let newData = {...event.toObject() , body}
+    let updated = await event.updateOne(newData)
+    return {
+      message: 'اپدیت رویداد با موفقیت انجام شد',
+      statusCode: 200,
+      data: updated
+    }
+  }
+
+
 
   /**
    * for creating new events by admin

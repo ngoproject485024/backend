@@ -66,6 +66,63 @@ export class EventsEducationsController {
   }
 
 
+
+
+  @Post('/education/update/:id')
+  @ApiOperation({ summary: 'اپدیت اموزش توسط ادمین' })
+    @ApiResponse({
+      status: 200, description: 'the ADMIN craete education successfully',
+      schema: {
+        example: {
+          success: true,
+          message: 'the admin created education successfully',
+          error: null,
+          data: {}
+        }
+      },
+    })
+    // @ApiResponse({
+    //   status: 403, description: 'Forbidden.',
+    //   schema: {
+    //     example: {
+    //       success: false,
+    //       message: 'the ngo creation failed',
+    //       error: 'forbidden user',
+    //       data: null
+    //     }
+    //   },
+    // })
+    @ApiResponse({
+      status: 409, description: 'duplicate data',
+      schema: {
+        example: {
+          success: false,
+          message: 'this education already created',
+          error: 'duplicate education',
+          data: null
+        }
+      },
+    })
+    @ApiResponse({
+      status: 500, description: 'internal service error',
+      schema: {
+        example: {
+          success: false,
+          message: 'internal error',
+          error: 'internal service error',
+          data: null
+        }
+      },
+    })
+    @ApiBody({
+      type: CreateEducationDto,
+      description: 'Json structure for project object',
+    })
+  async updateEducation(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: any , @Param('id') id : string) {
+    return this.eventsEducationsService.updateEducation(req , res , body , id) 
+  }
+
+
   @Post('/event/create')
   @ApiOperation({ summary: 'ساخت رویداد توسط ادمین' })
   @ApiResponse({
@@ -119,6 +176,65 @@ export class EventsEducationsController {
   async createNewEvents(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: CreateEvetsDto) {
     return this.eventsEducationsService.createNewEvents(req , res , body) 
   }
+
+
+
+
+  @Post('/event/update/:id')
+  @ApiOperation({ summary: 'اپدیت رویداد توسط ادمین' })
+  @ApiResponse({
+    status: 200, description: 'the ADMIN craete events successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the admin created events successfully',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this events already created',
+        error: 'duplicate evets',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: CreateEvetsDto,
+    description: 'Json structure for events object',
+  })
+  async updateEvent(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: any , @Param('id') id :string) {
+    return this.eventsEducationsService.updateEvent(req , res , body , id) 
+  }
+
+
 
 
 
