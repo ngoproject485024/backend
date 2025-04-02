@@ -161,7 +161,10 @@ export class EventsEducationsService {
    * @param body 
    * @returns 
    */
-  async getAllEvents(req: any, res: any , type : number , sort : string) {
+  async getAllEvents(req: any, res: any , type : string , sort : string , start:string , end : string) {
+    console.log(sort) 
+    console.log(type)
+    
     let events = await this.eventRepository.find()
   
     return {
@@ -180,10 +183,23 @@ export class EventsEducationsService {
    * @param body 
    * @returns 
    */
-  async getAllEducations(req: any, res: any , type : number , sort : string) {
-    
+  async getAllEducations(req: any, res: any , type : any , sort : string) {
     console.log( 'sort', sort)
     console.log('type' , type)
+    // if (type){
+    //   if (type == 'image'){
+    //     type = 0
+    //   }
+    //   if (type == 'video'){
+    //     type = 1
+    //   }
+    //   if (type == 'pdf'){
+    //     type = 2
+    //   }
+    //   if (type == 'word'){
+    //     type =3
+    //   }
+    // }
     let educations ;
     if (type && sort){
       if (sort == 'latest'){  

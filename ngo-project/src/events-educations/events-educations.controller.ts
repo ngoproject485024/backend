@@ -379,7 +379,7 @@ export class EventsEducationsController {
       },
     })
   async getAllEducations(@Req() req: any, @Res() res: any , @Query('type') type : string , @Query('sort') sort : string){
-    return this.eventsEducationsService.getAllEducations(req ,res , +type , sort)
+    return this.eventsEducationsService.getAllEducations(req ,res , type , sort)
   }
 
 
@@ -408,8 +408,8 @@ export class EventsEducationsController {
       }
     },
   })
-  async getAllEvents(@Req() req: any, @Res() res: any , @Query('type') type : string , @Query('sort') sort : string){
-    return this.eventsEducationsService.getAllEvents(req ,res , +type , sort)
+  async getAllEvents(@Req() req: any, @Res() res: any , @Query('type') type : string , @Query('sort') sort : string , @Query('start') start : string , @Query('end') end : string){
+    return this.eventsEducationsService.getAllEvents(req ,res , type , sort , start , end)
   }
 
 
