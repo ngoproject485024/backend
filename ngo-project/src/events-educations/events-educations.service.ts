@@ -203,35 +203,35 @@ export class EventsEducationsService {
     //   }
     // }
     let educations ;
-    if (type && sort){
-      if (sort == 'latest'){  
-        educations = await this.educationRepository.find()
-        .where('type').equals(type)
-        .sort({'createdAt' : -1})
-        .limit(8)        
-      }else if (sort == 'recent'){
-        educations = await this.educationRepository.find()
-        .where('type').equals(type)
-        .sort({'createdAt' : 1})
-        .limit(8)        
-      }
-    }else if(type && !sort){
+    // if (type && sort){
+    //   if (sort == 'latest'){  
+    //     educations = await this.educationRepository.find()
+    //     .where('type').equals(type)
+    //     .sort({'createdAt' : -1})
+    //     .limit(8)        
+    //   }else if (sort == 'recent'){
+    //     educations = await this.educationRepository.find()
+    //     .where('type').equals(type)
+    //     .sort({'createdAt' : 1})
+    //     .limit(8)        
+    //   }
+    // }else if(type && !sort){
+    //   educations = await this.educationRepository.find()
+    //   .where('type').equals(type)
+    //   .limit(8)
+    // }else if(sort && !type){
+    //   if (sort == 'latest'){  
+    //     educations = await this.educationRepository.find()
+    //     .sort({'createdAt' : -1})
+    //     .limit(8)        
+    //   }else if (sort == 'recent'){
+    //     educations = await this.educationRepository.find()
+    //     .sort({'createdAt' : 1})
+    //     .limit(8)        
+    //   }
+    // }else{
       educations = await this.educationRepository.find()
-      .where('type').equals(type)
-      .limit(8)
-    }else if(sort && !type){
-      if (sort == 'latest'){  
-        educations = await this.educationRepository.find()
-        .sort({'createdAt' : -1})
-        .limit(8)        
-      }else if (sort == 'recent'){
-        educations = await this.educationRepository.find()
-        .sort({'createdAt' : 1})
-        .limit(8)        
-      }
-    }else{
-      educations = await this.educationRepository.find()
-    }
+    // }
 
     return {
       message: 'get educations by admin',
