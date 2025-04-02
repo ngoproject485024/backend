@@ -122,7 +122,7 @@ export class EventsEducationsController {
 
 
 
-  @Post('/event/delete')
+  @Post('/event/delete/:id')
   @ApiOperation({ summary: 'حذف رویداد توسط ادمین' })
   @ApiResponse({
     status: 200, description: 'the ADMIN craete events successfully',
@@ -172,9 +172,68 @@ export class EventsEducationsController {
     type: CreateEvetsDto,
     description: 'Json structure for events object',
   })
-  async delete(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: CreateEvetsDto) {
-    return this.eventsEducationsService.createNewEvents(req , res , body) 
+  async delete(@Req() req: any, @Res() res: any, @Param('id') id : string ) {
+    return this.eventsEducationsService.deleteEvent(req , res , id) 
   }
+
+
+
+
+  @Post('/education/delete/:id')
+  @ApiOperation({ summary: 'حذف رویداد توسط ادمین' })
+  @ApiResponse({
+    status: 200, description: 'the ADMIN craete events successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the admin created events successfully',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this events already created',
+        error: 'duplicate evets',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: CreateEvetsDto,
+    description: 'Json structure for events object',
+  })
+  async deleteEducation(@Req() req: any, @Res() res: any, @Param('id') id : string ) {
+    return this.eventsEducationsService.deleteEducation(req , res , id) 
+  }
+
+
 
 
 

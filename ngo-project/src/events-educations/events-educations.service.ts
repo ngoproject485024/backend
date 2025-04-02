@@ -66,9 +66,48 @@ export class EventsEducationsService {
       data: newEvents
     }
   }
-
-
   
+
+
+  async deleteEvent(req , res , id : string){
+    let event = await this.eventRepository.findById(id)
+    if (!event){
+      return {
+        message : 'event not found',
+        statusCode : 400,
+        error : 'event not found'
+      }
+    }
+    await this.eventRepository.findByIdAndDelete(id)
+    return {
+      message : 'event deleted',
+      statusCode : 200,
+      data : event
+    }
+  }
+
+
+
+
+
+
+  async deleteEducation(req , res , id : string){
+    let education = await this.educationRepository.findById(id)
+    if (!education){
+      return {
+        message : 'education not found',
+        statusCode : 400,
+        error : 'education not found'
+      }
+    }
+    await this.educationRepository.findByIdAndDelete(id)
+    return {
+      message : 'education deleted',
+      statusCode : 200,
+      data : education
+    }
+  }
+
   /**
    * for getting all events by user
    * @param req 

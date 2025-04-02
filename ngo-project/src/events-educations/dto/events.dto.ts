@@ -35,7 +35,7 @@ export class CreateEvetsDto {
         required: true
     })
     peDescription: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
