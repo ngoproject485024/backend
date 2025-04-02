@@ -51,9 +51,11 @@ export class EventsEducationsService {
   async updateEducation(req: any, res: any, body: any , id :string) {
     console.log(body)
     let education = await this.educationRepository.findById(id)
+    console.log(education)
     // delete body.id;
     let data = {...education.toObject() , body}
     let updated = await education.updateOne(data)
+    console.log(await this.educationRepository.findById(id))
     return {
       message: 'اپدیت آموزش با موفقیت انجام شد',
       statusCode: 200,
