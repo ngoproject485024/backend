@@ -181,8 +181,37 @@ export class EventsEducationsService {
    * @returns 
    */
   async getAllEducations(req: any, res: any , type : number , sort : string) {
-
-    let educations = await this.educationRepository.find()
+    
+    console.log( 'sort', sort)
+    console.log('type' , type)
+    let educations ;
+    if (type && sort){
+      if (sort == 'latest'){  
+        educations = await this.educationRepository.find()
+        .where('type').equals(type)
+        .sort({'createdAt' : -1})
+        .limit(8)        
+      }else if (sort == 'recent'){
+        educations = await this.educationRepository.find()
+        .where('type').equals(type)
+        .sort({'createdAt' : 1})
+        .limit(8)        
+      }
+    }else if(type && !sort){
+      educations = await this.educationRepository.find()
+      .where('type').equals(type)
+      .limit(8)
+    }else if(sort && !type){
+      if (sort == 'latest'){  
+        educations = await this.educationRepository.find()
+        .sort({'createdAt' : -1})
+        .limit(8)        
+      }else if (sort == 'recent'){
+        educations = await this.educationRepository.find()
+        .sort({'createdAt' : 1})
+        .limit(8)        
+      }
+    }
 
     return {
       message: 'get educations by admin',
