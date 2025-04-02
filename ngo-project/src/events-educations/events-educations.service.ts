@@ -164,7 +164,7 @@ export class EventsEducationsService {
   async getAllEvents(req: any, res: any , type : string , sort : string , start:string , end : string) {
     console.log(sort) 
     console.log(type)
-    
+
     let events = await this.eventRepository.find()
   
     return {
@@ -227,6 +227,8 @@ export class EventsEducationsService {
         .sort({'createdAt' : 1})
         .limit(8)        
       }
+    }else{
+      educations = await this.educationRepository.find()
     }
 
     return {
