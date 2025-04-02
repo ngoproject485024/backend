@@ -164,9 +164,11 @@ export class EventsEducationsService {
   async getAllEvents(req: any, res: any , type : string , sort : string , start:string , end : string) {
     console.log(sort) 
     console.log(type)
+    console.log(start)
+    console.log(end)
 
     let events = await this.eventRepository.find()
-  
+    
     return {
       message: 'get events by admin',
       statusCode: 200,
