@@ -88,9 +88,6 @@ export class AppService {
     }
 
 
-    
-
-
 
   async projectPage(req: any, res: any) {
     let ongoing = await this.projectRepository.countDocuments({ status:  { $in :'ongoing'} })
@@ -115,7 +112,8 @@ export class AppService {
 
 
   async specificProjectsByStatus(req: any, res: any, status: string , page : number) {
-    let projects = await this.projectRepository.find({ status: {$in : status} })
+    // let projects = await this.projectRepository.find({ status: {$in : status} })
+    let projects = await this.projectRepository.find() 
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
