@@ -48,12 +48,12 @@ export class EventsEducationsService {
    * @param body 
    * @returns 
    */
-  async updateEducation(req: any, res: any, body: any , id :string) {
+  async updateEducation(req: any, res: any, body: any, id: string) {
     console.log(body)
     let education = await this.educationRepository.findById(id)
     // console.log()
     // delete body.id;
-    let data = {...education.toObject() , ...body}
+    let data = { ...education.toObject(), ...body }
     let updated = await education.updateOne(data)
     console.log(await this.educationRepository.findById(id))
     return {
@@ -73,11 +73,11 @@ export class EventsEducationsService {
    * @param body 
    * @returns 
    */
-  async updateEvent(req: any, res: any, body: any , id :string) {
+  async updateEvent(req: any, res: any, body: any, id: string) {
     console.log(body)
     let event = await this.eventRepository.findById(id)
     // delete body.id;
-    let newData = {...event.toObject() , ...body}
+    let newData = { ...event.toObject(), ...body }
     let updated = await event.updateOne(newData)
     return {
       message: 'اپدیت رویداد با موفقیت انجام شد',
@@ -112,23 +112,23 @@ export class EventsEducationsService {
       data: newEvents
     }
   }
-  
 
 
-  async deleteEvent(req , res , id : string){
+
+  async deleteEvent(req, res, id: string) {
     let event = await this.eventRepository.findById(id)
-    if (!event){
+    if (!event) {
       return {
-        message : 'event not found',
-        statusCode : 400,
-        error : 'event not found'
+        message: 'event not found',
+        statusCode: 400,
+        error: 'event not found'
       }
     }
     await this.eventRepository.findByIdAndDelete(id)
     return {
-      message : 'event deleted',
-      statusCode : 200,
-      data : event
+      message: 'event deleted',
+      statusCode: 200,
+      data: event
     }
   }
 
@@ -137,20 +137,20 @@ export class EventsEducationsService {
 
 
 
-  async deleteEducation(req , res , id : string){
+  async deleteEducation(req, res, id: string) {
     let education = await this.educationRepository.findById(id)
-    if (!education){
+    if (!education) {
       return {
-        message : 'education not found',
-        statusCode : 400,
-        error : 'education not found'
+        message: 'education not found',
+        statusCode: 400,
+        error: 'education not found'
       }
     }
     await this.educationRepository.findByIdAndDelete(id)
     return {
-      message : 'education deleted',
-      statusCode : 200,
-      data : education
+      message: 'education deleted',
+      statusCode: 200,
+      data: education
     }
   }
 
@@ -161,14 +161,14 @@ export class EventsEducationsService {
    * @param body 
    * @returns 
    */
-  async getAllEvents(req: any, res: any , type : string , sort : string , start:string , end : string) {
-    console.log(sort) 
+  async getAllEvents(req: any, res: any, type: string, sort: string, start: string, end: string) {
+    console.log(sort)
     console.log(type)
     console.log(start)
     console.log(end)
 
     let events = await this.eventRepository.find()
-    
+
     return {
       message: 'get events by admin',
       statusCode: 200,
@@ -185,9 +185,9 @@ export class EventsEducationsService {
    * @param body 
    * @returns 
    */
-  async getAllEducations(req: any, res: any , type : any , sort : string) {
-    console.log( 'sort', sort)
-    console.log('type' , type)
+  async getAllEducations(req: any, res: any, type: any, sort: string) {
+    console.log('sort', sort)
+    console.log('type', type)
     // if (type){
     //   if (type == 'image'){
     //     type = 0
@@ -202,7 +202,7 @@ export class EventsEducationsService {
     //     type =3
     //   }
     // }
-    let educations ;
+    let educations;
     // if (type && sort){
     //   if (sort == 'latest'){  
     //     educations = await this.educationRepository.find()
@@ -230,7 +230,7 @@ export class EventsEducationsService {
     //     .limit(8)        
     //   }
     // }else{
-      educations = await this.educationRepository.find()
+    educations = await this.educationRepository.find()
     // }
 
     return {
@@ -250,10 +250,14 @@ export class EventsEducationsService {
    */
   async getSpecificEducation(req: any, res: any, educationId: string) {
     let education = await this.educationRepository.findById(educationId)
+    // let similar = await this.educationRepository.findById()
     return {
       message: 'get specific education',
       statusCode: 200,
-      data: education
+      data: {
+        educations: education,
+        similar: education
+      }
     }
   }
 
@@ -270,7 +274,10 @@ export class EventsEducationsService {
     return {
       message: 'get specific event',
       statusCode: 200,
-      data: event
+      data: {
+        events: event,
+        similar: event
+      }
     }
   }
 

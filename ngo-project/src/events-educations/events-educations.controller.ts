@@ -8,61 +8,61 @@ import { CreateEvetsDto } from './dto/events.dto';
 @Controller('events-educations')
 @ApiTags('events and educations')
 export class EventsEducationsController {
-  constructor(private readonly eventsEducationsService: EventsEducationsService) {}
+  constructor(private readonly eventsEducationsService: EventsEducationsService) { }
 
 
   @Post('/education/create')
   @ApiOperation({ summary: 'ساخت اموزش توسط ادمین' })
-    @ApiResponse({
-      status: 200, description: 'the ADMIN craete education successfully',
-      schema: {
-        example: {
-          success: true,
-          message: 'the admin created education successfully',
-          error: null,
-          data: {}
-        }
-      },
-    })
-    // @ApiResponse({
-    //   status: 403, description: 'Forbidden.',
-    //   schema: {
-    //     example: {
-    //       success: false,
-    //       message: 'the ngo creation failed',
-    //       error: 'forbidden user',
-    //       data: null
-    //     }
-    //   },
-    // })
-    @ApiResponse({
-      status: 409, description: 'duplicate data',
-      schema: {
-        example: {
-          success: false,
-          message: 'this education already created',
-          error: 'duplicate education',
-          data: null
-        }
-      },
-    })
-    @ApiResponse({
-      status: 500, description: 'internal service error',
-      schema: {
-        example: {
-          success: false,
-          message: 'internal error',
-          error: 'internal service error',
-          data: null
-        }
-      },
-    })
-    @ApiBody({
-      type: CreateEducationDto,
-      description: 'Json structure for project object',
-    })
+  @ApiResponse({
+    status: 200, description: 'the ADMIN craete education successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the admin created education successfully',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this education already created',
+        error: 'duplicate education',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: CreateEducationDto,
+    description: 'Json structure for project object',
+  })
   async createNewEducation(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: CreateEducationDto) {
-    return this.eventsEducationsService.createNewEducation(req , res , body) 
+    return this.eventsEducationsService.createNewEducation(req, res, body)
   }
 
 
@@ -70,56 +70,56 @@ export class EventsEducationsController {
 
   @Post('/education/update/:id')
   @ApiOperation({ summary: 'اپدیت اموزش توسط ادمین' })
-    @ApiResponse({
-      status: 200, description: 'the ADMIN craete education successfully',
-      schema: {
-        example: {
-          success: true,
-          message: 'the admin created education successfully',
-          error: null,
-          data: {}
-        }
-      },
-    })
-    // @ApiResponse({
-    //   status: 403, description: 'Forbidden.',
-    //   schema: {
-    //     example: {
-    //       success: false,
-    //       message: 'the ngo creation failed',
-    //       error: 'forbidden user',
-    //       data: null
-    //     }
-    //   },
-    // })
-    @ApiResponse({
-      status: 409, description: 'duplicate data',
-      schema: {
-        example: {
-          success: false,
-          message: 'this education already created',
-          error: 'duplicate education',
-          data: null
-        }
-      },
-    })
-    @ApiResponse({
-      status: 500, description: 'internal service error',
-      schema: {
-        example: {
-          success: false,
-          message: 'internal error',
-          error: 'internal service error',
-          data: null
-        }
-      },
-    })
-    @ApiBody({
-      type: CreateEducationDto,
-      description: 'Json structure for project object',
-    })
-  async updateEducation(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: any , @Param('id') id : string) {
-    return this.eventsEducationsService.updateEducation(req , res , body , id) 
+  @ApiResponse({
+    status: 200, description: 'the ADMIN craete education successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the admin created education successfully',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this education already created',
+        error: 'duplicate education',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: CreateEducationDto,
+    description: 'Json structure for project object',
+  })
+  async updateEducation(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: any, @Param('id') id: string) {
+    return this.eventsEducationsService.updateEducation(req, res, body, id)
   }
 
 
@@ -174,7 +174,7 @@ export class EventsEducationsController {
     description: 'Json structure for events object',
   })
   async createNewEvents(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: CreateEvetsDto) {
-    return this.eventsEducationsService.createNewEvents(req , res , body) 
+    return this.eventsEducationsService.createNewEvents(req, res, body)
   }
 
 
@@ -230,8 +230,8 @@ export class EventsEducationsController {
     type: CreateEvetsDto,
     description: 'Json structure for events object',
   })
-  async updateEvent(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: any , @Param('id') id :string) {
-    return this.eventsEducationsService.updateEvent(req , res , body , id) 
+  async updateEvent(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: any, @Param('id') id: string) {
+    return this.eventsEducationsService.updateEvent(req, res, body, id)
   }
 
 
@@ -288,8 +288,8 @@ export class EventsEducationsController {
     type: CreateEvetsDto,
     description: 'Json structure for events object',
   })
-  async delete(@Req() req: any, @Res() res: any, @Param('id') id : string ) {
-    return this.eventsEducationsService.deleteEvent(req , res , id) 
+  async delete(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.eventsEducationsService.deleteEvent(req, res, id)
   }
 
 
@@ -345,8 +345,8 @@ export class EventsEducationsController {
     type: CreateEvetsDto,
     description: 'Json structure for events object',
   })
-  async deleteEducation(@Req() req: any, @Res() res: any, @Param('id') id : string ) {
-    return this.eventsEducationsService.deleteEducation(req , res , id) 
+  async deleteEducation(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.eventsEducationsService.deleteEducation(req, res, id)
   }
 
 
@@ -355,31 +355,31 @@ export class EventsEducationsController {
 
   @Get('/education/all')
   @ApiOperation({ summary: 'گرفتن تمام اموزش ها از سمت وب سایت' })
-    @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
-    @ApiResponse({
-      status: 200, description: 'get all educations succeed',
-      schema: {
-        example: {
-          success: true,
-          message: 'get all educations succeed',
-          error: null,
-          data: {}
-        }
-      },
-    })
-    @ApiResponse({
-      status: 500, description: 'internal service error',
-      schema: {
-        example: {
-          success: false,
-          message: 'internal error',
-          error: 'internal service error',
-          data: null
-        }
-      },
-    })
-  async getAllEducations(@Req() req: any, @Res() res: any , @Query('type') type : string , @Query('sort') sort : string){
-    return this.eventsEducationsService.getAllEducations(req ,res , type , sort)
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'get all educations succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'get all educations succeed',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  async getAllEducations(@Req() req: any, @Res() res: any, @Query('type') type: string, @Query('sort') sort: string) {
+    return this.eventsEducationsService.getAllEducations(req, res, type, sort)
   }
 
 
@@ -408,8 +408,8 @@ export class EventsEducationsController {
       }
     },
   })
-  async getAllEvents(@Req() req: any, @Res() res: any , @Query('type') type : string , @Query('sort') sort : string , @Query('start') start : string , @Query('end') end : string){
-    return this.eventsEducationsService.getAllEvents(req ,res , type , sort , start , end)
+  async getAllEvents(@Req() req: any, @Res() res: any, @Query('type') type: string, @Query('sort') sort: string, @Query('start') start: string, @Query('end') end: string) {
+    return this.eventsEducationsService.getAllEvents(req, res, type, sort, start, end)
   }
 
 
@@ -424,7 +424,10 @@ export class EventsEducationsController {
         success: true,
         message: 'get specific educations succeed',
         error: null,
-        data: {}
+        data: {
+          educations: [{}],
+          similar: [{}]
+        }
       }
     },
   })
@@ -439,8 +442,8 @@ export class EventsEducationsController {
       }
     },
   })
-  async getSpecificEducation(@Req() req: any, @Res() res: any , @Param('educationId') educationId : string){
-    return this.eventsEducationsService.getSpecificEducation(req ,res , educationId)
+  async getSpecificEducation(@Req() req: any, @Res() res: any, @Param('educationId') educationId: string) {
+    return this.eventsEducationsService.getSpecificEducation(req, res, educationId)
   }
 
 
@@ -455,7 +458,10 @@ export class EventsEducationsController {
         success: true,
         message: 'get specific event succeed',
         error: null,
-        data: {}
+        data: {
+          events: [{}],
+          similar: [{}]
+        }
       }
     },
   })
@@ -470,9 +476,7 @@ export class EventsEducationsController {
       }
     },
   })
-  async getSpecificEvents(@Req() req: any, @Res() res: any , @Param('evetId') eventId : string){
-    return this.eventsEducationsService.getSpecificEvents(req ,res , eventId)
+  async getSpecificEvents(@Req() req: any, @Res() res: any, @Param('evetId') eventId: string) {
+    return this.eventsEducationsService.getSpecificEvents(req, res, eventId)
   }
-
-
 }
