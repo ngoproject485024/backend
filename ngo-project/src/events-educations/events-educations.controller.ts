@@ -476,7 +476,7 @@ export class EventsEducationsController {
       }
     },
   })
-  async getSpecificEvents(@Req() req: any, @Res() res: any, @Param('evetId') eventId: string) {
+  async getSpecificEvents(@Req() req: any, @Res() res: any, @Param('eventId') eventId: string) {
     return this.eventsEducationsService.getSpecificEvents(req, res, eventId)
   }
 }
