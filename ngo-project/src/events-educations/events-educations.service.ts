@@ -270,6 +270,7 @@ export class EventsEducationsService {
    * @returns 
    */
   async getSpecificEvents(req: any, res: any, eventId: string) {
+    console.log(eventId)
     let event = await this.eventRepository.findById(eventId)
     let similar = await this.educationRepository.find().limit(2)
     return {
