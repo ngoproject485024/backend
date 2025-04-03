@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -135,7 +135,7 @@ export class AppController {
 
 
   /**this is project page data by category */
-  @Get('/project/:status')
+  @Get('/projects/all')
   @ApiOperation({ summary: 'گرفتن پروژه ها بر اساس دسته بندی' })
   @ApiResponse({
     status: 200, description: 'get project page data',
@@ -159,8 +159,8 @@ export class AppController {
       }
     },
   })
-  async getSpecificProjects(@Req() req: any, @Res() res: any , @Param('status') status : string) {
-    return this.appService.specificProjectsByStatus(req , res , status)
+  async getSpecificProjects(@Req() req: any, @Res() res: any , @Query('status') status : string , @Query('page') page : string) {
+    return this.appService.specificProjectsByStatus(req , res , status , +page)
   }
 
 
