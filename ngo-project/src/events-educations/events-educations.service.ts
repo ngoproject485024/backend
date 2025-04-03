@@ -250,13 +250,13 @@ export class EventsEducationsService {
    */
   async getSpecificEducation(req: any, res: any, educationId: string) {
     let education = await this.educationRepository.findById(educationId)
-    // let similar = await this.educationRepository.findById()
+    let similar = await this.educationRepository.find().limit(3)
     return {
       message: 'get specific education',
       statusCode: 200,
       data: {
         educations: education,
-        similar: education
+        similar: similar
       }
     }
   }
@@ -270,13 +270,14 @@ export class EventsEducationsService {
    * @returns 
    */
   async getSpecificEvents(req: any, res: any, eventId: string) {
-    let event = await this.educationRepository.findById(eventId)
+    let event = await this.eventRepository.findById(eventId)
+    let similar = await this.educationRepository.find().limit(2)
     return {
       message: 'get specific event',
       statusCode: 200,
       data: {
         events: event,
-        similar: event
+        similar: similar
       }
     }
   }
