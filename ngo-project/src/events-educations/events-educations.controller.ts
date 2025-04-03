@@ -66,8 +66,6 @@ export class EventsEducationsController {
   }
 
 
-
-
   @Post('/education/update/:id')
   @ApiOperation({ summary: 'اپدیت اموزش توسط ادمین' })
   @ApiResponse({
@@ -122,7 +120,6 @@ export class EventsEducationsController {
     return this.eventsEducationsService.updateEducation(req, res, body, id)
   }
 
-
   @Post('/event/create')
   @ApiOperation({ summary: 'ساخت رویداد توسط ادمین' })
   @ApiResponse({
@@ -176,8 +173,6 @@ export class EventsEducationsController {
   async createNewEvents(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: CreateEvetsDto) {
     return this.eventsEducationsService.createNewEvents(req, res, body)
   }
-
-
 
 
   @Post('/event/update/:id')
@@ -236,8 +231,6 @@ export class EventsEducationsController {
 
 
 
-
-
   @Post('/event/delete/:id')
   @ApiOperation({ summary: 'حذف رویداد توسط ادمین' })
   @ApiResponse({
@@ -293,8 +286,6 @@ export class EventsEducationsController {
   }
 
 
-
-
   @Post('/education/delete/:id')
   @ApiOperation({ summary: 'حذف رویداد توسط ادمین' })
   @ApiResponse({
@@ -348,9 +339,6 @@ export class EventsEducationsController {
   async deleteEducation(@Req() req: any, @Res() res: any, @Param('id') id: string) {
     return this.eventsEducationsService.deleteEducation(req, res, id)
   }
-
-
-
 
 
   @Get('/education/all')
@@ -413,7 +401,6 @@ export class EventsEducationsController {
   }
 
 
-
   @Get('/education/:educationId')
   @ApiOperation({ summary: 'گرفتن یک اموزش خاص' })
   @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
@@ -445,7 +432,6 @@ export class EventsEducationsController {
   async getSpecificEducation(@Req() req: any, @Res() res: any, @Param('educationId') educationId: string) {
     return this.eventsEducationsService.getSpecificEducation(req, res, educationId)
   }
-
 
 
   @Get('/event/:eventId')
