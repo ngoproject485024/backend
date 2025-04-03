@@ -115,7 +115,7 @@ export class AppService {
 
 
   async specificProjectsByStatus(req: any, res: any, status: string , page : number) {
-    let projects = await this.projectRepository.find({ status: {$ing : status} })
+    let projects = await this.projectRepository.find({ status: {$in : status} })
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
