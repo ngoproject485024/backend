@@ -93,10 +93,10 @@ export class AppService {
 
 
   async projectPage(req: any, res: any) {
-    let ongoing = await this.projectRepository.countDocuments({ $in : {status:  'ongoing'} })
-    let completed = await this.projectRepository.countDocuments({ $in : {status:  'completed'}  })
-    let goodPractice = await this.projectRepository.countDocuments({  $in:{status: 'goodPractice'} })
-    let collaborationOpportunities = await this.projectRepository.countDocuments({ $in : {status: 'collaborationOpportunities'} })
+    let ongoing = await this.projectRepository.countDocuments({ status:  { $in :'ongoing'} })
+    let completed = await this.projectRepository.countDocuments({status:  {$in :'completed'}})
+    let goodPractice = await this.projectRepository.countDocuments({status: {$in : 'goodPractice'}})
+    let collaborationOpportunities = await this.projectRepository.countDocuments({status: {$in : 'collaborationOpportunities'}})
     let lastProjects = await this.projectRepository.find().sort({ 'createdAt': -1 }).limit(5)
     let mostParticipation = await this.projectRepository.find().sort({ 'createdAt': -1 }).limit(5)
     return {
