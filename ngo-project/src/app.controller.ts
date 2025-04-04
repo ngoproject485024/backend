@@ -195,8 +195,6 @@ export class AppController {
   }
 
 
-
-
     /**this is project page data by category */
     @Get('/documents/:id')
     @ApiOperation({ summary: 'گرفتن اسناد بر اساس ای دی' })

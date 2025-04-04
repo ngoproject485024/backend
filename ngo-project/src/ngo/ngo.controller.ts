@@ -7,6 +7,7 @@ import { createProject } from './dto/createProject.dto';
 import { ApiBody, ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Ngo } from './entities/ngo.entity';
 import { loginDTO } from './dto/login.dto';
+import { completeProject } from './dto/completeProject.dto';
 
 
 @Controller('ngo')
@@ -173,6 +174,115 @@ export class NgoController {
 
 
   /**this is creating project api */
+  @Post('/document/update/:id')
+  @ApiOperation({ summary: 'وقتی سمن ها میخان اسناد رو آپدیت کنن' })
+  @ApiResponse({
+    status: 200, description: 'the ngos created document successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo created document successfully',
+        error: null,
+        data: Ngo
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this document already updated',
+        error: 'duplicate document',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: createDocumentsDto,
+    description: 'Json structure for project object',
+  })
+  updatedocument(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: createDocumentsDto , @Param('id') id :string) {
+    return this.ngoService.updateDocument(req, res, body , id)
+  }
+
+
+
+  /**this is creating project api */
+  @Post('/Documents/delete/:id')
+  @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه رو حذف کنن' })
+  @ApiResponse({
+    status: 200, description: 'the ngos created Documents successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo created Documents successfully',
+        error: null,
+        data: Ngo
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this Documents already created',
+        error: 'duplicate Documents',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  deleteDocuments(@Req() req: any, @Res() res: any, @Param('id') id :string) {
+    return this.ngoService.deleteDocuments(req, res , id)
+  }
+
+
+  /**this is creating project api */
   @Post('/project/create')
   @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه ثبت کنن' })
   @ApiResponse({
@@ -229,6 +339,172 @@ export class NgoController {
 
 
 
+  /**this is creating project api */
+  @Post('/project/update/:id')
+  @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه رو آپدیت کنن' })
+  @ApiResponse({
+    status: 200, description: 'the ngos created project successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo created project successfully',
+        error: null,
+        data: Ngo
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this project already created',
+        error: 'duplicate project',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: createProject,
+    description: 'Json structure for project object',
+  })
+  updateProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: createProject , @Param('id') id :string) {
+    return this.ngoService.updateProject(req, res, body , id)
+  }
+
+
+
+  /**this is creating project api */
+  @Post('/project/complete')
+  @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه رو به اتمام برسونن' })
+  @ApiResponse({
+    status: 200, description: 'the ngos created project successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo updated project successfully',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this project already cpmpleted',
+        error: 'duplicate project',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  @ApiBody({
+    type: completeProject,
+    description: 'Json structure for project object',
+  })
+  completeProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: completeProject) {
+    return this.ngoService.completeProject(req, res, body)
+  }
+
+
+  /**this is creating project api */
+  @Post('/project/delete/:id')
+  @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه رو حذف کنن' })
+  @ApiResponse({
+    status: 200, description: 'the ngos created project successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo created project successfully',
+        error: null,
+        data: Ngo
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this project already created',
+        error: 'duplicate project',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  
+  deleteProject(@Req() req: any, @Res() res: any, @Param('id') id :string) {
+    return this.ngoService.deleteProject(req, res , id)
+  }
+
+
   /**this is ngo page api */
   @Get('/all')
   @ApiOperation({ summary: 'دیتای صفحه ی سمن ها به همراه دیتای نقشه' })
@@ -261,7 +537,7 @@ export class NgoController {
 
   /**this is specific ngo api  */
   @Get('/:ngoId')
-  @ApiOperation({ summary: 'گرفتن لوکیشن یک سمن خاص' })
+  @ApiOperation({ summary: ' گرفتن دیتای یک سمن خاص از توی صفحه ی سمن ها' })
   @ApiResponse({
     status: 200, description: 'get ngo succeed',
     schema: {

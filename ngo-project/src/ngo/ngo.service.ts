@@ -12,6 +12,8 @@ import * as bcrypt from 'bcrypt';
 import { loginDTO } from './dto/login.dto';
 import { jwtService } from 'src/jwt/jwt.service';
 import { tokenizeInterface } from 'src/interfaces/interfaces.interface';
+import { completeProject } from './dto/completeProject.dto';
+import { error } from 'console';
 
 
 
@@ -116,9 +118,122 @@ export class NgoService {
       data : newProject
     }
   }
+  
+
+
+  async updateProject(req : any , res : any , body: createProject , id : string){
+    let ngo = await this.ngoRepository.findById(req.user.id)
+   
+    let project = await this.ngoProject.findById(id).populate('ngo')
+    
+    // if (project.ngo._id.toString() != id){
+
+    // }
+
+    if (!project){ 
+      return {
+        message: 'project update failed!',
+        statusCode: 400,
+        error : 'project not found'
+      }
+    }
+
+    let newData = {...project , ...body}
+    await project.updateOne(newData)
+    let updated = await this.ngoProject.findById(id)
+    return {
+      message: 'project created successfully',
+      statusCode: 200,
+      data : updated
+    }
+  }
 
 
 
+  async updateDocument(req : any , res : any , body: createDocumentsDto , id : string){
+    let ngo = await this.ngoRepository.findById(req.user.id)
+   
+    let Document = await this.ngoDocument.findById(id).populate('ngo')
+    
+    // if (Document.ngo._id.toString() != id){
+
+    // }
+
+    if (!Document){ 
+      return {
+        message: 'Document update failed!',
+        statusCode: 400,
+        error : 'Document not found'
+      }
+    }
+
+    let newData = {...Document , ...body}
+    await Document.updateOne(newData)
+    let updated = await this.ngoDocument.findById(id)
+    return {
+      message: 'Document created successfully',
+      statusCode: 200,
+      data : updated
+    }
+  }
+
+
+
+  async deleteDocuments(req : any , res : any  , id : string){
+    let ngo = await this.ngoDocument.findById(req.user.id)
+   
+    let Document = await this.ngoDocument.findById(id).populate('ngo')
+    
+    // if (Document.ngo._id.toString() != id){
+
+    // }
+
+    if (!Document){ 
+      return {
+        message: 'Document update failed!',
+        statusCode: 400,
+        error : 'Document not found'
+      }
+    }
+
+    let updated = await this.ngoDocument.findByIdAndDelete(id)
+    return {
+      message: 'project created successfully',
+      statusCode: 200,
+      data : updated
+    }
+  }
+
+
+  async deleteProject(req : any , res : any  , id : string){
+    let ngo = await this.ngoRepository.findById(req.user.id)
+   
+    let project = await this.ngoProject.findById(id).populate('ngo')
+    
+    // if (project.ngo._id.toString() != id){
+
+    // }
+
+    if (!project){ 
+      return {
+        message: 'project update failed!',
+        statusCode: 400,
+        error : 'project not found'
+      }
+    }
+
+    let updated = await this.ngoProject.findByIdAndDelete(id)
+    return {
+      message: 'project created successfully',
+      statusCode: 200,
+      data : updated
+    }
+  }
+
+
+  
+
+  
   async getAllNgo(req : any , res : any){
     let ngoTabel = await this.ngoRepository.find()
     let mapNgo = await this.ngoRepository.find()
@@ -174,6 +289,63 @@ export class NgoService {
     }
   }
 
+
+
+  async completeProject(req :any , res:any , body : completeProject){
+      try {
+        let ngo = await this.ngoRepository.findById(req.user.id)
+      if (!ngo){
+        return {
+          message: 'get ngo projects successfully',
+          statusCode: 400,
+          error : 'ngo not found!'
+        }
+      }
+      let project = await this.ngoProject.findById(body.id).populate('ngo')
+      if (!project){
+        return {
+          message: 'complete project failed',
+          statusCode: 400,
+          error : 'project not found!'
+        }
+      }
+
+      // if (project.ngo._id.toString() != req.user.id){
+      //   return {
+      //     message: 'complete project failed',
+      //     statusCode: 403,
+      //     error : 'permision denied!'
+      //   }
+      // }
+
+      if (project.status.includes('completed')){
+        return {
+          message: 'complete project failed',
+          statusCode: 409,
+          error : 'duplicate data!'
+        }
+      }
+
+      project.achivements = body.achivements;
+      await project.save()
+
+      let updated = await this.ngoProject.findById(body.id).populate('ngo')
+      return {
+        message: 'complete project done',
+        statusCode: 200,
+        data : updated
+      }
+
+      } catch (error) {
+        console.log('error in complete project' , error)
+        return {
+          message: 'complete project failed',
+          statusCode: 500,
+          error : 'internal error'
+        }    
+      }
+  }
+  
 
 
   async getNgosDocument(req :any , res:any ){
