@@ -127,18 +127,18 @@ export class AppService {
   async getDocuments(req: any, res: any, page : number , search : string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
     // let search : string ;
-    let word = search
+    // let word = search
     let documents ;
-    if (word){
-      if (word == 'video'){
+    if (search){
+      if (search == 'video'){
         documents = await this.documentRepository.find({file: { $ne: []}}).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
       }
-      else if (word == 'image' || word == 'images' || word == 'picture' || word == 'pictures' || word == 'pic'){
+      else if (search == 'image' || search == 'images' || search == 'picture' || search == 'pictures' || search == 'pic'){
         documents = await this.documentRepository.find({file: { $ne: []}}).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
       }
 
       else{
-        let re = new RegExp(word)
+        let re = new RegExp(search)
         documents = await this.documentRepository.find({$or : [{email : {$regex: re}} , {interfaceName : {$regex: re}} , {description : {$regex: re}} , {phone : {$regex: re}},{name : {$regex: re}},{title : {$regex: re}}]}).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
       }
     }else {
