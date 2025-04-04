@@ -146,7 +146,7 @@ export class AppService {
       documents = await this.documentRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}}) 
     }
     console.log('dddd' , documents)
-
+    
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
