@@ -190,8 +190,8 @@ export class AppController {
       }
     },
   })
-  async getDocuments(@Req() req: any, @Res() res: any , @Query('page') page : string , @Query('word') word : string) {
-    return this.appService.getDocuments(req , res , +page , word)
+  async getDocuments(@Req() req: any, @Res() res: any , @Query('page') page : string , @Query('search') search : string) {
+    return this.appService.getDocuments(req , res , +page , search)
   }
 
 
