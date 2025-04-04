@@ -128,7 +128,7 @@ export class AppService {
 
   async getDocuments(req: any, res: any, page : number) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let documents = await this.documentRepository.find().populate('ngo')
+    let documents = await this.documentRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
@@ -139,7 +139,7 @@ export class AppService {
 
   async searchDocument(req: any, res: any, word : string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let documents = await this.documentRepository.find().populate('ngo')
+    let documents = await this.documentRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
@@ -152,7 +152,7 @@ export class AppService {
 
   async getSpecificProjectByID(req: any, res: any, id : string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let projects = await this.projectRepository.findById(id).populate('ngo')
+    let projects = await this.projectRepository.findById(id).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
     if (!projects){
       return {
         message: 'get all projects page data by status',
