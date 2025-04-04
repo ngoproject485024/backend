@@ -127,6 +127,7 @@ export class AppService {
   async getDocuments(req: any, res: any, page : number , search : string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
     // let search : string ;
+    let word = search
     let documents ;
     if (word){
       if (word == 'video'){
