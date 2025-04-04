@@ -4,11 +4,14 @@ import { Model } from 'mongoose';
 import { projectsInterface } from './ngo/entities/project.entity';
 import { ngoInterface } from './ngo/entities/ngo.entity';
 import * as fs from 'fs';
+import { documentsInterface } from './ngo/entities/document.entity';
 
 @Injectable()
 export class AppService {
 
-  constructor(@InjectModel('project') private projectRepository: Model<projectsInterface> ,@InjectModel('ngo') private ngoRepository: Model<ngoInterface> ) { }
+  constructor(@InjectModel('project') private projectRepository: Model<projectsInterface> ,
+  @InjectModel('document') private documentRepository: Model<documentsInterface> ,
+  @InjectModel('ngo') private ngoRepository: Model<ngoInterface> ) { }
 
   async homeData(req: any, res: any) {
     let projects = await this.projectRepository.find().sort({'createdAt' : -1}).limit(4)
@@ -123,9 +126,40 @@ export class AppService {
 
 
 
+  async getDocuments(req: any, res: any, page : number) {
+    // let projects = await this.projectRepository.find({ status: {$in : status} })
+    let documents = await this.documentRepository.find().populate('ngo')
+    return {
+      message: 'get all documents page data by status',
+      statusCode: 200,
+      data: documents
+    }
+  }
+
+
+  async searchDocument(req: any, res: any, word : string) {
+    // let projects = await this.projectRepository.find({ status: {$in : status} })
+    let documents = await this.documentRepository.find().populate('ngo')
+    return {
+      message: 'get all documents page data by status',
+      statusCode: 200,
+      data: documents
+    }
+  }
+
+
+
+
   async getSpecificProjectByID(req: any, res: any, id : string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
     let projects = await this.projectRepository.findById(id).populate('ngo')
+    if (!projects){
+      return {
+        message: 'get all projects page data by status',
+        statusCode: 400,
+        error : 'project not founded.'
+      }   
+    }
     return {
       message: 'get all projects page data by status',
       statusCode: 200,

@@ -165,6 +165,67 @@ export class AppController {
 
 
 
+  /**this is project page data by category */
+  @Get('/documents/all')
+  @ApiOperation({ summary: 'گرفتن اسناد بر اساس دسته بندی' })
+  @ApiResponse({
+    status: 200, description: 'get project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get project page data done',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  async getDocuments(@Req() req: any, @Res() res: any , @Query('page') page : string) {
+    return this.appService.getDocuments(req , res , +page)
+  }
+
+
+
+
+    /**this is project page data by category */
+    @Get('/documents/search')
+    @ApiOperation({ summary: 'گرفتن اسناد بر اساس سرچ' })
+    @ApiResponse({
+      status: 200, description: 'get project page data',
+      schema: {
+        example: {
+          success: true,
+          message: 'get project page data done',
+          error: null,
+          data: {}
+        }
+      },
+    })
+    @ApiResponse({
+      status: 500, description: 'internal service error',
+      schema: {
+        example: {
+          success: false,
+          message: 'internal error',
+          error: 'internal service error',
+          data: null
+        }
+      },
+    })
+    async searchDcuments(@Req() req: any, @Res() res: any , @Query('word') word : string) {
+      return this.appService.searchDocument(req , res , word)
+    }
+
 
 
   /**this is project page data by category */
