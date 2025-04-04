@@ -190,16 +190,16 @@ export class AppController {
       }
     },
   })
-  async getDocuments(@Req() req: any, @Res() res: any , @Query('page') page : string) {
-    return this.appService.getDocuments(req , res , +page)
+  async getDocuments(@Req() req: any, @Res() res: any , @Query('page') page : string , @Query('word') word : string) {
+    return this.appService.getDocuments(req , res , +page , word)
   }
 
 
 
 
     /**this is project page data by category */
-    @Get('/documents/search')
-    @ApiOperation({ summary: 'گرفتن اسناد بر اساس سرچ' })
+    @Get('/documents/:id')
+    @ApiOperation({ summary: 'گرفتن اسناد بر اساس ای دی' })
     @ApiResponse({
       status: 200, description: 'get project page data',
       schema: {
@@ -222,8 +222,8 @@ export class AppController {
         }
       },
     })
-    async searchDcuments(@Req() req: any, @Res() res: any , @Query('word') word : string) {
-      return this.appService.searchDocument(req , res , word)
+    async searchDcuments(@Req() req: any, @Res() res: any , @Param('id') id : string) {
+      return this.appService.searchDocument(req , res , id)
     }
 
 

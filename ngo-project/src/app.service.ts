@@ -124,10 +124,25 @@ export class AppService {
   }
 
 
-
-  async getDocuments(req: any, res: any, page : number) {
+  async getDocuments(req: any, res: any, page : number , word : string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let documents = await this.documentRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
+    // let search : string ;
+    let documents ;
+    if (word){
+      if (word == 'video'){
+        documents = await this.documentRepository.find({file: { $ne: []}}).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
+      }
+      else if (word == 'image' || word == 'images' || word == 'picture' || word == 'pictures' || word == 'pic'){
+        documents = await this.documentRepository.find({file: { $ne: []}}).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
+      }
+
+      else{
+        let re = new RegExp(word)
+        documents = await this.documentRepository.find({$or : [{email : {$regex: re}} , {interfaceName : {$regex: re}} , {description : {$regex: re}} , {phone : {$regex: re}},{name : {$regex: re}},{title : {$regex: re}}]}).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
+      }
+    }else {
+      documents = await this.documentRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}}) 
+    }
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
@@ -136,9 +151,9 @@ export class AppService {
   }
 
 
-  async searchDocument(req: any, res: any, word : string) {
+  async searchDocument(req: any, res: any, id : string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let documents = await this.documentRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
+    let documents = await this.documentRepository.findById(id).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
