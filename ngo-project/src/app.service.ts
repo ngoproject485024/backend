@@ -123,6 +123,18 @@ export class AppService {
 
 
 
+  async getSpecificProjectByID(req: any, res: any, id : string) {
+    // let projects = await this.projectRepository.find({ status: {$in : status} })
+    let projects = await this.projectRepository.findById(id).populate('ngo')
+    return {
+      message: 'get all projects page data by status',
+      statusCode: 200,
+      data: projects
+    }
+  }
+
+
+
   async specificProjectsById(req: any, res: any) {
     let projects = await this.projectRepository.find({ status: req.user.id })
     return {

@@ -166,6 +166,39 @@ export class AppController {
 
 
 
+
+  /**this is project page data by category */
+  @Get('/projects/:id')
+  @ApiOperation({ summary: 'گرفتن پروژه ها بر اساس ای دی ' })
+  @ApiResponse({
+    status: 200, description: 'get project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get project page data done',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  async getSpecificProject(@Req() req: any, @Res() res: any , @Param('id') id : string) {
+    return this.appService.getSpecificProjectByID(req , res , id)
+  }
+
+
+
+
   /**this is project page data by id */
   @Get('/project')
   @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
