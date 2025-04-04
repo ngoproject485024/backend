@@ -97,8 +97,8 @@ export class AppService {
     let completed = await this.projectRepository.countDocuments({status:  {$in :'completed'}})
     let goodPractice = await this.projectRepository.countDocuments({status: {$in : 'goodPractice'}})
     let collaborationOpportunities = await this.projectRepository.countDocuments({status: {$in : 'collaborationOpportunities'}})
-    let lastProjects = await this.projectRepository.find().sort({ 'createdAt': -1 }).limit(5)
-    let mostParticipation = await this.projectRepository.find().sort({ 'createdAt': -1 }).limit(5)
+    let lastProjects = await this.projectRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}}).sort({ 'createdAt': -1 }).limit(5)
+    let mostParticipation = await this.projectRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}}).sort({ 'createdAt': -1 }).limit(5)
     return {
       message: 'get all projects page data',
       statusCode: 200,
