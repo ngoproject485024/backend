@@ -137,14 +137,16 @@ export class AppService {
       else if (search == 'image' || search == 'images' || search == 'picture' || search == 'pictures' || search == 'pic'){
         documents = await this.documentRepository.find({file: { $ne: []}}).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
       }
-
       else{
         let re = new RegExp(search)
         documents = await this.documentRepository.find({$or : [{email : {$regex: re}} , {interfaceName : {$regex: re}} , {description : {$regex: re}} , {phone : {$regex: re}},{name : {$regex: re}},{title : {$regex: re}}]}).populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}})
       }
     }else {
+      console.log('dddd')
       documents = await this.documentRepository.find().populate({path : 'ngo' , select : {'_id' : 1 , 'name' : 1 , 'username' : 1 , 'city': 1 , 'countrye' : 1 , 'nationalId' : 1}}) 
     }
+    console.log('dddd' , documents)
+
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
