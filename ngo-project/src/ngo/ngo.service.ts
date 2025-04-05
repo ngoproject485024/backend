@@ -27,6 +27,27 @@ export class NgoService {
   private readonly jwtService : jwtService
 ){}
 
+
+
+  private async ngoMaps(){
+      let ngos = await this.ngoRepository.find()
+      let countries = {}
+      for (let i of ngos){
+        if (countries[i.country]){
+          countries[i.country]+=1;
+        }else{
+          countries[i.country]=0
+        }
+      }
+      console.log('after  making countries' , countries)
+      let finalData = [['Country' , 'NGO']]
+      for (let j of Object.keys(countries)){
+        let miniData = [j , countries[j]]
+      }
+      console.log('finalFucking data' , finalData)
+      return finalData
+  }
+
   /**
    * 
    * @param req 
@@ -235,8 +256,22 @@ export class NgoService {
 
   
   async getAllNgo(req : any , res : any){
+    
+    const data = [
+      ["Country", "NGO"],
+      ["North Korea", 200],
+      ["Pakistan", 300],
+      ["India", 400],
+      ["Iraq", 500],
+      ["japan", 600],
+      ["Iran", 700],
+    ];
+
+
+
+    
     let ngoTabel = await this.ngoRepository.find()
-    let mapNgo = await this.ngoRepository.find()
+    let mapNgo = await this.ngoMaps()
     return {
       message: 'get all ngo successfully',
       statusCode: 200,
