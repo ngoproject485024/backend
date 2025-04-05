@@ -36,7 +36,7 @@ export class NgoService {
         if (countries[i.country]){
           countries[i.country]+=1;
         }else{
-          countries[i.country]=0
+          countries[i.country]=1
         }
       }
       console.log('after  making countries' , countries)
