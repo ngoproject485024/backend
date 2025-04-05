@@ -273,7 +273,7 @@ export class NgoService {
 
   async getNgo(req : any , res : any , ngoId : string){
     console.log('ff' , ngoId)
-    let ngo = await this.ngoRepository.findById(ngoId).populate('ownDocuments' , 'projects')
+    let ngo = await this.ngoRepository.findById(ngoId).populate('ownDocuments').populate('projects')
     console.log(ngo)
     let similarNgo = await this.ngoRepository.find().sort({'createdAt' : -1}).limit(5)
     return {
@@ -286,7 +286,7 @@ export class NgoService {
 
   async getNgoInfo(req :any , res:any ){
     let ngoId : string = req.user.id;
-    let ngo = await this.ngoRepository.findById({ngoId})
+    let ngo = await this.ngoRepository.findById(ngoId)
     // let ongoing = await this.ngoRepository.findOne({id : ngoId}).populate({path : 'projects' , match:{status : 'Ongoing'}})
     // let completed = await this.ngoRepository.findOne({id : ngoId}).populate({path : 'projects' , match:{status : 'Completed'}})
     // let goodPractice = await this.ngoRepository.findOne({id : ngoId}).populate({path : 'projects' , match:{status : 'GoodPractice'}})
