@@ -7,7 +7,7 @@ import { ngoInterface } from './entities/ngo.entity';
 import { createDocumentsDto } from './dto/createdocument.dto';
 import { documentsInterface } from './entities/document.entity';
 import { createProject } from './dto/createProject.dto';
-import { projectsInterface } from './entities/project.entity';
+import { projects, projectsInterface } from './entities/project.entity';
 import * as bcrypt from 'bcrypt';
 import { loginDTO } from './dto/login.dto';
 import { jwtService } from 'src/jwt/jwt.service';
@@ -273,13 +273,17 @@ export class NgoService {
 
   async getNgo(req : any , res : any , ngoId : string){
     console.log('ff' , ngoId)
-    let ngo = await this.ngoRepository.findById(ngoId).populate('ownDocuments').populate('projects')
+    let ngo = await this.ngoRepository.findById(ngoId)
     console.log(ngo)
+    let project = await this.ngoProject.find().limit(2)
+    let Document = await this.ngoDocument.find().limit(2)
+    // ngo.ownDocuments = Document;
+    let newData = {...ngo.toObject() , ownDocuments : Document , projects : project}
     let similarNgo = await this.ngoRepository.find().sort({'createdAt' : -1}).limit(5)
     return {
       message: 'get ngo successfully',
       statusCode: 200,
-      data : {ngo,similarNgo}
+      data : {newData,similarNgo}
     }
   }
 
