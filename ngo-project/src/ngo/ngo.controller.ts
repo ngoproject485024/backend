@@ -510,7 +510,7 @@ export class NgoController {
   @ApiOperation({ summary: 'دیتای صفحه ی سمن ها به همراه دیتای نقشه' })
   @ApiResponse({
     status: 200, description: 'get all ngo succeed',
-    schema: {Vur78U98Mn
+    schema: {
       example: {
         success: true,
         message: 'get all ngo succeed',
