@@ -273,7 +273,8 @@ export class NgoService {
 
   async getNgo(req : any , res : any , ngoId : string){
     console.log('ff' , ngoId)
-    let ngo = await this.ngoRepository.findById(ngoId)
+    let ngo = await this.ngoRepository.findById(ngoId).populate('ownDocuments' , 'projects')
+    console.log(ngo)
     let similarNgo = await this.ngoRepository.find().sort({'createdAt' : -1}).limit(5)
     return {
       message: 'get ngo successfully',
