@@ -283,7 +283,7 @@ export class NgoService {
     return {
       message: 'get ngo successfully',
       statusCode: 200,
-      data : {newData,similarNgo}
+      data : {ngo : newData,similarNgo}
     }
   }
 
