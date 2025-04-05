@@ -43,6 +43,7 @@ export class NgoService {
       let finalData = [['Country' , 'NGO']]
       for (let j of Object.keys(countries)){
         let miniData = [j , countries[j]]
+        finalData.push(miniData)
       }
       console.log('finalFucking data' , finalData)
       return finalData
@@ -257,20 +258,8 @@ export class NgoService {
   
   async getAllNgo(req : any , res : any){
     
-    const data = [
-      ["Country", "NGO"],
-      ["North Korea", 200],
-      ["Pakistan", 300],
-      ["India", 400],
-      ["Iraq", 500],
-      ["japan", 600],
-      ["Iran", 700],
-    ];
-
-
-
-    
     let ngoTabel = await this.ngoRepository.find()
+    console.log(ngoTabel[0])
     let mapNgo = await this.ngoMaps()
     return {
       message: 'get all ngo successfully',
