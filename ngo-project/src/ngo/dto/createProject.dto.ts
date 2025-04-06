@@ -18,13 +18,13 @@ export class createProject {
     })
     startDate: string;
 
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty({
-        example : 'project example data',
-        required : true
-    })
-    endDate: string;
+    // // @IsNotEmpty()
+    // @IsString()
+    // @ApiProperty({
+    //     example : 'project example data',
+    //     required : true
+    // })
+    // endDate: string;
 
     @IsNotEmpty()
     @IsString()
@@ -85,7 +85,7 @@ export class createProject {
     @IsString()
     @ApiProperty({
         example : 'project example data',
-        required : true
+        // required : true
     })
     colleaguesAndStakeholders: string;
 

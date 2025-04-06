@@ -18,11 +18,17 @@ export class completeProject{
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
+        example : 'project example data',
+        required : true
+    })
+    endDate: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
         example : 'asdf;lkjhvnaouds;fj;awlef',
         required : true
     })
     id : string
     
-
-
 }
