@@ -130,6 +130,7 @@ export class NgoService {
 
   async createNewProject(req : any , res : any , body: createProject){
     let ngo = await this.ngoRepository.findById(req.user.id)
+    console.log('ngo>>' , ngo)
     let newProject : any = await this.ngoProject.create({...body , ngo : ngo._id})
     ngo.projects.push(newProject._id)
     await ngo.save()
@@ -257,7 +258,6 @@ export class NgoService {
 
   
   async getAllNgo(req : any , res : any){
-    
     let ngoTabel = await this.ngoRepository.find()
     console.log(ngoTabel[0])
     let mapNgo = await this.ngoMaps()
