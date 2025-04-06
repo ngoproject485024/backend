@@ -33,6 +33,7 @@ export class auth implements NestMiddleware {
   try {
     // Verify token
     const decoded = this.jwt.verify(token  , {secret : process.env.JWT_SECRET})
+    console.log('its decoded' , decoded)
     if (!decoded) {
     console.log('its hereeeeeeeeeeee222')
       return res.status(401).json({
