@@ -333,7 +333,7 @@ export class NgoController {
     type: createProject,
     description: 'Json structure for project object',
   })
-  createProject(@Req() req: any, @Res() res: any, @Body() body: createProject) {
+  createProject(@Req() req: any, @Res() res: any, @Body() body: any) {
     return this.ngoService.createNewProject(req, res, body)
   }
 
