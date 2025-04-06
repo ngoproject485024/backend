@@ -313,9 +313,6 @@ export class NgoService {
   }
 
 
-  
-
-  
   async getAllNgo(req : any , res : any){
     let ngoTabel = await this.ngoRepository.find()
     console.log(ngoTabel[0])
@@ -398,7 +395,7 @@ export class NgoService {
           error : 'project not found!'
         }
       }
-
+      
       // if (project.ngo._id.toString() != req.user.id){
       //   return {
       //     message: 'complete project failed',
@@ -429,6 +426,11 @@ export class NgoService {
       // await project.save()
     }
         project.status.push('completed')
+        let newProject = project.status.filter((item)=>{
+          return item != 'ongoing'
+        })
+        console.log(newProject)
+        project.status =  newProject;
         project.achivements = body.achivements;
       await project.save()
 
