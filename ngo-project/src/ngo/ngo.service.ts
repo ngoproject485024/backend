@@ -130,18 +130,18 @@ export class NgoService {
 
   async createNewProject(req : any , res : any , body: createProject){
     try {
-      console.log('its >>>' , req.user)
-    let ngo = await this.ngoRepository.findById(req.user.id)
-    console.log('ngo>>' , ngo)
-    let newProject : any = await this.ngoProject.create({...body , ngo : ngo._id})
-    ngo.projects.push(newProject._id)
-    await ngo.save()
-    console.log(newProject)
-    return {
-      message: 'project created successfully',
-      statusCode: 200,
-      data : newProject
-    }
+        console.log('its >>>' , req.user)
+      let ngo = await this.ngoRepository.findById(req.user.id)
+      console.log('ngo>>' , ngo)
+      let newProject : any = await this.ngoProject.create({...body , ngo : ngo._id})
+      ngo.projects.push(newProject._id)
+      await ngo.save()
+      console.log(newProject)
+      return {
+        message: 'project created successfully',
+        statusCode: 200,
+        data : newProject
+      }
     } catch (error) {
       console.log('error' , error)
       return {
