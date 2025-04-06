@@ -294,11 +294,16 @@ export class NgoService {
     }
 
 
-    if (~project.status.indexOf('ongoing')){
+    if (project.status.includes('ongoing')){
       console.log('its ok' , project.status)
-      project.status.push('ongoing')
-      await project.save()
+      return {
+        message: 'project update successfully',
+        statusCode: 200,
+        data : project
+      }
     }
+    project.status.push('ongoing')
+    await project.save()
 
     return {
       message: 'project update successfully',
@@ -412,13 +417,19 @@ export class NgoService {
     }
 
 
-    if (~project.status.indexOf('completed')){
+    if (project.status.includes('completed')){
       console.log('its ok' , project.status)
-      project.status.push('completed')
-      await project.save()
+      return {
+        message: 'complete project done',
+        statusCode: 200,
+        data : project
+      }
+      // project.status.push('completed')
+      // project.achivements = body.achivements;
+      // await project.save()
     }
-
-      project.achivements = body.achivements;
+        project.status.push('completed')
+        project.achivements = body.achivements;
       await project.save()
 
       let updated = await this.ngoProject.findById(body.id).populate('ngo')
