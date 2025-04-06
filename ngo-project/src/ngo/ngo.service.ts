@@ -156,8 +156,8 @@ export class NgoService {
 
   async updateProject(req : any , res : any , body: createProject , id : string){
     let ngo = await this.ngoRepository.findById(req.user.id)
-   
-    let project = await this.ngoProject.findById(id).populate('ngo')
+   console.log(body)
+   let project = await this.ngoProject.findById(id).populate('ngo')
     
     // if (project.ngo._id.toString() != id){
 
