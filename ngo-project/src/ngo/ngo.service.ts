@@ -129,6 +129,7 @@ export class NgoService {
 
 
   async createNewProject(req : any , res : any , body: createProject){
+    console.log('its >>>' , req.user)
     let ngo = await this.ngoRepository.findById(req.user.id)
     console.log('ngo>>' , ngo)
     let newProject : any = await this.ngoProject.create({...body , ngo : ngo._id})
