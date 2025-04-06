@@ -38,7 +38,6 @@ export interface projectsInterface extends Document {
 
     ngo : mongoose.Types.ObjectId;
 
-    
 }
 
 

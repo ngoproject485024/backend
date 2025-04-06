@@ -505,6 +505,62 @@ export class NgoController {
   }
 
 
+
+  /**this is creating project api */
+  @Post('/project/ongoing/:id')
+  @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه رو استارت بزنن' })
+  @ApiResponse({
+    status: 200, description: 'the ngos update project successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo update project successfully',
+        error: null,
+        data: Ngo
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this project already update',
+        error: 'duplicate project',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  
+  ongoingProject(@Req() req: any, @Res() res: any, @Param('id') id :string) {
+    return this.ngoService.ongoing(req, res , id)
+  }
+
+
+
+
   /**this is ngo page api */
   @Get('/all')
   @ApiOperation({ summary: 'دیتای صفحه ی سمن ها به همراه دیتای نقشه' })

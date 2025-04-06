@@ -265,6 +265,49 @@ export class NgoService {
   }
 
 
+
+
+  async ongoing(req : any , res : any  , id : string){
+    let ngo = await this.ngoRepository.findById(req.user.id)
+    
+    let project = await this.ngoProject.findById(id).populate('ngo')
+    
+    // if (project.ngo._id.toString() != id){
+
+    // }
+
+    if (!project){ 
+      return {
+        message: 'project update failed!',
+        statusCode: 400,
+        error : 'project not found'
+      }
+    }
+
+
+    if (project.status.length == 4){
+      return {
+        message: 'project update failed!',
+        statusCode: 400,
+        error : 'project status is full.'
+      }
+    }
+
+
+    if (~project.status.indexOf('ongoing')){
+      console.log('its ok' , project.status)
+      project.status.push('ongoing')
+      await project.save()
+    }
+
+    return {
+      message: 'project update successfully',
+      statusCode: 200,
+      data : project
+    }
+  }
+
+
   
 
   
