@@ -172,7 +172,7 @@ export class NgoService {
       }
     }
 
-    let newData = {...project , ...body}
+    let newData = {...project.toObject() , ...body}
     await project.updateOne(newData)
     let updated = await this.ngoProject.findById(id)
     return {
