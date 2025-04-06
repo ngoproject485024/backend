@@ -5,7 +5,7 @@ import { IsString } from "class-validator";
 
 export class completeProject{
 
-    @IsArray()
+    @IsString()
     @ApiProperty({
         example : 'asdfasdfvopiasjdfkl',
         required : false
