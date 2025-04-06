@@ -402,13 +402,21 @@ export class NgoService {
       //   }
       // }
 
-      if (project.status.includes('completed')){
-        return {
-          message: 'complete project failed',
-          statusCode: 409,
-          error : 'duplicate data!'
-        }
+      
+    if (project.status.length == 4){
+      return {
+        message: 'project update failed!',
+        statusCode: 400,
+        error : 'project status is full.'
       }
+    }
+
+
+    if (~project.status.indexOf('completed')){
+      console.log('its ok' , project.status)
+      project.status.push('completed')
+      await project.save()
+    }
 
       project.achivements = body.achivements;
       await project.save()
