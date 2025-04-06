@@ -24,7 +24,7 @@ export interface projectsInterface extends Document {
 
     projectManagerPhone : string;
 
-    achivements:string[]
+    achivements:string
 
     colleaguesAndStakeholders : string;
 
@@ -81,10 +81,9 @@ export class projects {
     @Prop({type : [String]})
     goalAndAchievements:string[];
     
-    @Prop({type : [String] , default : []})
-    achivements:string[];
+    @Prop({type : String , default : ''})
+    achivements:string;
     
-
     @Prop({type : {title : {type : String} , files : [String]}})
     documentsAndReport :  {title : string , files : string[]};
 

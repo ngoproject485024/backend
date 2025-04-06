@@ -3,17 +3,14 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
 
 
-
-
-
 export class completeProject{
 
     @IsArray()
     @ApiProperty({
-        example : [],
+        example : 'asdfasdfvopiasjdfkl',
         required : false
     })
-    achivements : string[]
+    achivements : string
 
     @IsNotEmpty()
     @IsString()
