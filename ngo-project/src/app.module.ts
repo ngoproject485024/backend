@@ -40,18 +40,8 @@ import { adminAuth } from './admin-auth/admin-auth.middleware';
 
 export class AppModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {
-      consumer.apply(auth).forRoutes({path : '/ngo/document/create' , method : RequestMethod.POST} ,
-        {path : '/ngo/document/update/:id' , method : RequestMethod.POST} ,
-        {path : '/ngo/document/delete/:id' , method : RequestMethod.POST} ,
-        {path : '/ngo/project/create' , method : RequestMethod.POST},
-        {path : '/ngo/project/update/:id' , method : RequestMethod.POST},
-        {path : '/ngo/project/delete/:id' , method : RequestMethod.POST},
-        {path : '/ngo/project/complete' , method : RequestMethod.POST},
-        {path : '/ngo/pannel/documents' , method : RequestMethod.GET},
-        {path : '/ngo/pannel/projects' , method : RequestMethod.GET}),
         consumer.apply(adminAuth).forRoutes({path : '/events-educations/education/create' , method : RequestMethod.POST} ,
                   {path : '/events-educations/event/create' , method : RequestMethod.POST} ,
-                 
       )
   }
 }

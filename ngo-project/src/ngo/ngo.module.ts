@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { NgoService } from './ngo.service';
 import { NgoController } from './ngo.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,6 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { EventsEducationsService } from 'src/events-educations/events-educations.service';
 import { EducationSchema } from 'src/events-educations/entities/education.entity';
 import { EventsSchema } from 'src/events-educations/entities/events.entity';
+import { auth } from 'src/auth/auth.middleware';
 
 @Module({
   imports : [MongooseModule.forRoot('') , 
@@ -25,4 +26,22 @@ import { EventsSchema } from 'src/events-educations/entities/events.entity';
   controllers: [NgoController],
   providers: [NgoService , jwtService , EventsEducationsService],
 })
-export class NgoModule {}
+
+
+
+export class NgoModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(auth).forRoutes({ path: '/ngo/document/create', method: RequestMethod.POST },
+      { path: '/ngo/document/update/:id', method: RequestMethod.POST },
+      { path: '/ngo/document/delete/:id', method: RequestMethod.POST },
+      { path: '/ngo/project/create', method: RequestMethod.POST },
+      { path: '/ngo/project/update/:id', method: RequestMethod.POST },
+      { path: '/ngo/project/delete/:id', method: RequestMethod.POST },
+      { path: '/ngo/project/complete', method: RequestMethod.POST },
+      { path: '/ngo/pannel/documents', method: RequestMethod.GET },
+      { path: '/ngo/pannel/projects', method: RequestMethod.GET })
+  }
+}
+
+
+
