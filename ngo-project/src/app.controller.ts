@@ -256,8 +256,6 @@ export class AppController {
   }
 
 
-
-
   /**this is project page data by id */
   @Get('/project')
   @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
@@ -288,7 +286,5 @@ export class AppController {
     return this.appService.specificProjectsById(req , res )
   }
 
-
-
-
+  
 }

@@ -201,7 +201,7 @@ export class NgoService {
       }
     }
 
-    let newData = {...Document , ...body}
+    let newData = {...Document.toObject() , ...body}
     await Document.updateOne(newData)
     let updated = await this.ngoDocument.findById(id)
     return {
@@ -215,7 +215,7 @@ export class NgoService {
 
   async deleteDocuments(req : any , res : any  , id : string){
     let ngo = await this.ngoDocument.findById(req.user.id)
-   
+    
     let Document = await this.ngoDocument.findById(id).populate('ngo')
     
     // if (Document.ngo._id.toString() != id){
@@ -229,6 +229,8 @@ export class NgoService {
         error : 'Document not found'
       }
     }
+
+    // let newData = {...Document.toObject(),...body }
 
     let updated = await this.ngoDocument.findByIdAndDelete(id)
     return {

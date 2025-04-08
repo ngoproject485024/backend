@@ -111,11 +111,9 @@ export class NgoController {
     type: loginDTO,
     description: 'Json structure for ngo object',
   })
-  login(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: loginDTO) {
+  login(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: loginDTO){
     return this.ngoService.login(req, res, body)
   }
-
-
 
   /**creation api document */
   @Post('/document/create')
@@ -231,7 +229,7 @@ export class NgoController {
 
 
   /**this is creating project api */
-  @Post('/Documents/delete/:id')
+  @Post('/documents/delete/:id')
   @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه رو حذف کنن' })
   @ApiResponse({
     status: 200, description: 'the ngos created Documents successfully',
