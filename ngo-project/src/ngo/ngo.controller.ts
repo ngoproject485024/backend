@@ -229,7 +229,7 @@ export class NgoController {
 
 
   /**this is creating project api */
-  @Post('/documents/delete/:id')
+  @Post('/document/delete/:id')
   @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه رو حذف کنن' })
   @ApiResponse({
     status: 200, description: 'the ngos created Documents successfully',
