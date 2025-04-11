@@ -221,6 +221,8 @@ export class NgoService {
     // if (Document.ngo._id.toString() != id){
 
     // }
+    
+    console.log('its here>>>' , )
 
     if (!Document){ 
       return {

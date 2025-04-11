@@ -7,11 +7,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-  });
+  // app.enableCors();
+  app.enableCors()
   process.on('unhandledRejection', (error) => {
     console.log('error occured . . .', error)
   });
