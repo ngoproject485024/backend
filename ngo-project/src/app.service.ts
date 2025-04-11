@@ -5,13 +5,41 @@ import { projectsInterface } from './ngo/entities/project.entity';
 import { ngoInterface } from './ngo/entities/ngo.entity';
 import * as fs from 'fs';
 import { documentsInterface } from './ngo/entities/document.entity';
+import { pagesInterface } from './entity/pages.entity';
+import { homePage } from './dto/homePage.dto';
 
 @Injectable()
 export class AppService {
 
   constructor(@InjectModel('project') private projectRepository: Model<projectsInterface> ,
   @InjectModel('document') private documentRepository: Model<documentsInterface> ,
-  @InjectModel('ngo') private ngoRepository: Model<ngoInterface> ) { }
+  @InjectModel('ngo') private ngoRepository: Model<ngoInterface>,
+  @InjectModel('pages') private pageRepository: Model<pagesInterface> )
+{ }
+
+
+
+  /**
+   * here is for setting home page data
+   */
+  async setHomeData(req  : any , res : any , body : homePage) {
+
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+    page.homPage = {...body , admin : admin};
+    await page.save()
+    let updated  = await this.pageRepository.find()
+
+    return {
+      message : 'updating home page data.',
+      statusCode : 200,
+      data : updated[0].homPage
+    }
+
+  }
+
+
 
   async homeData(req: any, res: any) {
     let projects = await this.projectRepository.find().sort({'createdAt' : -1}).limit(4)

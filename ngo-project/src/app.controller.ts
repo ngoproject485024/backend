@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post, Query, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, Res, UploadedFiles, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
 import { extname } from 'path';
+import { homePage } from './dto/homePage.dto';
 
 
 @ApiTags('pages data')
@@ -63,6 +64,39 @@ export class AppController {
 
 
 
+
+  @Post('/home/create')
+  @ApiOperation({ summary: 'ست کردن دیتاهای صفحه هوم' })
+  @ApiResponse({
+    status: 200, description: 'set home page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'set home page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  @ApiBody({
+    type : homePage,
+    description : 'بادی برای اپدیت صفحه هوم'
+  })
+  async setHomeData(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : homePage) {
+    return this.appService.setHomeData(req , res , body)
+  }
+
+
+
+
+
+
+
+
+
+
+
   @Post('/file/delete')
   async deleteFiles(@Req() req: any, @Res() res: any , @Body() body : any){
       return this.appService.deleteFile(req , res , body)
@@ -91,8 +125,6 @@ export class AppController {
   async getaboutUsData(@Req() req: any, @Res() res: any) {
     return this.appService.aboutUs(req , res)
   }
-
-
 
 
 
