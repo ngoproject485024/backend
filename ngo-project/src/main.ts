@@ -8,7 +8,9 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
   // app.enableCors();
-  app.enableCors()
+  app.enableCors({ origin: '*', // specify the allowed origin
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // specify the allowed HTTP methods
+})
   process.on('unhandledRejection', (error) => {
     console.log('error occured . . .', error)
   });
