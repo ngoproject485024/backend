@@ -24,6 +24,29 @@ export class AppService {
    */
   async setHomeData(req  : any , res : any , body : homePage) {
 
+    let ff = await this.pageRepository.create({
+      homPage : {
+        mainImages: [],
+        middleImages: [],
+        peDescription: 'string',
+        peMiddleImageDescription: 'string',
+        peProjectDescription: 'string',
+        peAboutUsDescription: 'string',
+        peNgoDescription: 'string',
+        enDescription: 'string',
+        enMiddleImageDescription: 'string',
+        enProjectDescription: 'string',
+        enAboutUsDescription: 'string',
+        enNgoDescription: 'string',
+        ruDescription: 'string',
+        ruMiddleImageDescription: 'string',
+        ruProjectDescription: 'string',
+        ruAboutUsDescription: 'string',
+        ruNgoDescription: 'string',
+        admin : 'string'
+    }
+    })
+    
     let pages = await this.pageRepository.find()
     let page = pages[0]
     let admin = `${req.user.firstName} ${req.user.lastName}`
