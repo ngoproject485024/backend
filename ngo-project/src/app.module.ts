@@ -18,7 +18,7 @@ import { EventsSchema } from './events-educations/entities/events.entity';
 import { EducationSchema } from './events-educations/entities/education.entity';
 import { EventsEducationsController } from './events-educations/events-educations.controller';
 import { adminAuth } from './admin-auth/admin-auth.middleware';
-import { pages } from './entity/pages.entity';
+import { pagesSchema } from './entity/pages.entity';
 
 
 
@@ -30,7 +30,7 @@ import { pages } from './entity/pages.entity';
     , { name: 'events', schema: EventsSchema }
     , { name: 'document', schema: documentSchema }
     , { name: 'project', schema: projectSchema }
-    , { name: 'pages', schema: pages }
+    , { name: 'pages', schema: pagesSchema }
   ]),
   JwtModule.registerAsync({
     imports: [ConfigModule],
