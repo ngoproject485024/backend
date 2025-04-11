@@ -23,30 +23,29 @@ export class AppService {
    * here is for setting home page data
    */
   async setHomeData(req  : any , res : any , body : homePage) {
+    // let ff = await this.pageRepository.create({
+    //   homPage : {
+    //     mainImages: [],
+    //     middleImages: [],
+    //     peDescription: 'string',
+    //     peMiddleImageDescription: 'string',
+    //     peProjectDescription: 'string',
+    //     peAboutUsDescription: 'string',
+    //     peNgoDescription: 'string',
+    //     enDescription: 'string',
+    //     enMiddleImageDescription: 'string',
+    //     enProjectDescription: 'string',
+    //     enAboutUsDescription: 'string',
+    //     enNgoDescription: 'string',
+    //     ruDescription: 'string',
+    //     ruMiddleImageDescription: 'string',
+    //     ruProjectDescription: 'string',
+    //     ruAboutUsDescription: 'string',
+    //     ruNgoDescription: 'string',
+    //     admin : 'string'
+    // }
+    // })
 
-    let ff = await this.pageRepository.create({
-      homPage : {
-        mainImages: [],
-        middleImages: [],
-        peDescription: 'string',
-        peMiddleImageDescription: 'string',
-        peProjectDescription: 'string',
-        peAboutUsDescription: 'string',
-        peNgoDescription: 'string',
-        enDescription: 'string',
-        enMiddleImageDescription: 'string',
-        enProjectDescription: 'string',
-        enAboutUsDescription: 'string',
-        enNgoDescription: 'string',
-        ruDescription: 'string',
-        ruMiddleImageDescription: 'string',
-        ruProjectDescription: 'string',
-        ruAboutUsDescription: 'string',
-        ruNgoDescription: 'string',
-        admin : 'string'
-    }
-    })
-    
     let pages = await this.pageRepository.find()
     let page = pages[0]
     let admin = `${req.user.firstName} ${req.user.lastName}`
@@ -65,19 +64,16 @@ export class AppService {
 
 
   async homeData(req: any, res: any) {
+    let homePage = await this.pageRepository.find()
+    let home = homePage[0].homPage
     let projects = await this.projectRepository.find().sort({'createdAt' : -1}).limit(4)
     let ngo = await this.ngoRepository.find().sort({'createdAt' : -1}).limit(3)
     return {
       message: 'project created successfully',
       statusCode: 200,
-      data: {heroSectionPictures : ['https://thecsruniverse.com/adminxsafe/uploads/20231027105644','https://give.do/blog/wp-content/uploads/2023/08/The-role-of-the-education-NGO-in-India-enthusiastic-children-beneficiaries-education-classroom-preview.jpg'] ,
-        midllepartPics : ['https://thecsruniverse.com/adminxsafe/uploads/20231027105644','https://thecsruniverse.com/adminxsafe/uploads/20231027105644','https://thecsruniverse.com/adminxsafe/uploads/20231027105644'],
+      data: {
+        home,
         projects : projects,
-        aboutUsPicture : ['https://thecsruniverse.com/adminxsafe/uploads/20231027105644' ,'https://thecsruniverse.com/adminxsafe/uploads/20231027105644' ],
-        aboutUsText : {
-          boldPart : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-          normalPart : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
-        },
         ngo,
       }
     }

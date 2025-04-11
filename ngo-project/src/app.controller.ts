@@ -44,24 +44,14 @@ export class AppController {
         success: true,
         message: 'get home page data done',
         error: null,
-        data: {
-          heroSectionPictures: ['https://thecsruniverse.com/adminxsafe/uploads/20231027105644', 'https://give.do/blog/wp-content/uploads/2023/08/The-role-of-the-education-NGO-in-India-enthusiastic-children-beneficiaries-education-classroom-preview.jpg'],
-          midllepartPics: ['https://thecsruniverse.com/adminxsafe/uploads/20231027105644', 'https://thecsruniverse.com/adminxsafe/uploads/20231027105644', 'https://thecsruniverse.com/adminxsafe/uploads/20231027105644'],
-          projects: [],
-          aboutUsPicture: ['https://thecsruniverse.com/adminxsafe/uploads/20231027105644', 'https://thecsruniverse.com/adminxsafe/uploads/20231027105644'],
-          aboutUsText: {
-            boldPart: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            normalPart: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
-          },
+        data: {},
           ngo: [],
         }
-      }
     }    
   })
   async getHomeData(@Req() req: any, @Res() res: any) {
     return this.appService.homeData(req , res)
   }
-
 
 
 
