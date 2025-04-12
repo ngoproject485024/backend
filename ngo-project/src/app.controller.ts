@@ -105,7 +105,7 @@ export class AppController {
 
 
 
-  @Post('/project/complete')
+  @Get('/project/complete')
   @ApiOperation({ summary: 'گت کردن دیتاهای صفحه پروژه های تکمیل شده' })
   @ApiResponse({
     status: 200, description: 'get project page data',
