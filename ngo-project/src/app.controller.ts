@@ -80,6 +80,31 @@ export class AppController {
 
 
 
+  @Post('/project/complete/create')
+  @ApiOperation({ summary: 'ست کردن دیتاهای صفحه پروژه های تکمیل شده' })
+  @ApiResponse({
+    status: 200, description: 'set project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'set peoject page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  @ApiBody({
+    type : homePage,
+    description : 'بادی برای اپدیت صفحه هوم'
+  })
+  async completedProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : any) {
+    return this.appService.setHomeData(req , res , body)
+  }
+
+
+
+
 
 
 

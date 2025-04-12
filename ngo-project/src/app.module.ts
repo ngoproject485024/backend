@@ -50,6 +50,7 @@ export class AppModule implements NestModule {
     consumer.apply(adminAuth).forRoutes({ path: '/events-educations/education/create', method: RequestMethod.POST },
       { path: '/events-educations/event/create', method: RequestMethod.POST },
       { path: '/page/home/create', method: RequestMethod.POST },
+      { path: '/page/project/complete/create', method: RequestMethod.POST }
     )
   }
 }

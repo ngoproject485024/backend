@@ -63,6 +63,22 @@ export class AppService {
 
 
 
+  async setCompletedProjectPage(req  : any , res : any , body : any){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+    page.completProjects = {...body , admin}
+    await page.save()
+    let updated = await this.pageRepository.find()
+    return {
+      message : 'updating project page data.',
+      statusCode : 200,
+      data : updated[0].completProjects
+    }
+  }
+
+
+
   async homeData(req: any, res: any) {
     let homePage = await this.pageRepository.find()
     let home = homePage[0].homPage

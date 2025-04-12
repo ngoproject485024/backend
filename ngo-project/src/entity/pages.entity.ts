@@ -24,6 +24,13 @@ export interface pagesInterface extends Document {
         ruNgoDescription: string,
         admin : string
     }
+
+    completProjects : {
+        peDescription : string;
+        enDescription : string;
+        ruDescription : string;
+    }
+
 }
 
 
@@ -68,6 +75,29 @@ export class pages{
       ruNgoDescription: string,
       admin : string
     }
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    completProjects: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+
 }
 
 
