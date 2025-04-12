@@ -4,7 +4,7 @@ import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
 import { extname } from 'path';
-import { homePage } from './dto/homePage.dto';
+import { completeProjectCreation, homePage } from './dto/homePage.dto';
 
 
 @ApiTags('pages data')
@@ -95,11 +95,11 @@ export class AppController {
     }    
   })
   @ApiBody({
-    type : homePage,
+    type : completeProjectCreation,
     description : 'بادی برای اپدیت صفحه هوم'
   })
-  async completedProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : any) {
-    return this.appService.setHomeData(req , res , body)
+  async completedProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
+    return this.appService.setCompletedProjectPage(req , res , body)
   }
 
 

@@ -6,7 +6,7 @@ import { ngoInterface } from './ngo/entities/ngo.entity';
 import * as fs from 'fs';
 import { documentsInterface } from './ngo/entities/document.entity';
 import { pagesInterface } from './entity/pages.entity';
-import { homePage } from './dto/homePage.dto';
+import { completeProjectCreation, homePage } from './dto/homePage.dto';
 
 @Injectable()
 export class AppService {
@@ -63,11 +63,11 @@ export class AppService {
 
 
 
-  async setCompletedProjectPage(req  : any , res : any , body : any){
+  async setCompletedProjectPage(req  : any , res : any , body : completeProjectCreation){
     let pages = await this.pageRepository.find()
     let page = pages[0]
     let admin = `${req.user.firstName} ${req.user.lastName}`
-    page.completProjects = {...body , admin}
+    page.completProjects = {...body , admin : admin}  
     await page.save()
     let updated = await this.pageRepository.find()
     return {

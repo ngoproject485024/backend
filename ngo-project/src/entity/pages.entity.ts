@@ -29,6 +29,8 @@ export interface pagesInterface extends Document {
         peDescription : string;
         enDescription : string;
         ruDescription : string;
+        admin : string
+
     }
 
 }

@@ -126,3 +126,29 @@ export class homePage{
     })
     ruNgoDescription: string
 }
+
+
+
+export class completeProjectCreation{
+
+    @IsString()
+    @ApiProperty({
+        example : '',
+        required : true
+    })
+    enDescription: string
+
+    @IsString()
+    @ApiProperty({
+        example : '',
+        required : true
+    })
+    ruDescription: string
+    
+    @IsString()
+    @ApiProperty({
+        example : '',
+        required : true
+    })
+    peDescription: string
+}
