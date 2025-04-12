@@ -105,6 +105,26 @@ export class AppController {
 
 
 
+  @Post('/project/complete')
+  @ApiOperation({ summary: 'گت کردن دیتاهای صفحه پروژه های تکمیل شده' })
+  @ApiResponse({
+    status: 200, description: 'get project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get peoject page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  async getCompletedProject(@Req() req: any, @Res() res: any ) {
+    return this.appService.getCompleteProjectPage(req , res )
+  }
+
+
+
 
 
 

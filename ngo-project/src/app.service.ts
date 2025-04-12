@@ -78,6 +78,17 @@ export class AppService {
   }
 
 
+  async getCompleteProjectPage(req  : any , res : any ){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    return {
+      message : 'getting project page data.',
+      statusCode : 200,
+      data : page.completProjects
+    }
+  }
+
+
 
   async homeData(req: any, res: any) {
     let homePage = await this.pageRepository.find()
