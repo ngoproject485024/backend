@@ -30,10 +30,30 @@ export interface pagesInterface extends Document {
         enDescription : string;
         ruDescription : string;
         admin : string
-
     }
 
+    ongoingProject : {
+        peDescription : string;
+        enDescription : string;
+        ruDescription : string;
+        admin : string
+    }
+
+    goodPractice : {
+        peDescription : string;
+        enDescription : string;
+        ruDescription : string;
+        admin : string
+    }
+
+    collaborationOpportunities : {
+        peDescription : string;
+        enDescription : string;
+        ruDescription : string;
+        admin : string
+    }
 }
+
 
 
 
@@ -93,6 +113,71 @@ export class pages{
         }
     })
     completProjects: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    ongoingProject: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    goodPractice: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    collaborationOpportunities: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;

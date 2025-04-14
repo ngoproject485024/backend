@@ -45,12 +45,20 @@ import { pagesSchema } from './entity/pages.entity';
   providers: [AppService, jwtService, EventsEducationsService],
 })
 
+
+
+
+
+
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(adminAuth).forRoutes({ path: '/events-educations/education/create', method: RequestMethod.POST },
       { path: '/events-educations/event/create', method: RequestMethod.POST },
       { path: '/page/home/create', method: RequestMethod.POST },
-      { path: '/page/project/complete/create', method: RequestMethod.POST }
+      { path: '/page/project/complete/create', method: RequestMethod.POST },
+      { path: '/page/project/ongoing/create', method: RequestMethod.POST },
+      { path: '/page/project/GoodPractice/create', method: RequestMethod.POST },
+      { path: '/page/project/Collaboration/create', method: RequestMethod.POST },
     )
   }
 }

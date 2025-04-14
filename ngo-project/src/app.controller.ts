@@ -103,8 +103,6 @@ export class AppController {
   }
 
 
-
-
   @Get('/project/complete')
   @ApiOperation({ summary: 'گت کردن دیتاهای صفحه پروژه های تکمیل شده' })
   @ApiResponse({
@@ -126,9 +124,135 @@ export class AppController {
 
 
 
+  @Post('/project/ongoing/create')
+  @ApiOperation({ summary: 'ست کردن دیتاهای صفحه پروژه های در حال اچرا' })
+  @ApiResponse({
+    status: 200, description: 'set project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'set peoject page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  @ApiBody({
+    type : completeProjectCreation,
+    description : 'بادی برای اپدیت صفحه پروژه های در حال اچرا'
+  })
+  async ongoingProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
+    return this.appService.setOngongProjectPage(req , res , body)
+  }
+
+
+  @Get('/project/ongoing')
+  @ApiOperation({ summary: 'گت کردن دیتاهای صفحه پروژه های  ذر حال اچرا' })
+  @ApiResponse({
+    status: 200, description: 'get project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get peoject page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  async getongoingdProject(@Req() req: any, @Res() res: any ) {
+    return this.appService.getOngoingProjectPage(req , res )
+  }
 
 
 
+
+  @Post('/project/GoodPractice/create')
+  @ApiOperation({ summary: 'ست کردن دیتاهای صفحه پروژه های در حال اچرا' })
+  @ApiResponse({
+    status: 200, description: 'set project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'set peoject page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  @ApiBody({
+    type : completeProjectCreation,
+    description : 'بادی برای اپدیت صفحه پروژه های در حال اچرا'
+  })
+  async GoodPracticeProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
+    return this.appService.setgoodPracticeProjectPage(req , res , body)
+  }
+
+
+  @Get('/project/GoodPractice')
+  @ApiOperation({ summary: 'گت کردن دیتاهای صفحه پروژه های  ذر حال اچرا' })
+  @ApiResponse({
+    status: 200, description: 'get project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get peoject page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  async getGoodPracticedProject(@Req() req: any, @Res() res: any ) {
+    return this.appService.getgoodPracticeProjectPage(req , res )
+  }
+
+
+
+
+
+  @Post('/project/Collaboration/create')
+  @ApiOperation({ summary: 'ست کردن دیتاهای صفحه پروژه های فرصت های همکاری  ' })
+  @ApiResponse({
+    status: 200, description: 'set project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'set peoject page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  @ApiBody({
+    type : completeProjectCreation,
+    description : 'بادی برای اپدیت صفحه پروژه های   فرصت های همکاری'
+  })
+  async CollaborationProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
+    return this.appService.setcollaborationProjectPage(req , res , body)
+  }
+
+
+  @Get('/project/Collaboration')
+  @ApiOperation({ summary: 'گت کردن دیتاهای صفحه پروژه های  فرصت های همکاری' })
+  @ApiResponse({
+    status: 200, description: 'get project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get peoject page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  async getCollaborationdProject(@Req() req: any, @Res() res: any ) {
+    return this.appService.getcollaborationProjectPage(req , res )
+  }
 
 
 

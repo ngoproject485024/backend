@@ -78,6 +78,9 @@ export class AppService {
   }
 
 
+
+
+
   async getCompleteProjectPage(req  : any , res : any ){
     let pages = await this.pageRepository.find()
     let page = pages[0]
@@ -87,6 +90,89 @@ export class AppService {
       data : page.completProjects
     }
   }
+
+
+
+  async setOngongProjectPage(req  : any , res : any , body : completeProjectCreation){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+    page.ongoingProject = {...body , admin : admin}  
+    await page.save()
+    let updated = await this.pageRepository.find()
+    return {
+      message : 'updating project page data.',
+      statusCode : 200,
+      data : updated[0].ongoingProject
+    }
+  }
+
+
+  async getOngoingProjectPage(req  : any , res : any ){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    return {
+      message : 'getting project page data.',
+      statusCode : 200,
+      data : page.ongoingProject
+    }
+  }
+
+
+
+
+  async setgoodPracticeProjectPage(req  : any , res : any , body : completeProjectCreation){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+    page.goodPractice = {...body , admin : admin}  
+    await page.save()
+    let updated = await this.pageRepository.find()
+    return {
+      message : 'updating project page data.',
+      statusCode : 200,
+      data : updated[0].goodPractice
+    }
+  }
+
+
+  async getgoodPracticeProjectPage(req  : any , res : any ){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    return {
+      message : 'getting project page data.',
+      statusCode : 200,
+      data : page.goodPractice
+    }
+  }
+
+
+
+  async setcollaborationProjectPage(req  : any , res : any , body : completeProjectCreation){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+    page.collaborationOpportunities = {...body , admin : admin}  
+    await page.save()
+    let updated = await this.pageRepository.find()
+    return {
+      message : 'updating project page data.',
+      statusCode : 200,
+      data : updated[0].collaborationOpportunities
+    }
+  }
+
+
+  async getcollaborationProjectPage(req  : any , res : any ){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    return {
+      message : 'getting project page data.',
+      statusCode : 200,
+      data : page.collaborationOpportunities
+    }
+  }
+
 
 
 
