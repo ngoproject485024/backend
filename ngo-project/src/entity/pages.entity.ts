@@ -24,6 +24,7 @@ export interface pagesInterface extends Document {
         ruNgoDescription: string,
         admin : string
     }
+    
 
     completProjects : {
         peDescription : string;
@@ -52,6 +53,30 @@ export interface pagesInterface extends Document {
         ruDescription : string;
         admin : string
     }
+
+    educationAndTrainingDescription : {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+
+    eventsDescription : {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+    archivesDescription : {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+
 }
 
 
@@ -183,6 +208,71 @@ export class pages{
         ruDescription: string;
         admin : string
     }
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    educationAndTrainingDescription : {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    eventsDescription : {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    archivesDescription : {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin : string
+    }
+
 
 
 }

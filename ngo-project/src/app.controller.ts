@@ -4,7 +4,7 @@ import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
 import { extname } from 'path';
-import { completeProjectCreation, homePage } from './dto/homePage.dto';
+import { completeProjectCreation, homePage, pageDescriptionDto } from './dto/homePage.dto';
 
 
 @ApiTags('pages data')
@@ -211,8 +211,6 @@ export class AppController {
 
 
 
-
-
   @Post('/project/Collaboration/create')
   @ApiOperation({ summary: 'ست کردن دیتاهای صفحه پروژه های فرصت های همکاری  ' })
   @ApiResponse({
@@ -234,6 +232,53 @@ export class AppController {
   async CollaborationProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
     return this.appService.setcollaborationProjectPage(req , res , body)
   }
+
+
+
+  @Post('/description/create')
+  @ApiOperation({ summary: 'ست کردن دیتاهای صفحه ها ' })
+  @ApiResponse({
+    status: 200, description: 'set pages data',
+    schema: {
+      example: {
+        success: true,
+        message: 'set  pages data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  @ApiBody({
+    type : pageDescriptionDto,
+    description : 'بادی برای اپدیت صفحه ها  فرصت های همکاری'
+  })
+  async pagesDescription(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : pageDescriptionDto) {
+    return this.appService.setPagesDescription(req , res , body)
+  }
+
+
+
+
+  @Get('/description/:pageName')
+  @ApiOperation({ summary: 'گرفتن دیتاهای توضیحات صفحات بر اساس نام صفحه' })
+  @ApiResponse({
+    status: 200, description: 'get description page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get description page data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  async getDescriptions(@Req() req: any, @Res() res: any , @Param('pageName') pageName : string ) {
+    return this.appService.getDescriptions(req , res , pageName)
+  }
+
+
 
 
   @Get('/project/Collaboration')

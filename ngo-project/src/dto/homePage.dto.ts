@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty } from "@nestjs/class-validator";
+import { IsArray, IsNotEmpty, IsNumber } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsObject, IsString } from "class-validator";
 
@@ -151,4 +151,35 @@ export class completeProjectCreation{
         required : true
     })
     peDescription: string
+}
+
+
+
+export class pageDescriptionDto{
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'educations || events || archives',
+        required : true
+    })
+    type : string
+
+
+    @IsNotEmpty()
+    @IsObject()
+    @ApiProperty({
+        example : {
+            peDescription : '',
+            enDescription : '',
+            ruDescription : '',
+        },
+        required : true
+    })
+    description : {
+            peDescription: string,
+            enDescription: string,
+            ruDescription: string,
+    }
+
+
 }

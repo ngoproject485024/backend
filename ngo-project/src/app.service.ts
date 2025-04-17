@@ -6,7 +6,7 @@ import { ngoInterface } from './ngo/entities/ngo.entity';
 import * as fs from 'fs';
 import { documentsInterface } from './ngo/entities/document.entity';
 import { pagesInterface } from './entity/pages.entity';
-import { completeProjectCreation, homePage } from './dto/homePage.dto';
+import { completeProjectCreation, homePage, pageDescriptionDto } from './dto/homePage.dto';
 
 @Injectable()
 export class AppService {
@@ -161,6 +161,89 @@ export class AppService {
       data : updated[0].collaborationOpportunities
     }
   }
+
+
+
+
+  async setPagesDescription(req  : any , res : any , body : pageDescriptionDto){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+
+    if (body.type == "educations"){
+      page.educationAndTrainingDescription = {...body.description , admin : admin}  
+      await page.save()
+      let updated = await this.pageRepository.find()
+      return {
+        message : 'updating education page data.',
+        statusCode : 200,
+        data : updated[0].collaborationOpportunities
+      }
+    }else if (body.type == 'events'){
+      page.eventsDescription = {...body.description , admin : admin}  
+      await page.save()
+      let updated = await this.pageRepository.find()
+      return {
+        message : 'updating events page data.',
+        statusCode : 200,
+        data : updated[0].collaborationOpportunities
+      }
+    }else if (body.type == 'archives'){
+      page.archivesDescription = {...body.description , admin : admin}  
+      await page.save()
+      let updated = await this.pageRepository.find()
+      return {
+        message : 'updating events page data.',
+        statusCode : 200,
+        data : updated[0].collaborationOpportunities
+      }
+    }else{
+      return {
+        message : 'updating events page data.',
+        statusCode : 400,
+        error : 'wrong inputed type'
+      }
+    }
+  }
+
+
+
+
+
+  async getDescriptions(req  : any , res : any , pageName : string){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+
+    if (pageName == "educations"){
+      return {
+        message : 'updating education page data.',
+        statusCode : 200,
+        data : page.collaborationOpportunities
+      }
+    }else if (pageName == 'events'){
+      return {
+        message : 'updating events page data.',
+        statusCode : 200,
+        data : page.collaborationOpportunities
+      }
+    }else if (pageName == 'archives'){
+      return {
+        message : 'updating events page data.',
+        statusCode : 200,
+        data : page.collaborationOpportunities
+      }
+    }else{
+      return {
+        message : 'updating events page data.',
+        statusCode : 400,
+        error : 'wrong inputed type'
+      }
+    }
+  }
+
+
+  
 
 
   async getcollaborationProjectPage(req  : any , res : any ){
