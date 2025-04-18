@@ -76,6 +76,21 @@ export interface pagesInterface extends Document {
         admin : string
     }
 
+    footer : {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        peAddress : string;
+        enAddress : string;
+        ruAddress : string;
+        phone : string;
+        gmail : string;
+        instaLink : string;
+        xLink : string;
+        linkedInLink : string;
+        faceBookLink : string;
+        admin : string
+    }
 
 }
 
@@ -273,6 +288,54 @@ export class pages{
         admin : string
     }
 
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+            peAddress: {type : String},
+            enAddress: {type : String},
+            ruAddress: {type : String},
+            phone: {type : String},
+            gmail: {type : String},
+            instaLink: {type : String},
+            xLink: {type : String},
+            linkedInLink: {type : String},
+            faceBookLink: {type : String},
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            peAddress: '',
+            enAddress: '',
+            ruAddress: '',
+            phone: '',
+            gmail: '',
+            instaLink: '',
+            xLink: '',
+            linkedInLink: '',
+            faceBookLink: '',
+            admin: '',
+        }
+    })
+    footer : {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        peAddress : string;
+        enAddress : string;
+        ruAddress : string;
+        phone : string;
+        gmail : string;
+        instaLink : string;
+        xLink : string;
+        linkedInLink : string;
+        faceBookLink : string;
+        admin : string
+    }
 
 
 }

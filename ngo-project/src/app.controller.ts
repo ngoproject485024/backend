@@ -4,7 +4,7 @@ import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
 import { extname } from 'path';
-import { completeProjectCreation, homePage, pageDescriptionDto } from './dto/homePage.dto';
+import { completeProjectCreation, homePage, pageDescriptionDto, setFooterDto } from './dto/homePage.dto';
 
 
 @ApiTags('pages data')
@@ -256,6 +256,31 @@ export class AppController {
   async pagesDescription(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : pageDescriptionDto) {
     return this.appService.setPagesDescription(req , res , body)
   }
+
+
+
+  @Post('/footer/create')
+  @ApiOperation({ summary: 'ست کردن دیتاهای فوتر ' })
+  @ApiResponse({
+    status: 200, description: 'set footer data',
+    schema: {
+      example: {
+        success: true,
+        message: 'set footer data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  @ApiBody({
+    type : setFooterDto,
+    description : 'بادی برای ست کردن دیتای فوتر'
+  })
+  async setFooterData(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : setFooterDto) {
+    return this.appService.setFooterData(req , res , body)
+  }
+
 
 
 

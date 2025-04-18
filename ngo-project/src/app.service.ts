@@ -208,6 +208,11 @@ export class AppService {
 
 
 
+  async setFooterData(req  : any , res : any , body : any){
+    
+  }
+
+
 
 
   async getDescriptions(req  : any , res : any , pageName : string){
