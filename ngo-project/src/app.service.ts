@@ -163,7 +163,6 @@ export class AppService {
 
 
 
-
   async setPagesDescription(req: any, res: any, body: pageDescriptionDto) {
     let pages = await this.pageRepository.find()
     let page = pages[0]
@@ -267,7 +266,7 @@ export class AppService {
   async getDescriptions(req: any, res: any, pageName: string) {
     let pages = await this.pageRepository.find()
     let page = pages[0]
-
+    console.log('get' , pageName)
     if (pageName == "educations") {
       return {
         message: 'updating education page data.',
