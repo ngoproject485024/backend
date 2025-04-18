@@ -275,11 +275,12 @@ export class AppController {
   })
   @ApiBody({
     type : aboutUsDto,
-    description : 'بادی برای اپدیت صفحه ها  فرصت های همکاری'
+    description : 'بادی برای اپدیت صفحه ها   درباره ما '
   })
   async setAboutUs(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : aboutUsDto) {
     return this.appService.setAboutUs(req , res , body)
   }
+
 
 
   @Post('/footer/create')
@@ -387,12 +388,7 @@ export class AppController {
         success: true,
         message: 'get about us page data done',
         error: null,
-        data: {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,',
-          middlePartText : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatu',
-          middlePartPic : 'https://thecsruniverse.com/adminxsafe/uploads/20231027105644',
-          missionAndGoal : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,',  
-        }
+        data: {}
       }
     }    
   })
