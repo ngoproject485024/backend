@@ -198,7 +198,7 @@ export class AppService {
         statusCode: 200,
         data: updated[0].collaborationOpportunities
       }
-    } else if (body.type == 'Participation') {
+    } else if (body.type == 'participation') {
       page.Participation = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
