@@ -173,7 +173,7 @@ export class AppService {
       page.educationAndTrainingDescription = { ...body.description , admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
-      console.log('updated>>>' , updated)
+      console.log('updated>>>' , updated[0].educationAndTrainingDescription)
       return {
         message: 'updating education page data.',
         statusCode: 200,
