@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { projectsInterface } from './ngo/entities/project.entity';
@@ -7,6 +7,7 @@ import * as fs from 'fs';
 import { documentsInterface } from './ngo/entities/document.entity';
 import { pagesInterface } from './entity/pages.entity';
 import { completeProjectCreation, homePage, pageDescriptionDto } from './dto/homePage.dto';
+import { NgoService } from './ngo/ngo.service';
 
 @Injectable()
 export class AppService {
@@ -169,11 +170,11 @@ export class AppService {
     let admin = `${req.user.firstName} ${req.user.lastName}`
     console.log(body)
     if (body.type == "educations") {
-      page.educationAndTrainingDescription = { ...body.description , admin: admin }
+      page.educationAndTrainingDescription = { ...body.description, admin: admin }
       console.log(page.educationAndTrainingDescription)
       await page.save()
       let updated = await this.pageRepository.find()
-      console.log('updated>>>' , updated[0].educationAndTrainingDescription)
+      console.log('updated>>>', updated[0].educationAndTrainingDescription)
       return {
         message: 'updating education page data.',
         statusCode: 200,
@@ -197,7 +198,7 @@ export class AppService {
         statusCode: 200,
         data: updated[0].collaborationOpportunities
       }
-    }else if(body.type == 'Participation'){
+    } else if (body.type == 'Participation') {
       page.Participation = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
@@ -206,7 +207,7 @@ export class AppService {
         statusCode: 200,
         data: updated[0].Participation
       }
-    }else if(body.type == 'countries'){
+    } else if (body.type == 'countries') {
       page.countriesDescription = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
@@ -215,7 +216,7 @@ export class AppService {
         statusCode: 200,
         data: updated[0].countriesDescription
       }
-      
+
     } else {
       return {
         message: 'updating events page data.',
@@ -249,7 +250,7 @@ export class AppService {
     console.log(body)
     let admin = `${req.user.firstName} ${req.user.lastName}`
     page.aboutUs = { ...body, admin }
-    console.log('222' , page.aboutUs)
+    console.log('222', page.aboutUs)
     await page.save()
     let updated = await this.pageRepository.find()
     return {
@@ -287,7 +288,7 @@ export class AppService {
   async getDescriptions(req: any, res: any, pageName: string) {
     let pages = await this.pageRepository.find()
     let page = pages[0]
-    console.log('get' , pageName)
+    console.log('get', pageName)
     if (pageName == "educations") {
       return {
         message: 'updating education page data.',
@@ -508,4 +509,94 @@ export class AppService {
   }
 
 
+  // series: [44, 55, 41, 17, 15],
+  // labels: ["Iran", "Iraq", "Qatar", "Pakistan", "India"],
+
+
+  // series: [
+  //   {
+  //     name: "2023",
+  //     data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+  //   },
+  //   {
+  //     name: "2024",
+  //     data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+  //   },
+  //   {
+  //     name: "2025",
+  //     data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+  //   },
+  // ],
+
+
+  // categories: [
+  //   "NGO Name",
+  //   "NGO Name",
+  //   "NGO Name",
+  //   "NGO Name",
+  //   "NGO Name",
+  //   "NGO Name",
+  //   "NGO Name",
+  //   "NGO Name",
+  //   "NGO Name",
+  // ],
+
+
+  private async barCharts(){
+    let ngos = await this.ngoRepository.find()
+    
+    let labels = []
+    let series = []
+
+    for (let i = 0 ; i < ngos.length ; i ++){
+      let elem = ngos[i]
+      if (!labels.includes(elem.country)){
+        labels.push(elem.country)
+        series.push(1)
+      }else{
+        let index = labels.indexOf(elem)
+        series[index]++;
+      }
+    }
+    return {
+      labels , series
+    }
+  }
+
+
+
+  async statisticPage(req: any, res: any){
+
+    let donate = await this.barCharts()
+    
+    let ngos = await this.ngoRepository.find()
+    
+    let barChart = {
+      series: [
+          {
+            name: "2023",
+            data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+          },
+          {
+            name: "2024",
+            data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+          },
+          {
+            name: "2025",
+            data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+          },
+      ],
+      categories: [
+        "NGO Name",
+        "NGO Name",
+        "NGO Name",
+        "NGO Name",
+        "NGO Name",
+        "NGO Name",
+        "NGO Name",
+        "NGO Name",
+        "NGO Name",
+      ],
+    }
+  }
 }

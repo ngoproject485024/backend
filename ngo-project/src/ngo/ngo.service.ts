@@ -29,7 +29,7 @@ export class NgoService {
 
 
 
-  private async ngoMaps(){
+  async ngoMaps(){
       let ngos = await this.ngoRepository.find()
       let countries = {}
       for (let i of ngos){

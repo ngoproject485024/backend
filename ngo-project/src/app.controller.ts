@@ -10,22 +10,23 @@ import { aboutUsDto, completeProjectCreation, homePage, pageDescriptionDto, setF
 @ApiTags('pages data')
 @Controller('page')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Post('uploadFile')
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'picture' , maxCount : 10 }] 
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'picture', maxCount: 10 }]
     , {
-    storage: diskStorage({
-      destination: '/home/ngo/uploadFile'
-      , filename: (req, files, cb) => {
-        // console.log('here is files>>>>>' , files)
-        // Generating a 32 random chars long string
-        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
-        //Calling the callback passing the random name generated with the original extension name
-        cb(null, `${randomName}${extname(files.originalname)}`)
-      }
-  })}))
-  async upload( @Req() req , @Res() res, @UploadedFiles(
+      storage: diskStorage({
+        destination: '/home/ngo/uploadFile'
+        , filename: (req, files, cb) => {
+          // console.log('here is files>>>>>' , files)
+          // Generating a 32 random chars long string
+          const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
+          //Calling the callback passing the random name generated with the original extension name
+          cb(null, `${randomName}${extname(files.originalname)}`)
+        }
+      })
+    }))
+  async upload(@Req() req, @Res() res, @UploadedFiles(
   ) picture) {
     // console.log()
     // console.log('' ,picture)
@@ -45,12 +46,12 @@ export class AppController {
         message: 'get home page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   async getHomeData(@Req() req: any, @Res() res: any) {
-    return this.appService.homeData(req , res)
+    return this.appService.homeData(req, res)
   }
 
 
@@ -65,16 +66,16 @@ export class AppController {
         message: 'set home page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   @ApiBody({
-    type : homePage,
-    description : 'بادی برای اپدیت صفحه هوم'
+    type: homePage,
+    description: 'بادی برای اپدیت صفحه هوم'
   })
-  async setHomeData(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : homePage) {
-    return this.appService.setHomeData(req , res , body)
+  async setHomeData(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: homePage) {
+    return this.appService.setHomeData(req, res, body)
   }
 
 
@@ -90,16 +91,16 @@ export class AppController {
         message: 'set peoject page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   @ApiBody({
-    type : completeProjectCreation,
-    description : 'بادی برای اپدیت صفحه هوم'
+    type: completeProjectCreation,
+    description: 'بادی برای اپدیت صفحه هوم'
   })
-  async completedProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
-    return this.appService.setCompletedProjectPage(req , res , body)
+  async completedProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: completeProjectCreation) {
+    return this.appService.setCompletedProjectPage(req, res, body)
   }
 
 
@@ -113,12 +114,12 @@ export class AppController {
         message: 'get peoject page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
-  async getCompletedProject(@Req() req: any, @Res() res: any ) {
-    return this.appService.getCompleteProjectPage(req , res )
+  async getCompletedProject(@Req() req: any, @Res() res: any) {
+    return this.appService.getCompleteProjectPage(req, res)
   }
 
 
@@ -134,16 +135,16 @@ export class AppController {
         message: 'set peoject page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   @ApiBody({
-    type : completeProjectCreation,
-    description : 'بادی برای اپدیت صفحه پروژه های در حال اچرا'
+    type: completeProjectCreation,
+    description: 'بادی برای اپدیت صفحه پروژه های در حال اچرا'
   })
-  async ongoingProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
-    return this.appService.setOngongProjectPage(req , res , body)
+  async ongoingProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: completeProjectCreation) {
+    return this.appService.setOngongProjectPage(req, res, body)
   }
 
 
@@ -157,12 +158,12 @@ export class AppController {
         message: 'get peoject page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
-  async getongoingdProject(@Req() req: any, @Res() res: any ) {
-    return this.appService.getOngoingProjectPage(req , res )
+  async getongoingdProject(@Req() req: any, @Res() res: any) {
+    return this.appService.getOngoingProjectPage(req, res)
   }
 
 
@@ -178,16 +179,16 @@ export class AppController {
         message: 'set peoject page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   @ApiBody({
-    type : completeProjectCreation,
-    description : 'بادی برای اپدیت صفحه پروژه های در حال اچرا'
+    type: completeProjectCreation,
+    description: 'بادی برای اپدیت صفحه پروژه های در حال اچرا'
   })
-  async GoodPracticeProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
-    return this.appService.setgoodPracticeProjectPage(req , res , body)
+  async GoodPracticeProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: completeProjectCreation) {
+    return this.appService.setgoodPracticeProjectPage(req, res, body)
   }
 
 
@@ -201,12 +202,12 @@ export class AppController {
         message: 'get peoject page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
-  async getGoodPracticedProject(@Req() req: any, @Res() res: any ) {
-    return this.appService.getgoodPracticeProjectPage(req , res )
+  async getGoodPracticedProject(@Req() req: any, @Res() res: any) {
+    return this.appService.getgoodPracticeProjectPage(req, res)
   }
 
 
@@ -221,16 +222,16 @@ export class AppController {
         message: 'set peoject page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   @ApiBody({
-    type : completeProjectCreation,
-    description : 'بادی برای اپدیت صفحه پروژه های   فرصت های همکاری'
+    type: completeProjectCreation,
+    description: 'بادی برای اپدیت صفحه پروژه های   فرصت های همکاری'
   })
-  async CollaborationProject(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : completeProjectCreation) {
-    return this.appService.setcollaborationProjectPage(req , res , body)
+  async CollaborationProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: completeProjectCreation) {
+    return this.appService.setcollaborationProjectPage(req, res, body)
   }
 
 
@@ -245,16 +246,16 @@ export class AppController {
         message: 'set  pages data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   @ApiBody({
-    type : pageDescriptionDto,
-    description : 'بادی برای اپدیت صفحه ها  فرصت های همکاری'
+    type: pageDescriptionDto,
+    description: 'بادی برای اپدیت صفحه ها  فرصت های همکاری'
   })
-  async pagesDescription(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : pageDescriptionDto) {
-    return this.appService.setPagesDescription(req , res , body)
+  async pagesDescription(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: pageDescriptionDto) {
+    return this.appService.setPagesDescription(req, res, body)
   }
 
 
@@ -269,16 +270,16 @@ export class AppController {
         message: 'set about us pages data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   @ApiBody({
-    type : aboutUsDto,
-    description : 'بادی برای اپدیت صفحه ها   درباره ما '
+    type: aboutUsDto,
+    description: 'بادی برای اپدیت صفحه ها   درباره ما '
   })
-  async setAboutUs(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : aboutUsDto) {
-    return this.appService.setAboutUs(req , res , body)
+  async setAboutUs(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: aboutUsDto) {
+    return this.appService.setAboutUs(req, res, body)
   }
 
 
@@ -293,16 +294,16 @@ export class AppController {
         message: 'set footer data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
   @ApiBody({
-    type : setFooterDto,
-    description : 'بادی برای ست کردن دیتای فوتر'
+    type: setFooterDto,
+    description: 'بادی برای ست کردن دیتای فوتر'
   })
-  async setFooterData(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : setFooterDto) {
-    return this.appService.setFooterData(req , res , body)
+  async setFooterData(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: setFooterDto) {
+    return this.appService.setFooterData(req, res, body)
   }
 
 
@@ -320,12 +321,12 @@ export class AppController {
         message: 'get footer data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
-  async getFooterData(@Req() req: any, @Res() res: any ) {
-    return this.appService.getFooter(req , res )
+  async getFooterData(@Req() req: any, @Res() res: any) {
+    return this.appService.getFooter(req, res)
   }
 
 
@@ -341,12 +342,12 @@ export class AppController {
         message: 'get description page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
-  async getDescriptions(@Req() req: any, @Res() res: any , @Param('pageName') pageName : string ) {
-    return this.appService.getDescriptions(req , res , pageName)
+  async getDescriptions(@Req() req: any, @Res() res: any, @Param('pageName') pageName: string) {
+    return this.appService.getDescriptions(req, res, pageName)
   }
 
 
@@ -362,19 +363,19 @@ export class AppController {
         message: 'get peoject page data done',
         error: null,
         data: {},
-          ngo: [],
-        }
-    }    
+        ngo: [],
+      }
+    }
   })
-  async getCollaborationdProject(@Req() req: any, @Res() res: any ) {
-    return this.appService.getcollaborationProjectPage(req , res )
+  async getCollaborationdProject(@Req() req: any, @Res() res: any) {
+    return this.appService.getcollaborationProjectPage(req, res)
   }
 
 
 
   @Post('/file/delete')
-  async deleteFiles(@Req() req: any, @Res() res: any , @Body() body : any){
-      return this.appService.deleteFile(req , res , body)
+  async deleteFiles(@Req() req: any, @Res() res: any, @Body() body: any) {
+    return this.appService.deleteFile(req, res, body)
   }
 
 
@@ -390,10 +391,10 @@ export class AppController {
         error: null,
         data: {}
       }
-    }    
+    }
   })
   async getaboutUsData(@Req() req: any, @Res() res: any) {
-    return this.appService.aboutUs(req , res)
+    return this.appService.aboutUs(req, res)
   }
 
 
@@ -431,7 +432,7 @@ export class AppController {
     },
   })
   async getProjectPage(@Req() req: any, @Res() res: any) {
-    return this.appService.projectPage(req , res)
+    return this.appService.projectPage(req, res)
   }
 
 
@@ -461,8 +462,8 @@ export class AppController {
       }
     },
   })
-  async getSpecificProjects(@Req() req: any, @Res() res: any , @Query('status') status : string , @Query('page') page : string) {
-    return this.appService.specificProjectsByStatus(req , res , status , +page)
+  async getSpecificProjects(@Req() req: any, @Res() res: any, @Query('status') status: string, @Query('page') page: string) {
+    return this.appService.specificProjectsByStatus(req, res, status, +page)
   }
 
 
@@ -492,39 +493,39 @@ export class AppController {
       }
     },
   })
-  async getDocuments(@Req() req: any, @Res() res: any , @Query('search') search : string , @Query('page') page : string ) {
-    return this.appService.getDocuments(req , res , +page , search)
+  async getDocuments(@Req() req: any, @Res() res: any, @Query('search') search: string, @Query('page') page: string) {
+    return this.appService.getDocuments(req, res, +page, search)
   }
 
 
-    /**this is project page data by category */
-    @Get('/documents/:id')
-    @ApiOperation({ summary: 'گرفتن اسناد بر اساس ای دی' })
-    @ApiResponse({
-      status: 200, description: 'get project page data',
-      schema: {
-        example: {
-          success: true,
-          message: 'get project page data done',
-          error: null,
-          data: {}
-        }
-      },
-    })
-    @ApiResponse({
-      status: 500, description: 'internal service error',
-      schema: {
-        example: {
-          success: false,
-          message: 'internal error',
-          error: 'internal service error',
-          data: null
-        }
-      },
-    })
-    async searchDcuments(@Req() req: any, @Res() res: any , @Param('id') id : string) {
-      return this.appService.searchDocument(req , res , id)
-    }
+  /**this is project page data by category */
+  @Get('/documents/:id')
+  @ApiOperation({ summary: 'گرفتن اسناد بر اساس ای دی' })
+  @ApiResponse({
+    status: 200, description: 'get project page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get project page data done',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  async searchDcuments(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.appService.searchDocument(req, res, id)
+  }
 
 
 
@@ -553,8 +554,8 @@ export class AppController {
       }
     },
   })
-  async getSpecificProject(@Req() req: any, @Res() res: any , @Param('id') id : string) {
-    return this.appService.getSpecificProjectByID(req , res , id)
+  async getSpecificProject(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.appService.getSpecificProjectByID(req, res, id)
   }
 
 
@@ -585,8 +586,46 @@ export class AppController {
     },
   })
   async getSpecificProjectsById(@Req() req: any, @Res() res: any) {
-    return this.appService.specificProjectsById(req , res )
+    return this.appService.specificProjectsById(req, res)
   }
 
-  
+
+  /**
+   * statistic page
+   * @param req 
+   * @param res 
+   * @returns 
+   */
+  @Get('/statistic')
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiOperation({ summary: 'گرفتن  دیتای صفحه استاتیستیک' })
+  @ApiResponse({
+    status: 200, description: 'get statistic page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get statistic page data done',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  async getStatistic(@Req() req: any, @Res() res: any) {
+    return this.appService.statisticPage(req, res)
+  }
+
+
+
+/////////////////////////final line!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
