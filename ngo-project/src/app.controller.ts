@@ -259,7 +259,7 @@ export class AppController {
 
 
 
-  @Post('/aboutus/create')
+  @Post('/aboutus/crdeate')
   @ApiOperation({ summary: 'ست کردن دیتاهای صفحه درباره ما ' })
   @ApiResponse({
     status: 200, description: 'set about us pages data',
