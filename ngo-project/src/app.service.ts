@@ -271,19 +271,19 @@ export class AppService {
       return {
         message: 'updating education page data.',
         statusCode: 200,
-        data: page.collaborationOpportunities
+        data: page.educationAndTrainingDescription
       }
     } else if (pageName == 'events') {
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: page.collaborationOpportunities
+        data: page.eventsDescription
       }
     } else if (pageName == 'archives') {
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: page.collaborationOpportunities
+        data: page.archivesDescription
       }
     } else {
       return {
