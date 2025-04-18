@@ -202,6 +202,7 @@ export class AppService {
       page.Participation = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
+      console.log(updated[0].Participation)
       return {
         message: 'updating events page data.',
         statusCode: 200,
@@ -211,6 +212,7 @@ export class AppService {
       page.countriesDescription = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
+      console.log(updated[0].countriesDescription)
       return {
         message: 'updating events page data.',
         statusCode: 200,
@@ -308,6 +310,8 @@ export class AppService {
         data: page.archivesDescription
       }
     }else if (pageName == 'statistic') {
+      console.log('page>>' , pageName)
+      console.log('pages>>' , page.Participation , page.countriesDescription)
       return {
         message: 'getting events page data.',
         statusCode: 200,
