@@ -33,7 +33,9 @@ export interface pagesInterface extends Document {
         enMiddleImageDescription: string,
         ruDescription: string,
         ruMiddleImageDescription: string,
-        missionAndGoals: string,
+        peMissionAndGoals: string,
+        enMissionAndGoals: string,
+        ruMissionAndGoals: string,
         admin: string
     }
 
@@ -176,7 +178,9 @@ export class pages {
             , enMiddleImageDescription: { type: String }
             , ruDescription: { ten: String }
             , ruMiddleImageDescription: { type: String }
-            , missionAndGoals: { type: String }
+            , peMissionAndGoals: {type : String}
+            , enMissionAndGoals: {type : String}
+            , ruMissionAndGoals: {type : String}  
             , admin: { type: String }
         }
     })
@@ -188,7 +192,9 @@ export class pages {
         enMiddleImageDescription: string,
         ruDescription: string,
         ruMiddleImageDescription: string,
-        missionAndGoals: string,
+        peMissionAndGoals: string,
+        enMissionAndGoals: string,
+        ruMissionAndGoals: string,  
         admin: string
     }
 

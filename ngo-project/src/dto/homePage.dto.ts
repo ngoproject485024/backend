@@ -359,6 +359,21 @@ export class aboutUsDto{
         example : 'description',
         required : true
     })
-    missionAndGoals: string
-
+    peMissionAndGoals: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    enMissionAndGoals: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    ruMissionAndGoals: string 
 }
