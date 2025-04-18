@@ -313,6 +313,8 @@ export class aboutUsDto{
     })
     peDescription: string
     
+    
+    
     @IsNotEmpty()
     @IsString()
     @ApiProperty({

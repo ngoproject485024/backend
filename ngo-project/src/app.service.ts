@@ -246,8 +246,10 @@ export class AppService {
   async setAboutUs(req: any, res: any, body: any) {
     let pages = await this.pageRepository.find()
     let page = pages[0]
+    console.log(body)
     let admin = `${req.user.firstName} ${req.user.lastName}`
     page.aboutUs = { ...body, admin }
+    console.log('222' , page.aboutUs)
     await page.save()
     let updated = await this.pageRepository.find()
     return {
