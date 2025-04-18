@@ -208,8 +208,31 @@ export class AppService {
 
 
 
-  async setFooterData(req  : any , res : any , body : any){
-    
+  async setFooterData(req: any, res: any, body: any) {
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+    page.footer = { ...body , admin: admin }
+    await page.save()
+    let updated = await this.pageRepository.find()
+    return {
+      message: 'updating footer data.',
+      statusCode: 200,
+      data: updated[0].footer
+    }
+  }
+
+
+
+
+  async getFooter(req: any, res: any) {
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    return {
+      message: 'updating footer data.',
+      statusCode: 200,
+      data: page.footer
+    }
   }
 
 

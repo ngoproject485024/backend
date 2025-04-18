@@ -285,6 +285,28 @@ export class AppController {
 
 
 
+
+  @Get('/footer')
+  @ApiOperation({ summary: 'گت کردن دیتاهای فوتر ' })
+  @ApiResponse({
+    status: 200, description: 'get footer data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get footer data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  async getFooterData(@Req() req: any, @Res() res: any ) {
+    return this.appService.getFooter(req , res )
+  }
+
+
+
+
   @Get('/description/:pageName')
   @ApiOperation({ summary: 'گرفتن دیتاهای توضیحات صفحات بر اساس نام صفحه' })
   @ApiResponse({

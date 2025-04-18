@@ -59,6 +59,9 @@ export class AppModule implements NestModule {
       { path: '/page/project/ongoing/create', method: RequestMethod.POST },
       { path: '/page/project/GoodPractice/create', method: RequestMethod.POST },
       { path: '/page/project/Collaboration/create', method: RequestMethod.POST },
+      { path: '/page/description/create', method: RequestMethod.POST },
+      { path: '/page/footer/create', method: RequestMethod.POST },
+      { path: '/page/footer', method: RequestMethod.GET},
     )
   }
 }

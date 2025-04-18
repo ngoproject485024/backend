@@ -193,7 +193,15 @@ export class setFooterDto {
         required: true
     })
     peDescription: string;
-    
+
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example : ['picLink'],
+        required : true
+    })
+    logo : string[]
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -201,7 +209,7 @@ export class setFooterDto {
         required: true
     })
     enDescription: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -209,7 +217,7 @@ export class setFooterDto {
         required: true
     })
     ruDescription: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -217,7 +225,7 @@ export class setFooterDto {
         required: true
     })
     peAddress: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -225,7 +233,7 @@ export class setFooterDto {
         required: true
     })
     enAddress: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -233,7 +241,7 @@ export class setFooterDto {
         required: true
     })
     ruAddress: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -241,7 +249,7 @@ export class setFooterDto {
         required: true
     })
     phone: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -249,7 +257,7 @@ export class setFooterDto {
         required: true
     })
     gmail: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -257,7 +265,7 @@ export class setFooterDto {
         required: true
     })
     instaLink: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -265,7 +273,7 @@ export class setFooterDto {
         required: true
     })
     xLink: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -273,7 +281,7 @@ export class setFooterDto {
         required: true
     })
     linkedInLink: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
@@ -281,6 +289,6 @@ export class setFooterDto {
         required: true
     })
     faceBookLink: string;
-    
+
 }
 

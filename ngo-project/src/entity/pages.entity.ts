@@ -89,6 +89,7 @@ export interface pagesInterface extends Document {
         xLink : string;
         linkedInLink : string;
         faceBookLink : string;
+        logo : string[]
         admin : string
     }
 
@@ -305,6 +306,7 @@ export class pages{
             xLink: {type : String},
             linkedInLink: {type : String},
             faceBookLink: {type : String},
+            logo : {type : [String]}
         }, default: {
             peDescription: '',
             enDescription: '',
@@ -318,6 +320,7 @@ export class pages{
             xLink: '',
             linkedInLink: '',
             faceBookLink: '',
+            logo : [],
             admin: '',
         }
     })
@@ -334,6 +337,7 @@ export class pages{
         xLink : string;
         linkedInLink : string;
         faceBookLink : string;
+        logo : string[]
         admin : string
     }
 
