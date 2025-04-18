@@ -46,10 +46,6 @@ import { pagesSchema } from './entity/pages.entity';
 })
 
 
-
-
-
-
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(adminAuth).forRoutes({ path: '/events-educations/education/create', method: RequestMethod.POST },

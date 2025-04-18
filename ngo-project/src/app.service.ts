@@ -307,7 +307,13 @@ export class AppService {
         statusCode: 200,
         data: page.archivesDescription
       }
-    } else {
+    }else if (pageName == 'statistic') {
+      return {
+        message: 'getting events page data.',
+        statusCode: 200,
+        data: { participation : page.Participation , countriesDescription : page.countriesDescription}
+      }
+    }else {
       return {
         message: 'updating events page data.',
         statusCode: 400,
