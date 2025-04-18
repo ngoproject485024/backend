@@ -104,6 +104,19 @@ export interface pagesInterface extends Document {
         admin: string
     }
 
+    Participation: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
+
+    countriesDescription: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
 }
 
 
@@ -215,6 +228,47 @@ export class pages {
         }
     })
     ongoingProject: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    Participation: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    countriesDescription: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;

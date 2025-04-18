@@ -159,7 +159,7 @@ export class pageDescriptionDto {
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
-        example: 'educations || events || archives',
+        example: 'educations || events || Participation || countries',
         required: true
     })
     type: string
@@ -344,7 +344,7 @@ export class aboutUsDto{
         required : true
     })
     ruDescription: string
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({

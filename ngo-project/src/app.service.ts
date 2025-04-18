@@ -197,6 +197,25 @@ export class AppService {
         statusCode: 200,
         data: updated[0].collaborationOpportunities
       }
+    }else if(body.type == 'Participation'){
+      page.Participation = { ...body.description, admin: admin }
+      await page.save()
+      let updated = await this.pageRepository.find()
+      return {
+        message: 'updating events page data.',
+        statusCode: 200,
+        data: updated[0].Participation
+      }
+    }else if(body.type == 'countries'){
+      page.countriesDescription = { ...body.description, admin: admin }
+      await page.save()
+      let updated = await this.pageRepository.find()
+      return {
+        message: 'updating events page data.',
+        statusCode: 200,
+        data: updated[0].countriesDescription
+      }
+      
     } else {
       return {
         message: 'updating events page data.',
