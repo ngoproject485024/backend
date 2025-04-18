@@ -305,6 +305,34 @@ export class aboutUsDto{
     })
     middleImages: string[]
 
+
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    peTitle: string
+    
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    enTitle: string
+    
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    ruTitle: string
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({

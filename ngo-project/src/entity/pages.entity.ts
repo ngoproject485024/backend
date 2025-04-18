@@ -26,6 +26,9 @@ export interface pagesInterface extends Document {
     }
 
     aboutUs: {
+        peTitle: string,
+        enTitle: string,
+        ruTitle: string,
         middleImages: string[],
         peDescription: string,
         peMiddleImageDescription: string,
@@ -171,7 +174,10 @@ export class pages {
 
     @Prop({
         type: {
-            middleImages: { type: [String] }
+              peTitle: {type : String}
+            , enTitle: {type : String}
+            , ruTitle: {type : String}
+            , middleImages: { type: [String] }
             , peDescription: { type: String }
             , peMiddleImageDescription: { type: String }
             , enDescription: { type: String }
@@ -185,6 +191,9 @@ export class pages {
         }
     })
     aboutUs: {
+        peTitle : string,
+        enTitle : string,
+        ruTitle : string,
         middleImages: string[],
         peDescription: string,
         peMiddleImageDescription: string,
