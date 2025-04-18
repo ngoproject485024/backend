@@ -4,7 +4,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 
 export interface pagesInterface extends Document {
-    homPage : {
+    homPage: {
         mainImages: string[],
         middleImages: string[],
         peDescription: string,
@@ -22,75 +22,86 @@ export interface pagesInterface extends Document {
         ruProjectDescription: string,
         ruAboutUsDescription: string,
         ruNgoDescription: string,
-        admin : string
-    }
-    
-
-    completProjects : {
-        peDescription : string;
-        enDescription : string;
-        ruDescription : string;
-        admin : string
+        admin: string
     }
 
-    ongoingProject : {
-        peDescription : string;
-        enDescription : string;
-        ruDescription : string;
-        admin : string
+    aboutUs: {
+        middleImages: string[],
+        peDescription: string,
+        peMiddleImageDescription: string,
+        enDescription: string,
+        enMiddleImageDescription: string,
+        ruDescription: string,
+        ruMiddleImageDescription: string,
+        missionAndGoals: string,
+        admin: string
     }
 
-    goodPractice : {
-        peDescription : string;
-        enDescription : string;
-        ruDescription : string;
-        admin : string
-    }
-
-    collaborationOpportunities : {
-        peDescription : string;
-        enDescription : string;
-        ruDescription : string;
-        admin : string
-    }
-
-    educationAndTrainingDescription : {
+    completProjects: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
-
-    eventsDescription : {
+    ongoingProject: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
-    archivesDescription : {
+    goodPractice: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
-    footer : {
+    collaborationOpportunities: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        peAddress : string;
-        enAddress : string;
-        ruAddress : string;
-        phone : string;
-        gmail : string;
-        instaLink : string;
-        xLink : string;
-        linkedInLink : string;
-        faceBookLink : string;
-        logo : string[]
-        admin : string
+        admin: string
+    }
+
+    educationAndTrainingDescription: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
+
+
+    eventsDescription: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
+
+    archivesDescription: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
+
+    footer: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        peAddress: string;
+        enAddress: string;
+        ruAddress: string;
+        phone: string;
+        gmail: string;
+        instaLink: string;
+        xLink: string;
+        linkedInLink: string;
+        faceBookLink: string;
+        logo: string[]
+        admin: string
     }
 
 }
@@ -98,45 +109,74 @@ export interface pagesInterface extends Document {
 
 
 
-@Schema({timestamps : true})
-export class pages{
-    @Prop({type : {mainImages : {type : [String]} , middleImages : {type : [String]} 
-        , peDescription : {type : String} 
-        , peMiddleImageDescription : {type : String} 
-        , peProjectDescription : {type : String} 
-        , peAboutUsDescription: { type: String }
-        , peNgoDescription: { type: String }
-        , enDescription : {ten : String} 
-        , enMiddleImageDescription : {type : String} 
-        , enProjectDescription : {type : String} 
-        , enAboutUsDescription: { type: String }
-        , enNgoDescription: { type: String }
-        , ruDescription : {ten : String} 
-        , ruMiddleImageDescription : {type : String} 
-        , ruProjectDescription : {type : String} 
-        , ruAboutUsDescription: { type: String }
-        , ruNgoDescription: { type: String },
-        admin : {type : String}
-    }})
-    homPage : {
-      mainImages: string[],
-      middleImages: string[],
-      peDescription: string,
-      peMiddleImageDescription: string,
-      peProjectDescription: string,
-      peAboutUsDescription: string,
-      peNgoDescription: string,
-      enDescription: string,
-      enMiddleImageDescription: string,
-      enProjectDescription: string,
-      enAboutUsDescription: string,
-      enNgoDescription: string,
-      ruDescription: string,
-      ruMiddleImageDescription: string,
-      ruProjectDescription: string,
-      ruAboutUsDescription: string,
-      ruNgoDescription: string,
-      admin : string
+@Schema({ timestamps: true })
+export class pages {
+    @Prop({
+        type: {
+            mainImages: { type: [String] }, middleImages: { type: [String] }
+            , peDescription: { type: String }
+            , peMiddleImageDescription: { type: String }
+            , peProjectDescription: { type: String }
+            , peAboutUsDescription: { type: String }
+            , peNgoDescription: { type: String }
+            , enDescription: { ten: String }
+            , enMiddleImageDescription: { type: String }
+            , enProjectDescription: { type: String }
+            , enAboutUsDescription: { type: String }
+            , enNgoDescription: { type: String }
+            , ruDescription: { ten: String }
+            , ruMiddleImageDescription: { type: String }
+            , ruProjectDescription: { type: String }
+            , ruAboutUsDescription: { type: String }
+            , ruNgoDescription: { type: String },
+            admin: { type: String }
+        }
+    })
+    homPage: {
+        mainImages: string[],
+        middleImages: string[],
+        peDescription: string,
+        peMiddleImageDescription: string,
+        peProjectDescription: string,
+        peAboutUsDescription: string,
+        peNgoDescription: string,
+        enDescription: string,
+        enMiddleImageDescription: string,
+        enProjectDescription: string,
+        enAboutUsDescription: string,
+        enNgoDescription: string,
+        ruDescription: string,
+        ruMiddleImageDescription: string,
+        ruProjectDescription: string,
+        ruAboutUsDescription: string,
+        ruNgoDescription: string,
+        admin: string
+    }
+
+
+    @Prop({
+        type: {
+            middleImages: { type: [String] }
+            , peDescription: { type: String }
+            , peMiddleImageDescription: { type: String }
+            , enDescription: { ten: String }
+            , enMiddleImageDescription: { type: String }
+            , ruDescription: { ten: String }
+            , ruMiddleImageDescription: { type: String }
+            , missionAndGoals: { type: String }
+            , admin: { type: String }
+        }
+    })
+    aboutUs: {
+        middleImages: string[],
+        peDescription: string,
+        peMiddleImageDescription: string,
+        enDescription: string,
+        enMiddleImageDescription: string,
+        ruDescription: string,
+        ruMiddleImageDescription: string,
+        missionAndGoals: string,
+        admin: string
     }
 
 
@@ -157,7 +197,7 @@ export class pages{
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
 
@@ -178,7 +218,7 @@ export class pages{
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
 
@@ -200,7 +240,7 @@ export class pages{
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
 
@@ -222,7 +262,7 @@ export class pages{
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
 
@@ -239,11 +279,11 @@ export class pages{
             admin: '',
         }
     })
-    educationAndTrainingDescription : {
+    educationAndTrainingDescription: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
 
@@ -261,11 +301,11 @@ export class pages{
             admin: '',
         }
     })
-    eventsDescription : {
+    eventsDescription: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
 
@@ -282,11 +322,11 @@ export class pages{
             admin: '',
         }
     })
-    archivesDescription : {
+    archivesDescription: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        admin : string
+        admin: string
     }
 
 
@@ -297,16 +337,16 @@ export class pages{
             enDescription: { type: String },
             ruDescription: { type: String },
             admin: { type: String },
-            peAddress: {type : String},
-            enAddress: {type : String},
-            ruAddress: {type : String},
-            phone: {type : String},
-            gmail: {type : String},
-            instaLink: {type : String},
-            xLink: {type : String},
-            linkedInLink: {type : String},
-            faceBookLink: {type : String},
-            logo : {type : [String]}
+            peAddress: { type: String },
+            enAddress: { type: String },
+            ruAddress: { type: String },
+            phone: { type: String },
+            gmail: { type: String },
+            instaLink: { type: String },
+            xLink: { type: String },
+            linkedInLink: { type: String },
+            faceBookLink: { type: String },
+            logo: { type: [String] }
         }, default: {
             peDescription: '',
             enDescription: '',
@@ -320,25 +360,25 @@ export class pages{
             xLink: '',
             linkedInLink: '',
             faceBookLink: '',
-            logo : [],
+            logo: [],
             admin: '',
         }
     })
-    footer : {
+    footer: {
         peDescription: string;
         enDescription: string;
         ruDescription: string;
-        peAddress : string;
-        enAddress : string;
-        ruAddress : string;
-        phone : string;
-        gmail : string;
-        instaLink : string;
-        xLink : string;
-        linkedInLink : string;
-        faceBookLink : string;
-        logo : string[]
-        admin : string
+        peAddress: string;
+        enAddress: string;
+        ruAddress: string;
+        phone: string;
+        gmail: string;
+        instaLink: string;
+        xLink: string;
+        linkedInLink: string;
+        faceBookLink: string;
+        logo: string[]
+        admin: string
     }
 
 

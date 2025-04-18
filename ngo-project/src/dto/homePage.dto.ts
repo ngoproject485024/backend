@@ -292,3 +292,73 @@ export class setFooterDto {
 
 }
 
+
+
+
+export class aboutUsDto{
+
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example : ['link'],
+        required : true
+    })
+    middleImages: string[]
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    peDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    peMiddleImageDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    enDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    enMiddleImageDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    ruDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    ruMiddleImageDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'description',
+        required : true
+    })
+    missionAndGoals: string
+
+}

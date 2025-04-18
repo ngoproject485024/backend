@@ -4,7 +4,7 @@ import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
 import { extname } from 'path';
-import { completeProjectCreation, homePage, pageDescriptionDto, setFooterDto } from './dto/homePage.dto';
+import { aboutUsDto, completeProjectCreation, homePage, pageDescriptionDto, setFooterDto } from './dto/homePage.dto';
 
 
 @ApiTags('pages data')
@@ -257,6 +257,29 @@ export class AppController {
     return this.appService.setPagesDescription(req , res , body)
   }
 
+
+
+  @Post('/aboutus/create')
+  @ApiOperation({ summary: 'ست کردن دیتاهای صفحه درباره ما ' })
+  @ApiResponse({
+    status: 200, description: 'set about us pages data',
+    schema: {
+      example: {
+        success: true,
+        message: 'set about us pages data done',
+        error: null,
+        data: {},
+          ngo: [],
+        }
+    }    
+  })
+  @ApiBody({
+    type : aboutUsDto,
+    description : 'بادی برای اپدیت صفحه ها  فرصت های همکاری'
+  })
+  async setAboutUs(@Req() req: any, @Res() res: any  , @Body(new ValidationPipe()) body : aboutUsDto) {
+    return this.appService.setAboutUs(req , res , body)
+  }
 
 
   @Post('/footer/create')

@@ -224,6 +224,16 @@ export class AppService {
 
 
 
+  async setAboutUs(req: any, res: any, body: any){
+    let pages = await this.pageRepository.find()
+    let page = pages[0]
+    let admin = `${req.user.firstName} ${req.user.lastName}`
+    page.aboutUs = {...body , admin}
+
+
+  }
+
+
 
   async getFooter(req: any, res: any) {
     let pages = await this.pageRepository.find()
@@ -241,7 +251,6 @@ export class AppService {
   async getDescriptions(req  : any , res : any , pageName : string){
     let pages = await this.pageRepository.find()
     let page = pages[0]
-    let admin = `${req.user.firstName} ${req.user.lastName}`
 
     if (pageName == "educations"){
       return {
