@@ -171,6 +171,7 @@ export class AppService {
     console.log(body)
     if (body.type == "educations") {
       page.educationAndTrainingDescription = { ...body.description , admin: admin }
+      console.log(page.educationAndTrainingDescription)
       await page.save()
       let updated = await this.pageRepository.find()
       console.log('updated>>>' , updated[0].educationAndTrainingDescription)
