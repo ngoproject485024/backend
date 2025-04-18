@@ -174,9 +174,9 @@ export class pages {
             middleImages: { type: [String] }
             , peDescription: { type: String }
             , peMiddleImageDescription: { type: String }
-            , enDescription: { ten: String }
+            , enDescription: { type: String }
             , enMiddleImageDescription: { type: String }
-            , ruDescription: { ten: String }
+            , ruDescription: { type: String }
             , ruMiddleImageDescription: { type: String }
             , peMissionAndGoals: {type : String}
             , enMissionAndGoals: {type : String}
