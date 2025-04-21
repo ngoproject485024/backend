@@ -557,8 +557,6 @@ export class NgoController {
   }
 
 
-
-
   /**this is ngo page api */
   @Get('/all')
   @ApiOperation({ summary: 'دیتای صفحه ی سمن ها به همراه دیتای نقشه' })

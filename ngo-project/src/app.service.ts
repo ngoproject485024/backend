@@ -45,14 +45,13 @@ export class AppService {
     //     admin : 'string'
     // }
     // })
-
+    console.log('body is>>' , body)
     let pages = await this.pageRepository.find()
     let page = pages[0]
     let admin = `${req.user.firstName} ${req.user.lastName}`
     page.homPage = { ...body, admin: admin };
     await page.save()
     let updated = await this.pageRepository.find()
-
     return {
       message: 'updating home page data.',
       statusCode: 200,
