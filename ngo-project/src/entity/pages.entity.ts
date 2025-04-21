@@ -137,12 +137,12 @@ export class pages {
             , peProjectDescription: { type: String }
             , peAboutUsDescription: { type: String }
             , peNgoDescription: { type: String }
-            , enDescription: { ten: String }
+            , enDescription: { type: String }
             , enMiddleImageDescription: { type: String }
             , enProjectDescription: { type: String }
             , enAboutUsDescription: { type: String }
             , enNgoDescription: { type: String }
-            , ruDescription: { ten: String }
+            , ruDescription: { type: String }
             , ruMiddleImageDescription: { type: String }
             , ruProjectDescription: { type: String }
             , ruAboutUsDescription: { type: String }

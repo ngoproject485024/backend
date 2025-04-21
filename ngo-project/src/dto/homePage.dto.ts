@@ -21,6 +21,7 @@ export class homePage {
     })
     middleImages: string[]
 
+
     @IsString()
     @ApiProperty({
         example: '',
