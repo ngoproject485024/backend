@@ -685,7 +685,6 @@ export class NgoController {
   }
 
 
-
   /**this is specific ngo documents api  */
   @Put('/document/approve/:id')
   @ApiOperation({ summary: 'تایید یا رد یک ادمین خاص' })
@@ -779,7 +778,6 @@ export class NgoController {
 
 
   
-
   /**this is specific ngo projects api  */
   @Get('/admin/projects')
   @ApiOperation({ summary: 'گرفتن پروژه ها توسط ادمین' })
@@ -809,6 +807,41 @@ export class NgoController {
   ngoProjectsByAdmin(@Req() req: any, @Res() res: any) {
     return this.ngoService.getNgoProjectsByAdmin(req, res)
   }
+
+
+
+
+
+  /**this is specific ngo projects api  */
+  @Get('/admin/ngo')
+  @ApiOperation({ summary: 'گرفتن دیتاهای مربوط به  سمن هاتوسط ادمین' })
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'get ngo projects succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'get ngo projects succeed',
+        error: null,
+        data: { ongoing: [], completed: [], goodPractice: [], collaborationOpportunities: [] }
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  ngosByAdmin(@Req() req: any, @Res() res: any ) {
+    return this.ngoService.getNgosData(req, res )
+  }
+
 
 
 

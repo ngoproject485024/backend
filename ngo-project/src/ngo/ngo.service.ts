@@ -542,7 +542,7 @@ export class NgoService {
 
 
 
-
+  
 
 
   async getNgoData(req: any, res: any , id : string) {
@@ -556,6 +556,18 @@ export class NgoService {
       message: 'get ngo projects successfully',
       statusCode: 200,
       data : {ngo , ngoDocument}
+    }
+  }
+
+
+  async getNgosData(req: any, res: any) {
+
+    let ngo = await this.ngoRepository.find().select(['-password'])
+    
+    return {
+      message: 'get ngo projects successfully',
+      statusCode: 200,
+      data : ngo
     }
   }
 
