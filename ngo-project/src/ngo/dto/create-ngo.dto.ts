@@ -110,7 +110,7 @@ export class CreateNgoDto {
     })
     email: string;
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsString()
     @ApiProperty({
         example: 'iranian ngo',
