@@ -571,4 +571,23 @@ export class NgoService {
     }
   }
 
+
+
+  async disableNgoData(req: any, res: any  ,id : string) {
+    let ngo = await this.ngoRepository.findById(id)
+    
+    if (ngo.disable){
+      ngo.disable = false;
+    }else{
+      ngo.disable = true;
+    }
+    
+    return {
+      message: 'فعال و غیر فعال کردن سمن ها',
+      statusCode: 200,
+      data : ngo
+    }
+  }
+
+
 }

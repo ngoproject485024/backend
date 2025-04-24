@@ -68,6 +68,7 @@ export class AppModule implements NestModule {
       { path: '/ngo/admin/ngo/:id', method: RequestMethod.GET },
       { path: '/ngo/admin/ngo', method: RequestMethod.GET },
       { path: '/ngo/document/approve/:id', method: RequestMethod.PUT },
+      { path: '/ngo/disable/:id', method: RequestMethod.PUT },
       // { path: '/page/footer', method: RequestMethod.GET},
     )
   }

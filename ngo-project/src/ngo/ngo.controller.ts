@@ -876,4 +876,36 @@ export class NgoController {
   }
 
 
+
+  /**this is specific ngo projects api  */
+  @Put('/disable/:id')
+  @ApiOperation({ summary: 'دیسیبل و یا فعال کردن یک سمن توسط ادمین' })
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'get ngo projects succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'get ngo projects succeed',
+        error: null,
+        data: { ongoing: [], completed: [], goodPractice: [], collaborationOpportunities: [] }
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  ngoDesableByAdmin(@Req() req: any, @Res() res: any , @Param('id') id : string) {
+    return this.ngoService.disableNgoData(req, res , id)
+  }
+
+
 }

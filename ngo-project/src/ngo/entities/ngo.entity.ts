@@ -57,6 +57,8 @@ export interface ngoInterface extends Document {
 
     conditionAndConfirm : string[];
 
+    disable : boolean;
+
     ownDocuments :  mongoose.Types.ObjectId[];
 
     documents : string[]
@@ -152,6 +154,9 @@ export class Ngo {
 
     @Prop({type : String})
     logo : string;
+
+    @Prop({type : Boolean})
+    disable : boolean;
 
     @Prop({type : [String]})
     documentsFile : string[];
