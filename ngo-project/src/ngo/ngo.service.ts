@@ -575,7 +575,7 @@ export class NgoService {
 
   async disableNgoData(req: any, res: any  ,id : string) {
     let ngo = await this.ngoRepository.findById(id)
-    
+    console.log('id isssss>>>>' , id)
     if (ngo.disable){
       ngo.disable = false;
     }else{
