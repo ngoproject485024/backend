@@ -685,6 +685,37 @@ export class NgoController {
   }
 
 
+    /**this is specific ngo documents api  */
+    @Get('/pannel/documents')
+    @ApiOperation({ summary: 'گرفتن اسناد توسط ادمین در پنل ادمین' })
+    @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+    @ApiResponse({
+      status: 200, description: 'get ngo documents succeed',
+      schema: {
+        example: {
+          success: true,
+          message: 'get ngo paneel succeed',
+          error: null,
+          data : []
+        }
+      },
+    })
+    @ApiResponse({
+      status: 500, description: 'internal service error',
+      schema: {
+        example: {
+          success: false,
+          message: 'internal error',
+          error: 'internal service error',
+          data: null
+        }
+      },
+    })
+    ngoDocumentsByAdmin(@Req() req: any, @Res() res: any) {
+      return this.ngoService.getNgosDocumentByAdmin(req, res)
+    }
+  
+
   /**this is specific ngo projects api  */
   @Get('/pannel/projects')
   @ApiOperation({ summary: 'گرفتن پروژه های پنل یک سمن خاص' })

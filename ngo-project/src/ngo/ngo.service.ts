@@ -116,7 +116,7 @@ export class NgoService {
 
   async createNewDocument(req : any , res : any , body: createDocumentsDto){
     let ngo = await this.ngoRepository.findById(req.user.id)
-    console.log(body)
+    // console.log(body)
     let newDocument :any = await this.ngoDocument.create({...body , ngo : ngo._id})
     ngo.ownDocuments.push(newDocument._id)
     await ngo.save()
@@ -455,7 +455,7 @@ export class NgoService {
       }
   }
   
-
+  
 
   async getNgosDocument(req :any , res:any ){
     let ngoId : string = req.user.id;
@@ -468,6 +468,21 @@ export class NgoService {
       data : ngo.ownDocuments
     }
   }
+
+
+
+  async getNgosDocumentByAdmin(req :any , res:any ){
+    let ngoId : string = req.user.id;
+    let ngo = await this.ngoRepository.findById(ngoId).populate('ownDocuments')
+    console.log(ngoId)
+    console.log(ngo)
+    return {
+      message: 'get ngo documents successfully',
+      statusCode: 200,
+      data : ngo.ownDocuments
+    }
+  }
+
 
 
 }
