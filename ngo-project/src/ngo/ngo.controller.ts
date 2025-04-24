@@ -814,7 +814,7 @@ export class NgoController {
 
   /**this is specific ngo projects api  */
   @Get('/admin/ngo')
-  @ApiOperation({ summary: 'گرفتن دیتاهای مربوط به  سمن هاتوسط ادمین' })
+  @ApiOperation({ summary: 'گرفتن دیتاهای مربوط به همه ی سمن هاتوسط ادمین' })
   @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
   @ApiResponse({
     status: 200, description: 'get ngo projects succeed',
