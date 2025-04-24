@@ -810,6 +810,37 @@ export class NgoController {
 
 
 
+    /**this is specific ngo projects api  */
+    @Get('/admin/projects/:id')
+    @ApiOperation({ summary: 'گرفتن پروژه توسط ادمین' })
+    @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+    @ApiResponse({
+      status: 200, description: 'get ngo projects succeed',
+      schema: {
+        example: {
+          success: true,
+          message: 'get ngo projects succeed',
+          error: null,
+          data: {}
+        }
+      },
+    })
+    @ApiResponse({
+      status: 500, description: 'internal service error',
+      schema: {
+        example: {
+          success: false,
+          message: 'internal error',
+          error: 'internal service error',
+          data: null
+        }
+      },
+    })
+    ngoProjectByAdmin(@Req() req: any, @Res() res: any , @Param('id') id : string) {
+      return this.ngoService.getNgoProjectByAdmin(req, res , id)
+    }
+  
+
 
 
   /**this is specific ngo projects api  */
