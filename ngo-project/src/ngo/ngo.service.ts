@@ -577,11 +577,14 @@ export class NgoService {
     let ngo = await this.ngoRepository.findById(id)
     console.log('id isssss>>>>' , id)
     if (ngo.disable){
-      ngo.disable = false;
+      // ngo.disable = false;
+      await ngo.updateOne({disable : false})
     }else{
-      ngo.disable = true;
+      await ngo.updateOne({disable : true})
+      // ngo.disable = true;
     }
-    await ngo.save()
+    console.log('after updating >>>> ' , ngo)
+    
     let updated = await this.ngoRepository.findById(id)
     console.log(updated)
     return {
