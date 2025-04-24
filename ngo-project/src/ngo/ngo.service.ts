@@ -472,7 +472,7 @@ export class NgoService {
 
 
   async getNgosDocumentByAdmin(req: any, res: any) {
-    let ngo = await this.ngoDocument.find()
+    let ngo = await this.ngoDocument.find().populate({path: 'ngo' , select : [ 'name' , 'username' , '_id' , 'city']})
     // console.log(ngoId)
     console.log(ngo)
     return {
