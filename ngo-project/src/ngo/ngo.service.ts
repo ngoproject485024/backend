@@ -581,11 +581,11 @@ export class NgoService {
     }else{
       ngo.disable = true;
     }
-    
+    let updated = await this.ngoRepository.findById(id)
     return {
       message: 'فعال و غیر فعال کردن سمن ها',
       statusCode: 200,
-      data : ngo
+      data : updated.disable
     }
   }
 
