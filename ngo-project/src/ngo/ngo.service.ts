@@ -484,6 +484,21 @@ export class NgoService {
 
 
 
+  async getNgoProjectsByAdmin(req: any, res: any) {
+    // let ngo = await this.ngoRepository.find()
+    let ongoing = await this.ngoProject.find({status : {$in : 'ongoing'}}).populate('ngo')
+    let completed = await this.ngoProject.find({status : {$in : 'completed'}}).populate('ngo')
+    let goodPractice = await this.ngoProject.find({status : {$in : 'goodPractice'}}).populate('ngo')
+    let collaborationOpportunities = await this.ngoProject.find({status : {$in : 'collaborationOpportunities'}}).populate('ngo')
+    return {
+      message: 'get ngo projects successfully',
+      statusCode: 200,
+      data: { ongoing: ongoing, completed: completed, goodPractice: goodPractice, collaborationOpportunities: collaborationOpportunities }
+    }
+  }
+
+
+
   async approveDocumentByAdmin(req: any, res: any, id: string, reject: boolean) {
     try {
       let ngo = await this.ngoDocument.findById(id)
@@ -524,4 +539,24 @@ export class NgoService {
       }
     }
   }
+
+
+
+
+
+
+  async getNgoData(req: any, res: any , id : string) {
+
+    let ngo = await this.ngoRepository.findById(id).populate('projects')
+    
+    let ngoDocument = await this.ngoRepository.findById(id).populate('ownDocuments')
+    console.log(id)
+    
+    return {
+      message: 'get ngo projects successfully',
+      statusCode: 200,
+      data : {ngo , ngoDocument}
+    }
+  }
+
 }

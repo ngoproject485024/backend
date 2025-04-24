@@ -81,7 +81,7 @@ export class NgoController {
         success: true,
         message: 'the ngo login successfully',
         error: null,
-        data: {username : 'a;dsfkja' , name : 'a;slkfjma;f' , token : 'as;dfilkjm;lkfamsd;lkfmas;ldfjk'}
+        data: { username: 'a;dsfkja', name: 'a;slkfjma;f', token: 'as;dfilkjm;lkfamsd;lkfmas;ldfjk' }
       }
     },
   })
@@ -111,7 +111,7 @@ export class NgoController {
     type: loginDTO,
     description: 'Json structure for ngo object',
   })
-  login(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: loginDTO){
+  login(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: loginDTO) {
     return this.ngoService.login(req, res, body)
   }
 
@@ -222,8 +222,8 @@ export class NgoController {
     type: createDocumentsDto,
     description: 'Json structure for project object',
   })
-  updatedocument(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: createDocumentsDto , @Param('id') id :string) {
-    return this.ngoService.updateDocument(req, res, body , id)
+  updatedocument(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: createDocumentsDto, @Param('id') id: string) {
+    return this.ngoService.updateDocument(req, res, body, id)
   }
 
 
@@ -275,8 +275,8 @@ export class NgoController {
       }
     },
   })
-  deleteDocuments(@Req() req: any, @Res() res: any, @Param('id') id :string) {
-    return this.ngoService.deleteDocuments(req, res , id)
+  deleteDocuments(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.ngoService.deleteDocuments(req, res, id)
   }
 
 
@@ -388,8 +388,8 @@ export class NgoController {
     type: createProject,
     description: 'Json structure for project object',
   })
-  updateProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: createProject , @Param('id') id :string) {
-    return this.ngoService.updateProject(req, res, body , id)
+  updateProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: createProject, @Param('id') id: string) {
+    return this.ngoService.updateProject(req, res, body, id)
   }
 
 
@@ -497,9 +497,9 @@ export class NgoController {
       }
     },
   })
-  
-  deleteProject(@Req() req: any, @Res() res: any, @Param('id') id :string) {
-    return this.ngoService.deleteProject(req, res , id)
+
+  deleteProject(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.ngoService.deleteProject(req, res, id)
   }
 
 
@@ -551,9 +551,9 @@ export class NgoController {
       }
     },
   })
-  
-  ongoingProject(@Req() req: any, @Res() res: any, @Param('id') id :string) {
-    return this.ngoService.ongoing(req, res , id)
+
+  ongoingProject(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.ngoService.ongoing(req, res, id)
   }
 
 
@@ -665,7 +665,7 @@ export class NgoController {
         success: true,
         message: 'get ngo paneel succeed',
         error: null,
-        data : []
+        data: []
       }
     },
   })
@@ -697,7 +697,7 @@ export class NgoController {
         success: true,
         message: 'approve ngo document succeed',
         error: null,
-        data : []
+        data: []
       }
     },
   })
@@ -712,40 +712,40 @@ export class NgoController {
       }
     },
   })
-  approveDocument(@Req() req: any, @Res() res: any , @Param('id') id : string , @Query('reject') reject : boolean) {
-    return this.ngoService.approveDocumentByAdmin(req, res , id , reject)
+  approveDocument(@Req() req: any, @Res() res: any, @Param('id') id: string, @Query('reject') reject: boolean) {
+    return this.ngoService.approveDocumentByAdmin(req, res, id, reject)
   }
 
-    /**this is specific ngo documents api  */
-    @Get('/admin/documents')
-    @ApiOperation({ summary: 'گرفتن اسناد توسط ادمین در پنل ادمین' })
-    @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
-    @ApiResponse({
-      status: 200, description: 'get ngo documents succeed',
-      schema: {
-        example: {
-          success: true,
-          message: 'get ngo paneel succeed',
-          error: null,
-          data : []
-        }
-      },
-    })
-    @ApiResponse({
-      status: 500, description: 'internal service error',
-      schema: {
-        example: {
-          success: false,
-          message: 'internal error',
-          error: 'internal service error',
-          data: null
-        }
-      },
-    })
-    ngoDocumentsByAdmin(@Req() req: any, @Res() res: any) {
-      return this.ngoService.getNgosDocumentByAdmin(req, res)
-    }
-  
+  /**this is specific ngo documents api  */
+  @Get('/admin/documents')
+  @ApiOperation({ summary: 'گرفتن اسناد توسط ادمین در پنل ادمین' })
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'get ngo documents succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'get ngo paneel succeed',
+        error: null,
+        data: []
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  ngoDocumentsByAdmin(@Req() req: any, @Res() res: any) {
+    return this.ngoService.getNgosDocumentByAdmin(req, res)
+  }
+
 
   /**this is specific ngo projects api  */
   @Get('/pannel/projects')
@@ -778,7 +778,69 @@ export class NgoController {
   }
 
 
+  
 
+  /**this is specific ngo projects api  */
+  @Get('/admin/projects')
+  @ApiOperation({ summary: 'گرفتن پروژه ها توسط ادمین' })
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'get ngo projects succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'get ngo projects succeed',
+        error: null,
+        data: { ongoing: [], completed: [], goodPractice: [], collaborationOpportunities: [] }
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  ngoProjectsByAdmin(@Req() req: any, @Res() res: any) {
+    return this.ngoService.getNgoProjectsByAdmin(req, res)
+  }
+
+
+
+  /**this is specific ngo projects api  */
+  @Get('/admin/ngo/:id')
+  @ApiOperation({ summary: 'گرفتن دیتاهای مربوط به یک سمن توسط ادمین' })
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'get ngo projects succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'get ngo projects succeed',
+        error: null,
+        data: { ongoing: [], completed: [], goodPractice: [], collaborationOpportunities: [] }
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  ngoDataByAdmin(@Req() req: any, @Res() res: any , @Param('id') id : string) {
+    return this.ngoService.getNgoData(req, res , id)
+  }
 
 
 }
