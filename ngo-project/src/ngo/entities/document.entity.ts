@@ -50,7 +50,7 @@ export class documents {
     type : string[];
 
     @Prop({type : Number , default : 0})
-    state : number;            // 0 : not approved      1 : approved 
+    state : number;            // 0 : not approved      1 : approved       // 2: rejecte
 
 
     @Prop({type : String})

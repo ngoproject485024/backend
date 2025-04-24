@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Req, Res, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Req, Res, Put, Query } from '@nestjs/common';
 import { NgoService } from './ngo.service';
 import { CreateNgoDto } from './dto/create-ngo.dto';
 import { UpdateNgoDto } from './dto/update-ngo.dto';
@@ -712,10 +712,9 @@ export class NgoController {
       }
     },
   })
-  approveDocument(@Req() req: any, @Res() res: any , @Param('id') id : string) {
-    return this.ngoService.approveDocumentByAdmin(req, res , id)
+  approveDocument(@Req() req: any, @Res() res: any , @Param('id') id : string , @Query('reject') reject : boolean) {
+    return this.ngoService.approveDocumentByAdmin(req, res , id , reject)
   }
-
 
     /**this is specific ngo documents api  */
     @Get('/admin/documents')
