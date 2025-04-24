@@ -45,7 +45,7 @@ export class AdminService {
             lastName : admin.lastName
         }
 
-        let token = await this.jwtService.adminToken(adminTokenData , '24H')
+        let token = await this.jwtService.adminToken(adminTokenData , '1M')
         
 
         let allData = {...admin.toObject() , token : token}
