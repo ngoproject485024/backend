@@ -63,7 +63,8 @@ export class AppModule implements NestModule {
       { path: '/page/description/create', method: RequestMethod.POST },
       { path: '/page/aboutus/create', method: RequestMethod.POST },
       { path: '/page/footer/create', method: RequestMethod.POST },
-      { path: '/ngo/pannel/documents', method: RequestMethod.POST },
+      { path: '/ngo/admin/documents', method: RequestMethod.GET },
+      { path: '/ngo/document/approve/:id', method: RequestMethod.PUT },
       // { path: '/page/footer', method: RequestMethod.GET},
     )
   }

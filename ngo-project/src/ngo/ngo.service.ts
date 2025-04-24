@@ -472,17 +472,53 @@ export class NgoService {
 
 
   async getNgosDocumentByAdmin(req :any , res:any ){
-    let ngoId : string = req.user.id;
-    let ngo = await this.ngoRepository.findById(ngoId).populate('ownDocuments')
-    console.log(ngoId)
+    let ngo = await this.ngoDocument.find()
+    // console.log(ngoId)
     console.log(ngo)
     return {
       message: 'get ngo documents successfully',
       statusCode: 200,
-      data : ngo.ownDocuments
+      data : ngo
     }
   }
 
+
+
+
+
+  async approveDocumentByAdmin(req :any , res:any , id : string ){
+    try {
+      let ngo = await this.ngoDocument.findById(id)
+    // console.log(ngoId)
+    console.log(ngo)
+    if (ngo.state == 1){
+      ngo.state = 0;
+      await ngo.save()
+      return {
+        message: 'disable document successfully',
+        statusCode: 200,
+        data : ngo
+      }
+    }else {
+      ngo.state = 1;
+      await ngo.save()
+      return {
+        message: 'enable documents successfully',
+        statusCode: 200,
+        data : ngo
+      }
+    }
+    } catch (error) {
+      console.log(error)
+      return {
+        message: 'enable documents failed',
+        statusCode: 250,
+        error : "خطای داخلی سیستم"
+      }
+    }
+
+  }
+  
 
 
 }

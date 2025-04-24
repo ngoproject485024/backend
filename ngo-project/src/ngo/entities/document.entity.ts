@@ -19,6 +19,8 @@ export interface documentsInterface extends Document {
     title : string;
 
     file : string[];
+
+    state : number;
     
     ngo : mongoose.Types.ObjectId;
 

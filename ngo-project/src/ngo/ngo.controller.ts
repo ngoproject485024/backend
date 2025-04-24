@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Req, Res, Put } from '@nestjs/common';
 import { NgoService } from './ngo.service';
 import { CreateNgoDto } from './dto/create-ngo.dto';
 import { UpdateNgoDto } from './dto/update-ngo.dto';
@@ -685,8 +685,40 @@ export class NgoController {
   }
 
 
+
+  /**this is specific ngo documents api  */
+  @Put('/document/approve/:id')
+  @ApiOperation({ summary: 'تایید یا رد یک ادمین خاص' })
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'approve or reject ngo documents succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'approve ngo document succeed',
+        error: null,
+        data : []
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  approveDocument(@Req() req: any, @Res() res: any , @Param('id') id : string) {
+    return this.ngoService.approveDocumentByAdmin(req, res , id)
+  }
+
+
     /**this is specific ngo documents api  */
-    @Get('/pannel/documents')
+    @Get('/admin/documents')
     @ApiOperation({ summary: 'گرفتن اسناد توسط ادمین در پنل ادمین' })
     @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
     @ApiResponse({
