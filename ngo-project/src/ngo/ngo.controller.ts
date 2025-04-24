@@ -711,8 +711,8 @@ export class NgoController {
       }
     },
   })
-  approveDocument(@Req() req: any, @Res() res: any, @Param('id') id: string, @Query('reject') reject: boolean) {
-    return this.ngoService.approveDocumentByAdmin(req, res, id, reject)
+  approveDocument(@Req() req: any, @Res() res: any, @Param('id') id: string, @Query('state') state: number) {
+    return this.ngoService.approveDocumentByAdmin(req, res, id, +state)
   }
 
   /**this is specific ngo documents api  */

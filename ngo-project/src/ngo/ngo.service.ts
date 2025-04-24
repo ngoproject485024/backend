@@ -499,37 +499,46 @@ export class NgoService {
 
 
 
-  async approveDocumentByAdmin(req: any, res: any, id: string, reject: boolean) {
+  async approveDocumentByAdmin(req: any, res: any, id: string, state: number) {
     try {
       let ngo = await this.ngoDocument.findById(id)
-      if (reject == true) {
-        ngo.state == 2;
-        await ngo.save()
+      if (state== 2) {
+        await ngo.updateOne({state : 2})
+        let updated = await this.ngoDocument.findById(id)
+
         return {
           message: 'reject document successfully',
           statusCode: 200,
-          data: ngo
+          data: updated
         }
       }
-      // console.log(ngoId)
-      console.log(ngo)
-      if (ngo.state == 1) {
-        ngo.state = 0;
-        await ngo.save()
+
+      else if(state == 1){
+        await ngo.updateOne({state : 1})
+        let updated = await this.ngoDocument.findById(id)
+
         return {
-          message: 'disable document successfully',
+          message: 'approve document successfully',
           statusCode: 200,
-          data: ngo
-        }
-      } else {
-        ngo.state = 1;
-        await ngo.save()
-        return {
-          message: 'enable documents successfully',
-          statusCode: 200,
-          data: ngo
-        }
+          data: updated
+        }        
       }
+      else if(state == 0){
+        await ngo.updateOne({state : 0})
+        let updated = await this.ngoDocument.findById(id)
+        return {
+          message: 'pending document successfully',
+          statusCode: 200,
+          data: updated
+        }                
+      }else {
+        return {
+          message: 'pending document successfully',
+          statusCode: 400,
+          error : 'wrong state inputed'
+        }                
+      }
+      
     } catch (error) {
       console.log(error)
       return {
@@ -543,8 +552,6 @@ export class NgoService {
 
 
   
-
-
   async getNgoData(req: any, res: any , id : string) {
 
     let ngo = await this.ngoRepository.findById(id).populate('projects')
