@@ -155,7 +155,7 @@ export class Ngo {
     @Prop({type : String})
     logo : string;
 
-    @Prop({type : Boolean})
+    @Prop({type : Boolean , default : true})
     disable : boolean;
 
     @Prop({type : [String]})
