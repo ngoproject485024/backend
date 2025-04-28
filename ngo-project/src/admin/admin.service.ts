@@ -150,7 +150,7 @@ export class AdminService {
 
     async deleteAdmin(req : any , res : any , adminId : string){
         let admin = await this.adminModel.findById(adminId)
-        if (admin){
+        if (!admin){
             return {
                 message : 'ادمین یافت نشد' , 
                 statusCode : 400,
