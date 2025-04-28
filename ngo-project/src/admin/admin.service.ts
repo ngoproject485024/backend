@@ -69,7 +69,6 @@ export class AdminService {
 
 
     async createNewAdmin(req, res, body: createAdminDto) {
-
         try {
             body.password = await bcrypt.hash(body.password , this.saltRounds)
             console.log(body)
@@ -107,7 +106,7 @@ export class AdminService {
                 error : 'ادمین مورد نظر یافت نشد'
             }
         }
-
+        body.password = await bcrypt.hash(body.password , this.saltRounds)
         let newData = {...body , ...admin.toObject}
         await admin.updateOne(newData)
         let updated = await this.adminModel.findById(adminId)
