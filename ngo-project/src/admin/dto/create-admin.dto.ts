@@ -38,6 +38,39 @@ export class createAdminDto {
     })
     lastName : string;
 
+}
 
 
+
+export class updateAdminDto {
+
+    @IsString()
+    @ApiProperty({
+        example : 'username',
+        required : true
+    })
+    userName : string;
+
+    @IsString()
+    @ApiProperty({
+        example : 'password',
+        required : true
+    })
+    password : string;
+
+
+    @IsString()
+    @ApiProperty({
+        example : 'password',
+        required : true
+    })
+    firstName : string;
+
+
+    @IsString()
+    @ApiProperty({
+        example : 'password',
+        required : true
+    })
+    lastName : string;
 }

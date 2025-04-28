@@ -98,4 +98,57 @@ export class AdminService {
     }
 
 
+    async updateAdmin(req : any , res : any , adminId : string , body : createAdminDto){
+        let admin  = await this.adminModel.findById(adminId)
+        if (!admin){
+            return {
+                message : 'آپدیت ادمین نا موفق بود',
+                statusCode : 400,
+                error : 'ادمین مورد نظر یافت نشد'
+            }
+        }
+
+        let newData = {...body , ...admin.toObject}
+        await admin.updateOne(newData)
+        let updated = await this.adminModel.findById(adminId)
+        return {
+            message : 'اپدیت ادمین موفقیت آمیز بود0',
+            statusCode : 200,
+            data : updated
+        }
+
+    }
+
+
+    async getAll(req : any , res : any){
+        let admins = await this.adminModel.find()
+        return{
+            message : 'گرفتن همه ی ادمین ها',
+            statusCode : 200,
+            data : admins
+        }
+    }   
+
+
+
+    async getAdmin(req : any , res : any , adminId:string){
+        let admin = await this.adminModel.findById(adminId)
+        if (!admin){
+            return {
+                message : 'دیتای ادمین یافت نشد',
+                statusCode : 400,
+                error : 'ادمین یافت نشد'
+            }
+        }
+        return {
+            message : 'موفق',
+            statusCode : 200,
+            data : admin
+        }
+
+
+    }   
+
+
+
 }

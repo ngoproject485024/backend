@@ -28,4 +28,25 @@ export class AdminController {
 
 
 
+  @Get('/all')
+  async getAllAdmins(@Req() req : any , @Res() res : any){
+    return this.adminService.getAll(req , res )
+  }
+
+
+  @Get('/:adminId')
+  async getAdmin(@Req() req : any , @Res() res : any , @Param('adminId') adminId : string){
+    return this.adminService.getAdmin(req , res , adminId)
+  }
+
+
+  @Post('/update/:adminId')
+  async updateAdmin(@Req() req : any , @Res() res : any , @Param('adminId') adminId : string ,@Body(new ValidationPipe()) body : createAdminDto){
+    return this.adminService.updateAdmin(req , res , adminId , body)
+  }
+
+
+  
+
+
 }
