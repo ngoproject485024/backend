@@ -46,6 +46,12 @@ export class AdminController {
   }
 
 
+
+  @Post('/delete/:adminId')
+  async deleteAdmin(@Req() req : any , @Res() res : any , @Param('adminId') adminId : string ){
+    return this.adminService.deleteAdmin(req , res , adminId)
+  }
+
   
 
 

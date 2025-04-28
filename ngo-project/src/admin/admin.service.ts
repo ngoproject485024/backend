@@ -145,9 +145,26 @@ export class AdminService {
             statusCode : 200,
             data : admin
         }
-
-
     }   
+
+
+
+    async deleteAdmin(req : any , res : any , adminId : string){
+        let admin = await this.adminModel.findById(adminId)
+        if (admin){
+            return {
+                message : 'ادمین یافت نشد' , 
+                statusCode : 400,
+                error : 'ادمین یافت نشد'
+            }
+        }
+
+        let data = await this.adminModel.findByIdAndDelete(adminId)
+        return {
+            message : 'ادمین با موفقیت حذف شد' , 
+            statusCode : 200,
+        }
+    }
 
 
 
