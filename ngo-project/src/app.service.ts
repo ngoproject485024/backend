@@ -222,7 +222,7 @@ export class AppService {
       page.ngoDescription = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
-      console.log(updated[0].countriesDescription)
+      console.log(updated[0].ngoDescription)
       return {
         message: 'updating events page data.',
         statusCode: 200,
