@@ -12,10 +12,11 @@ import { EventsEducationsService } from 'src/events-educations/events-educations
 import { EducationSchema } from 'src/events-educations/entities/education.entity';
 import { EventsSchema } from 'src/events-educations/entities/events.entity';
 import { auth } from 'src/auth/auth.middleware';
+import { pagesSchema } from 'src/entity/pages.entity';
 
 @Module({
   imports : [MongooseModule.forRoot('') , 
-      MongooseModule.forFeature([{name : 'educations' , schema : EducationSchema} , {name : 'events' , schema : EventsSchema},{name : 'ngo' , schema : ngoSchema} , {name : 'document' , schema : documentSchema} , {name : 'project' , schema : projectSchema}]),
+      MongooseModule.forFeature([{name : 'educations' , schema : EducationSchema},{name : 'pages' , schema : pagesSchema} , {name : 'events' , schema : EventsSchema},{name : 'ngo' , schema : ngoSchema} , {name : 'document' , schema : documentSchema} , {name : 'project' , schema : projectSchema}]),
       JwtModule.registerAsync({
           imports: [ConfigModule],
           useFactory: async (configService: ConfigService) => ({

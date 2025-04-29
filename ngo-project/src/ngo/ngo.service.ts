@@ -14,6 +14,7 @@ import { jwtService } from 'src/jwt/jwt.service';
 import { tokenizeInterface } from 'src/interfaces/interfaces.interface';
 import { completeProject } from './dto/completeProject.dto';
 import { error } from 'console';
+import { pagesInterface } from 'src/entity/pages.entity';
 
 
 
@@ -24,6 +25,7 @@ export class NgoService {
   constructor(@InjectModel('ngo') private ngoRepository: Model<ngoInterface>,
     @InjectModel('document') private ngoDocument: Model<documentsInterface>,
     @InjectModel('project') private ngoProject: Model<projectsInterface>,
+    @InjectModel('pages') private pageRepository : Model<pagesInterface>,
     private readonly jwtService: jwtService
   ) { }
 
@@ -318,9 +320,11 @@ export class NgoService {
 
 
   async getAllNgo(req: any, res: any) {
+    let page = await this.pageRepository.find()
     let ngoTabel = await this.ngoRepository.find()
     console.log(ngoTabel[0])
     let mapNgo = await this.ngoMaps()
+    let newData = {ngoTabel , mapNgo , description : page[0].ngoDescription}
     return {
       message: 'get all ngo successfully',
       statusCode: 200,
