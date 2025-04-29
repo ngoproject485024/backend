@@ -181,7 +181,6 @@ export class pageDescriptionDto {
         enDescription: string,
         ruDescription: string,
     }
-
 }
 
 

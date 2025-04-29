@@ -218,7 +218,18 @@ export class AppService {
         data: updated[0].countriesDescription
       }
 
-    } else {
+    }else if (body.type == 'ngo') {
+      page.ngoDescription = { ...body.description, admin: admin }
+      await page.save()
+      let updated = await this.pageRepository.find()
+      console.log(updated[0].countriesDescription)
+      return {
+        message: 'updating events page data.',
+        statusCode: 200,
+        data: updated[0].ngoDescription
+      }
+    }
+     else {
       return {
         message: 'updating events page data.',
         statusCode: 400,
@@ -316,7 +327,16 @@ export class AppService {
         statusCode: 200,
         data: { participation : page.Participation , countriesDescription : page.countriesDescription}
       }
-    }else {
+    }else if(pageName == 'ngo'){
+      console.log('page>>' , pageName)
+      console.log('pages>>' , page.Participation , page.countriesDescription)
+      return {
+        message: 'getting events page data.',
+        statusCode: 200,
+        data: page.ngoDescription
+      }
+    }
+    else {
       return {
         message: 'updating events page data.',
         statusCode: 400,
