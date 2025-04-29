@@ -328,9 +328,7 @@ export class NgoService {
     return {
       message: 'get all ngo successfully',
       statusCode: 200,
-      data: {
-        ngoTabel, mapNgo
-      }
+      data: newData
     }
   }
 
