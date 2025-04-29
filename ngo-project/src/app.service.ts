@@ -45,7 +45,7 @@ export class AppService {
     //     admin : 'string'
     // }
     // })
-    console.log('body is>>' , body)
+    console.log('body is>>', body)
     let pages = await this.pageRepository.find()
     let page = pages[0]
     let admin = `${req.user.firstName} ${req.user.lastName}`
@@ -218,7 +218,7 @@ export class AppService {
         data: updated[0].countriesDescription
       }
 
-    }else if (body.type == 'ngo') {
+    } else if (body.type == 'ngo') {
       page.ngoDescription = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
@@ -228,8 +228,18 @@ export class AppService {
         statusCode: 200,
         data: updated[0].ngoDescription
       }
+    } else if (body.type == 'ngoRegister') {
+      page.ngoRegisterDescription = { ...body.description, admin: admin }
+      await page.save()
+      let updated = await this.pageRepository.find()
+      console.log(updated[0].ngoRegisterDescription)
+      return {
+        message: 'updating events page data.',
+        statusCode: 200,
+        data: updated[0].ngoRegisterDescription
+      }
     }
-     else {
+    else {
       return {
         message: 'updating events page data.',
         statusCode: 400,
@@ -315,25 +325,32 @@ export class AppService {
       }
     } else if (pageName == 'archives') {
       return {
-        message: 'updating events page data.',
+        message: 'updating archives page data.',
         statusCode: 200,
         data: page.archivesDescription
       }
-    }else if (pageName == 'statistic') {
-      console.log('page>>' , pageName)
-      console.log('pages>>' , page.Participation , page.countriesDescription)
+    } else if (pageName == 'statistic') {
+      console.log('page>>', pageName)
+      console.log('pages>>', page.Participation, page.countriesDescription)
       return {
-        message: 'getting events page data.',
+        message: 'getting statistic page data.',
         statusCode: 200,
-        data: { participation : page.Participation , countriesDescription : page.countriesDescription}
+        data: { participation: page.Participation, countriesDescription: page.countriesDescription }
       }
-    }else if(pageName == 'ngo'){
-      console.log('page>>' , pageName)
-      console.log('pages>>' , page.Participation , page.countriesDescription)
+    } else if (pageName == 'ngo') {
+      console.log('page>>', pageName)
+      console.log('pages>>', page.Participation, page.countriesDescription)
       return {
-        message: 'getting events page data.',
+        message: 'getting ngo description page data.',
         statusCode: 200,
         data: page.ngoDescription
+      }
+    } else if (pageName == 'ngoRegister') {
+      console.log('page>>', pageName)
+      return {
+        message: 'getting ngo register page data.',
+        statusCode: 200,
+        data: page.ngoRegisterDescription
       }
     }
     else {
@@ -429,7 +446,6 @@ export class AppService {
 
 
   }
-
 
 
   async projectPage(req: any, res: any) {
@@ -571,49 +587,49 @@ export class AppService {
   // ],
 
 
-  private async barCharts(){
+  private async barCharts() {
     let ngos = await this.ngoRepository.find()
-    
+
     let labels = []
     let series = []
 
-    for (let i = 0 ; i < ngos.length ; i ++){
+    for (let i = 0; i < ngos.length; i++) {
       let elem = ngos[i]
-      if (!labels.includes(elem.country)){
+      if (!labels.includes(elem.country)) {
         labels.push(elem.country)
         series.push(1)
-      }else{
+      } else {
         let index = labels.indexOf(elem)
         series[index]++;
       }
     }
     return {
-      labels , series
+      labels, series
     }
   }
 
 
 
-  async statisticPage(req: any, res: any){
+  async statisticPage(req: any, res: any) {
 
     let donate = await this.barCharts()
-    
+
     let ngos = await this.ngoRepository.find()
-    
+
     let barChart = {
       series: [
-          {
-            name: "2023",
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-          },
-          {
-            name: "2024",
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-          },
-          {
-            name: "2025",
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-          },
+        {
+          name: "2023",
+          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+        },
+        {
+          name: "2024",
+          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+        },
+        {
+          name: "2025",
+          data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+        },
       ],
       categories: [
         "NGO Name",

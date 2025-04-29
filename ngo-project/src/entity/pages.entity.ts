@@ -86,6 +86,14 @@ export interface pagesInterface extends Document {
     }
 
 
+    ngoRegisterDescription: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
+
+
     eventsDescription: {
         peDescription: string;
         enDescription: string;
@@ -385,6 +393,31 @@ export class pages {
         admin: string
     }
 
+
+
+    @Prop({
+        type: {
+            peDescription: { type: String },
+            enDescription: { type: String },
+            ruDescription: { type: String },
+            admin: { type: String },
+        }, default: {
+            peDescription: '',
+            enDescription: '',
+            ruDescription: '',
+            admin: '',
+        }
+    })
+    ngoRegisterDescription: {
+        peDescription: string;
+        enDescription: string;
+        ruDescription: string;
+        admin: string
+    }
+
+
+
+    
 
     @Prop({
         type: {
