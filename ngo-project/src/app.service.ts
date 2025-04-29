@@ -232,6 +232,7 @@ export class AppService {
       page.ngoRegisterDescription = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
+      console.log('its hereeee >>>> ' , updated)
       console.log(updated[0].ngoRegisterDescription)
       return {
         message: 'updating events page data.',
