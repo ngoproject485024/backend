@@ -8,6 +8,7 @@ export interface customPagesInterface extends Document {
 
     enTitle: string,
     ruTitle: string,
+    peTitle: string
     path: string,
     haseSubPage: boolean,
     template: number,
@@ -28,6 +29,9 @@ export class customPages {
 
     @Prop({ type: String })
     ruTitle: string
+
+    @Prop({ type: String })
+    peTitle: string
 
     @Prop({ type: String })
     path: string
