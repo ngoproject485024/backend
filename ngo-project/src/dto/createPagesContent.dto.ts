@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsString } from "@nestjs/class-validator"
+import { IsArray, IsNotEmpty, IsObject, IsString } from "@nestjs/class-validator"
 import { ApiProperty } from "@nestjs/swagger"
 
 
@@ -86,4 +86,20 @@ export class createPagesContentDto {
         required: false
     })
     ruContent: string
+
+    @IsObject()
+    @ApiProperty()
+    subContent: {
+            image: string[]
+            enContent: string
+            ruContent: string
+            peTitle: string
+            enTitle: string
+            ruTitle: string
+            peDescription: string
+            enDescription: string
+            ruDescription: string
+            peContent: string
+    }
+
 }

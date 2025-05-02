@@ -10,7 +10,7 @@ export interface customPagesInterface extends Document {
     ruTitle: string,
     peTitle: string
     path: string,
-    haseSubPage: boolean,
+    hasSubPage: boolean,
     template: number,
     Children: mongoose.Types.ObjectId,
     parent: mongoose.Types.ObjectId,
