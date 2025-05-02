@@ -737,5 +737,33 @@ export class AppService {
   }
 
 
+  /**
+   * this endpoint is for getting all customs pages by admin
+   * @param req 
+   * @param res 
+   * @returns 
+   */
+  async getAllCustomsPages(req: any, res: any ){
+    try {
+      let pages = await this.customPAgeRepository.find({parent : null}).populate('Children')
+      return {
+        message : 'گرفتن دیتاهای صفحه ها موفق بود',
+        statusCode : 200,
+        data : pages
+      }  
+    } catch (error) {
+      return {
+        message : 'گرفتن دیتاهای صفحه ها ناموفق',
+        statusCode : 500,
+        error : 'خطای داخلی سرور'
+      }
+    }
+  }
+
+
+
+  
+
+
   /////////////// final line //////////////////////
 }
