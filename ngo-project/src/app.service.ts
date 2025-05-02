@@ -8,13 +8,18 @@ import { documentsInterface } from './ngo/entities/document.entity';
 import { pagesInterface } from './entity/pages.entity';
 import { completeProjectCreation, homePage, pageDescriptionDto } from './dto/homePage.dto';
 import { NgoService } from './ngo/ngo.service';
+import { createCustomPageDto } from './dto/createCustomPage.dto';
+import { customPagesInterface } from './entity/customPage.entity';
+import { adminInterface } from './admin/entities/admin.entity';
 
 @Injectable()
 export class AppService {
 
   constructor(@InjectModel('project') private projectRepository: Model<projectsInterface>,
     @InjectModel('document') private documentRepository: Model<documentsInterface>,
+    @InjectModel('customPage') private customPAgeRepository: Model<customPagesInterface>,
     @InjectModel('ngo') private ngoRepository: Model<ngoInterface>,
+    @InjectModel('admin') private adminModel: Model<adminInterface>,
     @InjectModel('pages') private pageRepository: Model<pagesInterface>) { }
 
 
@@ -645,4 +650,47 @@ export class AppService {
       ],
     }
   }
+
+
+
+  async createNewPage(req: any, res: any, body: createCustomPageDto) {
+  try {
+    let admin = await this.adminModel.findOne({userName : req.user.userName})
+    let haseSubPage = body.haseSubPage;
+    let newPage = new this.customPAgeRepository({
+      enTitle: body.enTitle,
+      ruTitle: body.ruTitle,
+      path: body.path,
+      haseSubPage: body.haseSubPage,
+      template: body.template,
+      admin : admin._id
+    })
+
+    let savedPage = await newPage.save()
+    if (haseSubPage) {
+      let Children = await this.customPAgeRepository.create({
+        parent: savedPage._id,
+        enTitle: body.subMenu.enTitle,
+        ruTitle: body.subMenu.ruTitle,
+        path: body.subMenu.path,
+        haseSubPage: false,
+        template: body.subMenu.template,
+        admin: admin._id
+      })
+      await savedPage.updateOne({Children : Children._id})
+    } 
+    return {
+      message : 'ایجاد صفحه جدید با موفقیت انجام شد' , 
+      statusCode : 200,
+      data : savedPage
+    }
+  } catch (error) {
+    console.log('error in creating the page and sub page >>' , error)
+    return {
+      message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
+      statusCode: 500,
+      error : 'خطای داخلی سرور'
+    }    
+  }
+}
 }

@@ -393,8 +393,6 @@ export class pages {
         admin: string
     }
 
-
-
     @Prop({
         type: {
             peDescription: { type: String },
@@ -416,8 +414,6 @@ export class pages {
     }
 
 
-
-    
 
     @Prop({
         type: {
@@ -512,10 +508,6 @@ export class pages {
         logo: string[]
         admin: string
     }
-
-
-
-
 
 }
 

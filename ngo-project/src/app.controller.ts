@@ -5,6 +5,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
 import { extname } from 'path';
 import { aboutUsDto, completeProjectCreation, homePage, pageDescriptionDto, setFooterDto } from './dto/homePage.dto';
+import { createCustomPageDto } from './dto/createCustomPage.dto';
 
 
 @ApiTags('pages data')
@@ -624,6 +625,33 @@ export class AppController {
   async getStatistic(@Req() req: any, @Res() res: any) {
     return this.appService.statisticPage(req, res)
   }
+
+
+
+
+
+  @Post('/create')
+  @ApiOperation({ summary: 'ایجاد صفحه جدید توسط ادمین ' })
+  @ApiResponse({
+    status: 200, description: 'create new pages',
+    schema: {
+      example: {
+        success: true,
+        message: 'create page done',
+        error: null,
+        data: {},
+      }
+    }
+  })
+  @ApiBody({
+    type: createCustomPageDto,
+    description: 'ایجاد صفحه جدید توسط ادمین'
+  })
+  async createNewPage(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: createCustomPageDto) {
+    return this.appService.createNewPage(req, res, body)
+  }
+
+  
 
 
 

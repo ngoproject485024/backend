@@ -19,6 +19,9 @@ import { EducationSchema } from './events-educations/entities/education.entity';
 import { EventsEducationsController } from './events-educations/events-educations.controller';
 import { adminAuth } from './admin-auth/admin-auth.middleware';
 import { pagesSchema } from './entity/pages.entity';
+import { customPagesSchema } from './entity/customPage.entity';
+import { pageContentsSchema } from './entity/pagesContent.entity';
+import { AdminSchema } from './admin/entities/admin.entity';
 
 
 
@@ -31,6 +34,10 @@ import { pagesSchema } from './entity/pages.entity';
     , { name: 'document', schema: documentSchema }
     , { name: 'project', schema: projectSchema }
     , { name: 'pages', schema: pagesSchema }
+    , {name : 'customPage' , schema : customPagesSchema}
+    , {name : 'pagesContent' , schema : pageContentsSchema}
+    , {name : 'admin' , schema : AdminSchema}
+    
   ]),
   JwtModule.registerAsync({
     imports: [ConfigModule],
@@ -63,6 +70,7 @@ export class AppModule implements NestModule {
       { path: '/page/description/create', method: RequestMethod.POST },
       { path: '/page/aboutus/create', method: RequestMethod.POST },
       { path: '/page/footer/create', method: RequestMethod.POST },
+      { path: '/page/create', method: RequestMethod.POST },
       { path: '/ngo/admin/documents', method: RequestMethod.GET },
       { path: '/ngo/admin/projects', method: RequestMethod.GET },
       { path: '/ngo/admin/ngo/:id', method: RequestMethod.GET },
