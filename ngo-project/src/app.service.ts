@@ -670,6 +670,7 @@ export class AppService {
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
       let haseSubPage = body.haseSubPage;
       let newPage = new this.customPAgeRepository({
+        peTitle : body.peTitle,
         enTitle: body.enTitle,
         ruTitle: body.ruTitle,
         path: body.path,
@@ -681,6 +682,7 @@ export class AppService {
       if (haseSubPage) {
         let Children = await this.customPAgeRepository.create({
           parent: savedPage._id,
+          peTitle : body.peTitle,
           enTitle: body.subPage.enTitle,
           ruTitle: body.subPage.ruTitle,
           path: body.subPage.path,
