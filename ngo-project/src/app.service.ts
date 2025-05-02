@@ -659,6 +659,7 @@ export class AppService {
   async createNewPage(req: any, res: any, body: createCustomPageDto) {
     try {
 
+      body.path = body.path.trim().replaceAll(' ' , '-')
       let existance = await this.customPAgeRepository.find({path : body.path})
       if (existance){
         return {
@@ -667,7 +668,6 @@ export class AppService {
           error : 'این مسیر قبلا ثبت شده است'
         }
       }
-      body.path = body.path.trim().replaceAll(' ' , '-')
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
       let haseSubPage = body.haseSubPage;
       let newPage = new this.customPAgeRepository({
