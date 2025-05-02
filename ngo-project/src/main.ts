@@ -33,7 +33,9 @@ async function bootstrap() {
     .addServer('https://ngo.oceanjourney.ir/', 'Staging')
     .addServer('https://ngo.ir/', 'Production')
     .build();
-
+  process.nextTick(()=>{
+    console.log('next tick done')
+  })
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger', app, document);
   app.useGlobalInterceptors(new ResponseInterceptor())
