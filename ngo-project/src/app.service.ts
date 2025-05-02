@@ -672,11 +672,11 @@ export class AppService {
       if (haseSubPage) {
         let Children = await this.customPAgeRepository.create({
           parent: savedPage._id,
-          enTitle: body.subMenu.enTitle,
-          ruTitle: body.subMenu.ruTitle,
-          path: body.subMenu.path,
+          enTitle: body.subPage.enTitle,
+          ruTitle: body.subPage.ruTitle,
+          path: body.subPage.path,
           haseSubPage: false,
-          template: body.subMenu.template,
+          template: body.subPage.template,
           admin: admin._id
         })
         await savedPage.updateOne({ Children: Children._id })

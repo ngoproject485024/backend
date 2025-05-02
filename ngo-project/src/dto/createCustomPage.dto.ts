@@ -66,7 +66,7 @@ export class createCustomPageDto {
         template: 1,},
         required : false,
     })
-    subMenu: {
+    subPage: {
         peTitle: "",
         enTitle: "",
         ruTitle: "",
