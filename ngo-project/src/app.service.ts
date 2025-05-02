@@ -836,9 +836,42 @@ export class AppService {
 
 
 
-  // async updateCustomPagesContent(eq: any, res: any, body: createCustomPageDto , pageId : string){
+  // async updateCustomPagesContent(eq: any, res: any, body: createCustomPageDto , contetId : string){
+
+  //   let existanceContet = 
 
   // }
+
+
+
+
+  async deleteCustomPage(req: any, res: any, pageId: string) {
+    try {
+      let existancePage = await this.customPAgeRepository.findById(pageId)
+      if (!existancePage){
+        return {
+          message : 'صفحه مورد نظر یافت نشد',
+          statusCode : 400,
+          error : 'صفحه مورد نظر یافت نشد'
+        }
+      }
+  
+      await this.customPAgeRepository.findByIdAndDelete(pageId)
+      return {
+        message : 'صفحه مورد نظر یا موفقیت حذف شد',
+        statusCode : 200,
+        data : ''
+      }  
+    } catch (error) {
+        console.log('error occured in deleting custom pages' , error)
+        return {
+          message : 'صفحه مورد نظر حذف نشد',
+          statusCode : 500,
+          error : 'خطای داخلی سرور'
+        }
+    }
+  }
+
 
 
 

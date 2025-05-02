@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, Req, Res, UploadedFiles, UseInterceptors, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, Req, Res, UploadedFiles, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -727,6 +727,43 @@ export class AppController {
   async getAllCustomsPages(@Req() req: any, @Res() res: any) {
     return this.appService.getAllCustomsPages(req, res)
   }
+
+
+  @Delete('/:pageId')
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiOperation({ summary: 'حذف صفحه توسط ادمین' })
+  @ApiResponse({
+    status: 200, description: 'delete customs page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'delete customs page data done',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  async deleteCustomsPages(@Req() req: any, @Res() res: any , @Param('pageId') pageId : string) {
+    return this.appService.deleteCustomPage(req, res , pageId)
+  }
+
+
+
+
+  
+
+
 
 
 
