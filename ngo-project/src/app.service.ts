@@ -698,9 +698,10 @@ export class AppService {
   }
 
 
-  async addPageContent(req: any, res: any, pageId: string, body: createPagesContentDto) {
+  async addPageContent(req: any, res: any , body: createPagesContentDto) {
 
     try {
+      let pageId = body.id
       if (!pageId) {
         return {
           message: 'لطفا ای را وارد کنید',

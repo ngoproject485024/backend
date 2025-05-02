@@ -1,4 +1,4 @@
-import { IsArray, IsString } from "@nestjs/class-validator"
+import { IsArray, IsNotEmpty, IsString } from "@nestjs/class-validator"
 import { ApiProperty } from "@nestjs/swagger"
 
 
@@ -6,6 +6,15 @@ import { ApiProperty } from "@nestjs/swagger"
 
 
 export class createPagesContentDto {
+
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example: 'papge id',
+        required: true
+    })
+    id : string;
 
     @IsArray()
     @ApiProperty({

@@ -630,7 +630,13 @@ export class AppController {
 
 
 
-
+  /**
+   * this rout is for creating a custom page by admin
+   * @param req 
+   * @param res 
+   * @param body 
+   * @returns 
+   */
   @Post('/create')
   @ApiOperation({ summary: 'ایجاد صفحه جدید توسط ادمین ' })
   @ApiResponse({
@@ -655,8 +661,15 @@ export class AppController {
 
   
 
-
-  @Post('/content/:pageId')
+  /**
+   * this rout is for adding content of customed pages by admin
+   * @param req 
+   * @param res 
+   * @param pageId 
+   * @param body 
+   * @returns 
+   */
+  @Post('/content')
   @ApiOperation({ summary: 'ایجاد محتوا برای صفحه های ساخته شده توسط ادمین ' })
   @ApiResponse({
     status: 200, description: 'add content of new pages',
@@ -673,9 +686,11 @@ export class AppController {
     type: createPagesContentDto,
     description: 'ایجاد محتوا برای صفحه های ساخته شده توسط ادمین'
   })
-  async addPageContent(@Req() req: any, @Res() res: any, @Param('pageId') pageId : string ,@Body(new ValidationPipe()) body: createPagesContentDto) {
-    return this.appService.addPageContent(req, res, pageId ,body)
+  async addPageContent(@Req() req: any, @Res() res: any , @Body(new ValidationPipe()) body: createPagesContentDto) {
+    return this.appService.addPageContent(req, res ,body)
   }
+
+
 
 
 
