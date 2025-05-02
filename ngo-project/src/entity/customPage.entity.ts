@@ -48,7 +48,7 @@ export class customPages {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'customPage'  , default : null})
     parent: mongoose.Types.ObjectId
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'pagesContent' })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'pagesContent' , default : null })
     content: mongoose.Types.ObjectId;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'admin' })

@@ -658,14 +658,13 @@ export class AppService {
 
   async createNewPage(req: any, res: any, body: createCustomPageDto) {
     try {
-
-      body.path = body.path.trim().replaceAll(' ' , '-')
-      let existance = await this.customPAgeRepository.find({path : body.path})
-      if (existance){
+      body.path = body.path.trim().replaceAll(' ', '-')
+      let existance = await this.customPAgeRepository.find({ path: body.path })
+      if (existance.length>0) {
         return {
-          message : 'این مسیر قبلا ثبت شده است.',
-          statusCode : 400,
-          error : 'این مسیر قبلا ثبت شده است'
+          message: 'این مسیر قبلا ثبت شده است.',
+          statusCode: 400,
+          error: 'این مسیر قبلا ثبت شده است'
         }
       }
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
@@ -708,7 +707,7 @@ export class AppService {
   }
 
 
-  async addPageContent(req: any, res: any , body: createPagesContentDto) {
+  async addPageContent(req: any, res: any, body: createPagesContentDto) {
 
     try {
       let pageId = body.id
@@ -753,26 +752,94 @@ export class AppService {
    * @param res 
    * @returns 
    */
-  async getAllCustomsPages(req: any, res: any ){
+  async getAllCustomsPages(req: any, res: any) {
     try {
-      let pages = await this.customPAgeRepository.find({parent : null}).populate('Children')
+      let pages = await this.customPAgeRepository.find({ parent: null }).populate('Children')
       return {
-        message : 'گرفتن دیتاهای صفحه ها موفق بود',
-        statusCode : 200,
-        data : pages
-      }  
+        message: 'گرفتن دیتاهای صفحه ها موفق بود',
+        statusCode: 200,
+        data: pages
+      }
     } catch (error) {
       return {
-        message : 'گرفتن دیتاهای صفحه ها ناموفق',
-        statusCode : 500,
-        error : 'خطای داخلی سرور'
+        message: 'گرفتن دیتاهای صفحه ها ناموفق',
+        statusCode: 500,
+        error: 'خطای داخلی سرور'
       }
     }
   }
 
 
 
-  
+  /**
+   * this endpoint is for updating the custom pages
+   * @param req 
+   * @param res 
+   * @param body 
+   * @param pageId 
+   * @returns 
+   */
+  async updateCustomPages(req: any, res: any, body: createCustomPageDto , pageId : string){
+    try {
+      body.path = body.path.trim().replaceAll(' ', '-')
+      let existedPage = await this.customPAgeRepository.findById(pageId)
+      if (!existedPage){
+        return {
+          message: 'صفحه مورد نظر یافت نشد',
+          statusCode: 400,
+          error: 'صفحه مورد نظر یافت نشد'
+        }
+      }
+      if (existedPage.path != body.path){
+        let existance = await this.customPAgeRepository.find({ path: body.path })
+        if (existance.length>0) {
+          return {
+            message: 'این مسیر قبلا ثبت شده است.',
+            statusCode: 400,
+            error: 'این مسیر قبلا ثبت شده است'
+          }
+        }
+      }
+      let admin = await this.adminModel.findOne({ userName: req.user.userName })
+      let haseSubPage = body.haseSubPage;
+
+      let newData = {...(existedPage.toObject()) , ...body }
+
+      let savedPage = await existedPage.updateOne(newData)
+      if (haseSubPage) {
+        let Children = await this.customPAgeRepository.create({
+          parent: savedPage._id,
+          enTitle: body.subPage.enTitle,
+          ruTitle: body.subPage.ruTitle,
+          path: body.subPage.path,
+          haseSubPage: false,
+          template: body.subPage.template,
+          admin: admin._id
+        })
+        await savedPage.updateOne({ Children: Children._id })
+      }
+      let updated = await this.customPAgeRepository.findById(savedPage._id).populate('Children')
+      return {
+        message: 'ایجاد صفحه جدید با موفقیت انجام شد',
+        statusCode: 200,
+        data: updated
+      }
+    } catch (error) {
+      console.log('error in creating the page and sub page >>', error)
+      return {
+        message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
+        statusCode: 500,
+        error: 'خطای داخلی سرور'
+      }
+    }
+  }
+
+
+
+  // async updateCustomPagesContent(eq: any, res: any, body: createCustomPageDto , pageId : string){
+
+  // }
+
 
 
   /////////////// final line //////////////////////
