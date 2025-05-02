@@ -87,19 +87,4 @@ export class createPagesContentDto {
     })
     ruContent: string
 
-    @IsObject()
-    @ApiProperty()
-    subContent: {
-            image: string[]
-            enContent: string
-            ruContent: string
-            peTitle: string
-            enTitle: string
-            ruTitle: string
-            peDescription: string
-            enDescription: string
-            ruDescription: string
-            peContent: string
-    }
-
 }

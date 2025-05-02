@@ -712,7 +712,6 @@ export class AppService {
   async addPageContent(req: any, res: any, body: createPagesContentDto) {
 
     try {
-      console.log('body is>>>>>>' , body)
       let pageId = body.id
       if (!pageId) {
         return {
@@ -721,7 +720,7 @@ export class AppService {
           error: 'wrong inputed id'
         }
       }
-      let page = await this.customPAgeRepository.findById(pageId).populate('Children')
+      let page = await this.customPAgeRepository.findById(pageId)
       if (!page) {
         return {
           message: 'صفحه مورد نظر یافت نشد',
@@ -729,16 +728,8 @@ export class AppService {
           error: 'page not found'
         }
       }
-      let subContent;
-      if (page.hasSubPage){
-        subContent = body.subContent;
-        delete body.subContent
-      }
-      let subPage = await this.customPAgeRepository.findById(page.Children._id)
+    
       let createdContent = await this.pagesContentRepository.create(body)
-      let subPageContent = await this.pageRepository.create(subContent)
-      await subPageContent.updateOne({page : subPage._id})
-      await subPage.updateOne({content : subPageContent._id})
       await page.updateOne({ content: createdContent._id })
       await createdContent.updateOne({ page: page._id })
       return {
