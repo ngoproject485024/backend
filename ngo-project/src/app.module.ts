@@ -37,7 +37,6 @@ import { AdminSchema } from './admin/entities/admin.entity';
     , {name : 'customPage' , schema : customPagesSchema}
     , {name : 'pagesContent' , schema : pageContentsSchema}
     , {name : 'admin' , schema : AdminSchema}
-    
   ]),
   JwtModule.registerAsync({
     imports: [ConfigModule],
@@ -71,6 +70,7 @@ export class AppModule implements NestModule {
       { path: '/page/aboutus/create', method: RequestMethod.POST },
       { path: '/page/footer/create', method: RequestMethod.POST },
       { path: '/page/create', method: RequestMethod.POST },
+      { path: '/page/content/:pageId', method: RequestMethod.POST },
       { path: '/ngo/admin/documents', method: RequestMethod.GET },
       { path: '/ngo/admin/projects', method: RequestMethod.GET },
       { path: '/ngo/admin/ngo/:id', method: RequestMethod.GET },

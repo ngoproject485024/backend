@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { projectsInterface } from './ngo/entities/project.entity';
 import { ngoInterface } from './ngo/entities/ngo.entity';
 import * as fs from 'fs';
@@ -11,6 +11,8 @@ import { NgoService } from './ngo/ngo.service';
 import { createCustomPageDto } from './dto/createCustomPage.dto';
 import { customPagesInterface } from './entity/customPage.entity';
 import { adminInterface } from './admin/entities/admin.entity';
+import { pageContentsInterface } from './entity/pagesContent.entity';
+import { createPagesContentDto } from './dto/createPagesContent.dto';
 
 @Injectable()
 export class AppService {
@@ -18,6 +20,7 @@ export class AppService {
   constructor(@InjectModel('project') private projectRepository: Model<projectsInterface>,
     @InjectModel('document') private documentRepository: Model<documentsInterface>,
     @InjectModel('customPage') private customPAgeRepository: Model<customPagesInterface>,
+    @InjectModel('pagesContent') private pagesContentRepository: Model<pageContentsInterface>,
     @InjectModel('ngo') private ngoRepository: Model<ngoInterface>,
     @InjectModel('admin') private adminModel: Model<adminInterface>,
     @InjectModel('pages') private pageRepository: Model<pagesInterface>) { }
@@ -237,7 +240,7 @@ export class AppService {
       page.ngoRegisterDescription = { ...body.description, admin: admin }
       await page.save()
       let updated = await this.pageRepository.find()
-      console.log('its hereeee >>>> ' , updated)
+      console.log('its hereeee >>>> ', updated)
       console.log(updated[0].ngoRegisterDescription)
       return {
         message: 'updating events page data.',
@@ -654,43 +657,84 @@ export class AppService {
 
 
   async createNewPage(req: any, res: any, body: createCustomPageDto) {
-  try {
-    let admin = await this.adminModel.findOne({userName : req.user.userName})
-    let haseSubPage = body.haseSubPage;
-    let newPage = new this.customPAgeRepository({
-      enTitle: body.enTitle,
-      ruTitle: body.ruTitle,
-      path: body.path,
-      haseSubPage: body.haseSubPage,
-      template: body.template,
-      admin : admin._id
-    })
-
-    let savedPage = await newPage.save()
-    if (haseSubPage) {
-      let Children = await this.customPAgeRepository.create({
-        parent: savedPage._id,
-        enTitle: body.subMenu.enTitle,
-        ruTitle: body.subMenu.ruTitle,
-        path: body.subMenu.path,
-        haseSubPage: false,
-        template: body.subMenu.template,
+    try {
+      let admin = await this.adminModel.findOne({ userName: req.user.userName })
+      let haseSubPage = body.haseSubPage;
+      let newPage = new this.customPAgeRepository({
+        enTitle: body.enTitle,
+        ruTitle: body.ruTitle,
+        path: body.path,
+        haseSubPage: body.haseSubPage,
+        template: body.template,
         admin: admin._id
       })
-      await savedPage.updateOne({Children : Children._id})
-    } 
-    return {
-      message : 'ایجاد صفحه جدید با موفقیت انجام شد' , 
-      statusCode : 200,
-      data : savedPage
+      let savedPage = await newPage.save()
+      if (haseSubPage) {
+        let Children = await this.customPAgeRepository.create({
+          parent: savedPage._id,
+          enTitle: body.subMenu.enTitle,
+          ruTitle: body.subMenu.ruTitle,
+          path: body.subMenu.path,
+          haseSubPage: false,
+          template: body.subMenu.template,
+          admin: admin._id
+        })
+        await savedPage.updateOne({ Children: Children._id })
+      }
+      let updated = await this.customPAgeRepository.findById(savedPage._id).populate('Children')
+      return {
+        message: 'ایجاد صفحه جدید با موفقیت انجام شد',
+        statusCode: 200,
+        data: updated
+      }
+    } catch (error) {
+      console.log('error in creating the page and sub page >>', error)
+      return {
+        message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
+        statusCode: 500,
+        error: 'خطای داخلی سرور'
+      }
     }
-  } catch (error) {
-    console.log('error in creating the page and sub page >>' , error)
-    return {
-      message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
-      statusCode: 500,
-      error : 'خطای داخلی سرور'
-    }    
   }
-}
+
+
+  async addPageContent(req: any, res: any, pageId: string, body: createPagesContentDto) {
+
+    try {
+      if (!pageId) {
+        return {
+          message: 'لطفا ای را وارد کنید',
+          statusCode: 400,
+          error: 'wrong inputed id'
+        }
+      }
+      let page = await this.customPAgeRepository.findById(pageId)
+      if (!page) {
+        return {
+          message: 'صفحه مورد نظر یافت نشد',
+          statusCode: 400,
+          error: 'page not found'
+        }
+      }
+      let createdContent = await this.pagesContentRepository.create(body)
+      await page.updateOne({ content: createdContent._id })
+      await createdContent.updateOne({ page: page._id })
+      return {
+        message: 'ایجاد محتوای صفحه موفقیت آمیز بود',
+        statusCode: 200,
+        data: createdContent
+      }
+    } catch (error) {
+      console.log('error in adding content to pages >>> ', error)
+      return {
+        message: 'ایجاد محتوای صفحه موفقیت آمیز نبود',
+        statusCode: 500,
+        error: 'خطای داخلی سیستم'
+      }
+    }
+
+  }
+
+
+  /////////////// final line //////////////////////
 }

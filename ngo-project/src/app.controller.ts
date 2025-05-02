@@ -6,6 +6,7 @@ import { diskStorage } from 'multer'
 import { extname } from 'path';
 import { aboutUsDto, completeProjectCreation, homePage, pageDescriptionDto, setFooterDto } from './dto/homePage.dto';
 import { createCustomPageDto } from './dto/createCustomPage.dto';
+import { createPagesContentDto } from './dto/createPagesContent.dto';
 
 
 @ApiTags('pages data')
@@ -651,7 +652,33 @@ export class AppController {
     return this.appService.createNewPage(req, res, body)
   }
 
+
   
+
+
+  @Post('/content/:pageId')
+  @ApiOperation({ summary: 'ایجاد محتوا برای صفحه های ساخته شده توسط ادمین ' })
+  @ApiResponse({
+    status: 200, description: 'add content of new pages',
+    schema: {
+      example: {
+        success: true,
+        message: 'add content of page done',
+        error: null,
+        data: {},
+      }
+    }
+  })
+  @ApiBody({
+    type: createPagesContentDto,
+    description: 'ایجاد محتوا برای صفحه های ساخته شده توسط ادمین'
+  })
+  async addPageContent(@Req() req: any, @Res() res: any, @Param('pageId') pageId : string ,@Body(new ValidationPipe()) body: createPagesContentDto) {
+    return this.appService.addPageContent(req, res, pageId ,body)
+  }
+
+
+
 
 
 
