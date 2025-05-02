@@ -45,7 +45,7 @@ export class createCustomPageDto {
         example : "true",
         required : true,
     })
-    haseSubPage: boolean
+    hasSubPage: boolean
 
     @IsNotEmpty()
     @IsNumber()

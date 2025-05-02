@@ -37,7 +37,7 @@ export class customPages {
     path: string
 
     @Prop({ type: Boolean, default: false })
-    haseSubPage: boolean
+    hasSubPage: boolean
 
     @Prop({ type: Number })
     template: number

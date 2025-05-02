@@ -668,25 +668,25 @@ export class AppService {
         }
       }
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
-      let haseSubPage = body.haseSubPage;
+      let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
         peTitle : body.peTitle,
         enTitle: body.enTitle,
         ruTitle: body.ruTitle,
         path: body.path,
-        haseSubPage: body.haseSubPage,
+        hasSubPage: body.hasSubPage,
         template: body.template,
         admin: admin._id
       })
       let savedPage = await newPage.save()
-      if (haseSubPage) {
+      if (hasSubPage) {
         let Children = await this.customPAgeRepository.create({
           parent: savedPage._id,
           peTitle : body.peTitle,
           enTitle: body.subPage.enTitle,
           ruTitle: body.subPage.ruTitle,
           path: body.subPage.path,
-          haseSubPage: false,
+          hasSubPage: false,
           template: body.subPage.template,
           admin: admin._id
         })
@@ -803,18 +803,18 @@ export class AppService {
         }
       }
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
-      let haseSubPage = body.haseSubPage;
-
+      let hasSubPage = body.hasSubPage;
+      
       let newData = {...(existedPage.toObject()) , ...body }
 
       let savedPage = await existedPage.updateOne(newData)
-      if (haseSubPage) {
+      if (hasSubPage) {
         let Children = await this.customPAgeRepository.create({
           parent: savedPage._id,
           enTitle: body.subPage.enTitle,
           ruTitle: body.subPage.ruTitle,
           path: body.subPage.path,
-          haseSubPage: false,
+          hasSubPage: false,
           template: body.subPage.template,
           admin: admin._id
         })
