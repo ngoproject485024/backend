@@ -114,7 +114,7 @@ export class NgoController {
   login(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: loginDTO) {
     return this.ngoService.login(req, res, body)
   }
-
+  
   /**creation api document */
   @Post('/document/create')
   @ApiOperation({ summary: 'وقتی سمن ها میخان سند ثبت کنن' })

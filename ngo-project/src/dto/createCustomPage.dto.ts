@@ -45,6 +45,15 @@ export class createCustomPageDto {
         example : "true",
         required : true,
     })
+    hasSecondSubPage: boolean
+
+
+    @IsNotEmpty()
+    @IsBoolean()
+    @ApiProperty({
+        example : "true",
+        required : true,
+    })
     hasSubPage: boolean
 
     @IsNotEmpty()
@@ -73,4 +82,24 @@ export class createCustomPageDto {
         path: "",
         template: 1,
     }
+
+
+    @IsObject()
+    @ApiProperty({
+        example: {
+        peTitle: "",
+        enTitle: "",
+        ruTitle: "",
+        path: "",
+        template: 1,},
+        required : false,
+    })
+    secondSubPage : {
+        peTitle: "",
+        enTitle: "",
+        ruTitle: "",
+        path: "",
+        template: 1,        
+    }
+
 }

@@ -12,7 +12,7 @@ export interface customPagesInterface extends Document {
     path: string,
     hasSubPage: boolean,
     template: number,
-    Children: mongoose.Types.ObjectId,
+    Children: mongoose.Types.ObjectId[],
     parent: mongoose.Types.ObjectId,
     content: mongoose.Types.ObjectId
     admin: mongoose.Types.ObjectId;
@@ -42,9 +42,9 @@ export class customPages {
     @Prop({ type: Number })
     template: number
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'customPage'  , default : null})
-    Children: mongoose.Types.ObjectId
-
+    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'customPage'  , default : null})
+    Children: mongoose.Types.ObjectId[]
+    
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'customPage'  , default : null})
     parent: mongoose.Types.ObjectId
 

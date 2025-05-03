@@ -552,7 +552,12 @@ export class AppService {
   }
 
 
-
+  /**
+   * this endpoint is for specific project page data
+   * @param req 
+   * @param res 
+   * @returns 
+   */
   async specificProjectsById(req: any, res: any) {
     let projects = await this.projectRepository.find({ status: req.user.id })
     return {
@@ -563,39 +568,11 @@ export class AppService {
   }
 
 
-  // series: [44, 55, 41, 17, 15],
-  // labels: ["Iran", "Iraq", "Qatar", "Pakistan", "India"],
 
-
-  // series: [
-  //   {
-  //     name: "2023",
-  //     data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-  //   },
-  //   {
-  //     name: "2024",
-  //     data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-  //   },
-  //   {
-  //     name: "2025",
-  //     data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-  //   },
-  // ],
-
-
-  // categories: [
-  //   "NGO Name",
-  //   "NGO Name",
-  //   "NGO Name",
-  //   "NGO Name",
-  //   "NGO Name",
-  //   "NGO Name",
-  //   "NGO Name",
-  //   "NGO Name",
-  //   "NGO Name",
-  // ],
-
-
+  /**
+   * this private function is for creating the barcharts
+   * @returns 
+   */
   private async barCharts() {
     let ngos = await this.ngoRepository.find()
 
@@ -618,7 +595,11 @@ export class AppService {
   }
 
 
-
+  /**
+   * this end point is for get statistic page data
+   * @param req 
+   * @param res 
+   */
   async statisticPage(req: any, res: any) {
 
     let donate = await this.barCharts()
@@ -655,12 +636,18 @@ export class AppService {
   }
 
 
-
+  /**
+   * this endpoint is for creating the new page
+   * @param req 
+   * @param res 
+   * @param body 
+   * @returns 
+   */
   async createNewPage(req: any, res: any, body: createCustomPageDto) {
     try {
       body.path = body.path.trim().replaceAll(' ', '-')
       let existance = await this.customPAgeRepository.find({ path: body.path })
-      if (existance.length>0) {
+      if (existance.length > 0) {
         return {
           message: 'این مسیر قبلا ثبت شده است.',
           statusCode: 400,
@@ -670,7 +657,7 @@ export class AppService {
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
       let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
-        peTitle : body.peTitle,
+        peTitle: body.peTitle,
         enTitle: body.enTitle,
         ruTitle: body.ruTitle,
         path: body.path,
@@ -682,7 +669,7 @@ export class AppService {
       if (hasSubPage) {
         let Children = await this.customPAgeRepository.create({
           parent: savedPage._id,
-          peTitle : body.peTitle,
+          peTitle: body.peTitle,
           enTitle: body.subPage.enTitle,
           ruTitle: body.subPage.ruTitle,
           path: body.subPage.path,
@@ -690,9 +677,25 @@ export class AppService {
           template: body.subPage.template,
           admin: admin._id
         })
-        await savedPage.updateOne({ Children: Children._id })
+        savedPage.Children.push(Children._id)
       }
+      
+      if (body.hasSecondSubPage){
+        let secondChildren = await this.customPAgeRepository.create({
+          parent: savedPage._id,
+          peTitle: body.secondSubPage.peTitle,
+          enTitle: body.secondSubPage.enTitle,
+          ruTitle: body.secondSubPage.ruTitle,
+          path: body.secondSubPage.path,
+          hasSubPage: false,
+          template: body.secondSubPage.template,
+          admin: admin._id
+        })
+        savedPage.Children.push(secondChildren._id)
+      }
+      await savedPage.updateOne({Children : savedPage.Children})
       let updated = await this.customPAgeRepository.findById(savedPage._id).populate('Children')
+      console.log('updated saved page isssss' , updated)
       return {
         message: 'ایجاد صفحه جدید با موفقیت انجام شد',
         statusCode: 200,
@@ -709,6 +712,15 @@ export class AppService {
   }
 
 
+
+
+  /**
+   * this end point is for add content to page 
+   * @param req 
+   * @param res 
+   * @param body 
+   * @returns 
+   */
   async addPageContent(req: any, res: any, body: createPagesContentDto) {
 
     try {
@@ -728,7 +740,7 @@ export class AppService {
           error: 'page not found'
         }
       }
-      console.log('body issss >>>' , body)
+      console.log('body issss >>>', body)
       let createdContent = await this.pagesContentRepository.create(body)
       await page.updateOne({ content: createdContent._id })
       await createdContent.updateOne({ page: page._id })
@@ -782,20 +794,20 @@ export class AppService {
    * @param pageId 
    * @returns 
    */
-  async updateCustomPages(req: any, res: any, body: createCustomPageDto , pageId : string){
+  async updateCustomPages(req: any, res: any, body: createCustomPageDto, pageId: string) {
     try {
       body.path = body.path.trim().replaceAll(' ', '-')
       let existedPage = await this.customPAgeRepository.findById(pageId)
-      if (!existedPage){
+      if (!existedPage) {
         return {
           message: 'صفحه مورد نظر یافت نشد',
           statusCode: 400,
           error: 'صفحه مورد نظر یافت نشد'
         }
       }
-      if (existedPage.path != body.path){
+      if (existedPage.path != body.path) {
         let existance = await this.customPAgeRepository.find({ path: body.path })
-        if (existance.length>0) {
+        if (existance.length > 0) {
           return {
             message: 'این مسیر قبلا ثبت شده است.',
             statusCode: 400,
@@ -806,7 +818,7 @@ export class AppService {
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
       let hasSubPage = body.hasSubPage;
 
-      let newData = {...(existedPage.toObject()) , ...body }
+      let newData = { ...(existedPage.toObject()), ...body }
 
       let savedPage = await existedPage.updateOne(newData)
       if (hasSubPage) {
@@ -839,39 +851,39 @@ export class AppService {
 
 
 
-  // async updateCustomPagesContent(eq: any, res: any, body: createCustomPageDto , contetId : string){
-
-  //   let existanceContet = 
-
-  // }
 
 
-
-
+  /**
+   * this end point is for delete the custom page
+   * @param req 
+   * @param res 
+   * @param pageId 
+   * @returns 
+   */
   async deleteCustomPage(req: any, res: any, pageId: string) {
     try {
-      let existancePage = await this.customPAgeRepository.findById(pageId)
-      if (!existancePage){
+      let existancePage = await this.customPAgeRepository.findById(pageId).populate('content')
+      if (!existancePage) {
         return {
-          message : 'صفحه مورد نظر یافت نشد',
-          statusCode : 400,
-          error : 'صفحه مورد نظر یافت نشد'
+          message: 'صفحه مورد نظر یافت نشد',
+          statusCode: 400,
+          error: 'صفحه مورد نظر یافت نشد'
         }
       }
-  
+      await this.pagesContentRepository.findByIdAndDelete(existancePage.content._id)
       await this.customPAgeRepository.findByIdAndDelete(pageId)
       return {
-        message : 'صفحه مورد نظر یا موفقیت حذف شد',
-        statusCode : 200,
-        data : ''
-      }  
+        message: 'صفحه مورد نظر یا موفقیت حذف شد',
+        statusCode: 200,
+        data: ''
+      }
     } catch (error) {
-        console.log('error occured in deleting custom pages' , error)
-        return {
-          message : 'صفحه مورد نظر حذف نشد',
-          statusCode : 500,
-          error : 'خطای داخلی سرور'
-        }
+      console.log('error occured in deleting custom pages', error)
+      return {
+        message: 'صفحه مورد نظر حذف نشد',
+        statusCode: 500,
+        error: 'خطای داخلی سرور'
+      }
     }
   }
 
