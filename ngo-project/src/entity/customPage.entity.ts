@@ -42,9 +42,9 @@ export class customPages {
     @Prop({ type: Number })
     template: number
 
-    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'customPage'  , default : null})
+    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'customPage'  , default : []})
     Children: mongoose.Types.ObjectId[]
-    
+
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'customPage'  , default : null})
     parent: mongoose.Types.ObjectId
 
