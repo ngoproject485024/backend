@@ -728,7 +728,7 @@ export class AppService {
           error: 'page not found'
         }
       }
-    
+      console.log('body issss >>>' , body)
       let createdContent = await this.pagesContentRepository.create(body)
       await page.updateOne({ content: createdContent._id })
       await createdContent.updateOne({ page: page._id })
