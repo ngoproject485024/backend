@@ -645,6 +645,8 @@ export class AppService {
    */
   async createNewPage(req: any, res: any, body: createCustomPageDto) {
     try {
+      let all = await this.customPAgeRepository.find()
+      await this.customPAgeRepository.deleteMany(all)
       body.path = body.path.trim().replaceAll(' ', '-')
       let existance = await this.customPAgeRepository.find({ path: body.path })
       if (existance.length > 0) {
