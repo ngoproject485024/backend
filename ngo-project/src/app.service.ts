@@ -645,17 +645,17 @@ export class AppService {
    */
   async createNewPage(req: any, res: any, body: createCustomPageDto) {
     try {
-      let all = await this.customPAgeRepository.find()
-      await this.customPAgeRepository.deleteMany(all)
+      // let all = await this.customPAgeRepository.find()
+      // await this.customPAgeRepository.deleteMany(all)
       body.path = body.path.trim().replaceAll(' ', '-')
-      let existance = await this.customPAgeRepository.find({ path: body.path })
-      if (existance.length > 0) {
-        return {
-          message: 'این مسیر قبلا ثبت شده است.',
-          statusCode: 400,
-          error: 'این مسیر قبلا ثبت شده است'
-        }
-      }
+      // let existance = await this.customPAgeRepository.find({ path: body.path })
+      // if (existance.length > 0) {
+      //   return {
+      //     message: 'این مسیر قبلا ثبت شده است.',
+      //     statusCode: 400,
+      //     error: 'این مسیر قبلا ثبت شده است'
+      //   }
+      // }
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
       let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
