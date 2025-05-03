@@ -657,6 +657,7 @@ export class AppService {
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
       let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
+        Children:[],
         peTitle: body.peTitle,
         enTitle: body.enTitle,
         ruTitle: body.ruTitle,
