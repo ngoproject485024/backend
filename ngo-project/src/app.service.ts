@@ -765,6 +765,58 @@ export class AppService {
   }
 
 
+  // {
+  //   label : ,
+  //   href : 
+  //   children : []
+  // }
+
+  async getPathes(req: any, res: any){
+    let pages = await this.customPAgeRepository.find({ parent: null }).populate('Children')
+
+
+    let all = []
+
+    for (let i= 0 ; i < pages.length ; i++){
+      let elem = pages[i]
+      let label = [elem.peTitle , elem.enTitle , elem.ruTitle]
+      let href = elem.path
+      let chilren = []
+      if (elem.Children.length > 0){
+        elem.Children.forEach((rr : any)=>{
+          let data = {
+            label : [rr.peTitle , rr.enTitle , rr.ruTitle],
+            href : rr.path,
+          }
+          chilren.push(data)
+        })
+      }
+      let finalData;
+      if (chilren.length > 0){
+        finalData = {
+          label : label,
+          href : href,
+          children : chilren
+        }
+      }else {
+        finalData = {
+          label : label,
+          href : href,
+        }        
+      }
+      all.push(finalData)
+    }
+
+    return {
+      message : 'get all pages',
+      statusCode : 200,
+      data : all
+    }
+  }
+
+
+
+
   /**
    * this endpoint is for getting all customs pages by admin
    * @param req 
@@ -852,9 +904,6 @@ export class AppService {
       }
     }
   }
-
-
-
 
 
   /**
