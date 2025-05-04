@@ -797,5 +797,45 @@ export class AppController {
 
 
 
+
+  /**
+   * this rout is for get all customs pages by admin
+   * @param req 
+   * @param res 
+   * @returns 
+   */
+  @Get('/content/:path')
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiOperation({ summary: 'گرفتن همه ی صفحات ساخته شده توسط ادمین' })
+  @ApiResponse({
+    status: 200, description: 'get customs page data',
+    schema: {
+      example: {
+        success: true,
+        message: 'get customs page data done',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  async getCustomPageContent(@Req() req: any, @Res() res: any , @Param('path') path : string) {
+    return this.appService.getCustomPageContent(req, res , path)
+  }
+
+
+
+
+
 /////////////////////////final line!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }

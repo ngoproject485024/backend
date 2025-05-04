@@ -774,6 +774,7 @@ export class AppService {
   async getPathes(req: any, res: any){
     let pages = await this.customPAgeRepository.find({ parent: null }).populate('Children')
 
+    console.log('pages issss >>> ' , pages)
 
     let all = []
 
@@ -814,6 +815,27 @@ export class AppService {
     }
   }
 
+
+
+  async getCustomPageContent(req: any, res: any , path : string){
+    let content = await this.customPAgeRepository.findOne({path : path}).populate('content')
+    if (!content){
+      return {
+        message : 'this content not exist',
+        statusCode : 400,
+        error : 'محتوای این صفحه یافت نشد'
+      }        
+    }
+    return {
+      message : 'get page content done',
+      statusCode : 200,
+      data : content
+    }
+  }
+
+
+
+  
 
 
 
