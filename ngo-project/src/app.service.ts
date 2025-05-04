@@ -874,7 +874,9 @@ export class AppService {
           error: 'صفحه مورد نظر یافت نشد'
         }
       }
-      await this.pagesContentRepository.findByIdAndDelete(existancePage.content._id)
+      if (existancePage.content){
+        await this.pagesContentRepository.findByIdAndDelete(existancePage.content._id)
+      }
       await this.customPAgeRepository.findByIdAndDelete(pageId)
       return {
         message: 'صفحه مورد نظر یا موفقیت حذف شد',
