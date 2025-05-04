@@ -656,6 +656,7 @@ export class AppService {
       //     error: 'این مسیر قبلا ثبت شده است'
       //   }
       // }
+      console.log('page body isssssss >>>> ' , body)
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
       let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
