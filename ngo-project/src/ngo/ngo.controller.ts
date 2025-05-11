@@ -939,4 +939,12 @@ export class NgoController {
   }
 
 
+
+  @Get('/token/check')
+  checkToken(@Req() req: any, @Res() res: any) {
+    return this.ngoService.checkToken(req, res)
+  }
+
+
+
 }

@@ -41,6 +41,7 @@ export class NgoModule implements NestModule {
       { path: '/ngo/project/delete/:id', method: RequestMethod.POST },
       { path: '/ngo/project/complete', method: RequestMethod.POST },
       { path: '/ngo/pannel/documents', method: RequestMethod.GET },
+      { path: '/ngo/token/check', method: RequestMethod.GET },
       { path: '/ngo/pannel/projects', method: RequestMethod.GET })
   }
 }

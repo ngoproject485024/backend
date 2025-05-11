@@ -628,4 +628,13 @@ export class NgoService {
   }
 
 
+  async checkToken(req: any, res: any){
+    return {
+      message : 'true',
+      statusCode : 200
+    }
+  }
+
+
+
 }
