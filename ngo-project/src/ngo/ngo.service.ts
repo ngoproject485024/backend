@@ -102,7 +102,7 @@ export class NgoService {
       userName: ngo.username,
       name: ngo.name,
     }
-    let token = await this.jwtService.tokenize(jwtData, '128H')
+    let token = await this.jwtService.tokenize(jwtData, '128D')
     let finalNgo = await this.ngoRepository.findOne({ username: body.username }).select('-password')
     console.log(finalNgo)
     let finalNgo2 = finalNgo.toObject()
