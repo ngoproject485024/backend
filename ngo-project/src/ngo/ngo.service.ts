@@ -636,7 +636,4 @@ export class NgoService {
       statusCode : 200
     }
   }
-
-
-
 }
