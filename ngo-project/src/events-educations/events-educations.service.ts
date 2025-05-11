@@ -133,10 +133,6 @@ export class EventsEducationsService {
   }
 
 
-
-
-
-
   async deleteEducation(req, res, id: string) {
     let education = await this.educationRepository.findById(id)
     if (!education) {
