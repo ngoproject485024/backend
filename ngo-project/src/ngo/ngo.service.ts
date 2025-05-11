@@ -336,6 +336,13 @@ export class NgoService {
   async getNgo(req: any, res: any, ngoId: string) {
     console.log('ff', ngoId)
     let ngo = await this.ngoRepository.findById(ngoId)
+    if (!ngo){
+      return {
+        message : 'ngo not fount',
+        statusCode :400,
+        error : 'سمن مورد نظر یافت نشد' 
+      }
+    }
     console.log(ngo)
     let project = await this.ngoProject.find().limit(2)
     let Document = await this.ngoDocument.find().limit(2)

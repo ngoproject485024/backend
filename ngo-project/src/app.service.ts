@@ -373,8 +373,6 @@ export class AppService {
 
 
 
-
-
   async getcollaborationProjectPage(req: any, res: any) {
     let pages = await this.pageRepository.find()
     let page = pages[0]
@@ -384,8 +382,6 @@ export class AppService {
       data: page.collaborationOpportunities
     }
   }
-
-
 
 
   async homeData(req: any, res: any) {
@@ -403,7 +399,6 @@ export class AppService {
       }
     }
   }
-
 
 
   async deleteFile(req, res, body: { fileName: string }) {
@@ -425,7 +420,6 @@ export class AppService {
       }
     }
   }
-
 
 
   async aboutUs(req: any, res: any) {
