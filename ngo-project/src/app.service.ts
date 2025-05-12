@@ -387,7 +387,9 @@ export class AppService {
   async homeData(req: any, res: any) {
     let homePage = await this.pageRepository.find()
     let home = homePage[0].homPage
-    let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } }).sort({ 'createdAt': -1 }).limit(10)
+
+
+    let projects = await this.projectRepository.find().populate({path : 'ngo' , select : { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 }})     .sort({ 'createdAt': -1 }).limit(10)
     let ngo = await this.ngoRepository.find().sort({ 'createdAt': -1 }).limit(10)
     return {
       message: 'project created successfully',
@@ -475,7 +477,7 @@ export class AppService {
   async specificProjectsByStatus(req: any, res: any, status: string, page: number) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
     // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
-    let projects = await this.projectRepository.find()populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } }): 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+    let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
@@ -485,7 +487,7 @@ export class AppService {
 
 
   async getDocuments(req: any, res: any, page: number, search: string) {
-    // let projects = await this.projectRepository.find({populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })status} })
+    // let projects = await this.projectRepository.find({ status: {$in : status} })
     // let search : string ;
     // let word = search
     console.log(search)
@@ -516,7 +518,7 @@ export class AppService {
 
 
   async searchDocument(req: any, res: any, id: string) {
-    // let projects = await this.projectRepository.find({populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })status} })
+    // let projects = await this.projectRepository.find({ status: {$in : status} })
     let documents = await this.documentRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
     return {
       message: 'get all documents page data by status',
@@ -529,8 +531,8 @@ export class AppService {
 
 
   async getSpecificProjectByID(req: any, res: any, id: string) {
-    // let projects = await this.projectRepository.find({populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })status} })
-    let projects = await this.projectRepository.findBypopulate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } }){ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+    // let projects = await this.projectRepository.find({ status: {$in : status} })
+    let projects = await this.projectRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
     if (!projects) {
       return {
         message: 'get all projects page data by status',
@@ -553,7 +555,7 @@ export class AppService {
    * @returns 
    */
   async specificProjectsById(req: any, res: any) {
-    let projects = await this.projectRepository.find({populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })r.id })
+    let projects = await this.projectRepository.find({ status: req.user.id })
     return {
       message: 'get all projects page data by id',
       statusCode: 200,
