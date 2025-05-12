@@ -387,7 +387,7 @@ export class AppService {
   async homeData(req: any, res: any) {
     let homePage = await this.pageRepository.find()
     let home = homePage[0].homPage
-    let projects = await this.projectRepository.find().sort({ 'createdAt': -1 }).limit(10)
+    let projects = await this.projectRepository.find().populate('ngo').sort({ 'createdAt': -1 }).limit(10)
     let ngo = await this.ngoRepository.find().sort({ 'createdAt': -1 }).limit(10)
     return {
       message: 'project created successfully',
