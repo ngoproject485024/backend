@@ -389,7 +389,7 @@ export class AppService {
     let home = homePage[0].homPage
 
 
-    let projects = await this.projectRepository.find().populate({path : 'ngo' , select : { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 }})     .sort({ 'createdAt': -1 }).limit(10)
+    let projects = await this.projectRepository.find().populate({path : 'ngo' , select : { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 }}).sort({ 'createdAt': -1 }).limit(10)
     let ngo = await this.ngoRepository.find().sort({ 'createdAt': -1 }).limit(10)
     return {
       message: 'project created successfully',
@@ -458,7 +458,7 @@ export class AppService {
     let completed = await this.projectRepository.countDocuments({ status: { $in: 'completed' } })
     let goodPractice = await this.projectRepository.countDocuments({ status: { $in: 'goodPractice' } })
     let collaborationOpportunities = await this.projectRepository.countDocuments({ status: { $in: 'collaborationOpportunities' } })
-    let lastProjects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } }).sort({ 'createdAt': -1 }).limit(5)
+    let lastProjects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1} }).sort({ 'createdAt': -1 }).limit(5)
     let mostParticipation = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } }).sort({ 'createdAt': -1 }).limit(5)
     return {
       message: 'get all projects page data',
@@ -477,7 +477,7 @@ export class AppService {
   async specificProjectsByStatus(req: any, res: any, status: string, page: number) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
     // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
-    let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+    let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } })
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
@@ -532,7 +532,7 @@ export class AppService {
 
   async getSpecificProjectByID(req: any, res: any, id: string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let projects = await this.projectRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+    let projects = await this.projectRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1} })
     if (!projects) {
       return {
         message: 'get all projects page data by status',
