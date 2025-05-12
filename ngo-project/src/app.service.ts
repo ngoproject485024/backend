@@ -494,18 +494,18 @@ export class AppService {
     let documents;
     if (search) {
       if (search == 'video') {
-        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1} })
       }
       else if (search == 'image' || search == 'images' || search == 'picture' || search == 'pictures' || search == 'pic') {
-        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 ,'logo' : 1} })
       }
       else {
         let re = new RegExp(search)
-        documents = await this.documentRepository.find({ $or: [{ email: { $regex: re } }, { interfaceName: { $regex: re } }, { description: { $regex: re } }, { phone: { $regex: re } }, { name: { $regex: re } }, { title: { $regex: re } }] }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+        documents = await this.documentRepository.find({ $or: [{ email: { $regex: re } }, { interfaceName: { $regex: re } }, { description: { $regex: re } }, { phone: { $regex: re } }, { name: { $regex: re } }, { title: { $regex: re } }] }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } })
       }
     } else {
       console.log('dddd')
-      documents = await this.documentRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+      documents = await this.documentRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } })
     }
     console.log('dddd', documents)
 
