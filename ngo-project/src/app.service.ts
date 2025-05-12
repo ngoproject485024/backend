@@ -519,7 +519,7 @@ export class AppService {
 
   async searchDocument(req: any, res: any, id: string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let documents = await this.documentRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 } })
+    let documents = await this.documentRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } })
     return {
       message: 'get all documents page data by status',
       statusCode: 200,

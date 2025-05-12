@@ -344,8 +344,8 @@ export class NgoService {
       }
     }
     console.log(ngo)
-    let project = await this.ngoProject.find().limit(2)
-    let Document = await this.ngoDocument.find().limit(2)
+    let project = await this.ngoProject.find().populate({path : 'ngo' , select:{ '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 }}).limit(5)
+    let Document = await this.ngoDocument.find().limit(5)
     // ngo.ownDocuments = Document;
     let newData = { ...ngo.toObject(), ownDocuments: Document, projects: project }
     let similarNgo = await this.ngoRepository.find().sort({ 'createdAt': -1 }).limit(5)
