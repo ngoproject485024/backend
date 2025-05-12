@@ -532,6 +532,7 @@ export class AppService {
 
   async getSpecificProjectByID(req: any, res: any, id: string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
+    console.log('asdfsdf' , id)
     let projects = await this.projectRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1} })
     if (!projects) {
       return {
