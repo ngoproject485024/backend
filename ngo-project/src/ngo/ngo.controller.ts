@@ -827,6 +827,44 @@ export class NgoController {
     return this.ngoService.approveDocumentByAdmin(req, res, id, +state)
   }
 
+
+
+
+
+
+
+  /**this is specific ngo documents api  */
+  @Put('/project/approve/:id')
+  @ApiOperation({ summary: 'تایید یا رد یک پروژه خاص' })
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'approve or reject ngo documents succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'approve ngo document succeed',
+        error: null,
+        data: []
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  approveProject(@Req() req: any, @Res() res: any, @Param('id') id: string, @Query('state') state: number) {
+    return this.ngoService.approveProjectByAdmin(req, res, id, +state)
+  }
+
+
+
   /**this is specific ngo documents api  */
   @Get('/admin/documents')
   @ApiOperation({ summary: 'گرفتن اسناد توسط ادمین در پنل ادمین' })

@@ -584,6 +584,57 @@ export class NgoService {
 
 
 
+  async approveProjectByAdmin(req: any, res: any, id: string, state: number) {
+    try {
+      let ngo = await this.ngoProject.findById(id)
+      if (state == 2) {
+        await ngo.updateOne({ state: 2 })
+        let updated = await this.ngoProject.findById(id)
+
+        return {
+          message: 'reject document successfully',
+          statusCode: 200,
+          data: updated
+        }
+      }
+
+      else if (state == 1) {
+        await ngo.updateOne({ state: 1 })
+        let updated = await this.ngoProject.findById(id)
+
+        return {
+          message: 'approve document successfully',
+          statusCode: 200,
+          data: updated
+        }
+      }
+      else if (state == 0) {
+        await ngo.updateOne({ state: 0 })
+        let updated = await this.ngoProject.findById(id)
+        return {
+          message: 'pending document successfully',
+          statusCode: 200,
+          data: updated
+        }
+      } else {
+        return {
+          message: 'pending document successfully',
+          statusCode: 400,
+          error: 'wrong state inputed'
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      return {
+        message: 'enable documents failed',
+        statusCode: 250,
+        error: "خطای داخلی سیستم"
+      }
+    }
+  }
+
+
+
   
   async getNgoData(req: any, res: any , id : string) {
 

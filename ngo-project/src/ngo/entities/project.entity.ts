@@ -91,7 +91,10 @@ export class projects {
     
     @Prop({type : String})
     moreInformation : string;
-    
+
+    @Prop({ type: Number, default: 0 })
+    state: number;            // 0 : not approved      1 : approved       // 2: rejecte
+
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'ngo' })
     ngo: mongoose.Types.ObjectId;
 }
