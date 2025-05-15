@@ -602,13 +602,12 @@ export class NgoService {
 
   async getNgosData(req: any, res: any) {
 
-    let ngo = await this.ngoRepository.find({approved : false}).select(['-password'])
-    let ngoAp = await this.ngoRepository.find({approved : true}).select(['-password'])
-    let all = [...ngo , ...ngoAp]
+    let ngo = await this.ngoRepository.find().select(['-password'])
+    
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
-      data : all
+      data : ngo
     }
   }
 
