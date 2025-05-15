@@ -653,11 +653,11 @@ export class NgoService {
 
   async getNgosData(req: any, res: any) {
 
-    let all2 = await this.ngoRepository.find()
+    // let all2 = await this.ngoRepository.find()
 
-    for (let i of all2){
-      await i.updateOne({approved : 2})
-    }
+    // for (let i of all2){
+    //   await i.updateOne({approved : 2})
+    // }
 
     let Approvedngo = await this.ngoRepository.find({approved : 1}).select(['-password'])
     let notApprovedNgo = await this.ngoRepository.find({approved : 2})
