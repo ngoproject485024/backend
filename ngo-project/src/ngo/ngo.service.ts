@@ -602,20 +602,74 @@ export class NgoService {
 
   async getNgosData(req: any, res: any) {
 
-
-    // let all = await this.ngoRepository.find()
-    // for (let i of all){
-    //   await i.updateOne({approved : false})
-    // }
-
     let Approvedngo = await this.ngoRepository.find({approved : true}).select(['-password'])
     let notApprovedNgo = await this.ngoRepository.find({approved : false})
     let all = [...notApprovedNgo , ...Approvedngo]
-    // console.log('alllll' , notApprovedNgo)
+   
+
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
       data : all
+    }
+  }
+
+
+
+
+  async approvedNgo(req: any, res: any, ngoId: string) {
+    let ngo = await this.ngoRepository.findById(ngoId)
+    if (!ngo) {
+      return {
+        message: 'سمن مورد نظر یافت نشد',
+        statusCode: 400,
+        error: 'سمن مورد نظر یافت نشد'
+      }
+    }
+
+    if (ngo.approved == 1) {
+      return {
+        message: 'این سمن قبلا تایید شده است',
+        statusCode: 409,
+        error: 'سمن مورد نظر قبلا تایید شده است'
+      }
+    }
+
+    await ngo.updateOne({ approved: 1 })
+
+    return {
+      message: 'approved ngo',
+      statusCode: 200,
+      data: ngo
+    }
+  }
+
+
+
+  async rejectNgo(req: any, res: any, ngoId: string) {
+    let ngo = await this.ngoRepository.findById(ngoId)
+    if (!ngo) {
+      return {
+        message: 'سمن مورد نظر یافت نشد',
+        statusCode: 400,
+        error: 'سمن مورد نظر یافت نشد'
+      }
+    }
+
+    if (ngo.approved == 0) {
+      return {
+        message: 'این سمن قبلا رد شده است',
+        statusCode: 409,
+        error: 'سمن مورد نظر قبلا رد شده است'
+      }
+    }
+
+    await ngo.updateOne({ approved: 0 })
+
+    return {
+      message: 'reject ngo',
+      statusCode: 200,
+      data: ngo
     }
   }
 

@@ -557,6 +557,118 @@ export class NgoController {
   }
 
 
+
+
+
+  /**this is creating project api */
+  @Post('/approved/:ngoId')
+  @ApiOperation({ summary: 'تایید سمن ها توسط ادمین' })
+  @ApiResponse({
+    status: 200, description: 'the ngo approved successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo approved successfully',
+        error: null,
+        data: Ngo
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'the ngo already approved',
+        error: 'duplicate project',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+
+  async approvedNgo(@Req() req: any, @Res() res: any, @Param('ngoId') ngoId: string) {
+    return this.ngoService.approvedNgo(req, res, ngoId)
+  }
+
+
+
+
+
+  /**this is creating project api */
+  @Post('/reject/:ngoId')
+  @ApiOperation({ summary: 'رد سمن ها توسط ادمین' })
+  @ApiResponse({
+    status: 200, description: 'the ngo approved successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo approved successfully',
+        error: null,
+        data: Ngo
+      }
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409, description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'the ngo already approved',
+        error: 'duplicate project',
+        data: null
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  async rejectNgoProject(@Req() req: any, @Res() res: any, @Param('ngoId') ngoId: string) {
+    return this.ngoService.rejectNgo(req, res, ngoId)
+  }
+
+
+
   /**this is ngo page api */
   @Get('/all')
   @ApiOperation({ summary: 'دیتای صفحه ی سمن ها به همراه دیتای نقشه' })
