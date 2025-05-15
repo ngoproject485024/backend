@@ -85,6 +85,13 @@ export class NgoService {
         error: 'account not found!'
       }
     }
+    if (!ngo.approved){
+      return {
+        message : 'login failed',
+        statusCode : 403,
+        error : 'your registration are not approved by admin yet.'
+      }
+    }
     console.log(ngo.password)
     console.log(body.password)
     let compare = await bcrypt.compare(body.password, ngo.password)
@@ -595,12 +602,13 @@ export class NgoService {
 
   async getNgosData(req: any, res: any) {
 
-    let ngo = await this.ngoRepository.find().select(['-password'])
-    
+    let ngo = await this.ngoRepository.find({approved : false}).select(['-password'])
+    let ngoAp = await this.ngoRepository.find({approved : true}).select(['-password'])
+    let all = [...ngo , ...ngoAp]
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
-      data : ngo
+      data : all
     }
   }
 

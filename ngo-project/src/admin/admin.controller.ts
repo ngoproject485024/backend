@@ -52,7 +52,5 @@ export class AdminController {
     return this.adminService.deleteAdmin(req , res , adminId)
   }
 
-  
-
 
 }
