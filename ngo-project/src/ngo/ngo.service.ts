@@ -610,12 +610,12 @@ export class NgoService {
 
     let Approvedngo = await this.ngoRepository.find({approved : true}).select(['-password'])
     let notApprovedNgo = await this.ngoRepository.find({approved : false})
-    // let all = [...Approvedngo , notApprovedNgo]
-    console.log('alllll' , notApprovedNgo)
+    let all = [...notApprovedNgo , ...Approvedngo]
+    // console.log('alllll' , notApprovedNgo)
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
-      data : notApprovedNgo
+      data : all
     }
   }
 
