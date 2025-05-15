@@ -677,6 +677,7 @@ export class NgoService {
 
   async approvedNgo(req: any, res: any, ngoId: string) {
     let ngo = await this.ngoRepository.findById(ngoId)
+    console.log(ngoId)
     if (!ngo) {
       return {
         message: 'سمن مورد نظر یافت نشد',
