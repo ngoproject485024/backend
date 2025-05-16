@@ -497,7 +497,6 @@ export class NgoController {
       }
     },
   })
-
   deleteProject(@Req() req: any, @Res() res: any, @Param('id') id: string) {
     return this.ngoService.deleteProject(req, res, id)
   }

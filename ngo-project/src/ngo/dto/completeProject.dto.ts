@@ -27,6 +27,26 @@ export class completeProject{
         required : true
     })
     id : string
+
+
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'asdf;lkjhvnaouds;fj;awlef',
+        required : true
+    })
+    completedReports : string
+
+
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'asdf;lkjhvnaouds;fj;awlef',
+        required : true
+    })
+    completedEffects : string
     
 }
 

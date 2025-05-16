@@ -452,7 +452,9 @@ export class NgoService {
       })
       console.log(newProject)
       project.status = newProject;
-      project.achivements = body.achivements;
+      project.completedAchievements = body.achivements;
+      project.completedReports = body.completedReports
+      project.completedEffects = body.completedEffects
       await project.save()
 
       let updated = await this.ngoProject.findById(body.id).populate('ngo')
