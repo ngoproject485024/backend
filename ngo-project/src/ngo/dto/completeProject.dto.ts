@@ -45,6 +45,12 @@ export class completeProject{
     visualDocuments: { title: string, files: string[] }[];
 
 
+
+    @IsNotEmpty()
+    @IsArray()
+    documentsAndReport: { title: string, files: string[] };
+    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
