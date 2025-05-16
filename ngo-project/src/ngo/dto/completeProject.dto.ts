@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty } from "@nestjs/class-validator";
+import { IsArray, IsNotEmpty, IsObject } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
 
@@ -47,7 +47,7 @@ export class completeProject{
 
 
     @IsNotEmpty()
-    @IsArray()
+    @IsObject()
     documentsAndReport: { title: string, files: string[] };
     
 
