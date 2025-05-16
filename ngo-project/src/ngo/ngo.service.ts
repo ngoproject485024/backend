@@ -398,7 +398,7 @@ export class NgoService {
 
 
 
-  async completeProject(req: any, res: any, body: completeProject) {
+  async completeProject(req: any, res: any, projectId : string ,body: completeProject) {
     try {
       console.log('its comming here >>>> ' , body)
       let ngo = await this.ngoRepository.findById(req.user.id)
@@ -409,7 +409,7 @@ export class NgoService {
           error: 'ngo not found!'
         }
       }
-      let project = await this.ngoProject.findById(body.id).populate('ngo')
+      let project = await this.ngoProject.findById(projectId).populate('ngo')
       if (!project) {
         return {
           message: 'complete project failed',
@@ -434,6 +434,7 @@ export class NgoService {
           error: 'project status is full.'
         }
       }
+      
 
 
       if (project.status.includes('completed')) {
@@ -460,7 +461,7 @@ export class NgoService {
       project.documentsAndReport = body.documentsAndReport
       await project.save()
 
-      let updated = await this.ngoProject.findById(body.id).populate('ngo')
+      let updated = await this.ngoProject.findById(projectId).populate('ngo')
       return {
         message: 'complete project done',
         statusCode: 200,

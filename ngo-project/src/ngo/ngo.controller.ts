@@ -395,7 +395,7 @@ export class NgoController {
 
 
   /**this is creating project api */
-  @Post('/project/complete')
+  @Post('/project/complete/:projectId')
   @ApiOperation({ summary: 'وقتی سمن ها میخان پروژه رو به اتمام برسونن' })
   @ApiResponse({
     status: 200, description: 'the ngos created project successfully',
@@ -445,8 +445,8 @@ export class NgoController {
     type: completeProject,
     description: 'Json structure for project object',
   })
-  completeProject(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: completeProject) {
-    return this.ngoService.completeProject(req, res, body)
+  completeProject(@Req() req: any, @Res() res: any, @Param('projectId') projectId : string ,@Body(new ValidationPipe()) body: completeProject) {
+    return this.ngoService.completeProject(req, res, projectId ,body)
   }
 
 
