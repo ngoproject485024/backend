@@ -316,6 +316,7 @@ export class NgoService {
       }
     }
     project.status.push('ongoing')
+    console.log('it fucking data >>>> ' , project)
     await project.save()
 
     return {

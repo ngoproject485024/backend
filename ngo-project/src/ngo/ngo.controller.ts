@@ -572,7 +572,7 @@ export class NgoController {
         error: null,
         data: Ngo
       }
-    },
+    }
   })
   // @ApiResponse({
   //   status: 403, description: 'Forbidden.',
@@ -826,10 +826,6 @@ export class NgoController {
   approveDocument(@Req() req: any, @Res() res: any, @Param('id') id: string, @Query('state') state: number) {
     return this.ngoService.approveDocumentByAdmin(req, res, id, +state)
   }
-
-
-
-
 
 
 
