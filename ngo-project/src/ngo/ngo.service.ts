@@ -400,6 +400,7 @@ export class NgoService {
 
   async completeProject(req: any, res: any, body: completeProject) {
     try {
+      console.log('its comming here >>>> ' , body)
       let ngo = await this.ngoRepository.findById(req.user.id)
       if (!ngo) {
         return {
