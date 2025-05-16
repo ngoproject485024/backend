@@ -455,6 +455,7 @@ export class NgoService {
       project.completedAchievements = body.achivements;
       project.completedReports = body.completedReports
       project.completedEffects = body.completedEffects
+      project.visualDocuments = body.visualDocuments
       await project.save()
 
       let updated = await this.ngoProject.findById(body.id).populate('ngo')
