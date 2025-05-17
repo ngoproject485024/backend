@@ -667,7 +667,6 @@ export class NgoController {
   }
 
 
-
   /**this is ngo page api */
   @Get('/all')
   @ApiOperation({ summary: 'دیتای صفحه ی سمن ها به همراه دیتای نقشه' })
@@ -696,6 +695,8 @@ export class NgoController {
   getAllNgo(@Req() req: any, @Res() res: any) {
     return this.ngoService.getAllNgo(req, res)
   }
+
+
 
 
   /**this is specific ngo api  */

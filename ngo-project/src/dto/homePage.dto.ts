@@ -166,7 +166,7 @@ export class pageDescriptionDto {
     type: string
 
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @IsObject()
     @ApiProperty({
         example: {
