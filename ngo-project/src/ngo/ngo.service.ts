@@ -329,7 +329,7 @@ export class NgoService {
 
   async getAllNgo(req: any, res: any) {
     let page = await this.pageRepository.find()
-    let ngoTabel = await this.ngoRepository.find()
+    let ngoTabel = await this.ngoRepository.find({$and : [{approved : 1} , {disable : false}]})
     console.log(ngoTabel[0])
     let mapNgo = await this.ngoMaps()
     let newData = {ngoTabel , mapNgo , description : page[0].ngoDescription}
