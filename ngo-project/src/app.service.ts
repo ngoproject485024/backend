@@ -388,12 +388,10 @@ export class AppService {
 
   async homeData(req: any, res: any) {
     let homePage = await this.pageRepository.find()
-    let home = homePage[0].homPage
-
-
+    let home = homePage[0].toObject().homPage
     let projects = await this.projectRepository.find().populate({path : 'ngo' , select : { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 }}).sort({ 'createdAt': -1 }).limit(10)
     let events = await this.eventRepository.find({ruPictures : {$ne : []}}).sort({'createdAt' : -1}).limit(3).select(['_id' , 'ruPictures'])
-    console.log('event is >>>>> ' , events)
+    // console.log('event is >>>>> ' , events)
     // home.middleImages = events
     delete home.middleImages
     let newData = {...home , middleImages : events}
