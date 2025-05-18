@@ -401,7 +401,7 @@ export class AppService {
       message: 'project created successfully',
       statusCode: 200,
       data: {
-        newData,
+        home : newData,
         projects: projects,
         ngo,
       }
