@@ -72,6 +72,7 @@ export class Events {
 
     @Prop({ type: String})
     ruEventsBody:string;
+
     @Prop({ type: [String] })
     peVideo: string[];
 
@@ -80,7 +81,7 @@ export class Events {
 
     @Prop({ type: [String] })
     ruVideo: string[];
-
+    
     @Prop({ type: [String] })
     pePictures: string[]
 

@@ -13,6 +13,7 @@ import { customPagesInterface } from './entity/customPage.entity';
 import { adminInterface } from './admin/entities/admin.entity';
 import { pageContentsInterface } from './entity/pagesContent.entity';
 import { createPagesContentDto } from './dto/createPagesContent.dto';
+import { EventsInterface } from './events-educations/entities/events.entity';
 
 @Injectable()
 export class AppService {
@@ -22,6 +23,7 @@ export class AppService {
     @InjectModel('customPage') private customPAgeRepository: Model<customPagesInterface>,
     @InjectModel('pagesContent') private pagesContentRepository: Model<pageContentsInterface>,
     @InjectModel('ngo') private ngoRepository: Model<ngoInterface>,
+    @InjectModel('events') private eventRepository: Model<EventsInterface>,
     @InjectModel('admin') private adminModel: Model<adminInterface>,
     @InjectModel('pages') private pageRepository: Model<pagesInterface>) { }
 
@@ -390,12 +392,18 @@ export class AppService {
 
 
     let projects = await this.projectRepository.find().populate({path : 'ngo' , select : { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 }}).sort({ 'createdAt': -1 }).limit(10)
+    let events = await this.eventRepository.find({ruPictures : {$ne : []}}).sort({'createdAt' : -1}).limit(3).select(['_id' , 'ruPictures'])
+    console.log('event is >>>>> ' , events)
+    // home.middleImages = events
+    delete home.middleImages
+    let newData = {...home , middleImages : events}
+    console.log('new data' , newData)
     let ngo = await this.ngoRepository.find().sort({ 'createdAt': -1 }).limit(10)
     return {
       message: 'project created successfully',
       statusCode: 200,
       data: {
-        home,
+        newData,
         projects: projects,
         ngo,
       }
