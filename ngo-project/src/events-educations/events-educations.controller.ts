@@ -366,8 +366,8 @@ export class EventsEducationsController {
       }
     },
   })
-  async getAllEducations(@Req() req: any, @Res() res: any, @Query('type') type: string, @Query('sort') sort: string) {
-    return this.eventsEducationsService.getAllEducations(req, res, type, sort)
+  async getAllEducations(@Req() req: any, @Res() res: any, @Query('type') type: string,@Query('page') page: string, @Query('sort') sort: string) {
+    return this.eventsEducationsService.getAllEducations(req, res, type, sort , page)
   }
 
 

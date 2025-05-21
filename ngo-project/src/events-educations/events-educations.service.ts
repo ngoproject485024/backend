@@ -207,53 +207,17 @@ export class EventsEducationsService {
    * @param body 
    * @returns 
    */
-  async getAllEducations(req: any, res: any, type: any, sort: string) {
+  async getAllEducations(req: any, res: any, type: any, sort: string , page : string) {
     console.log('sort', sort)
     console.log('type', type)
-    // if (type){
-    //   if (type == 'image'){
-    //     type = 0
-    //   }
-    //   if (type == 'video'){
-    //     type = 1
-    //   }
-    //   if (type == 'pdf'){
-    //     type = 2
-    //   }
-    //   if (type == 'word'){
-    //     type =3
-    //   }
-    // }
     let educations;
-    // if (type && sort){
-    //   if (sort == 'latest'){  
-    //     educations = await this.educationRepository.find()
-    //     .where('type').equals(type)
-    //     .sort({'createdAt' : -1})
-    //     .limit(8)        
-    //   }else if (sort == 'recent'){
-    //     educations = await this.educationRepository.find()
-    //     .where('type').equals(type)
-    //     .sort({'createdAt' : 1})
-    //     .limit(8)        
-    //   }
-    // }else if(type && !sort){
-    //   educations = await this.educationRepository.find()
-    //   .where('type').equals(type)
-    //   .limit(8)
-    // }else if(sort && !type){
-    //   if (sort == 'latest'){  
-    //     educations = await this.educationRepository.find()
-    //     .sort({'createdAt' : -1})
-    //     .limit(8)        
-    //   }else if (sort == 'recent'){
-    //     educations = await this.educationRepository.find()
-    //     .sort({'createdAt' : 1})
-    //     .limit(8)        
-    //   }
-    // }else{
-    educations = await this.educationRepository.find()
-    // }
+
+    if(!isNaN(+page)){
+      educations = await this.educationRepository.find().sort({'createdAt' : -1}).limit(10).skip(((+page)-1)*10)
+    }else{
+      page = "0"
+      educations = await this.educationRepository.find().sort({'createdAt' : -1}).limit(10).skip((+page)*10)
+    }
 
     return {
       message: 'get educations by admin',
