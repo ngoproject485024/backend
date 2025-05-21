@@ -53,7 +53,7 @@ export class EmailService {
               <p style="text-align : center;" class="card-text">If you have not requested this email, please ignore it</p>
             </div>
             <div class="card-footer text-body-secondary">
-                <h6 style="text-align: center;">TEHRAN ICH SUPPORT<span class="badge text-bg-secondary"><a href = "https://webngo.oceanjourney.ir">ICH.ngo.ir</a></span></h6> 
+                <h6 style="text-align: center;">TEHRAN ICH SUPPORT<span class="badge text-bg-secondary">ICH.ngo.ir</span></h6> 
             </div>
           </div>
     </div>

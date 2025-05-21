@@ -64,7 +64,8 @@ export class NgoService {
     console.log(body)
     body.country = body.country.includes('Iran') || body.country.includes('iran') ? 'Iran' : body.country
     body.password = await bcrypt.hash(body.password, this.saltRounds)
-    await this.EmailService.sendResetPasswordEmail('link test' , body.email)
+    let approvedLink = `https://ngo.oceanjourney.ir/approve/${body.password}`
+    await this.EmailService.sendResetPasswordEmail(approvedLink , body.email)
     let newNgo = await this.ngoRepository.create(body)
     return {
       message: 'ngo created successfully',
