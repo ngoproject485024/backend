@@ -15,6 +15,7 @@ import { tokenizeInterface } from 'src/interfaces/interfaces.interface';
 import { completeProject } from './dto/completeProject.dto';
 import { error } from 'console';
 import { pagesInterface } from 'src/entity/pages.entity';
+import { EmailService } from 'src/email/email.service';
 
 
 
@@ -25,6 +26,7 @@ export class NgoService {
   constructor(@InjectModel('ngo') private ngoRepository: Model<ngoInterface>,
     @InjectModel('document') private ngoDocument: Model<documentsInterface>,
     @InjectModel('project') private ngoProject: Model<projectsInterface>,
+    private EmailService: EmailService,
     @InjectModel('pages') private pageRepository : Model<pagesInterface>,
     private readonly jwtService: jwtService
   ) { }
@@ -61,6 +63,7 @@ export class NgoService {
   async createNewNgo(req: any, res: any, body: CreateNgoDto) {
     console.log(body)
     body.password = await bcrypt.hash(body.password, this.saltRounds)
+    await this.EmailService.sendResetPasswordEmail('link test' , body.email)
     let newNgo = await this.ngoRepository.create(body)
     return {
       message: 'ngo created successfully',

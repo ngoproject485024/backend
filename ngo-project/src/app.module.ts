@@ -22,6 +22,8 @@ import { pagesSchema } from './entity/pages.entity';
 import { customPagesSchema } from './entity/customPage.entity';
 import { pageContentsSchema } from './entity/pagesContent.entity';
 import { AdminSchema } from './admin/entities/admin.entity';
+import { EmailService } from './email/email.service';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 
 
@@ -44,11 +46,22 @@ import { AdminSchema } from './admin/entities/admin.entity';
       // secret: process.env.JWT_SECRET,
       global: true
     }),
-  })
+  }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'kianlucifer0098@gmail.com',
+          pass: 'cnno pezo wooi qkpl',
+        },
+      },
+    })
     , NgoModule, EventsEducationsModule, AdminModule,
   ],
   controllers: [AppController],
-  providers: [AppService, jwtService, EventsEducationsService],
+  providers: [AppService, jwtService, EventsEducationsService, EmailService],
 })
 
 
