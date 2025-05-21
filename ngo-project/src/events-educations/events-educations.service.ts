@@ -173,7 +173,7 @@ export class EventsEducationsService {
         event = await this.eventRepository.find({ type: +type }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
       }
       console.log('first condition3')
-      event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
+      event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page-1 * 10)
     } else {
       console.log('first condition44')
       page = "0"
