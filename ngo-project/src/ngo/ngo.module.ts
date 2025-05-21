@@ -13,6 +13,7 @@ import { EducationSchema } from 'src/events-educations/entities/education.entity
 import { EventsSchema } from 'src/events-educations/entities/events.entity';
 import { auth } from 'src/auth/auth.middleware';
 import { pagesSchema } from 'src/entity/pages.entity';
+import { EmailService } from 'src/email/email.service';
 
 @Module({
   imports : [MongooseModule.forRoot('') , 
@@ -25,7 +26,7 @@ import { pagesSchema } from 'src/entity/pages.entity';
         }),
   ],
   controllers: [NgoController],
-  providers: [NgoService , jwtService , EventsEducationsService],
+  providers: [NgoService , jwtService , EventsEducationsService , EmailService],
 })
 
 
