@@ -163,6 +163,9 @@ export class EventsEducationsService {
     console.log(start)
     console.log(end)
 
+
+    let types = await this.eventRepository.find().select(['type'])
+    console.log('the all types is >>>> ' , types)
     // type=2&start=2025-5-8&end=2025-5-22&page=2
     let event;
     if (!isNaN(+page)){
