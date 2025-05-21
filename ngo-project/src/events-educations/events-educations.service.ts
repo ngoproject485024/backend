@@ -173,6 +173,7 @@ export class EventsEducationsService {
     }else{
       page = "1"
       if (type) {
+        console.log('its hereeee >> ' , type)
         // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
         event = await this.eventRepository.find({ type: +type }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
       }
