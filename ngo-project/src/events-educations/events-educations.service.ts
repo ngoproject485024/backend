@@ -157,18 +157,32 @@ export class EventsEducationsService {
    * @param body 
    * @returns 
    */
-  async getAllEvents(req: any, res: any, type: string, sort: string, start: string, end: string) {
+  async getAllEvents(req: any, res: any, type: string, sort: string, start: string, end: string , page : string) {
     console.log(sort)
     console.log(type)
     console.log(start)
     console.log(end)
-
-    let events = await this.eventRepository.find()
+    // type=2&start=2025-5-8&end=2025-5-22&page=2
+    let event;
+    if (page){
+      if (type){
+        let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
+        event = await this.eventRepository.find({ type: mainType }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
+      }
+      event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
+    }else{
+      page = "1"
+      if (type) {
+        let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
+        event = await this.eventRepository.find({ type: mainType }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
+      }
+      event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)      
+    }
 
     return {
       message: 'get events by admin',
       statusCode: 200,
-      data: events
+      data: event
     }
   }
 
