@@ -164,17 +164,16 @@ export class EventsEducationsService {
     console.log(end)
     // type=2&start=2025-5-8&end=2025-5-22&page=2
     let event;
-    if (page){
+    if (!!page) {
       console.log('first condition')
-      if (type){
-      console.log('first condition22')
-
+      if (!!type) {
+        console.log('first condition22')
         // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
         event = await this.eventRepository.find({ type: +type }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
       }
       console.log('first condition3')
       event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
-    }else{
+    } else {
       console.log('first condition44')
       page = "1"
       if (type) {
