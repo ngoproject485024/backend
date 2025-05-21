@@ -166,15 +166,15 @@ export class EventsEducationsService {
     let event;
     if (page){
       if (type){
-        let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
-        event = await this.eventRepository.find({ type: mainType }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
+        // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
+        event = await this.eventRepository.find({ type: +type }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
       }
       event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
     }else{
       page = "1"
       if (type) {
-        let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
-        event = await this.eventRepository.find({ type: mainType }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
+        // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
+        event = await this.eventRepository.find({ type: +type }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
       }
       event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)      
     }
