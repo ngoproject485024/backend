@@ -158,8 +158,8 @@ export class EventsEducationsService {
    * @returns 
    */
   async getAllEvents(req: any, res: any, type: string, sort: string, start: string, end: string , page : string) {
-    console.log(sort !== undefined)
-    console.log(type === undefined)
+    console.log(typeof(sort) !== undefined)
+    console.log(typeof(type) === undefined)
     console.log(start)
     console.log(end)
     // type=2&start=2025-5-8&end=2025-5-22&page=2
