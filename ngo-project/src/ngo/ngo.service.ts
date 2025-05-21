@@ -62,6 +62,7 @@ export class NgoService {
    */
   async createNewNgo(req: any, res: any, body: CreateNgoDto) {
     console.log(body)
+    body.country = body.country.includes('Iran') || body.country.includes('iran') ? 'Iran' : body.country
     body.password = await bcrypt.hash(body.password, this.saltRounds)
     await this.EmailService.sendResetPasswordEmail('link test' , body.email)
     let newNgo = await this.ngoRepository.create(body)
