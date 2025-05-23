@@ -1084,8 +1084,8 @@ export class NgoController {
     return this.ngoService.disableNgoData(req, res, id)
   }
 
-  @Get('/gmail/approve/:token')
-  async approveGmail(@Req() req: any, @Res() res: any, @Param('token') token: string) {
+  @Get('/gmail/approve')
+  async approveGmail(@Req() req: any, @Res() res: any, @Query('token') token: string) {
     return this.ngoService.approveGmail(req, res, token)
   }
 
