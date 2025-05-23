@@ -481,7 +481,15 @@ export class AppService {
   }
 
   async specificProjectsByStatus(req: any, res: any, status: string, page: number) {
-    let projects = await this.projectRepository.find({ status: {$in : status} }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+    let projects;
+
+    if (isNaN(+page)) {
+      projects = await this.projectRepository.find({ status: { $in: status } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+    }else{
+      projects = await this.projectRepository.find({ status: { $in: status } })
+      .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+      .limit(10).skip((+page-1)*10)
+    }
     // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
     // let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     return {
