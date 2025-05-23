@@ -44,9 +44,9 @@ export class NgoService {
       }
     }
     console.log('after  making countries', countries)
-    let finalData = [['Country', 'NGO']]
+    let finalData = []
     for (let j of Object.keys(countries)) {
-      let miniData = [j, countries[j]]
+      let miniData = {name : j, value : countries[j]}
       finalData.push(miniData)
     }
     console.log('finalFucking data', finalData)

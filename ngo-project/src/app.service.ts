@@ -485,10 +485,10 @@ export class AppService {
 
     if (isNaN(+page)) {
       projects = await this.projectRepository.find({ status: { $in: status } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-    }else{
+    } else {
       projects = await this.projectRepository.find({ status: { $in: status } })
-      .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-      .limit(10).skip((+page-1)*10)
+        .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        .limit(10).skip((+page - 1) * 10)
     }
     let all = await this.projectRepository.countDocuments({ status: { $in: status } })
     // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
@@ -496,7 +496,7 @@ export class AppService {
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
-      data: {all , projects}
+      data: { all, projects }
     }
   }
 
@@ -972,9 +972,5 @@ export class AppService {
       }
     }
   }
-
-
-
-
   /////////////// final line //////////////////////
 }
