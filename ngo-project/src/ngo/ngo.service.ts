@@ -125,7 +125,7 @@ export class NgoService {
       allProjects : await this.ngoProject.countDocuments(),
       allDocuments : await this.ngoDocument.countDocuments(),
       ongoing : await this.ngoProject.countDocuments({status : {$in : 'ongoing'}}),
-      complete : await this.ngoProject.countDocuments({status : {$in : 'complete'}}),
+      complete : await this.ngoProject.countDocuments({status : {$in : 'completed'}}),
     }
     return {
       message: 'login successfull!',
