@@ -27,7 +27,7 @@ export class NgoService {
     @InjectModel('document') private ngoDocument: Model<documentsInterface>,
     @InjectModel('project') private ngoProject: Model<projectsInterface>,
     private EmailService: EmailService,
-    @InjectModel('pages') private pageRepository : Model<pagesInterface>,
+    @InjectModel('pages') private pageRepository: Model<pagesInterface>,
     private readonly jwtService: jwtService
   ) { }
 
@@ -53,6 +53,7 @@ export class NgoService {
     return finalData
   }
 
+
   /**
    * 
    * @param req 
@@ -64,8 +65,9 @@ export class NgoService {
     console.log(body)
     body.country = body.country.includes('Iran') || body.country.includes('iran') ? 'Iran' : body.country
     body.password = await bcrypt.hash(body.password, this.saltRounds)
-    let approvedLink = `https://ngo.oceanjourney.ir/approve/${body.password}`
-    await this.EmailService.sendResetPasswordEmail(approvedLink , body.email)
+    let token = await this.jwtService.refrshTokenize({ userName: body.username }, '12H')
+    let approvedLink = `https://ngo.oceanjourney.ir/ngo/gmail/approve/${body.password}`
+    await this.EmailService.sendResetPasswordEmail(approvedLink, body.email)
     let newNgo = await this.ngoRepository.create(body)
     return {
       message: 'ngo created successfully',
@@ -73,6 +75,7 @@ export class NgoService {
       data: newNgo
     }
   }
+
 
   /**
    * this rout is for login the ngos
@@ -90,11 +93,11 @@ export class NgoService {
         error: 'account not found!'
       }
     }
-    if (!ngo.approved){
+    if (!ngo.approved) {
       return {
-        message : 'login failed',
-        statusCode : 403,
-        error : 'your registration are not approved by admin yet.'
+        message: 'login failed',
+        statusCode: 403,
+        error: 'your registration are not approved by admin yet.'
       }
     }
     console.log(ngo.password)
@@ -321,7 +324,7 @@ export class NgoService {
       }
     }
     project.status.push('ongoing')
-    console.log('it fucking data >>>> ' , project)
+    console.log('it fucking data >>>> ', project)
     await project.save()
 
     return {
@@ -334,10 +337,10 @@ export class NgoService {
 
   async getAllNgo(req: any, res: any) {
     let page = await this.pageRepository.find()
-    let ngoTabel = await this.ngoRepository.find({$and : [{approved : 1} , {disable : false}]})
+    let ngoTabel = await this.ngoRepository.find({ $and: [{ approved: 1 }, { disable: false }] })
     console.log(ngoTabel[0])
     let mapNgo = await this.ngoMaps()
-    let newData = {ngoTabel , mapNgo , description : page[0].ngoDescription}
+    let newData = { ngoTabel, mapNgo, description: page[0].ngoDescription }
     return {
       message: 'get all ngo successfully',
       statusCode: 200,
@@ -349,15 +352,15 @@ export class NgoService {
   async getNgo(req: any, res: any, ngoId: string) {
     console.log('ff', ngoId)
     let ngo = await this.ngoRepository.findById(ngoId)
-    if (!ngo){
+    if (!ngo) {
       return {
-        message : 'ngo not fount',
-        statusCode :400,
-        error : 'سمن مورد نظر یافت نشد' 
+        message: 'ngo not fount',
+        statusCode: 400,
+        error: 'سمن مورد نظر یافت نشد'
       }
     }
     console.log(ngo)
-    let project = await this.ngoProject.find().populate({path : 'ngo' , select:{ '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 }}).limit(5)
+    let project = await this.ngoProject.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).limit(5)
     let Document = await this.ngoDocument.find().limit(5)
     // ngo.ownDocuments = Document;
     let newData = { ...ngo.toObject(), ownDocuments: Document, projects: project }
@@ -403,9 +406,9 @@ export class NgoService {
 
 
 
-  async completeProject(req: any, res: any, projectId : string ,body: completeProject) {
+  async completeProject(req: any, res: any, projectId: string, body: completeProject) {
     try {
-      console.log('its comming here >>>> ' , req.user)
+      console.log('its comming here >>>> ', req.user)
       let ngo = await this.ngoRepository.findById(req.user.id)
       if (!ngo) {
         return {
@@ -439,7 +442,7 @@ export class NgoService {
           error: 'project status is full.'
         }
       }
-      
+
 
 
       if (project.status.includes('completed')) {
@@ -500,7 +503,7 @@ export class NgoService {
 
 
   async getNgosDocumentByAdmin(req: any, res: any) {
-    let ngo = await this.ngoDocument.find().populate({path: 'ngo' , select : [ 'name' , 'username' , '_id' , 'city']})
+    let ngo = await this.ngoDocument.find().populate({ path: 'ngo', select: ['name', 'username', '_id', 'city'] })
     // console.log(ngoId)
     console.log(ngo)
     return {
@@ -514,7 +517,7 @@ export class NgoService {
 
   async getNgoProjectsByAdmin(req: any, res: any) {
     // let ngo = await this.ngoRepository.find()
-    let projects = await this.ngoProject.find().populate({path : 'ngo' , select : ['name' , 'username' , 'city' , '_id']}) 
+    let projects = await this.ngoProject.find().populate({ path: 'ngo', select: ['name', 'username', 'city', '_id'] })
     // let ongoing = await this.ngoProject.find({status : {$in : 'ongoing'}}).populate('ngo')
     // let completed = await this.ngoProject.find({status : {$in : 'completed'}}).populate('ngo')
     // let goodPractice = await this.ngoProject.find({status : {$in : 'goodPractice'}}).populate('ngo')
@@ -522,14 +525,14 @@ export class NgoService {
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
-      data : projects
+      data: projects
     }
   }
 
 
-  async getNgoProjectByAdmin(req: any, res: any , id : string) {
+  async getNgoProjectByAdmin(req: any, res: any, id: string) {
     // let ngo = await this.ngoRepository.find()
-    let projects = await this.ngoProject.findById(id).populate({path : 'ngo' , select : ['name' , 'username' , 'city' , '_id']}) 
+    let projects = await this.ngoProject.findById(id).populate({ path: 'ngo', select: ['name', 'username', 'city', '_id'] })
     // let ongoing = await this.ngoProject.find({status : {$in : 'ongoing'}}).populate('ngo')
     // let completed = await this.ngoProject.find({status : {$in : 'completed'}}).populate('ngo')
     // let goodPractice = await this.ngoProject.find({status : {$in : 'goodPractice'}}).populate('ngo')
@@ -537,18 +540,18 @@ export class NgoService {
     return {
       message: 'get ngo project successfully',
       statusCode: 200,
-      data : projects
+      data: projects
     }
   }
 
-  
+
 
 
   async approveDocumentByAdmin(req: any, res: any, id: string, state: number) {
     try {
       let ngo = await this.ngoDocument.findById(id)
-      if (state== 2) {
-        await ngo.updateOne({state : 2})
+      if (state == 2) {
+        await ngo.updateOne({ state: 2 })
         let updated = await this.ngoDocument.findById(id)
 
         return {
@@ -558,32 +561,32 @@ export class NgoService {
         }
       }
 
-      else if(state == 1){
-        await ngo.updateOne({state : 1})
+      else if (state == 1) {
+        await ngo.updateOne({ state: 1 })
         let updated = await this.ngoDocument.findById(id)
 
         return {
           message: 'approve document successfully',
           statusCode: 200,
           data: updated
-        }        
+        }
       }
-      else if(state == 0){
-        await ngo.updateOne({state : 0})
+      else if (state == 0) {
+        await ngo.updateOne({ state: 0 })
         let updated = await this.ngoDocument.findById(id)
         return {
           message: 'pending document successfully',
           statusCode: 200,
           data: updated
-        }                
-      }else {
+        }
+      } else {
         return {
           message: 'pending document successfully',
           statusCode: 400,
-          error : 'wrong state inputed'
-        }                
+          error: 'wrong state inputed'
+        }
       }
-      
+
     } catch (error) {
       console.log(error)
       return {
@@ -647,18 +650,18 @@ export class NgoService {
 
 
 
-  
-  async getNgoData(req: any, res: any , id : string) {
+
+  async getNgoData(req: any, res: any, id: string) {
 
     let ngo = await this.ngoRepository.findById(id).populate('projects')
-    
+
     let ngoDocument = await this.ngoRepository.findById(id).populate('ownDocuments')
     console.log(id)
-    
+
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
-      data : {ngo , ngoDocument}
+      data: { ngo, ngoDocument }
     }
   }
 
@@ -671,16 +674,16 @@ export class NgoService {
     //   await i.updateOne({approved : 2})
     // }
 
-    let Approvedngo = await this.ngoRepository.find({approved : 1}).select(['-password'])
-    let notApprovedNgo = await this.ngoRepository.find({approved : 2})
-    let rejectApprovedNgo = await this.ngoRepository.find({approved : 0})
-    let all = [...notApprovedNgo , ...Approvedngo , ...rejectApprovedNgo]
-   
+    let Approvedngo = await this.ngoRepository.find({ approved: 1 }).select(['-password'])
+    let notApprovedNgo = await this.ngoRepository.find({ approved: 2 })
+    let rejectApprovedNgo = await this.ngoRepository.find({ approved: 0 })
+    let all = [...notApprovedNgo, ...Approvedngo, ...rejectApprovedNgo]
+
 
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
-      data : all
+      data: all
     }
   }
 
@@ -746,34 +749,51 @@ export class NgoService {
 
 
 
-  async disableNgoData(req: any, res: any  ,id : string) {
+  async disableNgoData(req: any, res: any, id: string) {
     let ngo = await this.ngoRepository.findById(id)
-    console.log('id isssss>>>>' , id)
-    if (ngo.disable){
+    console.log('id isssss>>>>', id)
+    if (ngo.disable) {
       // ngo.disable = false;
-      await ngo.updateOne({disable : false})
-    }else{
-      await ngo.updateOne({disable : true})
+      await ngo.updateOne({ disable: false })
+    } else {
+      await ngo.updateOne({ disable: true })
       // ngo.disable = true;
     }
-    console.log('after updating >>>> ' , ngo)
-    
+    console.log('after updating >>>> ', ngo)
+
     let updated = await this.ngoRepository.findById(id)
     console.log(updated)
     return {
       message: 'فعال و غیر فعال کردن سمن ها',
       statusCode: 200,
-      data : updated.disable
+      data: updated.disable
     }
   }
 
 
-  async checkToken(req: any, res: any){
+
+  async approveGmail(req: any, res: any, token: string) {
+    let decoded = await this.jwtService.checkRefreshToken(token)
+    if (decoded) {
+      let user = await this.ngoRepository.findOne({ username: decoded.userName })
+      if (user) {
+        user.approved = 1;
+        await user.updateOne({ approved: 1 })
+        let page = await this.EmailService.getSucceedPage()
+        return res.status(200).send(page)
+      }
+    } else {
+      let failedPage = await this.EmailService.getFailedPage()
+      return res.status(400).send(failedPage)
+    }
+  }
+
+  async checkToken(req: any, res: any) {
     console.log('its in check token >>>> ')
     return {
-      message : 'true',
-      success : true,
-      statusCode : 200
+      message: 'true',
+      success: true,
+      statusCode: 200
     }
   }
 }

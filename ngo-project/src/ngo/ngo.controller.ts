@@ -114,7 +114,7 @@ export class NgoController {
   login(@Req() req: any, @Res() res: any, @Body(new ValidationPipe()) body: loginDTO) {
     return this.ngoService.login(req, res, body)
   }
-  
+
   /**creation api document */
   @Post('/document/create')
   @ApiOperation({ summary: 'وقتی سمن ها میخان سند ثبت کنن' })
@@ -445,8 +445,8 @@ export class NgoController {
     type: completeProject,
     description: 'Json structure for project object',
   })
-  completeProject(@Req() req: any, @Res() res: any, @Param('projectId') projectId : string ,@Body(new ValidationPipe()) body: completeProject) {
-    return this.ngoService.completeProject(req, res, projectId ,body)
+  completeProject(@Req() req: any, @Res() res: any, @Param('projectId') projectId: string, @Body(new ValidationPipe()) body: completeProject) {
+    return this.ngoService.completeProject(req, res, projectId, body)
   }
 
 
@@ -923,7 +923,7 @@ export class NgoController {
   }
 
 
-  
+
   /**this is specific ngo projects api  */
   @Get('/admin/projects')
   @ApiOperation({ summary: 'گرفتن پروژه ها توسط ادمین' })
@@ -956,36 +956,36 @@ export class NgoController {
 
 
 
-    /**this is specific ngo projects api  */
-    @Get('/admin/projects/:id')
-    @ApiOperation({ summary: 'گرفتن پروژه توسط ادمین' })
-    @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
-    @ApiResponse({
-      status: 200, description: 'get ngo projects succeed',
-      schema: {
-        example: {
-          success: true,
-          message: 'get ngo projects succeed',
-          error: null,
-          data: {}
-        }
-      },
-    })
-    @ApiResponse({
-      status: 500, description: 'internal service error',
-      schema: {
-        example: {
-          success: false,
-          message: 'internal error',
-          error: 'internal service error',
-          data: null
-        }
-      },
-    })
-    ngoProjectByAdmin(@Req() req: any, @Res() res: any , @Param('id') id : string) {
-      return this.ngoService.getNgoProjectByAdmin(req, res , id)
-    }
-  
+  /**this is specific ngo projects api  */
+  @Get('/admin/projects/:id')
+  @ApiOperation({ summary: 'گرفتن پروژه توسط ادمین' })
+  @ApiHeader({ name: 'Authorization', example: 'a;sdlfknoifja;slfjkdkas;caldifjkaklsd;fiwo;fjaks;dcmczxcoiasdljfkladsmcka;difjakl;sdfi' })
+  @ApiResponse({
+    status: 200, description: 'get ngo projects succeed',
+    schema: {
+      example: {
+        success: true,
+        message: 'get ngo projects succeed',
+        error: null,
+        data: {}
+      }
+    },
+  })
+  @ApiResponse({
+    status: 500, description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null
+      }
+    },
+  })
+  ngoProjectByAdmin(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.ngoService.getNgoProjectByAdmin(req, res, id)
+  }
+
 
 
 
@@ -1015,8 +1015,8 @@ export class NgoController {
       }
     },
   })
-  ngosByAdmin(@Req() req: any, @Res() res: any ) {
-    return this.ngoService.getNgosData(req, res )
+  ngosByAdmin(@Req() req: any, @Res() res: any) {
+    return this.ngoService.getNgosData(req, res)
   }
 
 
@@ -1048,8 +1048,8 @@ export class NgoController {
       }
     },
   })
-  ngoDataByAdmin(@Req() req: any, @Res() res: any , @Param('id') id : string) {
-    return this.ngoService.getNgoData(req, res , id)
+  ngoDataByAdmin(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.ngoService.getNgoData(req, res, id)
   }
 
 
@@ -1080,17 +1080,18 @@ export class NgoController {
       }
     },
   })
-  ngoDesableByAdmin(@Req() req: any, @Res() res: any , @Param('id') id : string) {
-    return this.ngoService.disableNgoData(req, res , id)
+  ngoDesableByAdmin(@Req() req: any, @Res() res: any, @Param('id') id: string) {
+    return this.ngoService.disableNgoData(req, res, id)
   }
 
-
+  @Get('/gmail/approve/:token')
+  async approveGmail(@Req() req: any, @Res() res: any, @Param('token') token: string) {
+    return this.ngoService.approveGmail(req, res, token)
+  }
 
   @Get('/token/check')
   checkToken(@Req() req: any, @Res() res: any) {
     return this.ngoService.checkToken(req, res)
   }
-
-
 
 }

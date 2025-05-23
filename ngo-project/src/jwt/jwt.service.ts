@@ -39,6 +39,7 @@ export class jwtService  {
             return check
         } catch (error) {
             console.log(error)
+            return false
         }
     }
 
