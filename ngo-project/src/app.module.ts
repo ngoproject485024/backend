@@ -24,6 +24,7 @@ import { pageContentsSchema } from './entity/pagesContent.entity';
 import { AdminSchema } from './admin/entities/admin.entity';
 import { EmailService } from './email/email.service';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { UsersModule } from './users/users.module';
 
 
 
@@ -58,7 +59,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         },
       },
     })
-    , NgoModule, EventsEducationsModule, AdminModule,
+    , NgoModule, EventsEducationsModule, AdminModule, UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService, jwtService, EventsEducationsService, EmailService],

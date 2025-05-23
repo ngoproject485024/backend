@@ -490,12 +490,13 @@ export class AppService {
       .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
       .limit(10).skip((+page-1)*10)
     }
+    let all = await this.projectRepository.countDocuments()
     // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
     // let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
-      data: projects
+      data: {all , projects}
     }
   }
 

@@ -190,11 +190,12 @@ export class EventsEducationsService {
         event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
       }
     }
+    let all = await this.eventRepository.countDocuments()
 
     return {
       message: 'get events by admin',
       statusCode: 200,
-      data: event
+      data: {all , event}
     }
   }
 
@@ -219,10 +220,12 @@ export class EventsEducationsService {
       educations = await this.educationRepository.find().sort({ 'createdAt': -1 }).limit(10).skip((+page) * 10)
     }
 
+    let all = await this.educationRepository.countDocuments()
+
     return {
       message: 'get educations by admin',
       statusCode: 200,
-      data: educations
+      data: {all , educations}
     }
   }
 
