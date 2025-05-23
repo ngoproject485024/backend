@@ -121,11 +121,17 @@ export class NgoService {
     let finalNgo = await this.ngoRepository.findOne({ username: body.username }).select('-password')
     console.log(finalNgo)
     let finalNgo2 = finalNgo.toObject()
+    let allDate = {
+      allProjects : await this.ngoProject.countDocuments(),
+      allDocuments : await this.ngoDocument.countDocuments(),
+      ongoing : await this.ngoProject.countDocuments({status : {$in : 'ongoing'}}),
+      complete : await this.ngoProject.countDocuments({status : {$in : 'complete'}}),
+    }
     return {
       message: 'login successfull!',
       statusCode: 200,
       data: {
-        ...(ngo.toObject()), token: token
+        ...(ngo.toObject()), token: token , allData : allDate
       }
     }
   }
