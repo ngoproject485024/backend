@@ -389,19 +389,19 @@ export class AppService {
   async homeData(req: any, res: any) {
     let homePage = await this.pageRepository.find()
     let home = homePage[0].toObject().homPage
-    let projects = await this.projectRepository.find().populate({path : 'ngo' , select : { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 }}).sort({ 'createdAt': -1 }).limit(10)
-    let events = await this.eventRepository.find({ruPictures : {$ne : []}}).sort({'createdAt' : -1}).limit(3).select(['_id' , 'ruPictures'])
+    let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(10)
+    let events = await this.eventRepository.find({ ruPictures: { $ne: [] } }).sort({ 'createdAt': -1 }).limit(3).select(['_id', 'ruPictures'])
     // console.log('event is >>>>> ' , events)
     // home.middleImages = events
     delete home.middleImages
-    let newData = {...home , middleImages : events}
-    console.log('new data' , newData)
+    let newData = { ...home, middleImages: events }
+    console.log('new data', newData)
     let ngo = await this.ngoRepository.find().sort({ 'createdAt': -1 }).limit(10)
     return {
       message: 'project created successfully',
       statusCode: 200,
       data: {
-        home : newData,
+        home: newData,
         projects: projects,
         ngo,
       }
@@ -464,8 +464,8 @@ export class AppService {
     let completed = await this.projectRepository.countDocuments({ status: { $in: 'completed' } })
     let goodPractice = await this.projectRepository.countDocuments({ status: { $in: 'goodPractice' } })
     let collaborationOpportunities = await this.projectRepository.countDocuments({ status: { $in: 'collaborationOpportunities' } })
-    let lastProjects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1} }).sort({ 'createdAt': -1 }).limit(5)
-    let mostParticipation = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } }).sort({ 'createdAt': -1 }).limit(5)
+    let lastProjects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(5)
+    let mostParticipation = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(5)
     return {
       message: 'get all projects page data',
       statusCode: 200,
@@ -481,9 +481,9 @@ export class AppService {
   }
 
   async specificProjectsByStatus(req: any, res: any, status: string, page: number) {
-    // let projects = await this.projectRepository.find({ status: {$in : status} })
+    let projects = await this.projectRepository.find({ status: {$in : status} }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
-    let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } })
+    // let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
@@ -500,18 +500,18 @@ export class AppService {
     let documents;
     if (search) {
       if (search == 'video') {
-        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1} })
+        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
       }
       else if (search == 'image' || search == 'images' || search == 'picture' || search == 'pictures' || search == 'pic') {
-        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 ,'logo' : 1} })
+        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
       }
       else {
         let re = new RegExp(search)
-        documents = await this.documentRepository.find({ $or: [{ email: { $regex: re } }, { interfaceName: { $regex: re } }, { description: { $regex: re } }, { phone: { $regex: re } }, { name: { $regex: re } }, { title: { $regex: re } }] }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } })
+        documents = await this.documentRepository.find({ $or: [{ email: { $regex: re } }, { interfaceName: { $regex: re } }, { description: { $regex: re } }, { phone: { $regex: re } }, { name: { $regex: re } }, { title: { $regex: re } }] }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
       }
     } else {
       console.log('dddd')
-      documents = await this.documentRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } })
+      documents = await this.documentRepository.find({ state: 1 }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     }
     console.log('dddd', documents)
 
@@ -525,7 +525,7 @@ export class AppService {
 
   async searchDocument(req: any, res: any, id: string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let documents = await this.documentRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1 } })
+    let documents = await this.documentRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
@@ -538,8 +538,8 @@ export class AppService {
 
   async getSpecificProjectByID(req: any, res: any, id: string) {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    console.log('asdfsdf' , id)
-    let projects = await this.projectRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1 , 'logo' : 1} })
+    console.log('asdfsdf', id)
+    let projects = await this.projectRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     if (!projects) {
       return {
         message: 'get all projects page data by status',
@@ -659,11 +659,11 @@ export class AppService {
       //     error: 'این مسیر قبلا ثبت شده است'
       //   }
       // }
-      console.log('page body isssssss >>>> ' , body)
+      console.log('page body isssssss >>>> ', body)
       let admin = await this.adminModel.findOne({ userName: req.user.userName })
       let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
-        Children:[],
+        Children: [],
         peTitle: body.peTitle,
         enTitle: body.enTitle,
         ruTitle: body.ruTitle,
@@ -686,8 +686,8 @@ export class AppService {
         })
         savedPage.Children.push(Children._id)
       }
-      
-      if (body.hasSecondSubPage){
+
+      if (body.hasSecondSubPage) {
         let secondChildren = await this.customPAgeRepository.create({
           parent: savedPage._id,
           peTitle: body.secondSubPage.peTitle,
@@ -700,9 +700,9 @@ export class AppService {
         })
         savedPage.Children.push(secondChildren._id)
       }
-      await savedPage.updateOne({Children : savedPage.Children})
+      await savedPage.updateOne({ Children: savedPage.Children })
       let updated = await this.customPAgeRepository.findById(savedPage._id).populate('Children')
-      console.log('updated saved page isssss' , updated)
+      console.log('updated saved page isssss', updated)
       return {
         message: 'ایجاد صفحه جدید با موفقیت انجام شد',
         statusCode: 200,
@@ -774,68 +774,68 @@ export class AppService {
   //   children : []
   // }
 
-  async getPathes(req: any, res: any){
+  async getPathes(req: any, res: any) {
     let pages = await this.customPAgeRepository.find({ parent: null }).populate('Children')
-    console.log('pages issss >>> ' , pages)
+    console.log('pages issss >>> ', pages)
     let all = []
-    for (let i= 0 ; i < pages.length ; i++){
+    for (let i = 0; i < pages.length; i++) {
       let elem = pages[i]
-      let label = [elem.peTitle , elem.enTitle , elem.ruTitle]
+      let label = [elem.peTitle, elem.enTitle, elem.ruTitle]
       let href = elem.path
       let chilren = []
-      if (elem.Children.length > 0){
-        elem.Children.forEach((rr : any)=>{
+      if (elem.Children.length > 0) {
+        elem.Children.forEach((rr: any) => {
           let data = {
-            label : [rr.peTitle , rr.enTitle , rr.ruTitle],
-            href : rr.path,
+            label: [rr.peTitle, rr.enTitle, rr.ruTitle],
+            href: rr.path,
           }
           chilren.push(data)
         })
       }
       let finalData;
-      if (chilren.length > 0){
+      if (chilren.length > 0) {
         finalData = {
-          label : label,
-          href : href,
-          children : chilren
+          label: label,
+          href: href,
+          children: chilren
         }
-      }else {
+      } else {
         finalData = {
-          label : label,
-          href : href,
+          label: label,
+          href: href,
         }
       }
       all.push(finalData)
     }
 
     return {
-      message : 'get all pages',
-      statusCode : 200,
-      data : all
+      message: 'get all pages',
+      statusCode: 200,
+      data: all
     }
   }
 
 
 
-  async getCustomPageContent(req: any, res: any , path : string){
-    let content = await this.customPAgeRepository.findOne({path : path}).populate('content')
-    if (!content){
+  async getCustomPageContent(req: any, res: any, path: string) {
+    let content = await this.customPAgeRepository.findOne({ path: path }).populate('content')
+    if (!content) {
       return {
-        message : 'this content not exist',
-        statusCode : 400,
-        error : 'محتوای این صفحه یافت نشد'
-      }        
+        message: 'this content not exist',
+        statusCode: 400,
+        error: 'محتوای این صفحه یافت نشد'
+      }
     }
     return {
-      message : 'get page content done',
-      statusCode : 200,
-      data : content
+      message: 'get page content done',
+      statusCode: 200,
+      data: content
     }
   }
 
 
 
-  
+
 
 
 
@@ -945,7 +945,7 @@ export class AppService {
           error: 'صفحه مورد نظر یافت نشد'
         }
       }
-      if (existancePage.content){
+      if (existancePage.content) {
         await this.pagesContentRepository.findByIdAndDelete(existancePage.content._id)
       }
       await this.customPAgeRepository.findByIdAndDelete(pageId)
