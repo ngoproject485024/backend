@@ -261,7 +261,7 @@ export class EventsEducationsService {
   async getSpecificEvents(req: any, res: any, eventId: string) {
     console.log(eventId)
     let event = await this.eventRepository.findById(eventId)
-    let similar = await this.eventRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).limit(5)
+    let similar = await this.eventRepository.find().limit(5)
     return {
       message: 'get specific event',
       statusCode: 200,
