@@ -399,10 +399,10 @@ export class NgoService {
     console.log('innnnnnnnn')
     let ngoId: string = req.user.id;
     let ngo = await this.ngoRepository.findById(ngoId)
-    let ongoing = await this.ngoRepository.findById(ngoId).populate({ path: 'projects', match: { status: { $in: 'ongoing' } } })
-    let completed = await this.ngoRepository.findById(ngoId).populate({ path: 'projects', match: { status: { $in: 'completed' } } })
-    let goodPractice = await this.ngoRepository.findById(ngoId).populate({ path: 'projects', match: { status: { $in: 'goodPractice' } } })
-    let collaborationOpportunities = await this.ngoRepository.findById(ngoId).populate({ path: 'projects', match: { status: { $in: 'collaborationOpportunities' } } })
+    let ongoing = await this.ngoRepository.findById(ngoId).populate({ path: 'projects', match: { status: { $in: 'ongoing' } } }).sort({'createdAt' : -1})
+    let completed = await this.ngoRepository.findById(ngoId).populate({ path: 'projects', match: { status: { $in: 'completed' } } }).sort({'createdAt' : -1})
+    let goodPractice = await this.ngoRepository.findById(ngoId).populate({ path: 'projects', match: { status: { $in: 'goodPractice' } } }).sort({'createdAt' : -1})
+    let collaborationOpportunities = await this.ngoRepository.findById(ngoId).populate({ path: 'projects', match: { status: { $in: 'collaborationOpportunities' } } }).sort({'createdAt' : -1})
     return {
       message: 'get ngo projects successfully',
       statusCode: 200,
@@ -502,7 +502,7 @@ export class NgoService {
     return {
       message: 'get ngo documents successfully',
       statusCode: 200,
-      data: ngo.ownDocuments
+      data: ngo.ownDocuments.reverse()
     }
   }
 
@@ -515,7 +515,7 @@ export class NgoService {
     return {
       message: 'get ngo documents successfully',
       statusCode: 200,
-      data: ngo
+      data: ngo.reverse()
     }
   }
 
@@ -523,7 +523,7 @@ export class NgoService {
 
   async getNgoProjectsByAdmin(req: any, res: any) {
     // let ngo = await this.ngoRepository.find()
-    let projects = await this.ngoProject.find().populate({ path: 'ngo', select: ['name', 'username', 'city', '_id'] })
+    let projects = await this.ngoProject.find().populate({ path: 'ngo', select: ['name', 'username', 'city', '_id'] }).sort({'createdAt' : -1})
     // let ongoing = await this.ngoProject.find({status : {$in : 'ongoing'}}).populate('ngo')
     // let completed = await this.ngoProject.find({status : {$in : 'completed'}}).populate('ngo')
     // let goodPractice = await this.ngoProject.find({status : {$in : 'goodPractice'}}).populate('ngo')
@@ -538,7 +538,7 @@ export class NgoService {
 
   async getNgoProjectByAdmin(req: any, res: any, id: string) {
     // let ngo = await this.ngoRepository.find()
-    let projects = await this.ngoProject.findById(id).populate({ path: 'ngo', select: ['name', 'username', 'city', '_id'] })
+    let projects = await this.ngoProject.findById(id).populate({ path: 'ngo', select: ['name', 'username', 'city', '_id'] }).sort({'createdAt' : -1})
     // let ongoing = await this.ngoProject.find({status : {$in : 'ongoing'}}).populate('ngo')
     // let completed = await this.ngoProject.find({status : {$in : 'completed'}}).populate('ngo')
     // let goodPractice = await this.ngoProject.find({status : {$in : 'goodPractice'}}).populate('ngo')
