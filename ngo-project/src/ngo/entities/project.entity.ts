@@ -62,7 +62,7 @@ export class projects {
 
     @Prop({type : [String]})
     status : string[];
-
+    
     @Prop({type : {country : {type : String} , city : {type : String}}})
     location : {country : string, city : string};
     
@@ -89,7 +89,6 @@ export class projects {
 
     @Prop({type : String , default : ''})
     completedReports : string;
-
 
     @Prop({ type: String, default: '' })
     completedEffects : string;

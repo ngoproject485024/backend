@@ -389,7 +389,7 @@ export class AppService {
   async homeData(req: any, res: any) {
     let homePage = await this.pageRepository.find()
     let home = homePage[0].toObject().homPage
-    let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(10)
+    let projects = await this.projectRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(10)
     let events = await this.eventRepository.find({ ruPictures: { $ne: [] } }).sort({ 'createdAt': -1 }).limit(3).select(['_id', 'ruPictures'])
     // console.log('event is >>>>> ' , events)
     // home.middleImages = events
@@ -464,8 +464,8 @@ export class AppService {
     let completed = await this.projectRepository.countDocuments({ status: { $in: 'completed' } })
     let goodPractice = await this.projectRepository.countDocuments({ status: { $in: 'goodPractice' } })
     let collaborationOpportunities = await this.projectRepository.countDocuments({ status: { $in: 'collaborationOpportunities' } })
-    let lastProjects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(5)
-    let mostParticipation = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(5)
+    let lastProjects = await this.projectRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(5)
+    let mostParticipation = await this.projectRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(5)
     return {
       message: 'get all projects page data',
       statusCode: 200,
@@ -484,13 +484,22 @@ export class AppService {
     let projects;
 
     if (isNaN(+page)) {
-      projects = await this.projectRepository.find({ status: { $in: status } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+      projects = await this.projectRepository.find({$and : [
+        { status: { $in: status } },
+        {state : 1}
+      ]}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     } else {
-      projects = await this.projectRepository.find({ status: { $in: status } })
+      projects = await this.projectRepository.find({$and : [
+        { status: { $in: status } },
+        {state : 1}
+      ]})
         .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
         .limit(10).skip((+page - 1) * 10)
     }
-    let all = await this.projectRepository.countDocuments({ status: { $in: status } })
+    let all = await this.projectRepository.countDocuments({$and : [
+      { status: { $in: status } },
+      {state : 1}
+    ]})
     // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
     // let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     return {
@@ -509,10 +518,16 @@ export class AppService {
     let documents;
     if (search) {
       if (search == 'video') {
-        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        documents = await this.documentRepository.find( {$and:[
+          {state : 1},
+          { file: { $ne: [] } }
+        ]}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
       }
       else if (search == 'image' || search == 'images' || search == 'picture' || search == 'pictures' || search == 'pic') {
-        documents = await this.documentRepository.find({ file: { $ne: [] } }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        documents = await this.documentRepository.find({$and:[
+          {state : 1},
+          { file: { $ne: [] } }
+        ]}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
       }
       else {
         let re = new RegExp(search)
