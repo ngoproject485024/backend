@@ -11,14 +11,14 @@ export class CreateNgoDto {
   })
   name: string;
 
-  @IsString()
+  @IsBoolean()
   @ApiProperty({
     example: 'iranian ngo',
     required: true,
   })
   locationPermition: boolean;
 
-  @IsString()
+  @IsBoolean()
   @ApiProperty({
     example: 'iranian ngo',
     required: true,
