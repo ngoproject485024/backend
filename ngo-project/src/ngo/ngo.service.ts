@@ -394,7 +394,6 @@ export class NgoService {
   }
 
 
-
   async getNgoProjects(req: any, res: any) {
     console.log('innnnnnnnn')
     let ngoId: string = req.user.id;

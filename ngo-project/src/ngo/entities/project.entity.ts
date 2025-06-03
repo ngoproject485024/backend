@@ -80,6 +80,9 @@ export class projects {
 
     @Prop({type : String})
     colleaguesAndStakeholders : string;
+
+
+    
     
     @Prop({type : [String]})
     goalAndAchievements:string[];

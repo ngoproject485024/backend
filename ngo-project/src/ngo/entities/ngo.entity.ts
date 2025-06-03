@@ -1,182 +1,195 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose, { Document, mongo } from "mongoose";
-
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { Document, mongo } from 'mongoose';
 
 export interface ngoInterface extends Document {
-    name : string;
+  name: string;
 
-    nationalId : string;
+  nationalId: string;
 
-    username : string;
+  username: string;
 
-    password : string;
+  password: string;
 
-    city : string;
+  city: string;
 
-    country : string;
+  country: string;
 
-    establishmentYear : string;
+  establishmentYear: string;
 
-    activityField : string[];
+  activityField: string[];
 
-    address : string;
+  address: string;
 
-    postal : string;
+  postal: string;
 
-    phone : string;
+  phone: string;
 
-    email : string;
+  email: string;
 
-    website : string;
+  website: string;
 
-    areaAndScope : string[];
+  areaAndScope: string[];
 
-    specificCultureGroup : {has : boolean , descibtion : string};
+  specificCultureGroup: { has: boolean; descibtion: string };
 
-    specificActiveAreas : string[];
+  specificActiveAreas: string[];
 
-    areaOfExpertise:string[];
+  areaOfExpertise: string[];
 
-    populationConcentration : string[];
+  populationConcentration: string[];
 
-    group : string[];
-    
-    additionalInformation : string;
-    
-    socialMedia : {instagram : string , telegram : string , linkedIn : string};
-    
-    cooperation : boolean;
-    
-    license : {has : boolean, description : Boolean};
+  group: string[];
 
-    // issuedBy : boolean;
+  additionalInformation: string;
 
-    expiryDate : string;
+  socialMedia: { instagram: string; telegram: string; linkedIn: string };
 
-    publish: {status : number , description : string};
+  cooperation: boolean;
 
-    conditionAndConfirm : string[];
+  license: { has: boolean; description: Boolean };
 
-    disable : boolean;
+  // issuedBy : boolean;
 
-    approved : number;
+  expiryDate: string;
 
-    ownDocuments :  mongoose.Types.ObjectId[];
+  publish: { status: number; description: string };
 
-    documents : string[]
+  conditionAndConfirm: string[];
 
-    projects :  mongoose.Types.ObjectId[];
+  disable: boolean;
+
+  approved: number;
+
+  ownDocuments: mongoose.Types.ObjectId[];
+
+  documents: string[];
+
+  projects: mongoose.Types.ObjectId[];
+
+  locationPermition: boolean;
+
+  callPermition: boolean;
 }
 
-
-
-@Schema({timestamps : true})
+@Schema({ timestamps: true })
 export class Ngo {
+  @Prop({ type: String })
+  name: string;
 
-    @Prop({type : String})
-    name : string;
+  @Prop({ type: String })
+  username: string;
 
-    @Prop({type : String})
-    username : string;
+  @Prop({ type: String })
+  password: string;
 
-    @Prop({type : String})
-    password : string;
-    
-    @Prop({type : String})
-    city : string;
-    
-    @Prop({type : String})
-    country : string;
+  @Prop({ type: String })
+  city: string;
 
-    @Prop({type : String})
-    nationalId : string;
+  @Prop({ type: String })
+  country: string;
 
-    @Prop({type : String})
-    establishmentYear : string;
+  @Prop({ type: String })
+  nationalId: string;
 
-    @Prop({type : [String]})
-    activityField : string[];
+  @Prop({ type: Boolean, default: null })
+  locationPermition: boolean;
 
-    @Prop({type : String})
-    address : string;
+  @Prop({ type: Boolean, default: null })
+  callPermition: boolean;
 
-    @Prop({type : String})
-    postal : string;
+  @Prop({ type: String })
+  establishmentYear: string;
 
-    @Prop({type : String})
-    phone : string;
+  @Prop({ type: [String] })
+  activityField: string[];
 
-    @Prop({type : String})
-    email : string;
+  @Prop({ type: String })
+  address: string;
 
-    @Prop({type : String})
-    website : string;
+  @Prop({ type: String })
+  postal: string;
 
-    @Prop({type : [String]})
-    areaAndScope : string[];
+  @Prop({ type: String })
+  phone: string;
 
-    @Prop({type : {has:{type : Boolean} , descibtion : {type : String}}})
-    specificCultureGroup : {has : boolean , descibtion : string};
+  @Prop({ type: String })
+  email: string;
 
-    @Prop({type : [String]})
-    specificActiveAreas : string[];
+  @Prop({ type: String })
+  website: string;
 
-    @Prop({type : [String]})
-    areaOfExpertise:string[];
+  @Prop({ type: [String] })
+  areaAndScope: string[];
 
-    @Prop({type : [String]})
-    populationConcentration : string[];
+  @Prop({ type: { has: { type: Boolean }, descibtion: { type: String } } })
+  specificCultureGroup: { has: boolean; descibtion: string };
 
-    @Prop({type : [String]})
-    group : string[];
+  @Prop({ type: [String] })
+  specificActiveAreas: string[];
 
-    @Prop({type : [String]})
-    documents : string[]
+  @Prop({ type: [String] })
+  areaOfExpertise: string[];
 
-    @Prop({type : String})
-    additionalInformation : string;
-    
-    @Prop({type : {instagram : {type : String} , telegram : {type : String} , linkedIn : {type : String}}})
-    socialMedia : {instagram : string , telegram : string , linkedIn : string};
-    
-    @Prop({type : Boolean})
-    cooperation : boolean;
-    
-    @Prop({type : {has : {type : Boolean} , description : {type : String}}})
-    license : {has : boolean, descibtion : Boolean};
+  @Prop({ type: [String] })
+  populationConcentration: string[];
 
-    // @Prop({type : Boolean})
-    // issuedBy : boolean;
+  @Prop({ type: [String] })
+  group: string[];
 
-    @Prop({type : String})
-    expiryDate : string;
+  @Prop({ type: [String] })
+  documents: string[];
 
-    @Prop({type : {status : {type : Number} , description : {type : String}}})
-    publish : {status : number , description : string};
+  @Prop({ type: String })
+  additionalInformation: string;
 
-    @Prop({type : String})
-    logo : string;
+  @Prop({
+    type: {
+      instagram: { type: String },
+      telegram: { type: String },
+      linkedIn: { type: String },
+    },
+  })
+  socialMedia: { instagram: string; telegram: string; linkedIn: string };
 
-    @Prop({type : Boolean , default : false})
-    disable : boolean;
+  @Prop({ type: Boolean })
+  cooperation: boolean;
 
-    @Prop({type : Number , default : 2})
-    approved : number;
+  @Prop({ type: { has: { type: Boolean }, description: { type: String } } })
+  license: { has: boolean; descibtion: Boolean };
 
-    @Prop({type : [String]})
-    documentsFile : string[];
-    
-    @Prop({type : [String]})
-    termsAndCondition:string[];
+  // @Prop({type : Boolean})
+  // issuedBy : boolean;
 
-    @Prop({type :[mongoose.Schema.Types.ObjectId] , default : [] , ref : 'document'})
-    ownDocuments :  mongoose.Types.ObjectId[];
+  @Prop({ type: String })
+  expiryDate: string;
 
-    @Prop({type :[mongoose.Schema.Types.ObjectId] , default : [] , ref : 'project'})
-    projects :  mongoose.Types.ObjectId[];
+  @Prop({ type: { status: { type: Number }, description: { type: String } } })
+  publish: { status: number; description: string };
 
+  @Prop({ type: String })
+  logo: string;
 
+  @Prop({ type: Boolean, default: false })
+  disable: boolean;
+
+  @Prop({ type: Number, default: 2 })
+  approved: number;
+
+  @Prop({ type: [String] })
+  documentsFile: string[];
+
+  @Prop({ type: [String] })
+  termsAndCondition: string[];
+
+  @Prop({
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+    ref: 'document',
+  })
+  ownDocuments: mongoose.Types.ObjectId[];
+
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], default: [], ref: 'project' })
+  projects: mongoose.Types.ObjectId[];
 }
-
 
 export const ngoSchema = SchemaFactory.createForClass(Ngo);
