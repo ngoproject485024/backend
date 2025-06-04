@@ -168,7 +168,7 @@ export class Ngo {
   @Prop({ type: { status: { type: Number }, description: { type: String } } })
   publish: { status: number; description: string };
 
-  @Prop({type : [String]})
+  @Prop({type : [String] , default : []})
   publishImages : string[]
 
   @Prop({ type: String })
