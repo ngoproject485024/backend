@@ -235,6 +235,13 @@ export class CreateNgoDto {
   })
   publish: { status: number; description: string };
 
+  @IsArray()
+  @ApiProperty({
+    example: [],
+    required: true,
+  })
+  publishImages : string[]
+
   @IsNotEmpty()
   @IsArray()
   @ApiProperty({

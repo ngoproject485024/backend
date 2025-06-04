@@ -54,6 +54,8 @@ export interface ngoInterface extends Document {
 
   publish: { status: number; description: string };
 
+  publishImages : string[]
+
   conditionAndConfirm: string[];
 
   disable: boolean;
@@ -165,6 +167,9 @@ export class Ngo {
 
   @Prop({ type: { status: { type: Number }, description: { type: String } } })
   publish: { status: number; description: string };
+
+  @Prop({type : [String]})
+  publishImages : string[]
 
   @Prop({ type: String })
   logo: string;
