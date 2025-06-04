@@ -514,35 +514,75 @@ export class AppService {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
     // let search : string ;
     // let word = search
-    console.log(search)
+    let pageNumber : number = 1
+    if(!isNaN(+page)){
+      pageNumber = +page;
+    }
+    console.log('search is >>>>> ',search)
     let documents;
+    let count;
     if (search) {
       if (search == 'video') {
         documents = await this.documentRepository.find( {$and:[
           {state : 1},
           { file: { $ne: [] } }
-        ]}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        ]}).skip((+page)*10).limit(10).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        count = await this.documentRepository.countDocuments({$and:[
+          {state : 1},
+          { file: { $ne: [] } }
+        ]})
       }
       else if (search == 'image' || search == 'images' || search == 'picture' || search == 'pictures' || search == 'pic') {
         documents = await this.documentRepository.find({$and:[
           {state : 1},
           { file: { $ne: [] } }
-        ]}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        ]}).skip((+page)*10).limit(10).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        count =  await this.documentRepository.countDocuments({$and:[
+          {state : 1},
+          { file: { $ne: [] } }
+        ]})
       }
       else {
         let re = new RegExp(search)
-        documents = await this.documentRepository.find({ $or: [{ email: { $regex: re } }, { interfaceName: { $regex: re } }, { description: { $regex: re } }, { phone: { $regex: re } }, { name: { $regex: re } }, { title: { $regex: re } }] }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        documents = await this.documentRepository.find({ $or: [{ email: { $regex: re } }, { interfaceName: { $regex: re } }, { description: { $regex: re } }, { phone: { $regex: re } }, { name: { $regex: re } }, { title: { $regex: re } }] })
+        .skip((+page)*10).limit(10)
+        .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        count = await this.documentRepository.countDocuments({
+          $or: [
+            { email: { $regex: re } },
+            { interfaceName: { $regex: re } },
+            { description: { $regex: re } },
+            { phone: { $regex: re } },
+            { name: { $regex: re } },
+            { title: { $regex: re } },
+          ],
+        });
       }
     } else {
-      console.log('dddd')
-      documents = await this.documentRepository.find({ state: 1 }).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-    }
-    console.log('dddd', documents)
+      console.log('dddd in without search')
+      documents = await this.documentRepository
+        .find({ state: 1 })
+        .skip((+page)*10).limit(10)
+        .populate({
+          path: 'ngo',
+          select: {
+            _id: 1,
+            name: 1,
+            username: 1,
+            city: 1,
+            countrye: 1,
+            nationalId: 1,
+            logo: 1,
+          },
+        });
+        count =  await this.documentRepository
+        .countDocuments({ state: 1 })
+      }
 
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
-      data: documents
+      data: {documents , all : count}
     }
   }
 
