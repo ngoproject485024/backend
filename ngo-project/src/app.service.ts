@@ -526,7 +526,7 @@ export class AppService {
         documents = await this.documentRepository.find( {$and:[
           {state : 1},
           { file: { $ne: [] } }
-        ]}).skip((+page)*10).limit(10).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        ]}).skip((+pageNumber)*10).limit(10).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
         count = await this.documentRepository.countDocuments({$and:[
           {state : 1},
           { file: { $ne: [] } }
@@ -536,7 +536,7 @@ export class AppService {
         documents = await this.documentRepository.find({$and:[
           {state : 1},
           { file: { $ne: [] } }
-        ]}).skip((+page)*10).limit(10).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+        ]}).skip((+pageNumber)*10).limit(10).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
         count =  await this.documentRepository.countDocuments({$and:[
           {state : 1},
           { file: { $ne: [] } }
@@ -545,7 +545,7 @@ export class AppService {
       else {
         let re = new RegExp(search)
         documents = await this.documentRepository.find({ $or: [{ email: { $regex: re } }, { interfaceName: { $regex: re } }, { description: { $regex: re } }, { phone: { $regex: re } }, { name: { $regex: re } }, { title: { $regex: re } }] })
-        .skip((+page)*10).limit(10)
+        .skip((+pageNumber)*10).limit(10)
         .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
         count = await this.documentRepository.countDocuments({
           $or: [
@@ -559,10 +559,10 @@ export class AppService {
         });
       }
     } else {
-      console.log('dddd in without search')
+      console.log('dddd in without search' , page)
       documents = await this.documentRepository
         .find({ state: 1 })
-        .skip((+page)*10).limit(10)
+        .skip((+pageNumber)*10).limit(10)
         .populate({
           path: 'ngo',
           select: {
