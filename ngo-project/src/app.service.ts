@@ -514,7 +514,7 @@ export class AppService {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
     // let search : string ;
     // let word = search
-    let pageNumber : number = 1
+    let pageNumber : number = 0
     if(!isNaN(+page)){
       pageNumber = +page;
     }
