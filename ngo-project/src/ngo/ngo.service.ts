@@ -139,7 +139,7 @@ export class NgoService {
 
   async createNewDocument(req: any, res: any, body: createDocumentsDto) {
     let ngo = await this.ngoRepository.findById(req.user.id)
-    // console.log(body)
+    console.log('body issssss' , body)
     let newDocument: any = await this.ngoDocument.create({ ...body, ngo: ngo._id })
     ngo.ownDocuments.push(newDocument._id)
     await ngo.save()
