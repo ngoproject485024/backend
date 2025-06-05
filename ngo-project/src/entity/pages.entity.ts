@@ -85,7 +85,7 @@ export interface pagesInterface extends Document {
     peDescription: string;
     enDescription: string;
     ruDescription: string;
-    pdf: string;
+    pdf: string[];
     admin: string;
   };
 
@@ -388,14 +388,14 @@ export class pages {
       peDescription: { type: String },
       enDescription: { type: String },
       ruDescription: { type: String },
-      pdf: { type: String },
+      pdf: { type: [String] },
       admin: { type: String },
     },
     default: {
       peDescription: '',
       enDescription: '',
       ruDescription: '',
-      pdf: '',
+      pdf: [],
       admin: '',
     },
   })
@@ -403,7 +403,7 @@ export class pages {
     peDescription: string;
     enDescription: string;
     ruDescription: string;
-    pdf: string;
+    pdf: string[];
     admin: string;
   };
 

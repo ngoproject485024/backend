@@ -166,14 +166,14 @@ export class pageDescriptionDto {
   type: string;
 
 
-  
+
   @IsObject()
   @ApiProperty({
     example: {
       peDescription: '',
       enDescription: '',
       ruDescription: '',
-      pdf: '',
+      pdf: [],
     },
     required: true,
   })
@@ -181,7 +181,7 @@ export class pageDescriptionDto {
     peDescription: string;
     enDescription: string;
     ruDescription: string;
-    pdf : string;
+    pdf : string[];
   };
 }
 
