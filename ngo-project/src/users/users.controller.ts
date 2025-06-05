@@ -8,7 +8,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
 
-  @Post('/gmail')
+  @Post('/gmail/:gmail')
   async addNewGmail(@Param('gmail') gmail : string){
     return this.usersService.addGmail(gmail)
   }
