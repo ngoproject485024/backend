@@ -173,7 +173,7 @@ export class AppService {
 
 
 
-  async setPagesDescription(req: any, res: any, body: pageDescriptionDto) {
+  async setPagesDescription(req: any, res: any, body: Partial<pageDescriptionDto>) {
     let pages = await this.pageRepository.find()
     let page = pages[0]
     let admin = `${req.user.firstName} ${req.user.lastName}`

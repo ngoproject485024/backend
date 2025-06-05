@@ -157,30 +157,32 @@ export class completeProjectCreation {
 
 
 export class pageDescriptionDto {
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty({
-        example: 'educations || events || Participation || countries',
-        required: true
-    })
-    type: string
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    example: 'educations || events || Participation || countries',
+    required: true,
+  })
+  type: string;
 
 
-    // @IsNotEmpty()
-    @IsObject()
-    @ApiProperty({
-        example: {
-            peDescription: '',
-            enDescription: '',
-            ruDescription: '',
-        },
-        required: true
-    })
-    description: {
-        peDescription: string,
-        enDescription: string,
-        ruDescription: string,
-    }
+  
+  @IsObject()
+  @ApiProperty({
+    example: {
+      peDescription: '',
+      enDescription: '',
+      ruDescription: '',
+      pdf: '',
+    },
+    required: true,
+  })
+  description: {
+    peDescription: string;
+    enDescription: string;
+    ruDescription: string;
+    pdf : string;
+  };
 }
 
 
