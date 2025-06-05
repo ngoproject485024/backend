@@ -13,6 +13,7 @@ export class UsersService {
 
   async addGmail(gmail : string) {
     let newGmail = await this.gmailMode.create({gmail : gmail})
+    console.log('new email created >>>> ' , newGmail)
     return {
       message : 'your gmail add to auto report',
       statusCode : 200,
