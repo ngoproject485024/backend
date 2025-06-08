@@ -808,13 +808,12 @@ export class AppService {
 
     for (let i of newData.visualDocuments){
       console.log(i)
-      if (!i.files){
-        newData.visualDocuments.splice(newData.visualDocuments.indexOf(i) , 1)
+
+      let keys = Object.keys(i)
+      if(keys.length == 0){
+        newData.visualDocuments.splice(newData.visualDocuments.indexOf(i))
       }
-      if (i.files.length==0){
-        newData.visualDocuments.splice(newData.visualDocuments.indexOf(i) , 1)
-      }
-    }
+    } 
 
     return {
       message: 'get all projects page data by status',
