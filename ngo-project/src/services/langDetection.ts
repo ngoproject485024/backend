@@ -15,8 +15,6 @@ export default async (text : any)=> {
 
   function detect(text) {
     const scores = {}
-    // https://en.wikipedia.org/wiki/Unicode_block
-    // http://www.regular-expressions.info/unicode.html#script
     const regexes = {
       // en: /[a-zA-Z]+/gi,
       en: XRegExp('\\p{Latin}', 'gi'),
@@ -29,7 +27,7 @@ export default async (text : any)=> {
       jp: XRegExp('[\\p{Hiragana}\\p{Katakana}]', 'gi'),
       pa: XRegExp('\\p{Gurmukhi}', 'gi')
     }
-    
+
     for (const [lang, regex] of Object.entries(regexes)) {
       // detect occurances of lang in a word
       let matches = XRegExp.match(text, regex) || []

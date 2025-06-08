@@ -807,6 +807,7 @@ export class AppService {
     let newData = { ...projects.toObject(), language: language }
 
     for (let i of newData.visualDocuments){
+      console.log(i)
       if (i.files.length==0){
         newData.visualDocuments.splice(newData.visualDocuments.indexOf(i) , 1)
       }
