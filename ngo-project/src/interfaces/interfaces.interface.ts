@@ -26,3 +26,17 @@ export interface tokenizeInterface{
 
 
 
+export interface responseInterface{
+
+    message : string ; 
+    statusCode : number;
+    error ?: string;
+    data ?: string | object | any[] | boolean;
+
+}
+
+
+
+export interface barCharts {
+
+}

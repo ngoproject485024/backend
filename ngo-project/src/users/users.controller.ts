@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { responseInterface } from 'src/interfaces/interfaces.interface';
 
 @Controller('users')
 export class UsersController {
@@ -9,7 +10,7 @@ export class UsersController {
 
 
   @Post('/gmail/:gmail')
-  async addNewGmail(@Param('gmail') gmail : string){
+  async addNewGmail(@Param('gmail') gmail : string): Promise<responseInterface>{
     return this.usersService.addGmail(gmail)
   }
 

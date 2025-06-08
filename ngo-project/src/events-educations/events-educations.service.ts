@@ -6,269 +6,321 @@ import { EducationInterface } from './entities/education.entity';
 import { CreateEvetsDto } from './dto/events.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { EventsInterface } from './entities/events.entity';
+import { responseInterface } from 'src/interfaces/interfaces.interface';
 
 @Injectable()
 export class EventsEducationsService {
-
-  constructor(@InjectModel('educations') private educationRepository: Model<EducationInterface>,
-    @InjectModel('events') private eventRepository: Model<EventsInterface>
-  ) { }
-
+  constructor(
+    @InjectModel('educations')
+    private educationRepository: Model<EducationInterface>,
+    @InjectModel('events') private eventRepository: Model<EventsInterface>,
+  ) {}
 
   /**
    * for creating new education
-   * @param req 
-   * @param res 
-   * @param body 
-   * @returns 
+   * @param req
+   * @param res
+   * @param body
+   * @returns
    */
-  async createNewEducation(req: any, res: any, body: CreateEducationDto) {
-    let newEducation = await this.educationRepository.create(body)
-    let type = 0;            // 0 : blog      1 : photo        2 : video
-    console.log(body)
+  async createNewEducation(
+    req: any,
+    res: any,
+    body: CreateEducationDto,
+  ): Promise<responseInterface> {
+    let newEducation = await this.educationRepository.create(body);
+    let type = 0; // 0 : blog      1 : photo        2 : video
+    console.log(body);
     await newEducation.updateOne({
       admin: {
         userName: req.user.userName,
         firstName: req.user.firstName,
-        lastName: req.user.lastName
-      }
-    })
-    console.log(newEducation)
+        lastName: req.user.lastName,
+      },
+    });
+    console.log(newEducation);
     return {
       message: 'ساخت آموزش با موفقیت انجام شد',
       statusCode: 200,
-      data: newEducation
-    }
+      data: newEducation,
+    };
   }
 
   /**
    * for creating new education
-   * @param req 
-   * @param res 
-   * @param body 
-   * @returns 
+   * @param req
+   * @param res
+   * @param body
+   * @returns
    */
-  async updateEducation(req: any, res: any, body: any, id: string) {
-    console.log(body)
-    let education = await this.educationRepository.findById(id)
+  async updateEducation(
+    req: any,
+    res: any,
+    body: any,
+    id: string,
+  ): Promise<responseInterface> {
+    console.log(body);
+    let education = await this.educationRepository.findById(id);
     // console.log()
     // delete body.id;
-    let data = { ...education.toObject(), ...body }
-    let updated = await education.updateOne(data)
-    console.log(await this.educationRepository.findById(id))
+    let data = { ...education.toObject(), ...body };
+    let updated = await education.updateOne(data);
+    console.log(await this.educationRepository.findById(id));
     return {
       message: 'اپدیت آموزش با موفقیت انجام شد',
       statusCode: 200,
-      data: updated
-    }
+      data: updated,
+    };
   }
-
-
-
 
   /**
    * for creating new education
-   * @param req 
-   * @param res 
-   * @param body 
-   * @returns 
+   * @param req
+   * @param res
+   * @param body
+   * @returns
    */
-  async updateEvent(req: any, res: any, body: any, id: string) {
-    console.log(body)
-    let event = await this.eventRepository.findById(id)
+  async updateEvent(
+    req: any,
+    res: any,
+    body: any,
+    id: string,
+  ): Promise<responseInterface> {
+    console.log(body);
+    let event = await this.eventRepository.findById(id);
     // delete body.id;
-    let newData = { ...event.toObject(), ...body }
-    let updated = await event.updateOne(newData)
+    let newData = { ...event.toObject(), ...body };
+    let updated = await event.updateOne(newData);
     return {
       message: 'اپدیت رویداد با موفقیت انجام شد',
       statusCode: 200,
-      data: updated
-    }
+      data: updated,
+    };
   }
-
-
 
   /**
    * for creating new events by admin
-   * @param req 
-   * @param res 
-   * @param body 
-   * @returns 
+   * @param req
+   * @param res
+   * @param body
+   * @returns
    */
-  async createNewEvents(req: any, res: any, body: CreateEvetsDto) {
-    let newEvents = await this.eventRepository.create(body)
+  async createNewEvents(
+    req: any,
+    res: any,
+    body: CreateEvetsDto,
+  ): Promise<responseInterface> {
+    let newEvents = await this.eventRepository.create(body);
 
     await newEvents.updateOne({
       admin: {
         userName: req.user.userName,
         firstName: req.user.firstName,
-        lastName: req.user.lastName
-      }
-    })
+        lastName: req.user.lastName,
+      },
+    });
 
     return {
       message: 'رویداد با موفقیت ایجاد شد',
       statusCode: 200,
-      data: newEvents
-    }
+      data: newEvents,
+    };
   }
 
-
-
-  async deleteEvent(req, res, id: string) {
-    let event = await this.eventRepository.findById(id)
+  async deleteEvent(req, res, id: string): Promise<responseInterface> {
+    let event = await this.eventRepository.findById(id);
     if (!event) {
       return {
         message: 'event not found',
         statusCode: 400,
-        error: 'event not found'
-      }
+        error: 'event not found',
+      };
     }
-    await this.eventRepository.findByIdAndDelete(id)
+    await this.eventRepository.findByIdAndDelete(id);
     return {
       message: 'event deleted',
       statusCode: 200,
-      data: event
-    }
+      data: event,
+    };
   }
 
-
-  async deleteEducation(req, res, id: string) {
-    let education = await this.educationRepository.findById(id)
+  async deleteEducation(req, res, id: string): Promise<responseInterface> {
+    let education = await this.educationRepository.findById(id);
     if (!education) {
       return {
         message: 'education not found',
         statusCode: 400,
-        error: 'education not found'
-      }
+        error: 'education not found',
+      };
     }
-    await this.educationRepository.findByIdAndDelete(id)
+    await this.educationRepository.findByIdAndDelete(id);
     return {
       message: 'education deleted',
       statusCode: 200,
-      data: education
-    }
+      data: education,
+    };
   }
 
   /**
    * for getting all events by user
-   * @param req 
-   * @param res 
-   * @param body 
-   * @returns 
+   * @param req
+   * @param res
+   * @param body
+   * @returns
    */
-  async getAllEvents(req: any, res: any, type: string, sort: string, start: string, end: string, page: string) {
-    console.log(sort)
-    console.log(type)
-    console.log(start)
-    console.log(end)
+  async getAllEvents(
+    req: any,
+    res: any,
+    type: string,
+    sort: string,
+    start: string,
+    end: string,
+    page: string,
+  ): Promise<responseInterface> {
+    console.log(sort);
+    console.log(type);
+    console.log(start);
+    console.log(end);
 
-
-    let types = await this.eventRepository.find()
-    console.log('the all types is >>>> ', types[0])
+    let types = await this.eventRepository.find();
+    console.log('the all types is >>>> ', types[0]);
     // type=2&start=2025-5-8&end=2025-5-22&page=2
     let event;
     if (!isNaN(+page)) {
-      console.log('first condition')
+      console.log('first condition');
       if (!isNaN(+type)) {
-        console.log('first condition22')
+        console.log('first condition22');
         // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
-        event = await this.eventRepository.find({ type: +type }).sort({ 'createdAt': -1 }).limit(10).skip(((+page) - 1) * 10)
+        event = await this.eventRepository
+          .find({ type: +type })
+          .sort({ createdAt: -1 })
+          .limit(10)
+          .skip((+page - 1) * 10);
       } else {
-        console.log('first condition3')
-        event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(((+page) - 1) * 10)
+        console.log('first condition3');
+        event = await this.eventRepository
+          .find()
+          .sort({ createdAt: -1 })
+          .limit(10)
+          .skip((+page - 1) * 10);
       }
     } else {
-      console.log('first condition44')
-      page = "0"
+      console.log('first condition44');
+      page = '0';
       if (!isNaN(+type)) {
-        console.log('its hereeee >> ', !isNaN(+type))
+        console.log('its hereeee >> ', !isNaN(+type));
         // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
-        event = await this.eventRepository.find({ type: +type }).sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
+        event = await this.eventRepository
+          .find({ type: +type })
+          .sort({ createdAt: -1 })
+          .limit(10)
+          .skip(+page * 10);
       } else {
-        console.log('first condition555')
-        event = await this.eventRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(+page * 10)
+        console.log('first condition555');
+        event = await this.eventRepository
+          .find()
+          .sort({ createdAt: -1 })
+          .limit(10)
+          .skip(+page * 10);
       }
     }
-    let all = await this.eventRepository.countDocuments()
+    let all = await this.eventRepository.countDocuments();
 
     return {
       message: 'get events by admin',
       statusCode: 200,
-      data: {all , event}
-    }
+      data: { all, event },
+    };
   }
-
-
 
   /**
    * get all educations by user
-   * @param req 
-   * @param res 
-   * @param body 
-   * @returns 
+   * @param req
+   * @param res
+   * @param body
+   * @returns
    */
-  async getAllEducations(req: any, res: any, type: any, sort: string, page: string) {
-    console.log('sort', sort)
-    console.log('type', type)
+  async getAllEducations(
+    req: any,
+    res: any,
+    type: any,
+    sort: string,
+    page: string,
+  ): Promise<responseInterface> {
+    console.log('sort', sort);
+    console.log('type', type);
     let educations;
 
     if (!isNaN(+page)) {
-      educations = await this.educationRepository.find().sort({ 'createdAt': -1 }).limit(10).skip(((+page) - 1) * 10)
+      educations = await this.educationRepository
+        .find()
+        .sort({ createdAt: -1 })
+        .limit(10)
+        .skip((+page - 1) * 10);
     } else {
-      page = "0"
-      educations = await this.educationRepository.find().sort({ 'createdAt': -1 }).limit(10).skip((+page) * 10)
+      page = '0';
+      educations = await this.educationRepository
+        .find()
+        .sort({ createdAt: -1 })
+        .limit(10)
+        .skip(+page * 10);
     }
 
-    let all = await this.educationRepository.countDocuments()
+    let all = await this.educationRepository.countDocuments();
 
     return {
       message: 'get educations by admin',
       statusCode: 200,
-      data: {all , educations}
-    }
+      data: { all, educations },
+    };
   }
-
 
   /**
    * for getting specific education by user in website
-   * @param req 
-   * @param res 
-   * @param educationId 
-   * @returns 
+   * @param req
+   * @param res
+   * @param educationId
+   * @returns
    */
-  async getSpecificEducation(req: any, res: any, educationId: string) {
-    let education = await this.educationRepository.findById(educationId)
-    let similar = await this.educationRepository.find().limit(5)
+  async getSpecificEducation(
+    req: any,
+    res: any,
+    educationId: string,
+  ): Promise<responseInterface> {
+    let education = await this.educationRepository.findById(educationId);
+    let similar = await this.educationRepository.find().limit(5);
     return {
       message: 'get specific education',
       statusCode: 200,
       data: {
         educations: education,
-        similar: similar
-      }
-    }
+        similar: similar,
+      },
+    };
   }
-
 
   /**
    * for getting specific evets by user in website
-   * @param req 
-   * @param res 
-   * @param eventId 
-   * @returns 
+   * @param req
+   * @param res
+   * @param eventId
+   * @returns
    */
-  async getSpecificEvents(req: any, res: any, eventId: string) {
-    console.log(eventId)
-    let event = await this.eventRepository.findById(eventId)
-    let similar = await this.eventRepository.find().limit(5)
+  async getSpecificEvents(
+    req: any,
+    res: any,
+    eventId: string,
+  ): Promise<responseInterface> {
+    console.log(eventId);
+    let event = await this.eventRepository.findById(eventId);
+    let similar = await this.eventRepository.find().limit(5);
     return {
       message: 'get specific event',
       statusCode: 200,
       data: {
         events: event,
-        similar: similar
-      }
-    }
+        similar: similar,
+      },
+    };
   }
 }

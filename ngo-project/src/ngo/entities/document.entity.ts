@@ -45,13 +45,11 @@ export class documents {
     @Prop({type : String})
     phone : string;
 
-
     @Prop({type : [String]})
     type : string[];
 
     @Prop({type : Number , default : 0})
     state : number;            // 0 : not approved      1 : approved       // 2: rejecte
-
 
     @Prop({type : String})
     title : string;

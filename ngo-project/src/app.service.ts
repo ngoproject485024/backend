@@ -6,7 +6,11 @@ import { ngoInterface } from './ngo/entities/ngo.entity';
 import * as fs from 'fs';
 import { documentsInterface } from './ngo/entities/document.entity';
 import { pagesInterface } from './entity/pages.entity';
-import { completeProjectCreation, homePage, pageDescriptionDto } from './dto/homePage.dto';
+import {
+  completeProjectCreation,
+  homePage,
+  pageDescriptionDto,
+} from './dto/homePage.dto';
 import { NgoService } from './ngo/ngo.service';
 import { createCustomPageDto } from './dto/createCustomPage.dto';
 import { customPagesInterface } from './entity/customPage.entity';
@@ -14,25 +18,33 @@ import { adminInterface } from './admin/entities/admin.entity';
 import { pageContentsInterface } from './entity/pagesContent.entity';
 import { createPagesContentDto } from './dto/createPagesContent.dto';
 import { EventsInterface } from './events-educations/entities/events.entity';
+import { responseInterface } from './interfaces/interfaces.interface';
+import langDetection from './services/langDetection';
 
 @Injectable()
 export class AppService {
-
-  constructor(@InjectModel('project') private projectRepository: Model<projectsInterface>,
-    @InjectModel('document') private documentRepository: Model<documentsInterface>,
-    @InjectModel('customPage') private customPAgeRepository: Model<customPagesInterface>,
-    @InjectModel('pagesContent') private pagesContentRepository: Model<pageContentsInterface>,
+  constructor(
+    @InjectModel('project') private projectRepository: Model<projectsInterface>,
+    @InjectModel('document')
+    private documentRepository: Model<documentsInterface>,
+    @InjectModel('customPage')
+    private customPAgeRepository: Model<customPagesInterface>,
+    @InjectModel('pagesContent')
+    private pagesContentRepository: Model<pageContentsInterface>,
     @InjectModel('ngo') private ngoRepository: Model<ngoInterface>,
     @InjectModel('events') private eventRepository: Model<EventsInterface>,
     @InjectModel('admin') private adminModel: Model<adminInterface>,
-    @InjectModel('pages') private pageRepository: Model<pagesInterface>) { }
-
-
+    @InjectModel('pages') private pageRepository: Model<pagesInterface>,
+  ) { }
 
   /**
    * here is for setting home page data
    */
-  async setHomeData(req: any, res: any, body: homePage) {
+  async setHomeData(
+    req: any,
+    res: any,
+    body: homePage,
+  ): Promise<responseInterface> {
     // let ff = await this.pageRepository.create({
     //   homPage : {
     //     mainImages: [],
@@ -55,348 +67,374 @@ export class AppService {
     //     admin : 'string'
     // }
     // })
-    console.log('body is>>', body)
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    let admin = `${req.user.firstName} ${req.user.lastName}`
+    console.log('body is>>', body);
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    let admin = `${req.user.firstName} ${req.user.lastName}`;
     page.homPage = { ...body, admin: admin };
-    await page.save()
-    let updated = await this.pageRepository.find()
+    await page.save();
+    let updated = await this.pageRepository.find();
     return {
       message: 'updating home page data.',
       statusCode: 200,
-      data: updated[0].homPage
-    }
-
+      data: updated[0].homPage,
+    };
   }
 
-
-
-  async setCompletedProjectPage(req: any, res: any, body: completeProjectCreation) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    let admin = `${req.user.firstName} ${req.user.lastName}`
-    page.completProjects = { ...body, admin: admin }
-    await page.save()
-    let updated = await this.pageRepository.find()
+  async setCompletedProjectPage(
+    req: any,
+    res: any,
+    body: completeProjectCreation,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    let admin = `${req.user.firstName} ${req.user.lastName}`;
+    page.completProjects = { ...body, admin: admin };
+    await page.save();
+    let updated = await this.pageRepository.find();
     return {
       message: 'updating project page data.',
       statusCode: 200,
-      data: updated[0].completProjects
-    }
+      data: updated[0].completProjects,
+    };
   }
 
-
-
-
-
-  async getCompleteProjectPage(req: any, res: any) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
+  async getCompleteProjectPage(req: any, res: any): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
     return {
       message: 'getting project page data.',
       statusCode: 200,
-      data: page.completProjects
-    }
+      data: page.completProjects,
+    };
   }
 
-
-
-  async setOngongProjectPage(req: any, res: any, body: completeProjectCreation) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    let admin = `${req.user.firstName} ${req.user.lastName}`
-    page.ongoingProject = { ...body, admin: admin }
-    await page.save()
-    let updated = await this.pageRepository.find()
+  async setOngongProjectPage(
+    req: any,
+    res: any,
+    body: completeProjectCreation,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    let admin = `${req.user.firstName} ${req.user.lastName}`;
+    page.ongoingProject = { ...body, admin: admin };
+    await page.save();
+    let updated = await this.pageRepository.find();
     return {
       message: 'updating project page data.',
       statusCode: 200,
-      data: updated[0].ongoingProject
-    }
+      data: updated[0].ongoingProject,
+    };
   }
 
-
-  async getOngoingProjectPage(req: any, res: any) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
+  async getOngoingProjectPage(req: any, res: any): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
     return {
       message: 'getting project page data.',
       statusCode: 200,
-      data: page.ongoingProject
-    }
+      data: page.ongoingProject,
+    };
   }
 
-
-
-
-  async setgoodPracticeProjectPage(req: any, res: any, body: completeProjectCreation) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    let admin = `${req.user.firstName} ${req.user.lastName}`
-    page.goodPractice = { ...body, admin: admin }
-    await page.save()
-    let updated = await this.pageRepository.find()
+  async setgoodPracticeProjectPage(
+    req: any,
+    res: any,
+    body: completeProjectCreation,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    let admin = `${req.user.firstName} ${req.user.lastName}`;
+    page.goodPractice = { ...body, admin: admin };
+    await page.save();
+    let updated = await this.pageRepository.find();
     return {
       message: 'updating project page data.',
       statusCode: 200,
-      data: updated[0].goodPractice
-    }
+      data: updated[0].goodPractice,
+    };
   }
 
-
-  async getgoodPracticeProjectPage(req: any, res: any) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
+  async getgoodPracticeProjectPage(
+    req: any,
+    res: any,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
     return {
       message: 'getting project page data.',
       statusCode: 200,
-      data: page.goodPractice
-    }
+      data: page.goodPractice,
+    };
   }
 
-
-
-  async setcollaborationProjectPage(req: any, res: any, body: completeProjectCreation) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    let admin = `${req.user.firstName} ${req.user.lastName}`
-    page.collaborationOpportunities = { ...body, admin: admin }
-    await page.save()
-    let updated = await this.pageRepository.find()
+  async setcollaborationProjectPage(
+    req: any,
+    res: any,
+    body: completeProjectCreation,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    let admin = `${req.user.firstName} ${req.user.lastName}`;
+    page.collaborationOpportunities = { ...body, admin: admin };
+    await page.save();
+    let updated = await this.pageRepository.find();
     return {
       message: 'updating project page data.',
       statusCode: 200,
-      data: updated[0].collaborationOpportunities
-    }
+      data: updated[0].collaborationOpportunities,
+    };
   }
 
-
-
-  async setPagesDescription(req: any, res: any, body: Partial<pageDescriptionDto>) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    let admin = `${req.user.firstName} ${req.user.lastName}`
-    console.log(body)
-    if (body.type == "educations") {
-      page.educationAndTrainingDescription = { ...body.description, admin: admin }
-      console.log(page.educationAndTrainingDescription)
-      await page.save()
-      let updated = await this.pageRepository.find()
-      console.log('updated>>>', updated[0].educationAndTrainingDescription)
+  async setPagesDescription(
+    req: any,
+    res: any,
+    body: Partial<pageDescriptionDto>,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    let admin = `${req.user.firstName} ${req.user.lastName}`;
+    console.log(body);
+    if (body.type == 'educations') {
+      page.educationAndTrainingDescription = {
+        ...body.description,
+        admin: admin,
+      };
+      console.log(page.educationAndTrainingDescription);
+      await page.save();
+      let updated = await this.pageRepository.find();
+      console.log('updated>>>', updated[0].educationAndTrainingDescription);
       return {
         message: 'updating education page data.',
         statusCode: 200,
-        data: updated[0].collaborationOpportunities
-      }
+        data: updated[0].collaborationOpportunities,
+      };
     } else if (body.type == 'events') {
-      page.eventsDescription = { ...body.description, admin: admin }
-      await page.save()
-      let updated = await this.pageRepository.find()
+      page.eventsDescription = { ...body.description, admin: admin };
+      await page.save();
+      let updated = await this.pageRepository.find();
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: updated[0].collaborationOpportunities
-      }
+        data: updated[0].collaborationOpportunities,
+      };
     } else if (body.type == 'archives') {
-      page.archivesDescription = { ...body.description, admin: admin }
-      await page.save()
-      let updated = await this.pageRepository.find()
+      page.archivesDescription = { ...body.description, admin: admin };
+      await page.save();
+      let updated = await this.pageRepository.find();
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: updated[0].collaborationOpportunities
-      }
+        data: updated[0].collaborationOpportunities,
+      };
     } else if (body.type == 'participation') {
-      page.Participation = { ...body.description, admin: admin }
-      await page.save()
-      let updated = await this.pageRepository.find()
-      console.log(updated[0].Participation)
+      page.Participation = { ...body.description, admin: admin };
+      await page.save();
+      let updated = await this.pageRepository.find();
+      console.log(updated[0].Participation);
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: updated[0].Participation
-      }
+        data: updated[0].Participation,
+      };
     } else if (body.type == 'countries') {
-      page.countriesDescription = { ...body.description, admin: admin }
-      await page.save()
-      let updated = await this.pageRepository.find()
-      console.log(updated[0].countriesDescription)
+      page.countriesDescription = { ...body.description, admin: admin };
+      await page.save();
+      let updated = await this.pageRepository.find();
+      console.log(updated[0].countriesDescription);
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: updated[0].countriesDescription
-      }
-
+        data: updated[0].countriesDescription,
+      };
     } else if (body.type == 'ngo') {
-      page.ngoDescription = { ...body.description, admin: admin }
-      await page.save()
-      let updated = await this.pageRepository.find()
-      console.log(updated[0].ngoDescription)
+      page.ngoDescription = { ...body.description, admin: admin };
+      await page.save();
+      let updated = await this.pageRepository.find();
+      console.log(updated[0].ngoDescription);
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: updated[0].ngoDescription
-      }
+        data: updated[0].ngoDescription,
+      };
     } else if (body.type == 'ngoRegister') {
-      page.ngoRegisterDescription = { ...body.description, admin: admin }
-      await page.save()
-      let updated = await this.pageRepository.find()
-      console.log('its hereeee >>>> ', updated)
-      console.log(updated[0].ngoRegisterDescription)
+      page.ngoRegisterDescription = { ...body.description, admin: admin };
+      await page.save();
+      let updated = await this.pageRepository.find();
+      console.log('its hereeee >>>> ', updated);
+      console.log(updated[0].ngoRegisterDescription);
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: updated[0].ngoRegisterDescription
-      }
-    }
-    else {
+        data: updated[0].ngoRegisterDescription,
+      };
+    } else {
       return {
         message: 'updating events page data.',
         statusCode: 400,
-        error: 'wrong inputed type'
-      }
+        error: 'wrong inputed type',
+      };
     }
   }
 
-
-
-  async setFooterData(req: any, res: any, body: any) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    let admin = `${req.user.firstName} ${req.user.lastName}`
-    page.footer = { ...body, admin: admin }
-    await page.save()
-    let updated = await this.pageRepository.find()
+  async setFooterData(
+    req: any,
+    res: any,
+    body: any,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    let admin = `${req.user.firstName} ${req.user.lastName}`;
+    page.footer = { ...body, admin: admin };
+    await page.save();
+    let updated = await this.pageRepository.find();
     return {
       message: 'updating footer data.',
       statusCode: 200,
-      data: updated[0].footer
-    }
+      data: updated[0].footer,
+    };
   }
 
-
-
-  async setAboutUs(req: any, res: any, body: any) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    console.log(body)
-    let admin = `${req.user.firstName} ${req.user.lastName}`
-    page.aboutUs = { ...body, admin }
-    console.log('222', page.aboutUs)
-    await page.save()
-    let updated = await this.pageRepository.find()
+  async setAboutUs(req: any, res: any, body: any): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    console.log(body);
+    let admin = `${req.user.firstName} ${req.user.lastName}`;
+    page.aboutUs = { ...body, admin };
+    console.log('222', page.aboutUs);
+    await page.save();
+    let updated = await this.pageRepository.find();
     return {
       message: 'updating aboutUs data.',
       statusCode: 200,
-      data: updated[0].aboutUs
-    }
+      data: updated[0].aboutUs,
+    };
   }
 
-
-  async getAboutUs(req: any, res: any) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
+  async getAboutUs(req: any, res: any): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
     return {
       message: 'updating footer data.',
       statusCode: 200,
-      data: page.aboutUs
-    }
+      data: page.aboutUs,
+    };
   }
 
-
-  async getFooter(req: any, res: any) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
+  async getFooter(req: any, res: any): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
     return {
       message: 'updating footer data.',
       statusCode: 200,
-      data: page.footer
-    }
+      data: page.footer,
+    };
   }
 
-
-
-
-  async getDescriptions(req: any, res: any, pageName: string) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
-    console.log('get', pageName)
-    if (pageName == "educations") {
+  async getDescriptions(
+    req: any,
+    res: any,
+    pageName: string,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
+    console.log('get', pageName);
+    if (pageName == 'educations') {
       return {
         message: 'updating education page data.',
         statusCode: 200,
-        data: page.educationAndTrainingDescription
-      }
+        data: page.educationAndTrainingDescription,
+      };
     } else if (pageName == 'events') {
       return {
         message: 'updating events page data.',
         statusCode: 200,
-        data: page.eventsDescription
-      }
+        data: page.eventsDescription,
+      };
     } else if (pageName == 'archives') {
       return {
         message: 'updating archives page data.',
         statusCode: 200,
-        data: page.archivesDescription
-      }
+        data: page.archivesDescription,
+      };
     } else if (pageName == 'statistic') {
-      console.log('page>>', pageName)
-      console.log('pages>>', page.Participation, page.countriesDescription)
+      console.log('page>>', pageName);
+      console.log('pages>>', page.Participation, page.countriesDescription);
       return {
         message: 'getting statistic page data.',
         statusCode: 200,
-        data: { participation: page.Participation, countriesDescription: page.countriesDescription }
-      }
+        data: {
+          participation: page.Participation,
+          countriesDescription: page.countriesDescription,
+        },
+      };
     } else if (pageName == 'ngo') {
-      console.log('page>>', pageName)
-      console.log('pages>>', page.Participation, page.countriesDescription)
+      console.log('page>>', pageName);
+      console.log('pages>>', page.Participation, page.countriesDescription);
       return {
         message: 'getting ngo description page data.',
         statusCode: 200,
-        data: page.ngoDescription
-      }
+        data: page.ngoDescription,
+      };
     } else if (pageName == 'ngoRegister') {
-      console.log('page>>', pageName)
+      console.log('page>>', pageName);
       return {
         message: 'getting ngo register page data.',
         statusCode: 200,
-        data: page.ngoRegisterDescription
-      }
-    }
-    else {
+        data: page.ngoRegisterDescription,
+      };
+    } else {
       return {
         message: 'updating events page data.',
         statusCode: 400,
-        error: 'wrong inputed type'
-      }
+        error: 'wrong inputed type',
+      };
     }
   }
 
-
-
-  async getcollaborationProjectPage(req: any, res: any) {
-    let pages = await this.pageRepository.find()
-    let page = pages[0]
+  async getcollaborationProjectPage(
+    req: any,
+    res: any,
+  ): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
+    let page = pages[0];
     return {
       message: 'getting project page data.',
       statusCode: 200,
-      data: page.collaborationOpportunities
-    }
+      data: page.collaborationOpportunities,
+    };
   }
 
-
-  async homeData(req: any, res: any) {
-    let homePage = await this.pageRepository.find()
-    let home = homePage[0].toObject().homPage
-    let projects = await this.projectRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(10)
-    let events = await this.eventRepository.find({ ruPictures: { $ne: [] } }).sort({ 'createdAt': -1 }).limit(3).select(['_id', 'ruPictures'])
+  async homeData(req: any, res: any): Promise<responseInterface> {
+    let homePage = await this.pageRepository.find();
+    let home = homePage[0].toObject().homPage;
+    let projects = await this.projectRepository
+      .find({ state: 1 })
+      .populate({
+        path: 'ngo',
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          city: 1,
+          countrye: 1,
+          nationalId: 1,
+          logo: 1,
+        },
+      })
+      .sort({ createdAt: -1 })
+      .limit(10);
+    let events = await this.eventRepository
+      .find({ ruPictures: { $ne: [] } })
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .select(['_id', 'ruPictures']);
     // console.log('event is >>>>> ' , events)
     // home.middleImages = events
-    delete home.middleImages
-    let newData = { ...home, middleImages: events }
-    console.log('new data', newData)
-    let ngo = await this.ngoRepository.find().sort({ 'createdAt': -1 }).limit(10)
+    delete home.middleImages;
+    let newData = { ...home, middleImages: events };
+    console.log('new data', newData);
+    let ngo = await this.ngoRepository.find().sort({ createdAt: -1 }).limit(10);
     return {
       message: 'project created successfully',
       statusCode: 200,
@@ -404,68 +442,108 @@ export class AppService {
         home: newData,
         projects: projects,
         ngo,
-      }
-    }
+      },
+    };
   }
 
-
-  async deleteFile(req, res, body: { fileName: string }) {
+  async deleteFile(
+    req,
+    res,
+    body: { fileName: string },
+  ): Promise<responseInterface> {
     try {
-      let name = body.fileName.split('/')
-      let mainName = name[name.length - 1]
-      console.log('main nameeeeee', mainName)
-      let file = fs.readFileSync(`/home/ngo/uploadFile/${mainName}`)
-      console.log(file)
+      let name = body.fileName.split('/');
+      let mainName = name[name.length - 1];
+      console.log('main nameeeeee', mainName);
+      let file = fs.readFileSync(`/home/ngo/uploadFile/${mainName}`);
+      console.log(file);
       return {
-        message: "delete file",
+        message: 'delete file',
         statusCode: 200,
-      }
-
+      };
     } catch (error) {
       return {
         message: 'delete file',
         statusCode: 200,
-      }
+      };
     }
   }
 
-
-  async aboutUs(req: any, res: any) {
-    let pages = await this.pageRepository.find()
+  async aboutUs(req: any, res: any): Promise<responseInterface> {
+    let pages = await this.pageRepository.find();
     return {
       message: 'get about us successfully',
       statusCode: 200,
-      data: pages[0].aboutUs
-    }
+      data: pages[0].aboutUs,
+    };
   }
 
-
-  async uploadPicture(req: any, res: any, filename) {
-    console.log('here is for pictures', filename)
-    let pathes = []
+  async uploadPicture(
+    req: any,
+    res: any,
+    filename,
+  ): Promise<responseInterface> {
+    console.log('here is for pictures', filename);
+    let pathes = [];
     // if (fin)
     filename.forEach((element) => {
-      let url = `https://ngoupload.oceanjourney.ir/${element.filename}`
-      pathes.push(url)
+      let url = `https://ngoupload.oceanjourney.ir/${element.filename}`;
+      pathes.push(url);
     });
 
     return {
       message: 'uploading pictures',
       statusCode: 200,
-      data: pathes
-    }
-
-
+      data: pathes,
+    };
   }
 
-
-  async projectPage(req: any, res: any) {
-    let ongoing = await this.projectRepository.countDocuments({ status: { $in: 'ongoing' } })
-    let completed = await this.projectRepository.countDocuments({ status: { $in: 'completed' } })
-    let goodPractice = await this.projectRepository.countDocuments({ status: { $in: 'goodPractice' } })
-    let collaborationOpportunities = await this.projectRepository.countDocuments({ status: { $in: 'collaborationOpportunities' } })
-    let lastProjects = await this.projectRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(5)
-    let mostParticipation = await this.projectRepository.find({state : 1}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } }).sort({ 'createdAt': -1 }).limit(5)
+  async projectPage(req: any, res: any): Promise<responseInterface> {
+    let ongoing = await this.projectRepository.countDocuments({
+      status: { $in: 'ongoing' },
+    });
+    let completed = await this.projectRepository.countDocuments({
+      status: { $in: 'completed' },
+    });
+    let goodPractice = await this.projectRepository.countDocuments({
+      status: { $in: 'goodPractice' },
+    });
+    let collaborationOpportunities =
+      await this.projectRepository.countDocuments({
+        status: { $in: 'collaborationOpportunities' },
+      });
+    let lastProjects = await this.projectRepository
+      .find({ state: 1 })
+      .populate({
+        path: 'ngo',
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          city: 1,
+          countrye: 1,
+          nationalId: 1,
+          logo: 1,
+        },
+      })
+      .sort({ createdAt: -1 })
+      .limit(5);
+    let mostParticipation = await this.projectRepository
+      .find({ state: 1 })
+      .populate({
+        path: 'ngo',
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          city: 1,
+          countrye: 1,
+          nationalId: 1,
+          logo: 1,
+        },
+      })
+      .sort({ createdAt: -1 })
+      .limit(5);
     return {
       message: 'get all projects page data',
       statusCode: 200,
@@ -475,94 +553,22 @@ export class AppService {
         goodPractice: goodPractice,
         collaborationOpportunities: collaborationOpportunities,
         lastProjects: lastProjects,
-        mostParticipation: mostParticipation
-      }
-    }
+        mostParticipation: mostParticipation,
+      },
+    };
   }
 
-  async specificProjectsByStatus(req: any, res: any, status: string, page: number) {
+  async specificProjectsByStatus(
+    req: any,
+    res: any,
+    status: string,
+    page: number,
+  ): Promise<responseInterface> {
     let projects;
 
     if (isNaN(+page)) {
-      projects = await this.projectRepository.find({$and : [
-        { status: { $in: status } },
-        {state : 1}
-      ]}).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-    } else {
-      projects = await this.projectRepository.find({$and : [
-        { status: { $in: status } },
-        {state : 1}
-      ]})
-        .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-        .limit(10).skip((+page - 1) * 10)
-    }
-    let all = await this.projectRepository.countDocuments({$and : [
-      { status: { $in: status } },
-      {state : 1}
-    ]})
-    // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
-    // let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-    return {
-      message: 'get all projects page data by status',
-      statusCode: 200,
-      data: { all, projects }
-    }
-  }
-
-
-  async getDocuments(req: any, res: any, page: number, search: string) {
-    // let projects = await this.projectRepository.find({ status: {$in : status} })
-    // let search : string ;
-    // let word = search
-    // let pageNumber : number = 0
-    // if(!isNaN(+page)){
-    //   pageNumber = +page;
-    // }
-    console.log('search is >>>>> ',search)
-    let documents;
-    let count;
-    if (search) {
-      if (search == 'video') {
-        documents = await this.documentRepository.find( {$and:[
-          {state : 1},
-          { file: { $ne: [] } }
-        ]}).skip(((+page)-1)*10).limit(10).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-        count = await this.documentRepository.countDocuments({$and:[
-          {state : 1},
-          { file: { $ne: [] } }
-        ]})
-      }
-      else if (search == 'image' || search == 'images' || search == 'picture' || search == 'pictures' || search == 'pic') {
-        documents = await this.documentRepository.find({$and:[
-          {state : 1},
-          { file: { $ne: [] } }
-        ]}).skip(((+page)-1)*10).limit(10).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-        count =  await this.documentRepository.countDocuments({$and:[
-          {state : 1},
-          { file: { $ne: [] } }
-        ]})
-      }
-      else {
-        let re = new RegExp(search)
-        documents = await this.documentRepository.find({ $or: [{ email: { $regex: re } }, { interfaceName: { $regex: re } }, { description: { $regex: re } }, { phone: { $regex: re } }, { name: { $regex: re } }, { title: { $regex: re } }] })
-        .skip(((+page)-1)*10).limit(10)
-        .populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
-        count = await this.documentRepository.countDocuments({
-          $or: [
-            { email: { $regex: re } },
-            { interfaceName: { $regex: re } },
-            { description: { $regex: re } },
-            { phone: { $regex: re } },
-            { name: { $regex: re } },
-            { title: { $regex: re } },
-          ],
-        });
-      }
-    } else {
-      console.log('dddd in without search' , page)
-      documents = await this.documentRepository
-        .find({ state: 1 })
-        .skip(((+page)-1)*10).limit(10)
+      projects = await this.projectRepository
+        .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
         .populate({
           path: 'ngo',
           select: {
@@ -575,146 +581,335 @@ export class AppService {
             logo: 1,
           },
         });
-        count =  await this.documentRepository
-        .countDocuments({ state: 1 })
+    } else {
+      projects = await this.projectRepository
+        .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
+        .populate({
+          path: 'ngo',
+          select: {
+            _id: 1,
+            name: 1,
+            username: 1,
+            city: 1,
+            countrye: 1,
+            nationalId: 1,
+            logo: 1,
+          },
+        })
+        .limit(10)
+        .skip((+page - 1) * 10);
+    }
+    let all = await this.projectRepository.countDocuments({
+      $and: [{ status: { $in: status } }, { state: 1 }],
+    });
+    // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
+    // let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+    return {
+      message: 'get all projects page data by status',
+      statusCode: 200,
+      data: { all, projects },
+    };
+  }
+
+  async getDocuments(
+    req: any,
+    res: any,
+    page: number,
+    search: string,
+  ): Promise<responseInterface> {
+    // let projects = await this.projectRepository.find({ status: {$in : status} })
+    // let search : string ;
+    // let word = search
+    // let pageNumber : number = 0
+    // if(!isNaN(+page)){
+    //   pageNumber = +page;
+    // }
+    console.log('search is >>>>> ', search);
+    let documents;
+    let count;
+    if (search) {
+      if (search == 'video') {
+        documents = await this.documentRepository
+          .find({ $and: [{ state: 1 }, { file: { $ne: [] } }] })
+          .skip((+page - 1) * 10)
+          .limit(10)
+          .populate({
+            path: 'ngo',
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              city: 1,
+              countrye: 1,
+              nationalId: 1,
+              logo: 1,
+            },
+          });
+        count = await this.documentRepository.countDocuments({
+          $and: [{ state: 1 }, { file: { $ne: [] } }],
+        });
+      } else if (
+        search == 'image' ||
+        search == 'images' ||
+        search == 'picture' ||
+        search == 'pictures' ||
+        search == 'pic'
+      ) {
+        documents = await this.documentRepository
+          .find({ $and: [{ state: 1 }, { file: { $ne: [] } }] })
+          .skip((+page - 1) * 10)
+          .limit(10)
+          .populate({
+            path: 'ngo',
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              city: 1,
+              countrye: 1,
+              nationalId: 1,
+              logo: 1,
+            },
+          });
+        count = await this.documentRepository.countDocuments({
+          $and: [{ state: 1 }, { file: { $ne: [] } }],
+        });
+      } else {
+        let re = new RegExp(search);
+        documents = await this.documentRepository
+          .find({
+            $or: [
+              { email: { $regex: re } },
+              { interfaceName: { $regex: re } },
+              { description: { $regex: re } },
+              { phone: { $regex: re } },
+              { name: { $regex: re } },
+              { title: { $regex: re } },
+            ],
+          })
+          .skip((+page - 1) * 10)
+          .limit(10)
+          .populate({
+            path: 'ngo',
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              city: 1,
+              countrye: 1,
+              nationalId: 1,
+              logo: 1,
+            },
+          });
+        count = await this.documentRepository.countDocuments({
+          $or: [
+            { email: { $regex: re } },
+            { interfaceName: { $regex: re } },
+            { description: { $regex: re } },
+            { phone: { $regex: re } },
+            { name: { $regex: re } },
+            { title: { $regex: re } },
+          ],
+        });
       }
+    } else {
+      console.log('dddd in without search', page);
+      documents = await this.documentRepository
+        .find({ state: 1 })
+        .skip((+page - 1) * 10)
+        .limit(10)
+        .populate({
+          path: 'ngo',
+          select: {
+            _id: 1,
+            name: 1,
+            username: 1,
+            city: 1,
+            countrye: 1,
+            nationalId: 1,
+            logo: 1,
+          },
+        });
+      count = await this.documentRepository.countDocuments({ state: 1 });
+    }
 
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
-      data: {documents , all : count}
-    }
+      data: { documents, all: count },
+    };
   }
 
-
-  async searchDocument(req: any, res: any, id: string) {
+  async searchDocument(
+    req: any,
+    res: any,
+    id: string,
+  ): Promise<responseInterface> {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    let documents = await this.documentRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+    let documents = await this.documentRepository
+      .findById(id)
+      .populate({
+        path: 'ngo',
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          city: 1,
+          countrye: 1,
+          nationalId: 1,
+          logo: 1,
+        },
+      });
+
+    let language = await langDetection(documents.description)
+    console.log(language)
+    let newData = { ...documents.toObject(), language: language }
+
+
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
-      data: documents
-    }
+      data: newData,
+    };
   }
 
-
-
-
-  async getSpecificProjectByID(req: any, res: any, id: string) {
+  async getSpecificProjectByID(
+    req: any,
+    res: any,
+    id: string,
+  ): Promise<responseInterface> {
     // let projects = await this.projectRepository.find({ status: {$in : status} })
-    console.log('asdfsdf', id)
-    let projects = await this.projectRepository.findById(id).populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
+    console.log('asdfsdf', id);
+    let projects = await this.projectRepository
+      .findById(id)
+      .populate({
+        path: 'ngo',
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          city: 1,
+          countrye: 1,
+          nationalId: 1,
+          logo: 1,
+        },
+      });
     if (!projects) {
       return {
         message: 'get all projects page data by status',
         statusCode: 400,
-        error: 'project not founded.'
-      }
+        error: 'project not founded.',
+      };
     }
+
+    let language = await langDetection(projects.description)
+    console.log(language)
+    let newData = { ...projects.toObject(), language: language }
+
+
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
-      data: projects
-    }
+      data: newData,
+    };
   }
-
 
   /**
    * this endpoint is for specific project page data
-   * @param req 
-   * @param res 
-   * @returns 
+   * @param req
+   * @param res
+   * @returns
    */
-  async specificProjectsById(req: any, res: any) {
-    let projects = await this.projectRepository.find({ status: req.user.id })
+  async specificProjectsById(req: any, res: any): Promise<responseInterface> {
+    let projects = await this.projectRepository.find({ status: req.user.id });
     return {
       message: 'get all projects page data by id',
       statusCode: 200,
-      data: projects
-    }
+      data: projects,
+    };
   }
 
+  // /**
+  //  * this private function is for creating the barcharts
+  //  * @returns
+  //  */
+  // private async barCharts():Promise<> {
+  //   let ngos = await this.ngoRepository.find()
 
+  //   let labels = []
+  //   let series = []
 
-  /**
-   * this private function is for creating the barcharts
-   * @returns 
-   */
-  private async barCharts() {
-    let ngos = await this.ngoRepository.find()
+  //   for (let i = 0; i < ngos.length; i++) {
+  //     let elem = ngos[i]
+  //     if (!labels.includes(elem.country)) {
+  //       labels.push(elem.country)
+  //       series.push(1)
+  //     } else {
+  //       let index = labels.indexOf(elem)
+  //       series[index]++;
+  //     }
+  //   }
+  //   return {
+  //     labels, series
+  //   }
+  // }
 
-    let labels = []
-    let series = []
+  // /**
+  //  * this end point is for get statistic page data
+  //  * @param req
+  //  * @param res
+  //  */
+  // async statisticPage(req: any, res: any):Promise<> {
 
-    for (let i = 0; i < ngos.length; i++) {
-      let elem = ngos[i]
-      if (!labels.includes(elem.country)) {
-        labels.push(elem.country)
-        series.push(1)
-      } else {
-        let index = labels.indexOf(elem)
-        series[index]++;
-      }
-    }
-    return {
-      labels, series
-    }
-  }
+  //   let donate = await this.barCharts()
 
+  //   let ngos = await this.ngoRepository.find()
 
-  /**
-   * this end point is for get statistic page data
-   * @param req 
-   * @param res 
-   */
-  async statisticPage(req: any, res: any) {
-
-    let donate = await this.barCharts()
-
-    let ngos = await this.ngoRepository.find()
-
-    let barChart = {
-      series: [
-        {
-          name: "2023",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-        },
-        {
-          name: "2024",
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-        },
-        {
-          name: "2025",
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-        },
-      ],
-      categories: [
-        "NGO Name",
-        "NGO Name",
-        "NGO Name",
-        "NGO Name",
-        "NGO Name",
-        "NGO Name",
-        "NGO Name",
-        "NGO Name",
-        "NGO Name",
-      ],
-    }
-  }
-
+  //   let barChart = {
+  //     series: [
+  //       {
+  //         name: "2023",
+  //         data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+  //       },
+  //       {
+  //         name: "2024",
+  //         data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+  //       },
+  //       {
+  //         name: "2025",
+  //         data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+  //       },
+  //     ],
+  //     categories: [
+  //       "NGO Name",
+  //       "NGO Name",
+  //       "NGO Name",
+  //       "NGO Name",
+  //       "NGO Name",
+  //       "NGO Name",
+  //       "NGO Name",
+  //       "NGO Name",
+  //       "NGO Name",
+  //     ],
+  //   }
+  // }
 
   /**
    * this endpoint is for creating the new page
-   * @param req 
-   * @param res 
-   * @param body 
-   * @returns 
+   * @param req
+   * @param res
+   * @param body
+   * @returns
    */
-  async createNewPage(req: any, res: any, body: createCustomPageDto) {
+  async createNewPage(
+    req: any,
+    res: any,
+    body: createCustomPageDto,
+  ): Promise<responseInterface> {
     try {
       // let all = await this.customPAgeRepository.find()
       // await this.customPAgeRepository.deleteMany(all)
-      body.path = body.path.trim().replaceAll(' ', '-')
+      body.path = body.path.trim().replaceAll(' ', '-');
       // let existance = await this.customPAgeRepository.find({ path: body.path })
       // if (existance.length > 0) {
       //   return {
@@ -723,8 +918,10 @@ export class AppService {
       //     error: 'این مسیر قبلا ثبت شده است'
       //   }
       // }
-      console.log('page body isssssss >>>> ', body)
-      let admin = await this.adminModel.findOne({ userName: req.user.userName })
+      console.log('page body isssssss >>>> ', body);
+      let admin = await this.adminModel.findOne({
+        userName: req.user.userName,
+      });
       let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
         Children: [],
@@ -734,9 +931,9 @@ export class AppService {
         path: body.path,
         hasSubPage: body.hasSubPage,
         template: body.template,
-        admin: admin._id
-      })
-      let savedPage = await newPage.save()
+        admin: admin._id,
+      });
+      let savedPage = await newPage.save();
       if (hasSubPage) {
         let Children = await this.customPAgeRepository.create({
           parent: savedPage._id,
@@ -746,9 +943,9 @@ export class AppService {
           path: body.subPage.path,
           hasSubPage: false,
           template: body.subPage.template,
-          admin: admin._id
-        })
-        savedPage.Children.push(Children._id)
+          admin: admin._id,
+        });
+        savedPage.Children.push(Children._id);
       }
 
       if (body.hasSecondSubPage) {
@@ -760,209 +957,218 @@ export class AppService {
           path: body.secondSubPage.path,
           hasSubPage: false,
           template: body.secondSubPage.template,
-          admin: admin._id
-        })
-        savedPage.Children.push(secondChildren._id)
+          admin: admin._id,
+        });
+        savedPage.Children.push(secondChildren._id);
       }
-      await savedPage.updateOne({ Children: savedPage.Children })
-      let updated = await this.customPAgeRepository.findById(savedPage._id).populate('Children')
-      console.log('updated saved page isssss', updated)
+      await savedPage.updateOne({ Children: savedPage.Children });
+      let updated = await this.customPAgeRepository
+        .findById(savedPage._id)
+        .populate('Children');
+      console.log('updated saved page isssss', updated);
       return {
         message: 'ایجاد صفحه جدید با موفقیت انجام شد',
         statusCode: 200,
-        data: updated
-      }
+        data: updated,
+      };
     } catch (error) {
-      console.log('error in creating the page and sub page >>', error)
+      console.log('error in creating the page and sub page >>', error);
       return {
         message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
         statusCode: 500,
-        error: 'خطای داخلی سرور'
-      }
+        error: 'خطای داخلی سرور',
+      };
     }
   }
 
-
-
-
   /**
-   * this end point is for add content to page 
-   * @param req 
-   * @param res 
-   * @param body 
-   * @returns 
+   * this end point is for add content to page
+   * @param req
+   * @param res
+   * @param body
+   * @returns
    */
-  async addPageContent(req: any, res: any, body: createPagesContentDto) {
-
+  async addPageContent(
+    req: any,
+    res: any,
+    body: createPagesContentDto,
+  ): Promise<responseInterface> {
     try {
-      let pageId = body.id
+      let pageId = body.id;
       if (!pageId) {
         return {
           message: 'لطفا ای را وارد کنید',
           statusCode: 400,
-          error: 'wrong inputed id'
-        }
+          error: 'wrong inputed id',
+        };
       }
-      let page = await this.customPAgeRepository.findById(pageId)
+      let page = await this.customPAgeRepository.findById(pageId);
       if (!page) {
         return {
           message: 'صفحه مورد نظر یافت نشد',
           statusCode: 400,
-          error: 'page not found'
-        }
+          error: 'page not found',
+        };
       }
-      console.log('body issss >>>', body)
-      let createdContent = await this.pagesContentRepository.create(body)
-      await page.updateOne({ content: createdContent._id })
-      await createdContent.updateOne({ page: page._id })
+      console.log('body issss >>>', body);
+      let createdContent = await this.pagesContentRepository.create(body);
+      await page.updateOne({ content: createdContent._id });
+      await createdContent.updateOne({ page: page._id });
       return {
         message: 'ایجاد محتوای صفحه موفقیت آمیز بود',
         statusCode: 200,
-        data: createdContent
-      }
+        data: createdContent,
+      };
     } catch (error) {
-      console.log('error in adding content to pages >>> ', error)
+      console.log('error in adding content to pages >>> ', error);
       return {
         message: 'ایجاد محتوای صفحه موفقیت آمیز نبود',
         statusCode: 500,
-        error: 'خطای داخلی سیستم'
-      }
+        error: 'خطای داخلی سیستم',
+      };
     }
-
   }
-
 
   // {
   //   label : ,
-  //   href : 
+  //   href :
   //   children : []
   // }
 
-  async getPathes(req: any, res: any) {
-    let pages = await this.customPAgeRepository.find({ parent: null }).populate('Children')
-    console.log('pages issss >>> ', pages)
-    let all = []
+  async getPathes(req: any, res: any): Promise<responseInterface> {
+    let pages = await this.customPAgeRepository
+      .find({ parent: null })
+      .populate('Children');
+    console.log('pages issss >>> ', pages);
+    let all = [];
     for (let i = 0; i < pages.length; i++) {
-      let elem = pages[i]
-      let label = [elem.peTitle, elem.enTitle, elem.ruTitle]
-      let href = elem.path
-      let chilren = []
+      let elem = pages[i];
+      let label = [elem.peTitle, elem.enTitle, elem.ruTitle];
+      let href = elem.path;
+      let chilren = [];
       if (elem.Children.length > 0) {
         elem.Children.forEach((rr: any) => {
           let data = {
             label: [rr.peTitle, rr.enTitle, rr.ruTitle],
             href: rr.path,
-          }
-          chilren.push(data)
-        })
+          };
+          chilren.push(data);
+        });
       }
       let finalData;
       if (chilren.length > 0) {
         finalData = {
           label: label,
           href: href,
-          children: chilren
-        }
+          children: chilren,
+        };
       } else {
         finalData = {
           label: label,
           href: href,
-        }
+        };
       }
-      all.push(finalData)
+      all.push(finalData);
     }
 
     return {
       message: 'get all pages',
       statusCode: 200,
-      data: all
-    }
+      data: all,
+    };
   }
 
-
-
-  async getCustomPageContent(req: any, res: any, path: string) {
-    let content = await this.customPAgeRepository.findOne({ path: path }).populate('content')
+  async getCustomPageContent(
+    req: any,
+    res: any,
+    path: string,
+  ): Promise<responseInterface> {
+    let content = await this.customPAgeRepository
+      .findOne({ path: path })
+      .populate('content');
     if (!content) {
       return {
         message: 'this content not exist',
         statusCode: 400,
-        error: 'محتوای این صفحه یافت نشد'
-      }
+        error: 'محتوای این صفحه یافت نشد',
+      };
     }
     return {
       message: 'get page content done',
       statusCode: 200,
-      data: content
-    }
+      data: content,
+    };
   }
-
-
-
-
-
-
 
   /**
    * this endpoint is for getting all customs pages by admin
-   * @param req 
-   * @param res 
-   * @returns 
+   * @param req
+   * @param res
+   * @returns
    */
-  async getAllCustomsPages(req: any, res: any) {
+  async getAllCustomsPages(req: any, res: any): Promise<responseInterface> {
     try {
-      let pages = await this.customPAgeRepository.find({ parent: null }).populate('Children')
+      let pages = await this.customPAgeRepository
+        .find({ parent: null })
+        .populate('Children');
       return {
         message: 'گرفتن دیتاهای صفحه ها موفق بود',
         statusCode: 200,
-        data: pages
-      }
+        data: pages,
+      };
     } catch (error) {
       return {
         message: 'گرفتن دیتاهای صفحه ها ناموفق',
         statusCode: 500,
-        error: 'خطای داخلی سرور'
-      }
+        error: 'خطای داخلی سرور',
+      };
     }
   }
 
-
-
   /**
    * this endpoint is for updating the custom pages
-   * @param req 
-   * @param res 
-   * @param body 
-   * @param pageId 
-   * @returns 
+   * @param req
+   * @param res
+   * @param body
+   * @param pageId
+   * @returns
    */
-  async updateCustomPages(req: any, res: any, body: createCustomPageDto, pageId: string) {
+  async updateCustomPages(
+    req: any,
+    res: any,
+    body: createCustomPageDto,
+    pageId: string,
+  ): Promise<responseInterface> {
     try {
-      body.path = body.path.trim().replaceAll(' ', '-')
-      let existedPage = await this.customPAgeRepository.findById(pageId)
+      body.path = body.path.trim().replaceAll(' ', '-');
+      let existedPage = await this.customPAgeRepository.findById(pageId);
       if (!existedPage) {
         return {
           message: 'صفحه مورد نظر یافت نشد',
           statusCode: 400,
-          error: 'صفحه مورد نظر یافت نشد'
-        }
+          error: 'صفحه مورد نظر یافت نشد',
+        };
       }
       if (existedPage.path != body.path) {
-        let existance = await this.customPAgeRepository.find({ path: body.path })
+        let existance = await this.customPAgeRepository.find({
+          path: body.path,
+        });
         if (existance.length > 0) {
           return {
             message: 'این مسیر قبلا ثبت شده است.',
             statusCode: 400,
-            error: 'این مسیر قبلا ثبت شده است'
-          }
+            error: 'این مسیر قبلا ثبت شده است',
+          };
         }
       }
-      let admin = await this.adminModel.findOne({ userName: req.user.userName })
+      let admin = await this.adminModel.findOne({
+        userName: req.user.userName,
+      });
       let hasSubPage = body.hasSubPage;
 
-      let newData = { ...(existedPage.toObject()), ...body }
+      let newData = { ...existedPage.toObject(), ...body };
 
-      let savedPage = await existedPage.updateOne(newData)
+      let savedPage = await existedPage.updateOne(newData);
       if (hasSubPage) {
         let Children = await this.customPAgeRepository.create({
           parent: savedPage._id,
@@ -971,61 +1177,88 @@ export class AppService {
           path: body.subPage.path,
           hasSubPage: false,
           template: body.subPage.template,
-          admin: admin._id
-        })
-        await savedPage.updateOne({ Children: Children._id })
+          admin: admin._id,
+        });
+        await savedPage.updateOne({ Children: Children._id });
       }
-      let updated = await this.customPAgeRepository.findById(savedPage._id).populate('Children')
+      let updated = await this.customPAgeRepository
+        .findById(savedPage._id)
+        .populate('Children');
       return {
         message: 'ایجاد صفحه جدید با موفقیت انجام شد',
         statusCode: 200,
-        data: updated
-      }
+        data: updated,
+      };
     } catch (error) {
-      console.log('error in creating the page and sub page >>', error)
+      console.log('error in creating the page and sub page >>', error);
       return {
         message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
         statusCode: 500,
-        error: 'خطای داخلی سرور'
-      }
+        error: 'خطای داخلی سرور',
+      };
     }
   }
 
-
   /**
    * this end point is for delete the custom page
-   * @param req 
-   * @param res 
-   * @param pageId 
-   * @returns 
+   * @param req
+   * @param res
+   * @param pageId
+   * @returns
    */
-  async deleteCustomPage(req: any, res: any, pageId: string) {
+  async deleteCustomPage(
+    req: any,
+    res: any,
+    pageId: string,
+  ): Promise<responseInterface> {
     try {
-      let existancePage = await this.customPAgeRepository.findById(pageId).populate('content')
+      let existancePage = await this.customPAgeRepository
+        .findById(pageId)
+        .populate('content');
       if (!existancePage) {
         return {
           message: 'صفحه مورد نظر یافت نشد',
           statusCode: 400,
-          error: 'صفحه مورد نظر یافت نشد'
-        }
+          error: 'صفحه مورد نظر یافت نشد',
+        };
       }
       if (existancePage.content) {
-        await this.pagesContentRepository.findByIdAndDelete(existancePage.content._id)
+        await this.pagesContentRepository.findByIdAndDelete(
+          existancePage.content._id,
+        );
       }
-      await this.customPAgeRepository.findByIdAndDelete(pageId)
+      await this.customPAgeRepository.findByIdAndDelete(pageId);
       return {
         message: 'صفحه مورد نظر یا موفقیت حذف شد',
         statusCode: 200,
-        data: ''
-      }
+        data: '',
+      };
     } catch (error) {
-      console.log('error occured in deleting custom pages', error)
+      console.log('error occured in deleting custom pages', error);
       return {
         message: 'صفحه مورد نظر حذف نشد',
         statusCode: 500,
-        error: 'خطای داخلی سرور'
-      }
+        error: 'خطای داخلی سرور',
+      };
     }
   }
+
+  /**
+   * this is for making chart data's
+   * @param req
+   * @param res
+   * @param name
+   * @returns
+   */
+  async charts(req: any, res: any, name: string): Promise<responseInterface> {
+    let data;
+
+    return {
+      message: 'done',
+      statusCode: 200,
+      data: data,
+    };
+  }
+  
   /////////////// final line //////////////////////
 }
