@@ -808,6 +808,9 @@ export class AppService {
 
     for (let i of newData.visualDocuments){
       console.log(i)
+      if (!i.files){
+        newData.visualDocuments.splice(newData.visualDocuments.indexOf(i) , 1)
+      }
       if (i.files.length==0){
         newData.visualDocuments.splice(newData.visualDocuments.indexOf(i) , 1)
       }
