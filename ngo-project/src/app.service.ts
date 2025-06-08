@@ -487,7 +487,7 @@ export class AppService {
     let pathes = [];
     // if (fin)
     filename.forEach((element) => {
-      let url = `https://ngoupload.fiantic.ir/${element.filename}`;
+      let url = `https://cdn.finatic.ir/${element.filename}`;
       pathes.push(url);
     });
 
