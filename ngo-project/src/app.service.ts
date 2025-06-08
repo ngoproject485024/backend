@@ -434,7 +434,7 @@ export class AppService {
     delete home.middleImages;
     let newData = { ...home, middleImages: events };
     console.log('new data', newData);
-    let ngo = await this.ngoRepository.find().sort({ createdAt: -1 }).limit(10);
+    let ngo = await this.ngoRepository.find({approved : 1 , disable : false}).sort({ createdAt: -1 }).limit(10);
     return {
       message: 'project created successfully',
       statusCode: 200,

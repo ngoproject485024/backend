@@ -486,7 +486,7 @@ export class NgoService {
       projects: project,
     };
     let similarNgo = await this.ngoRepository
-      .find()
+      .find({approved : 1 , disable : false})
       .sort({ createdAt: -1 })
       .limit(5);
     return {
