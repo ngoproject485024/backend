@@ -806,6 +806,11 @@ export class AppService {
     console.log(language)
     let newData = { ...projects.toObject(), language: language }
 
+    for (let i of newData.visualDocuments){
+      if (i.files.length==0){
+        newData.visualDocuments.splice(newData.visualDocuments.indexOf(i) , 1)
+      }
+    }
 
     return {
       message: 'get all projects page data by status',
@@ -1259,6 +1264,6 @@ export class AppService {
       data: data,
     };
   }
-  
+
   /////////////// final line //////////////////////
 }
