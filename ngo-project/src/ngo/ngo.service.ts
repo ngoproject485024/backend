@@ -203,10 +203,11 @@ export class NgoService {
       await ngo.save();
       console.log(newProject);
       return {
-        message: 'project created successfully',
-        statusCode: 200,
-        data: newProject,
-      };
+      message: 'document created successfully',
+      statusCode: 400,
+      error : 'its for test in error'
+      // data: newDocument,
+    };
     } catch (error) {
       console.log('error', error);
       return {
