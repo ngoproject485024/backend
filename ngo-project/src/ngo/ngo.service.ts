@@ -173,8 +173,9 @@ export class NgoService {
     await ngo.save();
     return {
       message: 'document created successfully',
-      statusCode: 200,
-      data: newDocument,
+      statusCode: 400,
+      error : 'its for test in error'
+      // data: newDocument,
     };
   }
 
