@@ -53,4 +53,9 @@ export class AdminController {
   }
 
 
+  @Get('/log/all')
+  async getAllLogs(@Req() req : any , @Res() res : any){
+    return this.adminService.getAllLogs(req , res)
+  }
+
 }

@@ -165,5 +165,77 @@ export class AdminService {
     }
 
 
+    async getAllLogs(req : any , res : any){
+        let all = [
+            {
+                user : {
+                    userName : "hossein",
+                    ngoName : "khodakhah"
+                },
+                action : {
+                    title : 'create the project',
+                    description : {
+                        name : "نام",
+                        status : "ongoing",
+                        accepted : false
+                    },
+                    date : '1404/05/01',
+                    time : '13:22:05'
+                }
+            },{
+                user : {
+                    userName : "ali",
+                    ngoName : "mohammadi"
+                },
+                action : {
+                    title : 'create the project',
+                    description : {
+                        name : "نام",
+                        status : "ongoing",
+                        accepted : false
+                    },
+                    date : '1404/05/01',
+                    time : '13:22:05'
+                }
+            },{
+                user : {
+                    userName : "elham",
+                    ngoName : "chatrabnoose"
+                },
+                action : {
+                    title : 'create the project',
+                    description : {
+                        name : "نام",
+                        status : "ongoing",
+                        accepted : false
+                    },
+                    date : '1404/05/01',
+                    time : '13:22:05'
+                }
+            },{
+                user : {
+                    userName : "hossein",
+                    ngoName : "khodakhah"
+                },
+                action : {
+                    title : 'create the project',
+                    description : {
+                        name : "نام",
+                        status : "ongoing",
+                        accepted : false
+                    },
+                    date : '1404/05/01',
+                    time : '13:22:05'
+                }
+            }
+        ]
+
+        return {
+            message : 'get all logs',
+            statusCode : 200,
+            data : all
+        }
+    }
+
 
 }
