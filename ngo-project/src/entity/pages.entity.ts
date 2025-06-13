@@ -20,6 +20,19 @@ export interface pagesInterface extends Document {
     ruAboutUsDescription: string;
     ruNgoDescription: string;
     admin: string;
+    firstBanner: {
+      image: string[],
+      peDescription: string
+      enDescription: string
+      ruDescription: string
+    }
+    secondBanner: {
+      image: string[],
+      peDescription: string
+      enDescription: string
+      ruDescription: string
+      permitedToShow: boolean
+    }
   };
 
   aboutUs: {
@@ -157,6 +170,35 @@ export class pages {
       ruAboutUsDescription: { type: String },
       ruNgoDescription: { type: String },
       admin: { type: String },
+      firstBanner: {
+        type: {
+          image: {
+            type: [String]
+          },
+          peDescription: { type: String },
+          enDescription: { type: String },
+          ruDescription: { type: String }
+        },default:{
+          image : [],
+          peDescription: '',
+          enDescription: '',
+          ruDescription: ''
+        }
+      }, secondBanner: {
+        type: {
+          image: [String],
+          peDescription: { type: String },
+          enDescription: { type: String },
+          ruDescription: { type: String },
+          permitedToShow: { type: Boolean }
+        },default :{
+          image : [],
+          peDescription: '',
+          enDescription: '',
+          ruDescription: '',
+          permitedToShow: true
+        }
+      }
     },
   })
   homPage: {
@@ -178,6 +220,19 @@ export class pages {
     ruAboutUsDescription: string;
     ruNgoDescription: string;
     admin: string;
+    firstBanner: {
+      image: string[],
+      peDescription: string
+      enDescription: string
+      ruDescription: string
+    }
+    secondBanner: {
+      image: string[],
+      peDescription: string
+      enDescription: string
+      ruDescription: string
+      permitedToShow: boolean
+    }
   };
 
   @Prop({

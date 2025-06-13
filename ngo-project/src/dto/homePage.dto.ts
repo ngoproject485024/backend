@@ -126,6 +126,43 @@ export class homePage {
         required: true
     })
     ruNgoDescription: string
+
+    @IsNotEmpty()
+    @IsObject()
+    @ApiProperty({
+        example : {
+      image: [],
+      peDescription:'' ,
+      enDescription: '',
+      ruDescription: '',
+    }
+    })
+    firstBanner: {
+      image: string[],
+      peDescription: string
+      enDescription: string
+      ruDescription: string
+    }
+    
+    @IsNotEmpty()
+    @IsObject()
+    @ApiProperty({
+        example : {
+      image: [],
+      peDescription:'' ,
+      enDescription: '',
+      ruDescription: '',
+    }
+    })
+    secondBanner: {
+      image: string[],
+      peDescription: string
+      enDescription: string
+      ruDescription: string
+      permitedToShow: boolean
+    }
+
+
 }
 
 

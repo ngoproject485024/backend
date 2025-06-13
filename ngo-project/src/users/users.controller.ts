@@ -17,5 +17,5 @@ export class UsersController {
   async getAllLogs(@Req() req: any, @Res() res: any) {
     return this.usersService.getAllLogs(req, res)
   }
-
+  
 }
