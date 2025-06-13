@@ -486,19 +486,53 @@ export class aboutUsDto{
     
     @IsNotEmpty()
     @IsString()
-    firstManagerFooterTitle : string
+    peFirstManagerFooterTitle: string
     
     @IsNotEmpty()
     @IsString()
-    secondManagerFooterTitle : string
+    peSecondManagerFooterTitle: string
     
     @IsNotEmpty()
     @IsString()
-    fristManagerFooterDescription : string
+    enFirstManagerFooterTitle: string
     
     @IsNotEmpty()
     @IsString()
-    secondManagerFooterDescription : string
+    enSecondManagerFooterTitle: string
+    
+    @IsNotEmpty()
+    @IsString()
+    ruFirstManagerFooterTitle: string
+    
+    @IsNotEmpty()
+    @IsString()
+    ruSecondManagerFooterTitle: string
+    
+    @IsNotEmpty()
+    @IsString()
+    peFristManagerFooterDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    peSecondManagerFooterDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    enFirstManagerFooterDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    enSecondManagerFooterDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    ruFistManagerFooterDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    ruSecondManagerFooterDescription: string
+
+    
 
 
     @IsNotEmpty()
