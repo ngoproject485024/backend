@@ -30,7 +30,7 @@ export interface pagesInterface extends Document {
     peSecondBannerDescription: string
     enSecondBannerDescription: string
     ruSecondBannerDescription: string
-    permitedToShowS0condBanner: boolean
+    permitedToShowSecondBanner: boolean
 
   };
 
@@ -178,7 +178,7 @@ export class pages {
     peSecondBannerDescription: {type : String},
     enSecondBannerDescription: {type : String},
     ruSecondBannerDescription: {type : String},
-    permitedToShowS0condBanner:{type : Boolean}
+    permitedToShowSecondBanner:{type : Boolean}
     },
   })
   homPage: {
@@ -209,7 +209,7 @@ export class pages {
     peSecondBannerDescription: string
     enSecondBannerDescription: string
     ruSecondBannerDescription: string
-    permitedToShowS0condBanner: boolean
+    permitedToShowSecondBanner: boolean
   };
 
   @Prop({

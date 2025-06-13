@@ -161,7 +161,7 @@ export class homePage {
     
     @IsNotEmpty()
     @IsString()
-    permitedToShowS0condBanner: boolean
+    permitedToShowSecondBanner: boolean
 
 
 }
