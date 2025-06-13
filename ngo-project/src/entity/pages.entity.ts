@@ -20,19 +20,18 @@ export interface pagesInterface extends Document {
     ruAboutUsDescription: string;
     ruNgoDescription: string;
     admin: string;
-    firstBanner: {
-      image: string[],
-      peDescription: string
-      enDescription: string
-      ruDescription: string
-    }
-    secondBanner: {
-      image: string[],
-      peDescription: string
-      enDescription: string
-      ruDescription: string
-      permitedToShow: boolean
-    }
+
+    firstBannerImage: string[],
+    peFirstBannerDescription: string
+    enFirstBannerDescription: string
+    ruFirstBannerDescription: string
+
+    secondBannerImage: string[],
+    peSecondBannerDescription: string
+    enSecondBannerDescription: string
+    ruSecondBannerDescription: string
+    permitedToShowS0condBanner: boolean
+
   };
 
   aboutUs: {
@@ -170,35 +169,16 @@ export class pages {
       ruAboutUsDescription: { type: String },
       ruNgoDescription: { type: String },
       admin: { type: String },
-      firstBanner: {
-        type: {
-          image: {
-            type: [String]
-          },
-          peDescription: { type: String },
-          enDescription: { type: String },
-          ruDescription: { type: String }
-        },default:{
-          image : [],
-          peDescription: '',
-          enDescription: '',
-          ruDescription: ''
-        }
-      }, secondBanner: {
-        type: {
-          image: [String],
-          peDescription: { type: String },
-          enDescription: { type: String },
-          ruDescription: { type: String },
-          permitedToShow: { type: Boolean }
-        },default :{
-          image : [],
-          peDescription: '',
-          enDescription: '',
-          ruDescription: '',
-          permitedToShow: true
-        }
-      }
+      firstBannerImage: {type : [String]},
+    peFirstBannerDescription: {type : String},
+    enFirstBannerDescription: {type : String},
+    ruFirstBannerDescription: {type : String},
+
+    secondBannerImage: {type : [String]},
+    peSecondBannerDescription: {type : String},
+    enSecondBannerDescription: {type : String},
+    ruSecondBannerDescription: {type : String},
+    permitedToShowS0condBanner:{type : Boolean}
     },
   })
   homPage: {
@@ -220,19 +200,16 @@ export class pages {
     ruAboutUsDescription: string;
     ruNgoDescription: string;
     admin: string;
-    firstBanner: {
-      image: string[],
-      peDescription: string
-      enDescription: string
-      ruDescription: string
-    }
-    secondBanner: {
-      image: string[],
-      peDescription: string
-      enDescription: string
-      ruDescription: string
-      permitedToShow: boolean
-    }
+    firstBannerImage: string[],
+    peFirstBannerDescription: string
+    enFirstBannerDescription: string
+    ruFirstBannerDescription: string
+
+    secondBannerImage: string[],
+    peSecondBannerDescription: string
+    enSecondBannerDescription: string
+    ruSecondBannerDescription: string
+    permitedToShowS0condBanner: boolean
   };
 
   @Prop({

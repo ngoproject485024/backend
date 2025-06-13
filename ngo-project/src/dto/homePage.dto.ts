@@ -128,39 +128,40 @@ export class homePage {
     ruNgoDescription: string
 
     @IsNotEmpty()
-    @IsObject()
-    @ApiProperty({
-        example : {
-      image: [],
-      peDescription:'' ,
-      enDescription: '',
-      ruDescription: '',
-    }
-    })
-    firstBanner: {
-      image: string[],
-      peDescription: string
-      enDescription: string
-      ruDescription: string
-    }
+    @IsArray()
+    firstBannerImage: string[]
     
     @IsNotEmpty()
-    @IsObject()
-    @ApiProperty({
-        example : {
-      image: [],
-      peDescription:'' ,
-      enDescription: '',
-      ruDescription: '',
-    }
-    })
-    secondBanner: {
-      image: string[],
-      peDescription: string
-      enDescription: string
-      ruDescription: string
-      permitedToShow: boolean
-    }
+    @IsString()
+    peFirstBannerDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    enFirstBannerDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    ruFirstBannerDescription: string
+
+     @IsNotEmpty()
+    @IsArray()
+    secondBannerImage: string[]
+    
+    @IsNotEmpty()
+    @IsString()
+    peSecondBannerDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    enSecondBannerDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    ruSecondBannerDescription: string
+    
+    @IsNotEmpty()
+    @IsString()
+    permitedToShowS0condBanner: boolean
 
 
 }
