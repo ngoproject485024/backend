@@ -1,4 +1,5 @@
 import { IsArray, IsNotEmpty, IsNumber } from "@nestjs/class-validator";
+import { Prop } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsObject, IsString } from "class-validator";
 
@@ -449,4 +450,62 @@ export class aboutUsDto{
         required : true
     })
     ruMissionAndGoals: string 
+
+
+    @IsNotEmpty()
+    @IsString()
+    peFirstManagerDescription : string;
+    
+     @IsNotEmpty()
+    @IsString()
+    enFirstManagerDescription : string;
+    
+     @IsNotEmpty()
+    @IsString()
+    ruFirstManagerDescription : string;
+    
+     @IsNotEmpty()
+    @IsString()
+    peSecondManagerDescription : string;
+    
+    @IsNotEmpty()
+    @IsString()
+    enSecondManagerDescription : string;
+    
+    @IsNotEmpty()
+    @IsString()
+    ruSecondManagerDescription : string;
+    
+    @IsNotEmpty()
+    @IsArray()
+    firstManagerImage : string[];
+    
+    @IsNotEmpty()
+    @IsArray()
+    secondManagerImage : string[];
+    
+    @IsNotEmpty()
+    @IsString()
+    firstManagerFooterTitle : string
+    
+    @IsNotEmpty()
+    @IsString()
+    secondManagerFooterTitle : string
+    
+    @IsNotEmpty()
+    @IsString()
+    fristManagerFooterDescription : string
+    
+    @IsNotEmpty()
+    @IsString()
+    secondManagerFooterDescription : string
+
+
+    @IsNotEmpty()
+    @IsBoolean()
+    permitedToShowFirstManager:boolean
+    
+    @IsNotEmpty()
+    @IsBoolean()
+    permitedToShowSecondManager:boolean
 }

@@ -49,6 +49,21 @@ export interface pagesInterface extends Document {
     enMissionAndGoals: string;
     ruMissionAndGoals: string;
     admin: string;
+    peFirstManagerDescription : string;
+    enFirstManagerDescription : string;
+    ruFirstManagerDescription : string;
+    peSecondManagerDescription : string;
+    enSecondManagerDescription : string;
+    ruSecondManagerDescription : string;
+    firstManagerImage : string[];
+    secondManagerImage : string[];
+    firstManagerFooterTitle : string
+    secondManagerFooterTitle : string
+    fristManagerFooterDescription : string
+    secondManagerFooterDescription: string
+    permitedToShowFirstManager: boolean
+    permitedToShowSecondManager: boolean
+
   };
 
   completProjects: {
@@ -230,6 +245,21 @@ export class pages {
       enMissionAndGoals: { type: String },
       ruMissionAndGoals: { type: String },
       admin: { type: String },
+      peFirstManagerDescription : {type : String},
+    enFirstManagerDescription : {type : String},
+    ruFirstManagerDescription : {type : String},
+    peSecondManagerDescription : {type : String},
+    enSecondManagerDescription : {type : String},
+    ruSecondManagerDescription : {type : String},
+    firstManagerImage : {type : [String]},
+    secondManagerImage : {type : [String]},
+    firstManagerFooterTitle : {type : String},
+    secondManagerFooterTitle : {type : String},
+    fristManagerFooterDescription : {type : String},
+    secondManagerFooterDescription : {type : String},
+      permitedToShowFirstManager: {type : Boolean , default : true},
+    permitedToShowSecondManager: {type : Boolean , default : true}
+
     },
   })
   aboutUs: {
@@ -246,7 +276,21 @@ export class pages {
     peMissionAndGoals: string;
     enMissionAndGoals: string;
     ruMissionAndGoals: string;
-    admin: string;
+      admin: string;
+      peFirstManagerDescription: string;
+      enFirstManagerDescription: string;
+      ruFirstManagerDescription: string;
+      peSecondManagerDescription: string;
+      enSecondManagerDescription: string;
+      ruSecondManagerDescription: string;
+      firstManagerImage: string[];
+      secondManagerImage: string[];
+      firstManagerFooterTitle: string
+      secondManagerFooterTitle: string
+      fristManagerFooterDescription: string
+      secondManagerFooterDescription: string
+      permitedToShowFirstManager: boolean
+      permitedToShowSecondManager: boolean
   };
 
   @Prop({
