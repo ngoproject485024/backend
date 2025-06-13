@@ -178,7 +178,8 @@ export class pages {
     peSecondBannerDescription: {type : String},
     enSecondBannerDescription: {type : String},
     ruSecondBannerDescription: {type : String},
-    permitedToShowSecondBanner:{type : Boolean}
+    permitedToShowSecondBanner:{type : Boolean},
+    ngoAlgo: {type : Number , default : 0}
     },
   })
   homPage: {
@@ -210,6 +211,7 @@ export class pages {
     enSecondBannerDescription: string
     ruSecondBannerDescription: string
     permitedToShowSecondBanner: boolean
+    ngoAlgo: number
   };
 
   @Prop({

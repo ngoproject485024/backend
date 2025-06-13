@@ -163,6 +163,9 @@ export class homePage {
     @IsBoolean()
     permitedToShowSecondBanner: boolean
 
+    @IsNotEmpty()
+    @IsNumber()
+    ngoAlgo: number
 
 }
 
