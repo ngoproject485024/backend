@@ -1,6 +1,6 @@
 import { IsArray, IsNotEmpty, IsNumber } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsObject, IsString } from "class-validator";
+import { IsBoolean, IsObject, IsString } from "class-validator";
 
 
 export class homePage {
@@ -160,7 +160,7 @@ export class homePage {
     ruSecondBannerDescription: string
     
     @IsNotEmpty()
-    @IsString()
+    @IsBoolean()
     permitedToShowSecondBanner: boolean
 
 
