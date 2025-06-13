@@ -63,6 +63,18 @@ export interface pagesInterface extends Document {
     secondManagerFooterDescription: string
     permitedToShowFirstManager: boolean
     permitedToShowSecondManager: boolean
+    peFirstManagerFooterTitle: string
+      peSecondManagerFooterTitle: string
+      enFirstManagerFooterTitle: string
+      enSecondManagerFooterTitle: string
+      ruFirstManagerFooterTitle: string
+      ruSecondManagerFooterTitle: string
+      peFristManagerFooterDescription: string
+      peSecondManagerFooterDescription: string
+      enFirstManagerFooterDescription: string
+      enSecondManagerFooterDescription: string
+      ruFistManagerFooterDescription: string
+      ruSecondManagerFooterDescription: string
 
   };
 
@@ -253,11 +265,19 @@ export class pages {
     ruSecondManagerDescription : {type : String},
     firstManagerImage : {type : [String]},
     secondManagerImage : {type : [String]},
-    firstManagerFooterTitle : {type : String},
-    secondManagerFooterTitle : {type : String},
-    fristManagerFooterDescription : {type : String},
-    secondManagerFooterDescription : {type : String},
-      permitedToShowFirstManager: {type : Boolean , default : true},
+      peFirstManagerFooterTitle: { type: String },
+      peSecondManagerFooterTitle: { type: String },
+      enFirstManagerFooterTitle: { type: String },
+      enSecondManagerFooterTitle: { type: String },
+      ruFirstManagerFooterTitle: { type: String },
+      ruSecondManagerFooterTitle: { type: String },
+      peFristManagerFooterDescription: { type: String },
+      peSecondManagerFooterDescription: { type: String },
+      enFirstManagerFooterDescription: { type: String },
+      enSecondManagerFooterDescription: { type: String },
+      ruFistManagerFooterDescription: { type: String },
+      ruSecondManagerFooterDescription: { type: String },
+    permitedToShowFirstManager: {type : Boolean , default : true},
     permitedToShowSecondManager: {type : Boolean , default : true}
 
     },
@@ -285,10 +305,18 @@ export class pages {
       ruSecondManagerDescription: string;
       firstManagerImage: string[];
       secondManagerImage: string[];
-      firstManagerFooterTitle: string
-      secondManagerFooterTitle: string
-      fristManagerFooterDescription: string
-      secondManagerFooterDescription: string
+      peFirstManagerFooterTitle: string
+      peSecondManagerFooterTitle: string
+      enFirstManagerFooterTitle: string
+      enSecondManagerFooterTitle: string
+      ruFirstManagerFooterTitle: string
+      ruSecondManagerFooterTitle: string
+      peFristManagerFooterDescription: string
+      peSecondManagerFooterDescription: string
+      enFirstManagerFooterDescription: string
+      enSecondManagerFooterDescription: string
+      ruFistManagerFooterDescription: string
+      ruSecondManagerFooterDescription: string
       permitedToShowFirstManager: boolean
       permitedToShowSecondManager: boolean
   };
