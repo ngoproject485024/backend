@@ -69,11 +69,11 @@ export interface pagesInterface extends Document {
       enSecondManagerFooterTitle: string
       ruFirstManagerFooterTitle: string
       ruSecondManagerFooterTitle: string
-      peFristManagerFooterDescription: string
+      peFirstManagerFooterDescription: string
       peSecondManagerFooterDescription: string
       enFirstManagerFooterDescription: string
       enSecondManagerFooterDescription: string
-      ruFistManagerFooterDescription: string
+      ruFirstManagerFooterDescription: string
       ruSecondManagerFooterDescription: string
 
   };
@@ -271,11 +271,11 @@ export class pages {
       enSecondManagerFooterTitle: { type: String },
       ruFirstManagerFooterTitle: { type: String },
       ruSecondManagerFooterTitle: { type: String },
-      peFristManagerFooterDescription: { type: String },
+      peFirstManagerFooterDescription: { type: String },
       peSecondManagerFooterDescription: { type: String },
       enFirstManagerFooterDescription: { type: String },
       enSecondManagerFooterDescription: { type: String },
-      ruFistManagerFooterDescription: { type: String },
+      ruFirstManagerFooterDescription: { type: String },
       ruSecondManagerFooterDescription: { type: String },
     permitedToShowFirstManager: {type : Boolean , default : true},
     permitedToShowSecondManager: {type : Boolean , default : true}
@@ -311,11 +311,11 @@ export class pages {
       enSecondManagerFooterTitle: string
       ruFirstManagerFooterTitle: string
       ruSecondManagerFooterTitle: string
-      peFristManagerFooterDescription: string
+      peFirstManagerFooterDescription: string
       peSecondManagerFooterDescription: string
       enFirstManagerFooterDescription: string
       enSecondManagerFooterDescription: string
-      ruFistManagerFooterDescription: string
+      ruFirstManagerFooterDescription: string
       ruSecondManagerFooterDescription: string
       permitedToShowFirstManager: boolean
       permitedToShowSecondManager: boolean
