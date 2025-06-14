@@ -510,7 +510,7 @@ export class aboutUsDto{
     
     @IsNotEmpty()
     @IsString()
-    peFristManagerFooterDescription: string
+    peFirstManagerFooterDescription: string
     
     @IsNotEmpty()
     @IsString()
@@ -526,15 +526,13 @@ export class aboutUsDto{
     
     @IsNotEmpty()
     @IsString()
-    ruFistManagerFooterDescription: string
+    ruFirstManagerFooterDescription: string
     
     @IsNotEmpty()
     @IsString()
     ruSecondManagerFooterDescription: string
 
     
-
-
     @IsNotEmpty()
     @IsBoolean()
     permitedToShowFirstManager:boolean
