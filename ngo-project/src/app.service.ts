@@ -268,6 +268,28 @@ export class AppService {
         statusCode: 200,
         data: updated[0].ngoRegisterDescription,
       };
+    }else if (body.type == 'createProject') {
+      page.createProject = { ...body.description, admin: admin };
+      await page.save();
+      let updated = await this.pageRepository.find();
+      console.log('its hereeee >>>> ', updated);
+      console.log(updated[0].createProject);
+      return {
+        message: 'updating events page data.',
+        statusCode: 200,
+        data: updated[0].createProject,
+      };
+    }else if (body.type == 'createDocument') {
+      page.createDocument = { ...body.description, admin: admin };
+      await page.save();
+      let updated = await this.pageRepository.find();
+      console.log('its hereeee >>>> ', updated);
+      console.log(updated[0].createDocument);
+      return {
+        message: 'updating events page data.',
+        statusCode: 200,
+        data: updated[0].createDocument,
+      };
     } else {
       return {
         message: 'updating events page data.',
@@ -380,6 +402,20 @@ export class AppService {
       console.log('page>>', pageName);
       return {
         message: 'getting ngo register page data.',
+        statusCode: 200,
+        data: page.ngoRegisterDescription,
+      };
+    }else if (pageName == 'createDocument') {
+      console.log('page>>', pageName);
+      return {
+        message: 'getting ngo create document page data.',
+        statusCode: 200,
+        data: page.ngoRegisterDescription,
+      };
+    }else if (pageName == 'createProject') {
+      console.log('page>>', pageName);
+      return {
+        message: 'getting ngo create Project page data.',
         statusCode: 200,
         data: page.ngoRegisterDescription,
       };

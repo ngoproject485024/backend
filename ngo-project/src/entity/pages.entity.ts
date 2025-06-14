@@ -49,32 +49,32 @@ export interface pagesInterface extends Document {
     enMissionAndGoals: string;
     ruMissionAndGoals: string;
     admin: string;
-    peFirstManagerDescription : string;
-    enFirstManagerDescription : string;
-    ruFirstManagerDescription : string;
-    peSecondManagerDescription : string;
-    enSecondManagerDescription : string;
-    ruSecondManagerDescription : string;
-    firstManagerImage : string[];
-    secondManagerImage : string[];
-    firstManagerFooterTitle : string
-    secondManagerFooterTitle : string
-    fristManagerFooterDescription : string
+    peFirstManagerDescription: string;
+    enFirstManagerDescription: string;
+    ruFirstManagerDescription: string;
+    peSecondManagerDescription: string;
+    enSecondManagerDescription: string;
+    ruSecondManagerDescription: string;
+    firstManagerImage: string[];
+    secondManagerImage: string[];
+    firstManagerFooterTitle: string
+    secondManagerFooterTitle: string
+    fristManagerFooterDescription: string
     secondManagerFooterDescription: string
     permitedToShowFirstManager: boolean
     permitedToShowSecondManager: boolean
     peFirstManagerFooterTitle: string
-      peSecondManagerFooterTitle: string
-      enFirstManagerFooterTitle: string
-      enSecondManagerFooterTitle: string
-      ruFirstManagerFooterTitle: string
-      ruSecondManagerFooterTitle: string
-      peFirstManagerFooterDescription: string
-      peSecondManagerFooterDescription: string
-      enFirstManagerFooterDescription: string
-      enSecondManagerFooterDescription: string
-      ruFirstManagerFooterDescription: string
-      ruSecondManagerFooterDescription: string
+    peSecondManagerFooterTitle: string
+    enFirstManagerFooterTitle: string
+    enSecondManagerFooterTitle: string
+    ruFirstManagerFooterTitle: string
+    ruSecondManagerFooterTitle: string
+    peFirstManagerFooterDescription: string
+    peSecondManagerFooterDescription: string
+    enFirstManagerFooterDescription: string
+    enSecondManagerFooterDescription: string
+    ruFirstManagerFooterDescription: string
+    ruSecondManagerFooterDescription: string
 
   };
 
@@ -172,6 +172,24 @@ export interface pagesInterface extends Document {
     ruDescription: string;
     admin: string;
   };
+
+  createProject: {
+    peDescription: string;
+    enDescription: string;
+    ruDescription: string;
+    pdf: string[];
+    admin: string;
+  }
+
+  createDocument: {
+    peDescription: string;
+    enDescription: string;
+    ruDescription: string;
+    pdf: string[];
+    admin: string;
+  }
+
+
 }
 
 @Schema({ timestamps: true })
@@ -196,17 +214,17 @@ export class pages {
       ruAboutUsDescription: { type: String },
       ruNgoDescription: { type: String },
       admin: { type: String },
-      firstBannerImage: {type : [String]},
-    peFirstBannerDescription: {type : String},
-    enFirstBannerDescription: {type : String},
-    ruFirstBannerDescription: {type : String},
+      firstBannerImage: { type: [String] },
+      peFirstBannerDescription: { type: String },
+      enFirstBannerDescription: { type: String },
+      ruFirstBannerDescription: { type: String },
 
-    secondBannerImage: {type : [String]},
-    peSecondBannerDescription: {type : String},
-    enSecondBannerDescription: {type : String},
-    ruSecondBannerDescription: {type : String},
-    permitedToShowSecondBanner:{type : Boolean},
-    ngoAlgo: {type : Number , default : 0}
+      secondBannerImage: { type: [String] },
+      peSecondBannerDescription: { type: String },
+      enSecondBannerDescription: { type: String },
+      ruSecondBannerDescription: { type: String },
+      permitedToShowSecondBanner: { type: Boolean },
+      ngoAlgo: { type: Number, default: 0 }
     },
   })
   homPage: {
@@ -257,14 +275,14 @@ export class pages {
       enMissionAndGoals: { type: String },
       ruMissionAndGoals: { type: String },
       admin: { type: String },
-      peFirstManagerDescription : {type : String},
-    enFirstManagerDescription : {type : String},
-    ruFirstManagerDescription : {type : String},
-    peSecondManagerDescription : {type : String},
-    enSecondManagerDescription : {type : String},
-    ruSecondManagerDescription : {type : String},
-    firstManagerImage : {type : [String]},
-    secondManagerImage : {type : [String]},
+      peFirstManagerDescription: { type: String },
+      enFirstManagerDescription: { type: String },
+      ruFirstManagerDescription: { type: String },
+      peSecondManagerDescription: { type: String },
+      enSecondManagerDescription: { type: String },
+      ruSecondManagerDescription: { type: String },
+      firstManagerImage: { type: [String] },
+      secondManagerImage: { type: [String] },
       peFirstManagerFooterTitle: { type: String },
       peSecondManagerFooterTitle: { type: String },
       enFirstManagerFooterTitle: { type: String },
@@ -277,8 +295,8 @@ export class pages {
       enSecondManagerFooterDescription: { type: String },
       ruFirstManagerFooterDescription: { type: String },
       ruSecondManagerFooterDescription: { type: String },
-    permitedToShowFirstManager: {type : Boolean , default : true},
-    permitedToShowSecondManager: {type : Boolean , default : true}
+      permitedToShowFirstManager: { type: Boolean, default: true },
+      permitedToShowSecondManager: { type: Boolean, default: true }
 
     },
   })
@@ -296,29 +314,29 @@ export class pages {
     peMissionAndGoals: string;
     enMissionAndGoals: string;
     ruMissionAndGoals: string;
-      admin: string;
-      peFirstManagerDescription: string;
-      enFirstManagerDescription: string;
-      ruFirstManagerDescription: string;
-      peSecondManagerDescription: string;
-      enSecondManagerDescription: string;
-      ruSecondManagerDescription: string;
-      firstManagerImage: string[];
-      secondManagerImage: string[];
-      peFirstManagerFooterTitle: string
-      peSecondManagerFooterTitle: string
-      enFirstManagerFooterTitle: string
-      enSecondManagerFooterTitle: string
-      ruFirstManagerFooterTitle: string
-      ruSecondManagerFooterTitle: string
-      peFirstManagerFooterDescription: string
-      peSecondManagerFooterDescription: string
-      enFirstManagerFooterDescription: string
-      enSecondManagerFooterDescription: string
-      ruFirstManagerFooterDescription: string
-      ruSecondManagerFooterDescription: string
-      permitedToShowFirstManager: boolean
-      permitedToShowSecondManager: boolean
+    admin: string;
+    peFirstManagerDescription: string;
+    enFirstManagerDescription: string;
+    ruFirstManagerDescription: string;
+    peSecondManagerDescription: string;
+    enSecondManagerDescription: string;
+    ruSecondManagerDescription: string;
+    firstManagerImage: string[];
+    secondManagerImage: string[];
+    peFirstManagerFooterTitle: string
+    peSecondManagerFooterTitle: string
+    enFirstManagerFooterTitle: string
+    enSecondManagerFooterTitle: string
+    ruFirstManagerFooterTitle: string
+    ruSecondManagerFooterTitle: string
+    peFirstManagerFooterDescription: string
+    peSecondManagerFooterDescription: string
+    enFirstManagerFooterDescription: string
+    enSecondManagerFooterDescription: string
+    ruFirstManagerFooterDescription: string
+    ruSecondManagerFooterDescription: string
+    permitedToShowFirstManager: boolean
+    permitedToShowSecondManager: boolean
   };
 
   @Prop({
@@ -512,6 +530,56 @@ export class pages {
     pdf: string[];
     admin: string;
   };
+
+  @Prop({
+    type: {
+      peDescription: { type: String },
+      enDescription: { type: String },
+      ruDescription: { type: String },
+      pdf: { type: [String] },
+      admin: { type: String },
+    },
+    default: {
+      peDescription: '',
+      enDescription: '',
+      ruDescription: '',
+      pdf: [],
+      admin: '',
+    },
+  })
+  createProject: {
+    peDescription: string;
+    enDescription: string;
+    ruDescription: string;
+    pdf: string[];
+    admin: string;
+  }
+
+
+  @Prop({
+    type: {
+      peDescription: { type: String },
+      enDescription: { type: String },
+      ruDescription: { type: String },
+      pdf: { type: [String] },
+      admin: { type: String },
+    },
+    default: {
+      peDescription: '',
+      enDescription: '',
+      ruDescription: '',
+      pdf: [],
+      admin: '',
+    },
+  })
+  createDocument: {
+    peDescription: string;
+    enDescription: string;
+    ruDescription: string;
+    pdf: string[];
+    admin: string;
+  }
+
 
   @Prop({
     type: {
