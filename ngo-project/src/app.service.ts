@@ -460,6 +460,16 @@ export class AppService {
       })
       .sort({ createdAt: -1 })
       .limit(10);
+
+    let refactorProjects = []
+
+    for (let i of projects) {
+      let language = await langDetection(i.description)
+      console.log(language)
+      let newData = { ...i.toObject(), language: language }
+      refactorProjects.push(newData)
+    }
+
     let events = await this.eventRepository
       .find({ ruPictures: { $ne: [] } })
       .sort({ createdAt: -1 })
@@ -476,7 +486,7 @@ export class AppService {
       statusCode: 200,
       data: {
         home: newData,
-        projects: projects,
+        projects: refactorProjects,
         ngo,
       },
     };

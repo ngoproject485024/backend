@@ -35,6 +35,8 @@ import { createPagesContentDto } from './dto/createPagesContent.dto';
 import { responseInterface } from './interfaces/interfaces.interface';
 import langDetection from './services/langDetection';
 
+
+
 @ApiTags('pages data')
 @Controller('page')
 export class AppController {
