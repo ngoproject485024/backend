@@ -100,7 +100,7 @@ export class NgoService {
         error: 'account not found!',
       };
     }
-    if (!ngo.approved) {
+    if (ngo.approved == 2) {
       return {
         message: 'login failed',
         statusCode: 403,
@@ -127,18 +127,25 @@ export class NgoService {
     let token = await this.jwtService.tokenize(jwtData, '128D');
     let finalNgo = await this.ngoRepository
       .findOne({ username: body.username })
+      .populate({path : 'ownDocuments'})
+      .populate({path : 'projects'})
       .select('-password');
     console.log(finalNgo);
     let finalNgo2 = finalNgo.toObject();
     let allDate = {
-      allProjects: await this.ngoProject.countDocuments(),
-      allDocuments: await this.ngoDocument.countDocuments(),
-      ongoing: await this.ngoProject.countDocuments({
+      allProjects: finalNgo.ownDocuments.length,
+      allDocuments: finalNgo.projects.length,
+      ongoing: await this.ngoProject.countDocuments({$and:[{
         status: { $in: 'ongoing' },
-      }),
-      complete: await this.ngoProject.countDocuments({
+      },
+      {ngo : finalNgo._id}
+    ]}),
+      complete: await this.ngoProject.countDocuments({$and : [
+        {
         status: { $in: 'completed' },
-      }),
+      },
+      {ngo : finalNgo._id}
+      ]}),
     };
     return {
       message: 'login successfull!',
