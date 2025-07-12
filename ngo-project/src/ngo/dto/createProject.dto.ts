@@ -109,7 +109,7 @@ export class createProject {
     @IsArray()
     visualDocuments: {title : string , files : string[]}[];
 
-    @IsNotEmpty()
+
     @IsString()
     @ApiProperty({
         example : 'project example data',
