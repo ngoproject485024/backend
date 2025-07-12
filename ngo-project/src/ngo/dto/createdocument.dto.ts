@@ -20,7 +20,6 @@ export class createDocumentsDto {
     email : string;
 
 
-    @IsNotEmpty()
     @IsString()
     @ApiProperty({
         example : 'document example',
