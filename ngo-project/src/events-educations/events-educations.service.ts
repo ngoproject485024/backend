@@ -197,7 +197,6 @@ export class EventsEducationsService {
                 { type: +type },
                 {
                   $or: [
-                    { type: { $regex: reg } },
                     { peTitle: { $regex: reg } },
                     { enTitle: { $regex: reg } },
                     { ruTitle: { $regex: reg } },
@@ -219,7 +218,6 @@ export class EventsEducationsService {
           event = await this.eventRepository
             .find({
               $or: [
-                { type: { $regex: reg } },
                 { peTitle: { $regex: reg } },
                 { enTitle: { $regex: reg } },
                 { ruTitle: { $regex: reg } },
