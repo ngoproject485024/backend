@@ -184,7 +184,7 @@ export class EventsEducationsService {
     // type=2&start=2025-5-8&end=2025-5-22&page=2
     let event;
 
-    if (search && search != '' && typeof search != 'undefined') {
+    if (search != '' && search && search != 'undefined') {
       let reg = new RegExp(search)
       if (!isNaN(+page)) {
         console.log('first condition');
@@ -219,16 +219,16 @@ export class EventsEducationsService {
           event = await this.eventRepository
             .find({
               $or: [
-                { type: { $Regex: reg } },
-                { peTitle: { $Regex: reg } },
-                { enTitle: { $Regex: reg } },
-                { ruTitle: { $Regex: reg } },
-                { peDescription: { $Regex: reg } },
-                { enDescription: { $Regex: reg } },
-                { ruDescription: { $Regex: reg } },
-                { peEventsBody: { $Regex: reg } },
-                { enEventsBody: { $Regex: reg } },
-                { ruEventsBody: { $Regex: reg } },
+                { type: { $regex: reg } },
+                { peTitle: { $regex: reg } },
+                { enTitle: { $regex: reg } },
+                { ruTitle: { $regex: reg } },
+                { peDescription: { $regex: reg } },
+                { enDescription: { $regex: reg } },
+                { ruDescription: { $regex: reg } },
+                { peEventsBody: { $regex: reg } },
+                { enEventsBody: { $regex: reg } },
+                { ruEventsBody: { $regex: reg } },
               ]
             })
             .sort({ createdAt: -1 })
@@ -355,7 +355,6 @@ export class EventsEducationsService {
 
     if (search != '' && search && search != 'undefined') {
       let reg = new RegExp(search)
-      console.log('its entered >>>> ' , typeof(search) != 'undefined' , typeof(search))
       if (!isNaN(+page)) {
         educations = await this.educationRepository
           .find({

@@ -613,7 +613,7 @@ export class AppService {
   ): Promise<responseInterface> {
     let projects;
     console.log('search is ' , search)
-    if (search && search !== '' && typeof search != 'undefined') {
+    if (search != '' && search && search != 'undefined') {
       let reg = new RegExp(search)
       console.log('reg is ' , reg)
       if (isNaN(+page)) {
