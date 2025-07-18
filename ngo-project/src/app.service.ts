@@ -612,7 +612,7 @@ export class AppService {
     search: string,
   ): Promise<responseInterface> {
     let projects;
-
+    console.log('search is ' , search)
     if (search && search !== '' && typeof search != 'undefined') {
       let reg = new RegExp(search)
       console.log('reg is ' , reg)
