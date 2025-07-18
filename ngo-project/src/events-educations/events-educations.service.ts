@@ -355,7 +355,7 @@ export class EventsEducationsService {
 
     if (search != '' && search && typeof(search) != 'undefined') {
       let reg = new RegExp(search)
-      console.log('its entered >>>> ' , typeof(search) != 'undefined' , search)
+      console.log('its entered >>>> ' , typeof(search) != 'undefined' , typeof(search))
       if (!isNaN(+page)) {
         educations = await this.educationRepository
           .find({
