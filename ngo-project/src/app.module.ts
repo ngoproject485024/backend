@@ -31,7 +31,7 @@ import { gmailsSchema } from './users/entities/gmail.entity';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true, envFilePath: 'config.env' }), MulterModule.register({ dest: './ngo-uploads' }),
-  MongooseModule.forRoot('mongodb://127.0.0.1:27017'),
+  MongooseModule.forRoot('mongodb+srv://ngoProject:ngo25255225@cluster0.qvlj4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'),
   MongooseModule.forFeature([{ name: 'ngo', schema: ngoSchema },
     { name: 'gmail', schema: gmailsSchema },
     , { name: 'educations', schema: EducationSchema }
