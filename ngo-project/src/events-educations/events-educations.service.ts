@@ -353,7 +353,7 @@ export class EventsEducationsService {
     console.log('search', search)
     let educations;
 
-    if (search != '' && search && typeof(search) != 'undefined') {
+    if (search != '' && search && search != 'undefined') {
       let reg = new RegExp(search)
       console.log('its entered >>>> ' , typeof(search) != 'undefined' , typeof(search))
       if (!isNaN(+page)) {
