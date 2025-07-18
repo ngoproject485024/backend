@@ -615,6 +615,7 @@ export class AppService {
 
     if (search && search !== '' && typeof search != 'undefined') {
       let reg = new RegExp(search)
+      console.log('reg is ' , reg)
       if (isNaN(+page)) {
         projects = await this.projectRepository
           .find({
