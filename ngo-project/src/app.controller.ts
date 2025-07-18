@@ -544,8 +544,9 @@ export class AppController {
     @Res() res: any,
     @Query('status') status: string,
     @Query('page') page: string,
+    @Query('search') search: string,
   ): Promise<responseInterface> {
-    return this.appService.specificProjectsByStatus(req, res, status, +page);
+    return this.appService.specificProjectsByStatus(req, res, status, +page , search);
   }
 
   /**this is project page data by category */

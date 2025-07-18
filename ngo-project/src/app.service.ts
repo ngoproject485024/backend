@@ -268,7 +268,7 @@ export class AppService {
         statusCode: 200,
         data: updated[0].ngoRegisterDescription,
       };
-    }else if (body.type == 'createProject') {
+    } else if (body.type == 'createProject') {
       page.createProject = { ...body.description, admin: admin };
       await page.save();
       let updated = await this.pageRepository.find();
@@ -279,7 +279,7 @@ export class AppService {
         statusCode: 200,
         data: updated[0].createProject,
       };
-    }else if (body.type == 'createDocument') {
+    } else if (body.type == 'createDocument') {
       page.createDocument = { ...body.description, admin: admin };
       await page.save();
       let updated = await this.pageRepository.find();
@@ -405,14 +405,14 @@ export class AppService {
         statusCode: 200,
         data: page.ngoRegisterDescription,
       };
-    }else if (pageName == 'createDocument') {
+    } else if (pageName == 'createDocument') {
       console.log('page>>', pageName);
       return {
         message: 'getting ngo create document page data.',
         statusCode: 200,
         data: page.ngoRegisterDescription,
       };
-    }else if (pageName == 'createProject') {
+    } else if (pageName == 'createProject') {
       console.log('page>>', pageName);
       return {
         message: 'getting ngo create Project page data.',
@@ -480,7 +480,7 @@ export class AppService {
     delete home.middleImages;
     let newData = { ...home, middleImages: events };
     console.log('new data', newData);
-    let ngo = await this.ngoRepository.find({approved : 1 , disable : false}).sort({ createdAt: -1 }).limit(10);
+    let ngo = await this.ngoRepository.find({ approved: 1, disable: false }).sort({ createdAt: -1 }).limit(10);
     return {
       message: 'project created successfully',
       statusCode: 200,
@@ -609,42 +609,115 @@ export class AppService {
     res: any,
     status: string,
     page: number,
+    search: string,
   ): Promise<responseInterface> {
     let projects;
 
-    if (isNaN(+page)) {
-      projects = await this.projectRepository
-        .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
-        .populate({
-          path: 'ngo',
-          select: {
-            _id: 1,
-            name: 1,
-            username: 1,
-            city: 1,
-            countrye: 1,
-            nationalId: 1,
-            logo: 1,
-          },
-        });
+
+    if (search && search !== '') {
+      let reg = new RegExp(search)
+      if (isNaN(+page)) {
+        projects = await this.projectRepository
+          .find({
+            $and: [{ status: { $in: status } }, { state: 1 }, {
+              $or: [
+                { name: { $regex: reg } },
+                { description: { $regex: reg } },
+                { organizationName: { $regex: reg } },
+                { projectManagerName: { $regex: reg } },
+                { projectManagerEmail: { $regex: reg } },
+                { projectManagerPhone: { $regex: reg } },
+                { completedAchievements: { $regex: reg } },
+                { completedReports: { $regex: reg } },
+                { completedEffects: { $regex: reg } },
+                { colleaguesAndStakeholders: { $regex: reg } },
+              ]
+            }]
+          })
+          .populate({
+            path: 'ngo',
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              city: 1,
+              countrye: 1,
+              nationalId: 1,
+              logo: 1,
+            },
+          });
+      } else {
+        projects = await this.projectRepository
+          .find({
+            $and: [{ status: { $in: status } }, { state: 1 }, {
+              $or: [
+                { name: { $regex: reg } },
+                { description: { $regex: reg } },
+                { organizationName: { $regex: reg } },
+                { projectManagerName: { $regex: reg } },
+                { projectManagerEmail: { $regex: reg } },
+                { projectManagerPhone: { $regex: reg } },
+                { completedAchievements: { $regex: reg } },
+                { completedReports: { $regex: reg } },
+                { completedEffects: { $regex: reg } },
+                { colleaguesAndStakeholders: { $regex: reg } },
+              ]
+            }]
+          })
+          .populate({
+            path: 'ngo',
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              city: 1,
+              countrye: 1,
+              nationalId: 1,
+              logo: 1,
+            },
+          })
+          .limit(10)
+          .skip((+page - 1) * 10);
+      }
     } else {
-      projects = await this.projectRepository
-        .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
-        .populate({
-          path: 'ngo',
-          select: {
-            _id: 1,
-            name: 1,
-            username: 1,
-            city: 1,
-            countrye: 1,
-            nationalId: 1,
-            logo: 1,
-          },
-        })
-        .limit(10)
-        .skip((+page - 1) * 10);
+
+      if (isNaN(+page)) {
+        projects = await this.projectRepository
+          .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
+          .populate({
+            path: 'ngo',
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              city: 1,
+              countrye: 1,
+              nationalId: 1,
+              logo: 1,
+            },
+          });
+      } else {
+        projects = await this.projectRepository
+          .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
+          .populate({
+            path: 'ngo',
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              city: 1,
+              countrye: 1,
+              nationalId: 1,
+              logo: 1,
+            },
+          })
+          .limit(10)
+          .skip((+page - 1) * 10);
+      }
     }
+
+
+
     let all = await this.projectRepository.countDocuments({
       $and: [{ status: { $in: status } }, { state: 1 }],
     });
@@ -852,14 +925,14 @@ export class AppService {
     console.log(language)
     let newData = { ...projects.toObject(), language: language }
 
-    for (let i of newData.visualDocuments){
+    for (let i of newData.visualDocuments) {
       console.log(i)
 
       let keys = Object.keys(i)
-      if(keys.length == 0){
+      if (keys.length == 0) {
         newData.visualDocuments.splice(newData.visualDocuments.indexOf(i))
       }
-    } 
+    }
 
     return {
       message: 'get all projects page data by status',

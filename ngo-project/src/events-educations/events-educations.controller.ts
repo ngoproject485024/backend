@@ -436,6 +436,7 @@ export class EventsEducationsController {
     @Query('type') type: string,
     @Query('page') page: string,
     @Query('sort') sort: string,
+    @Query('search') search: string,
   ): Promise<responseInterface> {
     return this.eventsEducationsService.getAllEducations(
       req,
@@ -443,6 +444,7 @@ export class EventsEducationsController {
       type,
       sort,
       page,
+      search
     );
   }
 
@@ -485,6 +487,7 @@ export class EventsEducationsController {
     @Query('page') page: string,
     @Query('start') start: string,
     @Query('end') end: string,
+    @Query('search') search: string,
   ): Promise<responseInterface> {
     return this.eventsEducationsService.getAllEvents(
       req,
@@ -494,6 +497,7 @@ export class EventsEducationsController {
       start,
       end,
       page,
+      search
     );
   }
 
