@@ -546,7 +546,7 @@ export class AppService {
 
   async projectPage(req: any, res: any): Promise<responseInterface> {
     let ongoing = await this.projectRepository.countDocuments({
-      status: {$and : [{ $in: 'ongoing'  } , {$nin : 'completed'}]},
+      $and : [ {status:{ $in: 'ongoing'  }} , {status:{$nin : 'completed'}}],
     });
     let completed = await this.projectRepository.countDocuments({
       status: { $in: 'completed' },
