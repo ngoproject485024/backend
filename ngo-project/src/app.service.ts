@@ -620,7 +620,7 @@ export class AppService {
         if (status && status == 'ongoing'){
           projects = await this.projectRepository
             .find({
-              $and: [{ status: {$and : [{ $in: 'ongoing' } , {$nin : 'completed'}]} }, { state: 1 }, {
+              $and: [{$and : [ {status:{ $in: 'ongoing' }} , {status : {$nin : 'completed'}}]}, { state: 1 }, {
                 $or: [
                   { name: { $regex: reg } },
                   { description: { $regex: reg } },
@@ -682,7 +682,7 @@ export class AppService {
         if (status && status == 'ongoing'){
           projects = await this.projectRepository
             .find({
-              $and: [{ status: {$and : [{ $in: 'ongoing' } , {$nin : 'completed'}]} }, { state: 1 }, {
+              $and: [{$and : [ {status:{ $in: 'ongoing' }} , {status : {$nin : 'completed'}}]}, { state: 1 }, {
                 $or: [
                   { name: { $regex: reg } },
                   { description: { $regex: reg } },
@@ -749,7 +749,7 @@ export class AppService {
       if (isNaN(+page)) {
         if (status && status == 'ongoing'){
           projects = await this.projectRepository
-            .find({ $and: [{ status: {$and : [{ $in: 'ongoing' } , {$nin:'completed'}]} }, { state: 1 }] })
+            .find({ $and: [{$and : [{status : { $in: 'ongoing' }} , {status : {$nin : 'completed'}}]}, { state: 1 }] })
             .populate({
               path: 'ngo',
               select: {
@@ -781,7 +781,7 @@ export class AppService {
       } else {
         if (status && status == 'ongoind'){
           projects = await this.projectRepository
-            .find({ $and: [{ status: {$and : [{ $in: 'ongoing' } , {$nin : 'completed'}]} }, { state: 1 }] })
+            .find({ $and: [{$and : [{status : { $in: 'ongoing' }} , {status : {$nin : 'completed'}}]}, { state: 1 }] })
             .populate({
               path: 'ngo',
               select: {
