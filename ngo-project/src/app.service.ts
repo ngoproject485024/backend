@@ -546,7 +546,7 @@ export class AppService {
 
   async projectPage(req: any, res: any): Promise<responseInterface> {
     let ongoing = await this.projectRepository.countDocuments({
-      status: { $in: 'ongoing' },
+      status: {$and : [{ $in: 'ongoing'  } , {$nin : 'completed'}]},
     });
     let completed = await this.projectRepository.countDocuments({
       status: { $in: 'completed' },
@@ -617,102 +617,203 @@ export class AppService {
       let reg = new RegExp(search)
       console.log('reg is ' , reg)
       if (isNaN(+page)) {
-        projects = await this.projectRepository
-          .find({
-            $and: [{ status: { $in: status } }, { state: 1 }, {
-              $or: [
-                { name: { $regex: reg } },
-                { description: { $regex: reg } },
-                { organizationName: { $regex: reg } },
-                { projectManagerName: { $regex: reg } },
-                { projectManagerEmail: { $regex: reg } },
-                { projectManagerPhone: { $regex: reg } },
-                { completedAchievements: { $regex: reg } },
-                { completedReports: { $regex: reg } },
-                { completedEffects: { $regex: reg } },
-                { colleaguesAndStakeholders: { $regex: reg } },
-              ]
-            }]
-          })
-          .populate({
-            path: 'ngo',
-            select: {
-              _id: 1,
-              name: 1,
-              username: 1,
-              city: 1,
-              countrye: 1,
-              nationalId: 1,
-              logo: 1,
-            },
-          });
+        if (status && status == 'ongoing'){
+          projects = await this.projectRepository
+            .find({
+              $and: [{ status: {$and : [{ $in: 'ongoing' } , {$nin : 'completed'}]} }, { state: 1 }, {
+                $or: [
+                  { name: { $regex: reg } },
+                  { description: { $regex: reg } },
+                  { organizationName: { $regex: reg } },
+                  { projectManagerName: { $regex: reg } },
+                  { projectManagerEmail: { $regex: reg } },
+                  { projectManagerPhone: { $regex: reg } },
+                  { completedAchievements: { $regex: reg } },
+                  { completedReports: { $regex: reg } },
+                  { completedEffects: { $regex: reg } },
+                  { colleaguesAndStakeholders: { $regex: reg } },
+                ]
+              }]
+            })
+            .populate({
+              path: 'ngo',
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                city: 1,
+                countrye: 1,
+                nationalId: 1,
+                logo: 1,
+              },
+            });
+        }else{
+          projects = await this.projectRepository
+            .find({
+              $and: [{ status: { $in: status } }, { state: 1 }, {
+                $or: [
+                  { name: { $regex: reg } },
+                  { description: { $regex: reg } },
+                  { organizationName: { $regex: reg } },
+                  { projectManagerName: { $regex: reg } },
+                  { projectManagerEmail: { $regex: reg } },
+                  { projectManagerPhone: { $regex: reg } },
+                  { completedAchievements: { $regex: reg } },
+                  { completedReports: { $regex: reg } },
+                  { completedEffects: { $regex: reg } },
+                  { colleaguesAndStakeholders: { $regex: reg } },
+                ]
+              }]
+            })
+            .populate({
+              path: 'ngo',
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                city: 1,
+                countrye: 1,
+                nationalId: 1,
+                logo: 1,
+              },
+            });
+        }
       } else {
-        projects = await this.projectRepository
-          .find({
-            $and: [{ status: { $in: status } }, { state: 1 }, {
-              $or: [
-                { name: { $regex: reg } },
-                { description: { $regex: reg } },
-                { organizationName: { $regex: reg } },
-                { projectManagerName: { $regex: reg } },
-                { projectManagerEmail: { $regex: reg } },
-                { projectManagerPhone: { $regex: reg } },
-                { completedAchievements: { $regex: reg } },
-                { completedReports: { $regex: reg } },
-                { completedEffects: { $regex: reg } },
-                { colleaguesAndStakeholders: { $regex: reg } },
-              ]
-            }]
-          })
-          .populate({
-            path: 'ngo',
-            select: {
-              _id: 1,
-              name: 1,
-              username: 1,
-              city: 1,
-              countrye: 1,
-              nationalId: 1,
-              logo: 1,
-            },
-          })
-          .limit(10)
-          .skip((+page - 1) * 10);
-      }
+        if (status && status == 'ongoing'){
+          projects = await this.projectRepository
+            .find({
+              $and: [{ status: {$and : [{ $in: 'ongoing' } , {$nin : 'completed'}]} }, { state: 1 }, {
+                $or: [
+                  { name: { $regex: reg } },
+                  { description: { $regex: reg } },
+                  { organizationName: { $regex: reg } },
+                  { projectManagerName: { $regex: reg } },
+                  { projectManagerEmail: { $regex: reg } },
+                  { projectManagerPhone: { $regex: reg } },
+                  { completedAchievements: { $regex: reg } },
+                  { completedReports: { $regex: reg } },
+                  { completedEffects: { $regex: reg } },
+                  { colleaguesAndStakeholders: { $regex: reg } },
+                ]
+              }]
+            })
+            .populate({
+              path: 'ngo',
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                city: 1,
+                countrye: 1,
+                nationalId: 1,
+                logo: 1,
+              },
+            })
+            .limit(10)
+            .skip((+page - 1) * 10);
+        }else{
+          projects = await this.projectRepository
+            .find({
+              $and: [{ status: { $in: status } }, { state: 1 }, {
+                $or: [
+                  { name: { $regex: reg } },
+                  { description: { $regex: reg } },
+                  { organizationName: { $regex: reg } },
+                  { projectManagerName: { $regex: reg } },
+                  { projectManagerEmail: { $regex: reg } },
+                  { projectManagerPhone: { $regex: reg } },
+                  { completedAchievements: { $regex: reg } },
+                  { completedReports: { $regex: reg } },
+                  { completedEffects: { $regex: reg } },
+                  { colleaguesAndStakeholders: { $regex: reg } },
+                ]
+              }]
+            })
+            .populate({
+              path: 'ngo',
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                city: 1,
+                countrye: 1,
+                nationalId: 1,
+                logo: 1,
+              },
+            })
+            .limit(10)
+            .skip((+page - 1) * 10);
+        }
+        }
     } else {
-
       if (isNaN(+page)) {
-        projects = await this.projectRepository
-          .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
-          .populate({
-            path: 'ngo',
-            select: {
-              _id: 1,
-              name: 1,
-              username: 1,
-              city: 1,
-              countrye: 1,
-              nationalId: 1,
-              logo: 1,
-            },
-          });
+        if (status && status == 'ongoing'){
+          projects = await this.projectRepository
+            .find({ $and: [{ status: {$and : [{ $in: 'ongoing' } , {$nin:'completed'}]} }, { state: 1 }] })
+            .populate({
+              path: 'ngo',
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                city: 1,
+                countrye: 1,
+                nationalId: 1,
+                logo: 1,
+              },
+            });
+        }else{
+          projects = await this.projectRepository
+            .find({ $and: [{ status: {$in : status} }, { state: 1 }] })
+            .populate({
+              path: 'ngo',
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                city: 1,
+                countrye: 1,
+                nationalId: 1,
+                logo: 1,
+              },
+            });
+        }
       } else {
-        projects = await this.projectRepository
-          .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
-          .populate({
-            path: 'ngo',
-            select: {
-              _id: 1,
-              name: 1,
-              username: 1,
-              city: 1,
-              countrye: 1,
-              nationalId: 1,
-              logo: 1,
-            },
-          })
-          .limit(10)
-          .skip((+page - 1) * 10);
+        if (status && status == 'ongoind'){
+          projects = await this.projectRepository
+            .find({ $and: [{ status: {$and : [{ $in: 'ongoing' } , {$nin : 'completed'}]} }, { state: 1 }] })
+            .populate({
+              path: 'ngo',
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                city: 1,
+                countrye: 1,
+                nationalId: 1,
+                logo: 1,
+              },
+            })
+            .limit(10)
+            .skip((+page - 1) * 10);
+        } else {
+          projects = await this.projectRepository
+            .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
+            .populate({
+              path: 'ngo',
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                city: 1,
+                countrye: 1,
+                nationalId: 1,
+                logo: 1,
+              },
+            })
+            .limit(10)
+            .skip((+page - 1) * 10);
+        }
       }
     }
 

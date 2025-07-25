@@ -8,7 +8,7 @@ import { createDocumentsDto } from './dto/createdocument.dto';
 import { documentsInterface } from './entities/document.entity';
 import { createProject } from './dto/createProject.dto';
 import { projects, projectsInterface } from './entities/project.entity';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { loginDTO } from './dto/login.dto';
 import { jwtService } from 'src/jwt/jwt.service';
 import {

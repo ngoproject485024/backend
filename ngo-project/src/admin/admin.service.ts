@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { adminInterface } from './entities/admin.entity';
 import { adminLoginDto } from './dto/loginAdmin.dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { adminJwtInterface } from 'src/interfaces/interfaces.interface';
 import { jwtService } from 'src/jwt/jwt.service';
 import { createAdminDto } from './dto/create-admin.dto';
