@@ -345,8 +345,8 @@ export class AppController {
   async setAboutUs(
     @Req() req: any,
     @Res() res: any,
-    @Body(new ValidationPipe()) body: aboutUsDto,
-  ): Promise<responseInterface> {
+    @Body(new ValidationPipe()) body: any,
+  ) {
     return this.appService.setAboutUs(req, res, body);
   }
 
