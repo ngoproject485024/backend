@@ -984,10 +984,20 @@ export class AppService {
       count = await this.documentRepository.countDocuments({ state: 1 });
     }
 
+     let refactorDocuments = []
+
+    for (let i of documents) {
+      let language = await langDetection(i.description)
+      console.log(language)
+      let newData = { ...i.toObject(), language: language }
+      refactorDocuments.push(newData)
+    }
+
+
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
-      data: { documents, all: count },
+      data: { documents : refactorDocuments, all: count },
     };
   }
 
