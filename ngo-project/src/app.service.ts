@@ -883,7 +883,7 @@ export class AppService {
         documents = await this.documentRepository
           .find({ $and: [{ state: 1 }, { file: { $ne: [] } }] })
           .skip((+page - 1) * 12)
-          .limit(10)
+          .limit(12)
           .populate({
             path: 'ngo',
             select: {
@@ -909,7 +909,7 @@ export class AppService {
         documents = await this.documentRepository
           .find({ $and: [{ state: 1 }, { file: { $ne: [] } }] })
           .skip((+page - 1) * 12)
-          .limit(10)
+          .limit(12)
           .populate({
             path: 'ngo',
             select: {
@@ -939,7 +939,7 @@ export class AppService {
             ],
           })
           .skip((+page - 1) * 12)
-          .limit(10)
+          .limit(12)
           .populate({
             path: 'ngo',
             select: {
@@ -968,7 +968,7 @@ export class AppService {
       documents = await this.documentRepository
         .find({ state: 1 })
         .skip((+page - 1) * 12)
-        .limit(10)
+        .limit(12)
         .populate({
           path: 'ngo',
           select: {
