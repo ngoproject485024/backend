@@ -882,7 +882,7 @@ export class AppService {
       if (search == 'video') {
         documents = await this.documentRepository
           .find({ $and: [{ state: 1 }, { file: { $ne: [] } }] })
-          .skip((+page - 1) * 10)
+          .skip((+page - 1) * 12)
           .limit(10)
           .populate({
             path: 'ngo',
@@ -908,7 +908,7 @@ export class AppService {
       ) {
         documents = await this.documentRepository
           .find({ $and: [{ state: 1 }, { file: { $ne: [] } }] })
-          .skip((+page - 1) * 10)
+          .skip((+page - 1) * 12)
           .limit(10)
           .populate({
             path: 'ngo',
@@ -938,7 +938,7 @@ export class AppService {
               { title: { $regex: re } },
             ],
           })
-          .skip((+page - 1) * 10)
+          .skip((+page - 1) * 12)
           .limit(10)
           .populate({
             path: 'ngo',
@@ -967,7 +967,7 @@ export class AppService {
       console.log('dddd in without search', page);
       documents = await this.documentRepository
         .find({ state: 1 })
-        .skip((+page - 1) * 10)
+        .skip((+page - 1) * 12)
         .limit(10)
         .populate({
           path: 'ngo',
