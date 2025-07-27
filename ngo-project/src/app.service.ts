@@ -858,7 +858,7 @@ export class AppService {
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
-      data: { all, refactorProjects },
+      data: { all, projects : refactorProjects },
     };
   }
 
