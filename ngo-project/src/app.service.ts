@@ -730,7 +730,7 @@ export class AppService {
                 logo: 1,
               },
             })
-            .limit(10)
+            .limit(12)
             .skip((+page - 1) * 10);
         }else{
           projects = await this.projectRepository
@@ -762,7 +762,7 @@ export class AppService {
                 logo: 1,
               },
             })
-            .limit(10)
+            .limit(12)
             .skip((+page - 1) * 10);
         }
         }
@@ -815,7 +815,7 @@ export class AppService {
                 logo: 1,
               },
             })
-            .limit(10)
+            .limit(12)
             .skip((+page - 1) * 10);
         } else {
           projects = await this.projectRepository
@@ -832,7 +832,7 @@ export class AppService {
                 logo: 1,
               },
             })
-            .limit(10)
+            .limit(12)
             .skip((+page - 1) * 10);
         }
       }
