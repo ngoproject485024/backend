@@ -591,6 +591,26 @@ export class AppService {
       })
       .sort({ createdAt: -1 })
       .limit(5);
+
+    let refactorFirstProjects = []
+
+    for (let i of lastProjects) {
+      let language = await langDetection(i.description)
+      console.log(language)
+      let newData = { ...i.toObject(), language: language }
+      refactorFirstProjects.push(newData)
+    }
+
+    let refactorSecondProjects = []
+
+    for (let i of mostParticipation) {
+      let language = await langDetection(i.description)
+      console.log(language)
+      let newData = { ...i.toObject(), language: language }
+      refactorSecondProjects.push(newData)
+    }
+
+
     return {
       message: 'get all projects page data',
       statusCode: 200,
@@ -599,8 +619,8 @@ export class AppService {
         completed: completed,
         goodPractice: goodPractice,
         collaborationOpportunities: collaborationOpportunities,
-        lastProjects: lastProjects,
-        mostParticipation: mostParticipation,
+        lastProjects: refactorFirstProjects,
+        mostParticipation: refactorSecondProjects,
       },
     };
   }
@@ -823,12 +843,22 @@ export class AppService {
     let all = await this.projectRepository.countDocuments({
       $and: [{ status: { $in: status } }, { state: 1 }],
     });
+
+    let refactorProjects = []
+
+    for (let i of projects) {
+      let language = await langDetection(i.description)
+      console.log(language)
+      let newData = { ...i.toObject(), language: language }
+      refactorProjects.push(newData)
+    }
+
     // await this.projectRepository.findOneAndUpdate({name : 'bbbb'} , {status : ['goodPractice']})
     // let projects = await this.projectRepository.find().populate({ path: 'ngo', select: { '_id': 1, 'name': 1, 'username': 1, 'city': 1, 'countrye': 1, 'nationalId': 1, 'logo': 1 } })
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
-      data: { all, projects },
+      data: { all, refactorProjects },
     };
   }
 
