@@ -318,6 +318,7 @@ export class AppService {
   }
 
   async setAboutUs(req: any, res: any, body: any): Promise<responseInterface> {
+    console.log('statrrrrtt')
     let pages = await this.pageRepository.find();
     let page = pages[0];
     console.log(body);
