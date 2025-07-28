@@ -7,6 +7,8 @@ import { CreateEvetsDto } from './dto/events.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { EventsInterface } from './entities/events.entity';
 import { responseInterface } from 'src/interfaces/interfaces.interface';
+import langDetection from 'src/services/langDetection';
+
 
 @Injectable()
 export class EventsEducationsService {
@@ -180,7 +182,7 @@ export class EventsEducationsService {
   ): Promise<responseInterface> {
     console.log('search', search)
     let types = await this.eventRepository.find();
-    console.log('the all types is >>>> ', types[0]);
+    // console.log('the all types is >>>> ', types[0]);
     // type=2&start=2025-5-8&end=2025-5-22&page=2
     let event;
 

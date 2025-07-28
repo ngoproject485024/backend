@@ -256,7 +256,7 @@ export class NgoService {
       };
     }
 
-    let newData = { ...project.toObject(), ...body };
+    let newData = { ...project.toObject(), ...body , state : 3};
     await project.updateOne(newData);
     let updated = await this.ngoProject.findById(id);
     return {
@@ -296,7 +296,7 @@ export class NgoService {
       };
     }
 
-    let newData = { ...Document.toObject(), ...body };
+    let newData = { ...Document.toObject(), ...body , state : 3 };
     await Document.updateOne(newData);
     let updated = await this.ngoDocument.findById(id);
     return {
