@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose from "mongoose";
+import { accessPoint } from "./accessPoints.entity";
 
 
 export interface adminInterface extends Document {
@@ -10,6 +12,9 @@ export interface adminInterface extends Document {
     userName : string;
 
     password : string;
+
+    access : mongoose.Types.ObjectId[]
+
 
 }
 
@@ -32,6 +37,8 @@ export class Admin {
     @Prop({type : String})
     password : string;
 
+    @Prop({type : [mongoose.Schema.Types.ObjectId] , ref : accessPoint.name})
+    access : mongoose.Types.ObjectId[]
 
 }
 

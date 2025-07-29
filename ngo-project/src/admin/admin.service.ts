@@ -8,6 +8,7 @@ import * as bcrypt from 'bcryptjs';
 import { adminJwtInterface } from 'src/interfaces/interfaces.interface';
 import { jwtService } from 'src/jwt/jwt.service';
 import { createAdminDto } from './dto/create-admin.dto';
+import { accessPoint, accessPointInterface } from './entities/accessPoints.entity';
 
 
 @Injectable()
@@ -15,7 +16,8 @@ export class AdminService {
     saltRounds = 10;
 
     constructor(@InjectModel('admin') private adminModel: Model<adminInterface>,
-        private readonly jwtService: jwtService
+        private readonly jwtService: jwtService,
+        @InjectModel(accessPoint.name) private accessPoints : Model<accessPointInterface>
     ) { }
 
     async loginAdmin(req, res, body: adminLoginDto) {
@@ -236,6 +238,40 @@ export class AdminService {
             data : all
         }
     }
+
+
+    async getAdminAccesspoints(id : string){
+        try {
+            let all = await this.accessPoints.find()
+        let admin = await this.adminModel.findById(id)
+        let realAccess = []
+
+        for (let i of all){
+            let data = i.toObject()
+            if (admin.access.includes(data._id)){
+                data['access'] = true
+            }else{
+                data['access'] = false
+            }
+            realAccess.push(data)
+        }
+
+        return {
+            message : 'get all access',
+            statusCode : 200,
+            data : realAccess
+        }
+        } catch (error) {
+            console.log('error in getting access points', error)
+            return {
+                message: 'get all access',
+                statusCode: 500,
+                error: ''
+            }
+        }
+
+    }
+
 
 
 }

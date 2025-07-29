@@ -59,4 +59,10 @@ export class AdminController {
   }
 
 
+  @Get('/access/:id')
+  async getAdminAccessPoints(@Param('id') id : string){
+    return this.adminService.getAdminAccesspoints(id)
+  }
+
+
 }
