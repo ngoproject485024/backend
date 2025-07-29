@@ -277,7 +277,10 @@ export class AdminService {
             ]
 
             await this.accessPoints.deleteMany({})
-            await this.accessPoints.create(accessess)
+            await this.accessPoints.create({
+                englishName : 'events',
+                persianName : 'رویدادها'
+            })
             let all = await this.accessPoints.find()
             let admin = await this.adminModel.findById(id)
             let realAccess = []
