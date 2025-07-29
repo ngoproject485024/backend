@@ -13,7 +13,7 @@ export interface adminInterface extends Document {
 
     password : string;
 
-    access : mongoose.Types.ObjectId[]
+    access : string[]
 
 
 }
@@ -37,8 +37,8 @@ export class Admin {
     @Prop({type : String})
     password : string;
 
-    @Prop({type : [mongoose.Schema.Types.ObjectId] , ref : accessPoint.name , default : []})
-    access : mongoose.Types.ObjectId[]
+    @Prop({type : [String] , default : []})
+    access : string[]
 
 }
 

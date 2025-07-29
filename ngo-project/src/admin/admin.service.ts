@@ -281,14 +281,14 @@ export class AdminService {
                 englishName : 'events',
                 persianName : 'رویدادها'
             })
-            
+
             let all = await this.accessPoints.find()
             let admin = await this.adminModel.findById(id)
             let realAccess = []
 
             for (let i of all) {
                 let data = i.toObject()
-                if (admin.access.includes(data._id)) {
+                if (admin.access.includes(data._id.toString())) {
                     data['access'] = true
                 } else {
                     data['access'] = false
