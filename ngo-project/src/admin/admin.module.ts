@@ -12,12 +12,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AdminSchema } from './entities/admin.entity';
 import { jwtService } from 'src/jwt/jwt.service';
 import { adminAuth } from 'src/admin-auth/admin-auth.middleware';
+import { accessPoint, accessPointSchema } from './entities/accessPoints.entity';
 
 
 @Module({
   imports : [MongooseModule.forRoot('') , 
         MongooseModule.forFeature([{name : 'educations' , schema : EducationSchema} , 
         {name : 'admin' , schema : AdminSchema},
+        {name : accessPoint.name , schema : accessPointSchema},
         {name : 'events' , schema : EventsSchema},{name : 'ngo' , schema : ngoSchema} , {name : 'document' , schema : documentSchema} , {name : 'project' , schema : projectSchema}]),
         JwtModule.registerAsync({
             imports: [ConfigModule],
