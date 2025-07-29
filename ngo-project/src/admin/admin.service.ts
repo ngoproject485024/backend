@@ -243,44 +243,44 @@ export class AdminService {
     async getAdminAccesspoints(id: string) {
         try {
 
-            let accessess= [
-                {
-                    englishName: 'education',
-                    persianName: 'آموزش'
-                },
-                {
-                    englishName: 'events',
-                    persianName: 'رویداد ها'
-                },
-                {
-                    englishName: 'manage-ngos',
-                    persianName: 'مدیریت سمن ها'
-                },
-                {
-                    englishName: 'manage-docs',
-                    persianName: 'مدیریت اسناد'
-                },
-                {
-                    englishName: 'manage-projects',
-                    persianName: 'مدیریت پروژه ها'
-                },
-                {
-                    englishName: 'content',
-                    persianName: 'محتوا'
-                }, {
-                    englishName: 'dynamic-pages',
-                    persianName: 'صفحات داینامیک'
-                }, {
-                    englishName: 'admin',
-                    persianName: 'ادمین'
-                }
-            ]
+            // let accessess= [
+            //     {
+            //         englishName: 'education',
+            //         persianName: 'آموزش'
+            //     },
+            //     {
+            //         englishName: 'events',
+            //         persianName: 'رویداد ها'
+            //     },
+            //     {
+            //         englishName: 'manage-ngos',
+            //         persianName: 'مدیریت سمن ها'
+            //     },
+            //     {
+            //         englishName: 'manage-docs',
+            //         persianName: 'مدیریت اسناد'
+            //     },
+            //     {
+            //         englishName: 'manage-projects',
+            //         persianName: 'مدیریت پروژه ها'
+            //     },
+            //     {
+            //         englishName: 'content',
+            //         persianName: 'محتوا'
+            //     }, {
+            //         englishName: 'dynamic-pages',
+            //         persianName: 'صفحات داینامیک'
+            //     }, {
+            //         englishName: 'admin',
+            //         persianName: 'ادمین'
+            //     }
+            // ]
 
-            await this.accessPoints.deleteMany({})
+            // await this.accessPoints.deleteMany({})
 
-            for (let j of accessess){
-                await this.accessPoints.create(j)
-            }
+            // for (let j of accessess){
+            //     await this.accessPoints.create(j)
+            // }
 
             let all = await this.accessPoints.find()
             let admin = await this.adminModel.findById(id)
