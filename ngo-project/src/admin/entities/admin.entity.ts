@@ -37,7 +37,7 @@ export class Admin {
     @Prop({type : String})
     password : string;
 
-    @Prop({type : [mongoose.Schema.Types.ObjectId] , ref : accessPoint.name})
+    @Prop({type : [mongoose.Schema.Types.ObjectId] , ref : accessPoint.name , default : []})
     access : mongoose.Types.ObjectId[]
 
 }

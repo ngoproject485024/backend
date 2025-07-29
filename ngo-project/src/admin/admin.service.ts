@@ -281,6 +281,7 @@ export class AdminService {
                 englishName : 'events',
                 persianName : 'رویدادها'
             })
+            
             let all = await this.accessPoints.find()
             let admin = await this.adminModel.findById(id)
             let realAccess = []
