@@ -243,7 +243,7 @@ export class AdminService {
     async getAdminAccesspoints(id: string) {
         try {
 
-            let accessess: [
+            let accessess= [
                 {
                     englishName: 'education',
                     persianName: 'آموزش'
