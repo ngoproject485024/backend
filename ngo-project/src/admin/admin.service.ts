@@ -276,6 +276,7 @@ export class AdminService {
                 }
             ]
 
+            await this.accessPoints.deleteMany({})
             await this.accessPoints.create(accessess)
             let all = await this.accessPoints.find()
             let admin = await this.adminModel.findById(id)
