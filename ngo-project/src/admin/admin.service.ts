@@ -246,41 +246,41 @@ export class AdminService {
             let accessess: [
                 {
                     englishName: 'education',
-                    persianName: ''
+                    persianName: 'آموزش'
                 },
                 {
                     englishName: 'events',
-                    persianName: ''
+                    persianName: 'رویداد ها'
                 },
                 {
                     englishName: 'manage-ngos',
-                    persianName: ''
+                    persianName: 'مدیریت سمن ها'
                 },
                 {
                     englishName: 'manage-docs',
-                    persianName: ''
+                    persianName: 'مدیریت اسناد'
                 },
                 {
                     englishName: 'manage-projects',
-                    persianName: ''
+                    persianName: 'مدیریت پروژه ها'
                 },
                 {
                     englishName: 'content',
-                    persianName: ''
+                    persianName: 'محتوا'
                 }, {
                     englishName: 'dynamic-pages',
-                    persianName: ''
+                    persianName: 'صفحات داینامیک'
                 }, {
                     englishName: 'admin',
-                    persianName: ''
+                    persianName: 'ادمین'
                 }
             ]
 
             await this.accessPoints.deleteMany({})
-            await this.accessPoints.create({
-                englishName : 'events',
-                persianName : 'رویدادها'
-            })
+
+            for (let j of accessess){
+                await this.accessPoints.create(j)
+            }
 
             let all = await this.accessPoints.find()
             let admin = await this.adminModel.findById(id)
