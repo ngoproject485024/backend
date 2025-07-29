@@ -17,7 +17,7 @@ export class AdminService {
 
     constructor(@InjectModel('admin') private adminModel: Model<adminInterface>,
         private readonly jwtService: jwtService,
-        @InjectModel(accessPoint.name) private accessPoints : Model<accessPointInterface>
+        @InjectModel(accessPoint.name) private accessPoints: Model<accessPointInterface>
     ) { }
 
     async loginAdmin(req, res, body: adminLoginDto) {
@@ -167,100 +167,135 @@ export class AdminService {
     }
 
 
-    async getAllLogs(req : any , res : any){
+    async getAllLogs(req: any, res: any) {
         let all = [
             {
-                user : {
-                    userName : "hossein",
-                    ngoName : "khodakhah"
+                user: {
+                    userName: "hossein",
+                    ngoName: "khodakhah"
                 },
-                action : {
-                    title : 'create the project',
-                    description : {
-                        name : "نام",
-                        status : "ongoing",
-                        accepted : false
+                action: {
+                    title: 'create the project',
+                    description: {
+                        name: "نام",
+                        status: "ongoing",
+                        accepted: false
                     },
-                    date : '1404/05/01',
-                    time : '13:22:05'
+                    date: '1404/05/01',
+                    time: '13:22:05'
                 }
-            },{
-                user : {
-                    userName : "ali",
-                    ngoName : "mohammadi"
+            }, {
+                user: {
+                    userName: "ali",
+                    ngoName: "mohammadi"
                 },
-                action : {
-                    title : 'create the project',
-                    description : {
-                        name : "نام",
-                        status : "ongoing",
-                        accepted : false
+                action: {
+                    title: 'create the project',
+                    description: {
+                        name: "نام",
+                        status: "ongoing",
+                        accepted: false
                     },
-                    date : '1404/05/01',
-                    time : '13:22:05'
+                    date: '1404/05/01',
+                    time: '13:22:05'
                 }
-            },{
-                user : {
-                    userName : "elham",
-                    ngoName : "chatrabnoose"
+            }, {
+                user: {
+                    userName: "elham",
+                    ngoName: "chatrabnoose"
                 },
-                action : {
-                    title : 'create the project',
-                    description : {
-                        name : "نام",
-                        status : "ongoing",
-                        accepted : false
+                action: {
+                    title: 'create the project',
+                    description: {
+                        name: "نام",
+                        status: "ongoing",
+                        accepted: false
                     },
-                    date : '1404/05/01',
-                    time : '13:22:05'
+                    date: '1404/05/01',
+                    time: '13:22:05'
                 }
-            },{
-                user : {
-                    userName : "hossein",
-                    ngoName : "khodakhah"
+            }, {
+                user: {
+                    userName: "hossein",
+                    ngoName: "khodakhah"
                 },
-                action : {
-                    title : 'create the project',
-                    description : {
-                        name : "نام",
-                        status : "ongoing",
-                        accepted : false
+                action: {
+                    title: 'create the project',
+                    description: {
+                        name: "نام",
+                        status: "ongoing",
+                        accepted: false
                     },
-                    date : '1404/05/01',
-                    time : '13:22:05'
+                    date: '1404/05/01',
+                    time: '13:22:05'
                 }
             }
         ]
 
         return {
-            message : 'get all logs',
-            statusCode : 200,
-            data : all
+            message: 'get all logs',
+            statusCode: 200,
+            data: all
         }
     }
 
 
-    async getAdminAccesspoints(id : string){
+    async getAdminAccesspoints(id: string) {
         try {
+
+            let accessess: [
+                {
+                    englishName: 'education',
+                    persianName: ''
+                },
+                {
+                    englishName: 'events',
+                    persianName: ''
+                },
+                {
+                    englishName: 'manage-ngos',
+                    persianName: ''
+                },
+                {
+                    englishName: 'manage-docs',
+                    persianName: ''
+                },
+                {
+                    englishName: 'manage-projects',
+                    persianName: ''
+                },
+                {
+                    englishName: 'content',
+                    persianName: ''
+                }, {
+                    englishName: 'dynamic-pages',
+                    persianName: ''
+                }, {
+                    englishName: 'admin',
+                    persianName: ''
+                }
+            ]
+
+            await this.accessPoints.create(accessess)
             let all = await this.accessPoints.find()
-        let admin = await this.adminModel.findById(id)
-        let realAccess = []
+            let admin = await this.adminModel.findById(id)
+            let realAccess = []
 
-        for (let i of all){
-            let data = i.toObject()
-            if (admin.access.includes(data._id)){
-                data['access'] = true
-            }else{
-                data['access'] = false
+            for (let i of all) {
+                let data = i.toObject()
+                if (admin.access.includes(data._id)) {
+                    data['access'] = true
+                } else {
+                    data['access'] = false
+                }
+                realAccess.push(data)
             }
-            realAccess.push(data)
-        }
 
-        return {
-            message : 'get all access',
-            statusCode : 200,
-            data : realAccess
-        }
+            return {
+                message: 'get all access',
+                statusCode: 200,
+                data: realAccess
+            }
         } catch (error) {
             console.log('error in getting access points', error)
             return {
