@@ -322,13 +322,14 @@ export class AdminService {
                 }
             }
 
-            let accessFields = body.pages.map((elem) => {
+            let accessFields = body.pages.filter((elem) => {
                 if (elem.access) {
                     return elem._id
                 }
             })
             console.log('after geting accessess >>>>> ', accessFields)
-            admin.access = accessFields
+            // admin.access = accessFields
+            await admin.updateOne({access : accessFields})
             return {
                 message: 'سطح دسترسی ادمین با موفقیت به روز رسانی شد',
                 statusCode: 200,
