@@ -58,10 +58,13 @@ export class AdminController {
     return this.adminService.getAllLogs(req , res)
   }
 
-
   @Get('/access/:id')
   async getAdminAccessPoints(@Param('id') id : string){
     return this.adminService.getAdminAccesspoints(id)
+  }
+  @Post('/access/update/:id')
+  async updateAdminAccess(@Param('id') id : string , @Body() body : any){
+    return this.adminService.updateAdminAccess(id , body)
   }
 
 

@@ -309,6 +309,40 @@ export class AdminService {
                 error: ''
             }
         }
-
     }
+
+    async updateAdminAccess(id: string, body: any) {
+        try {
+            let admin = await this.adminModel.findById(id)
+            if (!admin) {
+                return {
+                    message: 'ادمین مورد نظر یافت نشد',
+                    statusCode: 400,
+                    error: 'ادمین مورد نظر یافت نشد'
+                }
+            }
+
+            let accessFields = body.pages.map((elem) => {
+                if (elem.access) {
+                    return elem._id
+                }
+            })
+            console.log('after geting accessess >>>>> ', accessFields)
+            admin.access = accessFields
+            return {
+                message: 'سطح دسترسی ادمین با موفقیت به روز رسانی شد',
+                statusCode: 200,
+                data: accessFields
+            }
+
+        } catch (error) {
+            console.log('error in updating accessFields', error)
+            return {
+                message: 'خطای داخلی سیستم',
+                statusCode: 500,
+            }
+        }
+    }
+
+
 }
