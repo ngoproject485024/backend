@@ -55,7 +55,9 @@ export class AdminService {
             let token = await this.jwtService.adminToken(adminTokenData, '24H')
 
 
-            let allData = { ...admin.toObject(), token: token , access : adminAccess2 }
+            let allData = { ...admin.toObject(), token: token , access : adminAccess2.map((elem : any)=>{
+                return elem.englishName
+            })}
             delete allData.password
             return {
                 message: 'ورود موفق',
