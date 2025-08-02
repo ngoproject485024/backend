@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { adminInterface } from './entities/admin.entity';
 import { adminLoginDto } from './dto/loginAdmin.dto';
 import * as bcrypt from 'bcryptjs';
@@ -33,7 +33,11 @@ export class AdminService {
                 }
             }
 
-            let adminAccess = await this.accessPoints.find({id : {$in : admin.access}})
+            let accessIds = admin.access.map((elem : string)=>{
+                return new mongoose.Types.ObjectId(elem)
+            })
+
+            let adminAccess = await this.accessPoints.find({id : {$in : accessIds}})
 
             console.log('admin access' , adminAccess)
             //password comparing
