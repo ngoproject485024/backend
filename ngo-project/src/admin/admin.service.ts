@@ -18,13 +18,13 @@ export class AdminService {
     constructor(@InjectModel('admin') private adminModel: Model<adminInterface>,
         private readonly jwtService: jwtService,
         @InjectModel(accessPoint.name) private accessPoints: Model<accessPointInterface>
-    ) { }
+    ) {}
 
     async loginAdmin(req, res, body: adminLoginDto) {
         //admin existance
         console.log(body)
         try {
-            let admin = await this.adminModel.findOne({ userName: body.userName })
+            let admin = await this.adminModel.findOne({ userName: body.userName }).populate('access')
             if (!admin) {
                 return {
                     message: 'حساب کاربری یافت نشد',
@@ -32,6 +32,7 @@ export class AdminService {
                     error: 'حساب کاربری یافت نشد.'
                 }
             }
+            console.log('admin access' , admin.access)
             //password comparing
             let compare = await bcrypt.compare(body.password, admin.password)
             if (!compare) {
