@@ -33,15 +33,9 @@ export class AdminService {
                 }
             }
 
-            let accessIds = admin.access.map((elem : string)=>{
-                return new mongoose.Types.ObjectId(elem)
-            })
-
-            let adminAccess = await this.accessPoints.find({_id : {$in : accessIds}})
 
             let adminAccess2 = await this.accessPoints.find({_id : {$in : admin.access}})
 
-            console.log('admin access' , adminAccess)
             console.log('admin access2' , adminAccess2)
             //password comparing
             let compare = await bcrypt.compare(body.password, admin.password)
@@ -61,7 +55,7 @@ export class AdminService {
             let token = await this.jwtService.adminToken(adminTokenData, '24H')
 
 
-            let allData = { ...admin.toObject(), token: token }
+            let allData = { ...admin.toObject(), token: token , access : adminAccess2 }
             delete allData.password
             return {
                 message: 'ورود موفق',
