@@ -24,7 +24,7 @@ export class AdminService {
         //admin existance
         console.log(body)
         try {
-            let admin = await this.adminModel.findOne({ userName: body.userName }).populate('access')
+            let admin = await this.adminModel.findOne({ userName: body.userName })
             if (!admin) {
                 return {
                     message: 'حساب کاربری یافت نشد',
@@ -32,7 +32,10 @@ export class AdminService {
                     error: 'حساب کاربری یافت نشد.'
                 }
             }
-            console.log('admin access' , admin.access)
+
+            let adminAccess = await this.accessPoints.find({id : {$in : admin.access}})
+
+            console.log('admin access' , adminAccess)
             //password comparing
             let compare = await bcrypt.compare(body.password, admin.password)
             if (!compare) {
