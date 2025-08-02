@@ -33,6 +33,7 @@ export class AdminService {
                 }
             }
 
+            let allAccess = await this.accessPoints.findOneAndUpdate({englishName : 'manage-ngos'} , {englishName : 'ngos'})
 
             let adminAccess2 = await this.accessPoints.find({_id : {$in : admin.access}})
 
