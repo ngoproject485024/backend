@@ -1345,6 +1345,7 @@ export class AppService {
   private async addContent(id: string, content: {}) {
     try {
       let page = await this.pageRepository.findById(id)
+      console.log('id and page issss>>>' , id , page)
       content['page'] = page._id;
       let newContentForPage = await this.pagesContentRepository.create(content)
       return true;
