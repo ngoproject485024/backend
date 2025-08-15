@@ -729,6 +729,39 @@ export class AppController {
   //   return this.appService.statisticPage(req, res)
   // }
 
+  // /**
+  //  * this rout is for creating a custom page by admin
+  //  * @param req
+  //  * @param res
+  //  * @param body
+  //  * @returns
+  //  */
+  // @Post('/create')
+  // @ApiOperation({ summary: 'ایجاد صفحه جدید توسط ادمین ' })
+  // @ApiResponse({
+  //   status: 200,
+  //   description: 'create new pages',
+  //   schema: {
+  //     example: {
+  //       success: true,
+  //       message: 'create page done',
+  //       error: null,
+  //       data: {},
+  //     },
+  //   },
+  // })
+  // @ApiBody({
+  //   type: createCustomPageDto,
+  //   description: 'ایجاد صفحه جدید توسط ادمین',
+  // })
+  // async createNewPage(
+  //   @Req() req: any,
+  //   @Res() res: any,
+  //   @Body(new ValidationPipe()) body: createCustomPageDto,
+  // ): Promise<responseInterface> {
+  //   return this.appService.createNewPage(req, res, body);
+  // }
+
   /**
    * this rout is for creating a custom page by admin
    * @param req
@@ -736,8 +769,8 @@ export class AppController {
    * @param body
    * @returns
    */
-  @Post('/create')
-  @ApiOperation({ summary: 'ایجاد صفحه جدید توسط ادمین ' })
+  @Post('/v2/create')
+  @ApiOperation({ summary: ' ورژن 2 ایجاد صفحه جدید توسط ادمین ' })
   @ApiResponse({
     status: 200,
     description: 'create new pages',
@@ -754,12 +787,12 @@ export class AppController {
     type: createCustomPageDto,
     description: 'ایجاد صفحه جدید توسط ادمین',
   })
-  async createNewPage(
+  async createNewPage2(
     @Req() req: any,
     @Res() res: any,
     @Body(new ValidationPipe()) body: createCustomPageDto,
   ): Promise<responseInterface> {
-    return this.appService.createNewPage(req, res, body);
+    return this.appService.createNewPageV2(req, res, body);
   }
 
   /**
@@ -793,7 +826,7 @@ export class AppController {
     @Res() res: any,
     @Body(new ValidationPipe()) body: createPagesContentDto,
   ): Promise<responseInterface> {
-    return this.appService.addPageContent(req, res, body);
+    return this.appService.addPageContent(body);
   }
 
   /**
@@ -923,6 +956,7 @@ export class AppController {
     return this.appService.getPathes(req, res);
   }
 
+  
   /**
    * this rout is for get all customs pages by admin
    * @param req

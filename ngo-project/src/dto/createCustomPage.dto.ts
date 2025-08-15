@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsObject, IsString } from "@nestjs/class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsObject, IsString } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 
@@ -56,50 +56,71 @@ export class createCustomPageDto {
     })
     hasSubPage: boolean
 
-    @IsNotEmpty()
-    @IsNumber()
+    // @IsNotEmpty()
+    // @IsNumber()
+    // @ApiProperty({
+    //     example : 2,
+    //     required : true,
+    // })
+    // template: number
+
+
+    // @IsObject()
+    // @ApiProperty({
+    //     example: {
+    //     peTitle: "",
+    //     enTitle: "",
+    //     ruTitle: "",
+    //     path: "",
+    //     template: 1,},
+    //     required : false,
+    // })
+    // subPage: {
+    //     peTitle: "",
+    //     enTitle: "",
+    //     ruTitle: "",
+    //     path: "",
+    //     template: 1,
+    // }
+
+
+    @IsArray()
     @ApiProperty({
-        example : 2,
-        required : true,
+        example : [],
+        required : true
     })
-    template: number
+    peContent : []
 
-
-    @IsObject()
+    @IsArray()
     @ApiProperty({
-        example: {
-        peTitle: "",
-        enTitle: "",
-        ruTitle: "",
-        path: "",
-        template: 1,},
-        required : false,
+        example : [],
+        required : true
     })
-    subPage: {
-        peTitle: "",
-        enTitle: "",
-        ruTitle: "",
-        path: "",
-        template: 1,
-    }
-
-
-    @IsObject()
+    enContent : []
+    
+    @IsArray()
     @ApiProperty({
-        example: {
-        peTitle: "",
-        enTitle: "",
-        ruTitle: "",
-        path: "",
-        template: 1,},
-        required : false,
+        example : [],
+        required : true
     })
-    secondSubPage : {
-        peTitle: "",
-        enTitle: "",
-        ruTitle: "",
-        path: "",
-        template: 1,        
-    }
+    ruContent : []
+
+    // @IsObject()
+    // @ApiProperty({
+    //     example: {
+    //     peTitle: "",
+    //     enTitle: "",
+    //     ruTitle: "",
+    //     path: "",
+    //     template: 1,},
+    //     required : false,
+    // })
+    // secondSubPage : {
+    //     peTitle: "",
+    //     enTitle: "",
+    //     ruTitle: "",
+    //     path: "",
+    //     template: 1,        
+    // }
 
 }

@@ -2,10 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { mongo } from "mongoose";
 
 
-
-
 export interface customPagesInterface extends Document {
-
     enTitle: string,
     ruTitle: string,
     peTitle: string
@@ -16,9 +13,8 @@ export interface customPagesInterface extends Document {
     parent: mongoose.Types.ObjectId,
     content: mongoose.Types.ObjectId
     admin: mongoose.Types.ObjectId;
-
+    show : boolean
 }
-
 
 
 
@@ -41,6 +37,9 @@ export class customPages {
 
     @Prop({ type: Number })
     template: number
+
+    @Prop({type : Boolean , default : false})
+    show : boolean
 
     @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'customPage'  , default : []})
     Children: mongoose.Types.ObjectId[]

@@ -547,7 +547,7 @@ export class AppService {
 
   async projectPage(req: any, res: any): Promise<responseInterface> {
     let ongoing = await this.projectRepository.countDocuments({
-      $and : [ {status:{ $in: 'ongoing'  }} , {status:{$nin : 'completed'}}],
+      $and: [{ status: { $in: 'ongoing' } }, { status: { $nin: 'completed' } }],
     });
     let completed = await this.projectRepository.countDocuments({
       status: { $in: 'completed' },
@@ -633,15 +633,15 @@ export class AppService {
     search: string,
   ): Promise<responseInterface> {
     let projects;
-    console.log('search is ' , search)
+    console.log('search is ', search)
     if (search != '' && search && search != 'undefined') {
       let reg = new RegExp(search)
-      console.log('reg is ' , reg)
+      console.log('reg is ', reg)
       if (isNaN(+page)) {
-        if (status && status == 'ongoing'){
+        if (status && status == 'ongoing') {
           projects = await this.projectRepository
             .find({
-              $and: [{$and : [ {status:{ $in: 'ongoing' }} , {status : {$nin : 'completed'}}]}, { state: 1 }, {
+              $and: [{ $and: [{ status: { $in: 'ongoing' } }, { status: { $nin: 'completed' } }] }, { state: 1 }, {
                 $or: [
                   { name: { $regex: reg } },
                   { description: { $regex: reg } },
@@ -668,7 +668,7 @@ export class AppService {
                 logo: 1,
               },
             });
-        }else{
+        } else {
           projects = await this.projectRepository
             .find({
               $and: [{ status: { $in: status } }, { state: 1 }, {
@@ -700,10 +700,10 @@ export class AppService {
             });
         }
       } else {
-        if (status && status == 'ongoing'){
+        if (status && status == 'ongoing') {
           projects = await this.projectRepository
             .find({
-              $and: [{$and : [ {status:{ $in: 'ongoing' }} , {status : {$nin : 'completed'}}]}, { state: 1 }, {
+              $and: [{ $and: [{ status: { $in: 'ongoing' } }, { status: { $nin: 'completed' } }] }, { state: 1 }, {
                 $or: [
                   { name: { $regex: reg } },
                   { description: { $regex: reg } },
@@ -732,7 +732,7 @@ export class AppService {
             })
             .limit(12)
             .skip((+page - 1) * 10);
-        }else{
+        } else {
           projects = await this.projectRepository
             .find({
               $and: [{ status: { $in: status } }, { state: 1 }, {
@@ -765,12 +765,12 @@ export class AppService {
             .limit(12)
             .skip((+page - 1) * 10);
         }
-        }
+      }
     } else {
       if (isNaN(+page)) {
-        if (status && status == 'ongoing'){
+        if (status && status == 'ongoing') {
           projects = await this.projectRepository
-            .find({ $and: [{$and : [{status : { $in: 'ongoing' }} , {status : {$nin : 'completed'}}]}, { state: 1 }] })
+            .find({ $and: [{ $and: [{ status: { $in: 'ongoing' } }, { status: { $nin: 'completed' } }] }, { state: 1 }] })
             .populate({
               path: 'ngo',
               select: {
@@ -783,9 +783,9 @@ export class AppService {
                 logo: 1,
               },
             });
-        }else{
+        } else {
           projects = await this.projectRepository
-            .find({ $and: [{ status: {$in : status} }, { state: 1 }] })
+            .find({ $and: [{ status: { $in: status } }, { state: 1 }] })
             .populate({
               path: 'ngo',
               select: {
@@ -800,9 +800,9 @@ export class AppService {
             });
         }
       } else {
-        if (status && status == 'ongoind'){
+        if (status && status == 'ongoind') {
           projects = await this.projectRepository
-            .find({ $and: [{$and : [{status : { $in: 'ongoing' }} , {status : {$nin : 'completed'}}]}, { state: 1 }] })
+            .find({ $and: [{ $and: [{ status: { $in: 'ongoing' } }, { status: { $nin: 'completed' } }] }, { state: 1 }] })
             .populate({
               path: 'ngo',
               select: {
@@ -858,7 +858,7 @@ export class AppService {
     return {
       message: 'get all projects page data by status',
       statusCode: 200,
-      data: { all, projects : refactorProjects },
+      data: { all, projects: refactorProjects },
     };
   }
 
@@ -984,7 +984,7 @@ export class AppService {
       count = await this.documentRepository.countDocuments({ state: 1 });
     }
 
-     let refactorDocuments = []
+    let refactorDocuments = []
 
     for (let i of documents) {
       let language = await langDetection(i.description)
@@ -997,7 +997,7 @@ export class AppService {
     return {
       message: 'get all documents page data by status',
       statusCode: 200,
-      data: { documents : refactorDocuments, all: count },
+      data: { documents: refactorDocuments, all: count },
     };
   }
 
@@ -1163,6 +1163,95 @@ export class AppService {
   //   }
   // }
 
+  // /**
+  //  * this endpoint is for creating the new page
+  //  * @param req
+  //  * @param res
+  //  * @param body
+  //  * @returns
+  //  */
+  // async createNewPage(
+  //   req: any,
+  //   res: any,
+  //   body: createCustomPageDto,
+  // ): Promise<responseInterface> {
+  //   try {
+  //     // let all = await this.customPAgeRepository.find()
+  //     // await this.customPAgeRepository.deleteMany(all)
+  //     body.path = body.path.trim().replaceAll(' ', '-');
+  //     // let existance = await this.customPAgeRepository.find({ path: body.path })
+  //     // if (existance.length > 0) {
+  //     //   return {
+  //     //     message: 'این مسیر قبلا ثبت شده است.',
+  //     //     statusCode: 400,
+  //     //     error: 'این مسیر قبلا ثبت شده است'
+  //     //   }
+  //     // }
+  //     console.log('page body isssssss >>>> ', body);
+  //     let admin = await this.adminModel.findOne({
+  //       userName: req.user.userName,
+  //     });
+  //     let hasSubPage = body.hasSubPage;
+  //     let newPage = new this.customPAgeRepository({
+  //       Children: [],
+  //       peTitle: body.peTitle,
+  //       enTitle: body.enTitle,
+  //       ruTitle: body.ruTitle,
+  //       path: body.path,
+  //       hasSubPage: body.hasSubPage,
+  //       template: body.template,
+  //       admin: admin._id,
+  //     });
+  //     let savedPage = await newPage.save();
+  //     if (hasSubPage) {
+  //       let Children = await this.customPAgeRepository.create({
+  //         parent: savedPage._id,
+  //         peTitle: body.peTitle,
+  //         enTitle: body.subPage.enTitle,
+  //         ruTitle: body.subPage.ruTitle,
+  //         path: body.subPage.path,
+  //         hasSubPage: false,
+  //         template: body.subPage.template,
+  //         admin: admin._id,
+  //       });
+  //       savedPage.Children.push(Children._id);
+  //     }
+
+  //     if (body.hasSecondSubPage) {
+  //       let secondChildren = await this.customPAgeRepository.create({
+  //         parent: savedPage._id,
+  //         peTitle: body.secondSubPage.peTitle,
+  //         enTitle: body.secondSubPage.enTitle,
+  //         ruTitle: body.secondSubPage.ruTitle,
+  //         path: body.secondSubPage.path,
+  //         hasSubPage: false,
+  //         template: body.secondSubPage.template,
+  //         admin: admin._id,
+  //       });
+  //       savedPage.Children.push(secondChildren._id);
+  //     }
+  //     await savedPage.updateOne({ Children: savedPage.Children });
+  //     let updated = await this.customPAgeRepository
+  //       .findById(savedPage._id)
+  //       .populate('Children');
+  //     console.log('updated saved page isssss', updated);
+  //     return {
+  //       message: 'ایجاد صفحه جدید با موفقیت انجام شد',
+  //       statusCode: 200,
+  //       data: updated,
+  //     };
+  //   } catch (error) {
+  //     console.log('error in creating the page and sub page >>', error);
+  //     return {
+  //       message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
+  //       statusCode: 500,
+  //       error: 'خطای داخلی سرور',
+  //     };
+  //   }
+  // }
+
+
+
   /**
    * this endpoint is for creating the new page
    * @param req
@@ -1170,14 +1259,12 @@ export class AppService {
    * @param body
    * @returns
    */
-  async createNewPage(
+  async createNewPageV2(
     req: any,
     res: any,
     body: createCustomPageDto,
   ): Promise<responseInterface> {
     try {
-      // let all = await this.customPAgeRepository.find()
-      // await this.customPAgeRepository.deleteMany(all)
       body.path = body.path.trim().replaceAll(' ', '-');
       // let existance = await this.customPAgeRepository.find({ path: body.path })
       // if (existance.length > 0) {
@@ -1199,42 +1286,44 @@ export class AppService {
         ruTitle: body.ruTitle,
         path: body.path,
         hasSubPage: body.hasSubPage,
-        template: body.template,
         admin: admin._id,
       });
       let savedPage = await newPage.save();
-      if (hasSubPage) {
-        let Children = await this.customPAgeRepository.create({
-          parent: savedPage._id,
-          peTitle: body.peTitle,
-          enTitle: body.subPage.enTitle,
-          ruTitle: body.subPage.ruTitle,
-          path: body.subPage.path,
-          hasSubPage: false,
-          template: body.subPage.template,
-          admin: admin._id,
-        });
-        savedPage.Children.push(Children._id);
-      }
+      // if (hasSubPage) {
+      //   let Children = await this.customPAgeRepository.create({
+      //     parent: savedPage._id,
+      //     peTitle: body.peTitle,
+      //     enTitle: body.subPage.enTitle,
+      //     ruTitle: body.subPage.ruTitle,
+      //     path: body.subPage.path,
+      //     hasSubPage: false,
+      //     template: body.subPage.template,
+      //     admin: admin._id,
+      //   });
+      //   savedPage.Children.push(Children._id);
+      // }
 
-      if (body.hasSecondSubPage) {
-        let secondChildren = await this.customPAgeRepository.create({
-          parent: savedPage._id,
-          peTitle: body.secondSubPage.peTitle,
-          enTitle: body.secondSubPage.enTitle,
-          ruTitle: body.secondSubPage.ruTitle,
-          path: body.secondSubPage.path,
-          hasSubPage: false,
-          template: body.secondSubPage.template,
-          admin: admin._id,
-        });
-        savedPage.Children.push(secondChildren._id);
-      }
-      await savedPage.updateOne({ Children: savedPage.Children });
+      // if (body.hasSecondSubPage) {
+      //   let secondChildren = await this.customPAgeRepository.create({
+      //     parent: savedPage._id,
+      //     peTitle: body.secondSubPage.peTitle,
+      //     enTitle: body.secondSubPage.enTitle,
+      //     ruTitle: body.secondSubPage.ruTitle,
+      //     path: body.secondSubPage.path,
+      //     hasSubPage: false,
+      //     template: body.secondSubPage.template,
+      //     admin: admin._id,
+      //   });
+      //   savedPage.Children.push(secondChildren._id);
+      // }
+      // await savedPage.updateOne({ Children: savedPage.Children });
       let updated = await this.customPAgeRepository
         .findById(savedPage._id)
         .populate('Children');
       console.log('updated saved page isssss', updated);
+
+      let fianlContentRespons = await this.addContent(updated._id.toString(), { peContent: body.peContent, enContent: body.enContent, ruContent: body.ruContent })
+      console.log('after creation content for page', fianlContentRespons)
       return {
         message: 'ایجاد صفحه جدید با موفقیت انجام شد',
         statusCode: 200,
@@ -1250,6 +1339,22 @@ export class AppService {
     }
   }
 
+
+
+
+  private async addContent(id: string, content: {}) {
+    try {
+      let page = await this.pageRepository.findById(id)
+      content['page'] = page._id;
+      let newContentForPage = await this.pagesContentRepository.create(content)
+      return true;
+    } catch (error) {
+      console.log('error in fucking content page creation', error)
+      return false
+    }
+  }
+
+
   /**
    * this end point is for add content to page
    * @param req
@@ -1258,8 +1363,6 @@ export class AppService {
    * @returns
    */
   async addPageContent(
-    req: any,
-    res: any,
     body: createPagesContentDto,
   ): Promise<responseInterface> {
     try {
@@ -1298,11 +1401,6 @@ export class AppService {
     }
   }
 
-  // {
-  //   label : ,
-  //   href :
-  //   children : []
-  // }
 
   async getPathes(req: any, res: any): Promise<responseInterface> {
     let pages = await this.customPAgeRepository
@@ -1394,79 +1492,83 @@ export class AppService {
     }
   }
 
-  /**
-   * this endpoint is for updating the custom pages
-   * @param req
-   * @param res
-   * @param body
-   * @param pageId
-   * @returns
-   */
-  async updateCustomPages(
-    req: any,
-    res: any,
-    body: createCustomPageDto,
-    pageId: string,
-  ): Promise<responseInterface> {
-    try {
-      body.path = body.path.trim().replaceAll(' ', '-');
-      let existedPage = await this.customPAgeRepository.findById(pageId);
-      if (!existedPage) {
-        return {
-          message: 'صفحه مورد نظر یافت نشد',
-          statusCode: 400,
-          error: 'صفحه مورد نظر یافت نشد',
-        };
-      }
-      if (existedPage.path != body.path) {
-        let existance = await this.customPAgeRepository.find({
-          path: body.path,
-        });
-        if (existance.length > 0) {
-          return {
-            message: 'این مسیر قبلا ثبت شده است.',
-            statusCode: 400,
-            error: 'این مسیر قبلا ثبت شده است',
-          };
-        }
-      }
-      let admin = await this.adminModel.findOne({
-        userName: req.user.userName,
-      });
-      let hasSubPage = body.hasSubPage;
 
-      let newData = { ...existedPage.toObject(), ...body };
 
-      let savedPage = await existedPage.updateOne(newData);
-      if (hasSubPage) {
-        let Children = await this.customPAgeRepository.create({
-          parent: savedPage._id,
-          enTitle: body.subPage.enTitle,
-          ruTitle: body.subPage.ruTitle,
-          path: body.subPage.path,
-          hasSubPage: false,
-          template: body.subPage.template,
-          admin: admin._id,
-        });
-        await savedPage.updateOne({ Children: Children._id });
-      }
-      let updated = await this.customPAgeRepository
-        .findById(savedPage._id)
-        .populate('Children');
-      return {
-        message: 'ایجاد صفحه جدید با موفقیت انجام شد',
-        statusCode: 200,
-        data: updated,
-      };
-    } catch (error) {
-      console.log('error in creating the page and sub page >>', error);
-      return {
-        message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
-        statusCode: 500,
-        error: 'خطای داخلی سرور',
-      };
-    }
-  }
+  // /**
+  //  * this endpoint is for updating the custom pages
+  //  * @param req
+  //  * @param res
+  //  * @param body
+  //  * @param pageId
+  //  * @returns
+  //  */
+  // async updateCustomPages(
+  //   req: any,
+  //   res: any,
+  //   body: createCustomPageDto,
+  //   pageId: string,
+  // ): Promise<responseInterface> {
+  //   try {
+  //     body.path = body.path.trim().replaceAll(' ', '-');
+  //     let existedPage = await this.customPAgeRepository.findById(pageId);
+  //     if (!existedPage) {
+  //       return {
+  //         message: 'صفحه مورد نظر یافت نشد',
+  //         statusCode: 400,
+  //         error: 'صفحه مورد نظر یافت نشد',
+  //       };
+  //     }
+  //     if (existedPage.path != body.path) {
+  //       let existance = await this.customPAgeRepository.find({
+  //         path: body.path,
+  //       });
+  //       if (existance.length > 0) {
+  //         return {
+  //           message: 'این مسیر قبلا ثبت شده است.',
+  //           statusCode: 400,
+  //           error: 'این مسیر قبلا ثبت شده است',
+  //         };
+  //       }
+  //     }
+  //     let admin = await this.adminModel.findOne({
+  //       userName: req.user.userName,
+  //     });
+  //     let hasSubPage = body.hasSubPage;
+
+  //     let newData = { ...existedPage.toObject(), ...body };
+
+  //     let savedPage = await existedPage.updateOne(newData);
+  //     if (hasSubPage) {
+  //       let Children = await this.customPAgeRepository.create({
+  //         parent: savedPage._id,
+  //         enTitle: body.subPage.enTitle,
+  //         ruTitle: body.subPage.ruTitle,
+  //         path: body.subPage.path,
+  //         hasSubPage: false,
+  //         template: body.subPage.template,
+  //         admin: admin._id,
+  //       });
+  //       await savedPage.updateOne({ Children: Children._id });
+  //     }
+  //     let updated = await this.customPAgeRepository
+  //       .findById(savedPage._id)
+  //       .populate('Children');
+  //     return {
+  //       message: 'ایجاد صفحه جدید با موفقیت انجام شد',
+  //       statusCode: 200,
+  //       data: updated,
+  //     };
+  //   } catch (error) {
+  //     console.log('error in creating the page and sub page >>', error);
+  //     return {
+  //       message: 'ایجاد صفحه جدید موفقیت آمیز نبود',
+  //       statusCode: 500,
+  //       error: 'خطای داخلی سرور',
+  //     };
+  //   }
+  // }
+
+
 
   /**
    * this end point is for delete the custom page
@@ -1511,6 +1613,8 @@ export class AppService {
       };
     }
   }
+
+
 
   /**
    * this is for making chart data's
