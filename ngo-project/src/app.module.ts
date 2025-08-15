@@ -78,6 +78,7 @@ export class AppModule implements NestModule {
       // { path: '/events-educations/event/:eventId', method: RequestMethod.GET },
       { path: '/events-educations/event/create', method: RequestMethod.POST },
       { path: '/page/home/create', method: RequestMethod.POST },
+      { path: '/page/v2/create', method: RequestMethod.POST },
       { path: '/page/project/complete/create', method: RequestMethod.POST },
       { path: '/page/project/ongoing/create', method: RequestMethod.POST },
       { path: '/page/project/GoodPractice/create', method: RequestMethod.POST },
