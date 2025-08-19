@@ -1263,17 +1263,13 @@ export class AppService {
     req: any,
     res: any,
     body: createCustomPageDto,
+    pageId: string
   ): Promise<responseInterface> {
     try {
       body.path = body.path.trim().replaceAll(' ', '-');
-      // let existance = await this.customPAgeRepository.find({ path: body.path })
-      // if (existance.length > 0) {
-      //   return {
-      //     message: 'این مسیر قبلا ثبت شده است.',
-      //     statusCode: 400,
-      //     error: 'این مسیر قبلا ثبت شده است'
-      //   }
-      // }
+      if (pageId && pageId != 'undefined'){
+        console.log('page id is completed >>>>>>>> ' , pageId)  
+      } 
       console.log('page body isssssss >>>> ', body);
       let admin = await this.adminModel.findOne({
         userName: req.user.userName,
@@ -1285,73 +1281,18 @@ export class AppService {
         enTitle: body.enTitle,
         ruTitle: body.ruTitle,
         path: body.path,
-        show : body.show,
         hasSubPage: body.hasSubPage,
         admin: admin._id,
       });
       let savedPage = await newPage.save();
-      // if (hasSubPage) {
-      //   let Children = await this.customPAgeRepository.create({
-      //     parent: savedPage._id,
-      //     peTitle: body.peTitle,
-      //     enTitle: body.subPage.enTitle,
-      //     ruTitle: body.subPage.ruTitle,
-      //     path: body.subPage.path,
-      //     hasSubPage: false,
-      //     template: body.subPage.template,
-      //     admin: admin._id,
-      //   });
-      //   savedPage.Children.push(Children._id);
-      // }
 
-      // if (body.hasSecondSubPage) {
-      //   let secondChildren = await this.customPAgeRepository.create({
-      //     parent: savedPage._id,
-      //     peTitle: body.secondSubPage.peTitle,
-      //     enTitle: body.secondSubPage.enTitle,
-      //     ruTitle: body.secondSubPage.ruTitle,
-      //     path: body.secondSubPage.path,
-      //     hasSubPage: false,
-      //     template: body.secondSubPage.template,
-      //     admin: admin._id,
-      //   });
-      //   savedPage.Children.push(secondChildren._id);
-      // }
-      // await savedPage.updateOne({ Children: savedPage.Children });
       let updated = await this.customPAgeRepository
         .findById(savedPage._id)
         .populate('Children');
       console.log('updated saved page isssss', updated);
 
       let fianlContentRespons = await this.addContent(updated._id.toString(), { peContent: body.peContent, enContent: body.enContent, ruContent: body.ruContent })
-      
-      if (body.hasSubPage){
-        let newSubPage =await new this.customPAgeRepository({
-          parent : [updated._id],
-          peTitle: body.subPage.peTitle,
-          enTitle: body.subPage.enTitle,
-          ruTitle: body.subPage.ruTitle,
-          path: body.subPage.path,
-          hasSubPage: false,
-          admin: admin._id,
-        }).save()
-        await this.customPAgeRepository.updateOne({_id : updated._id} , {$push : {Children : newSubPage._id}})
-        let fianlSubContentRespons = await this.addContent(newSubPage._id.toString(), { peContent: body.subPage.peContent, enContent: body.subPage.enContent, ruContent: body.subPage.ruContent })
-      }
 
-      if (body.hasSecondSubPage){
-        let newSecondSubPage = await new this.customPAgeRepository({
-          parent: [updated._id],
-          peTitle: body.subPage.peTitle,
-          enTitle: body.subPage.enTitle,
-          ruTitle: body.subPage.ruTitle,
-          path: body.subPage.path,
-          hasSubPage: false,
-          admin: admin._id,
-        }).save()
-        await this.customPAgeRepository.updateOne({_id : updated._id} , {$push : {Children : newSecondSubPage._id}})
-        let fianlSecondSubContentRespons = await this.addContent(newSecondSubPage._id.toString(), { peContent: body.secondSubPage.peContent, enContent: body.secondSubPage.enContent, ruContent: body.secondSubPage.ruContent })
-      }
 
       console.log('after creation content for page', fianlContentRespons)
       return {
@@ -1369,6 +1310,7 @@ export class AppService {
     }
   }
 
+  
 
 
 

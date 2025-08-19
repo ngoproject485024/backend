@@ -3,29 +3,31 @@ import { ApiProperty } from "@nestjs/swagger";
 
 
 
+
+
 export class createCustomPageDto {
 
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
-        example: "peTitle",
-        required: true,
+        example : "peTitle",
+        required : true,
     })
     peTitle: string
 
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
-        example: "entitle",
-        required: true,
+        example : "entitle",
+        required : true,
     })
     enTitle: string
-
+        
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
-        example: "ruTitle",
-        required: true,
+        example : "ruTitle",
+        required : true,
     })
     ruTitle: string
 
@@ -40,8 +42,8 @@ export class createCustomPageDto {
     @IsNotEmpty()
     @IsBoolean()
     @ApiProperty({
-        example: "true",
-        required: true,
+        example : "true",
+        required : true,
     })
     hasSecondSubPage: boolean
 
@@ -49,8 +51,8 @@ export class createCustomPageDto {
     @IsNotEmpty()
     @IsBoolean()
     @ApiProperty({
-        example: "true",
-        required: true,
+        example : "true",
+        required : true,
     })
     hasSubPage: boolean
 
@@ -63,73 +65,71 @@ export class createCustomPageDto {
     // template: number
 
 
-    @IsObject()
+    // @IsObject()
+    // @ApiProperty({
+    //     example: {
+    //     peTitle: "",
+    //     enTitle: "",
+    //     ruTitle: "",
+    //     path: "",
+    //     template: 1,},
+    //     required : false,
+    // })
+    // subPage: {
+    //     peTitle: "",
+    //     enTitle: "",
+    //     ruTitle: "",
+    //     path: "",
+    //     template: 1,
+    // }
+
+
+    @IsArray()
     @ApiProperty({
-        example: {
-            peTitle: "",
-            enTitle: "",
-            ruTitle: "",
-            path: "",
-        },
-        required: false,
+        example : [],
+        required : true
     })
-    subPage: {
-        peTitle: "",
-        enTitle: "",
-        ruTitle: "",
-        path: "",
-        peContent: []
-        enContent: []
-        ruContent: []
-    }
+    peContent : []
+
+    @IsArray()
+    @ApiProperty({
+        example : [],
+        required : true
+    })
+    enContent : []
+    
+    @IsArray()
+    @ApiProperty({
+        example : [],
+        required : true
+    })
+    ruContent : []
+
 
     @IsBoolean()
     @IsNotEmpty()
     @ApiProperty({
-        example : true,
-        required : true
+        required : true,
+        example : true
     })
     show : boolean
 
-    @IsArray()
-    @ApiProperty({
-        example: [],
-        required: true
-    })
-    peContent: []
+    // @IsObject()
+    // @ApiProperty({
+    //     example: {
+    //     peTitle: "",
+    //     enTitle: "",
+    //     ruTitle: "",
+    //     path: "",
+    //     template: 1,},
+    //     required : false,
+    // })
+    // secondSubPage : {
+    //     peTitle: "",
+    //     enTitle: "",
+    //     ruTitle: "",
+    //     path: "",
+    //     template: 1,        
+    // }
 
-    @IsArray()
-    @ApiProperty({
-        example: [],
-        required: true
-    })
-    enContent: []
-
-    @IsArray()
-    @ApiProperty({
-        example: [],
-        required: true
-    })
-    ruContent: []
-
-
-    @IsObject()
-    @ApiProperty({
-        example: {
-            peTitle: "",
-            enTitle: "",
-            ruTitle: "",
-            path: "",
-        },
-        required: false,
-    })
-    secondSubPage: {
-        peTitle: "",
-        enTitle: "",
-        ruTitle: "",
-        path: "",
-        peContent: []
-        enContent: []
-        ruContent: []
-    }
 }

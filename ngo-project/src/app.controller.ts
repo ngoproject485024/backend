@@ -791,8 +791,9 @@ export class AppController {
     @Req() req: any,
     @Res() res: any,
     @Body(new ValidationPipe()) body: createCustomPageDto,
+    @Query() pageId : string
   ): Promise<responseInterface> {
-    return this.appService.createNewPageV2(req, res, body);
+    return this.appService.createNewPageV2(req, res, body ,pageId);
   }
 
   /**
