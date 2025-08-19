@@ -1285,6 +1285,7 @@ export class AppService {
         enTitle: body.enTitle,
         ruTitle: body.ruTitle,
         path: body.path,
+        show : body.show,
         hasSubPage: body.hasSubPage,
         admin: admin._id,
       });
@@ -1323,6 +1324,35 @@ export class AppService {
       console.log('updated saved page isssss', updated);
 
       let fianlContentRespons = await this.addContent(updated._id.toString(), { peContent: body.peContent, enContent: body.enContent, ruContent: body.ruContent })
+      
+      if (body.hasSubPage){
+        let newSubPage =await new this.customPAgeRepository({
+          parent : [updated._id],
+          peTitle: body.subPage.peTitle,
+          enTitle: body.subPage.enTitle,
+          ruTitle: body.subPage.ruTitle,
+          path: body.subPage.path,
+          hasSubPage: false,
+          admin: admin._id,
+        }).save()
+        await this.customPAgeRepository.updateOne({_id : updated._id} , {$push : {Children : newSubPage._id}})
+        let fianlSubContentRespons = await this.addContent(newSubPage._id.toString(), { peContent: body.subPage.peContent, enContent: body.subPage.enContent, ruContent: body.subPage.ruContent })
+      }
+
+      if (body.hasSecondSubPage){
+        let newSecondSubPage = await new this.customPAgeRepository({
+          parent: [updated._id],
+          peTitle: body.subPage.peTitle,
+          enTitle: body.subPage.enTitle,
+          ruTitle: body.subPage.ruTitle,
+          path: body.subPage.path,
+          hasSubPage: false,
+          admin: admin._id,
+        }).save()
+        await this.customPAgeRepository.updateOne({_id : updated._id} , {$push : {Children : newSecondSubPage._id}})
+        let fianlSecondSubContentRespons = await this.addContent(newSecondSubPage._id.toString(), { peContent: body.secondSubPage.peContent, enContent: body.secondSubPage.enContent, ruContent: body.secondSubPage.ruContent })
+      }
+      
       console.log('after creation content for page', fianlContentRespons)
       return {
         message: 'ایجاد صفحه جدید با موفقیت انجام شد',
