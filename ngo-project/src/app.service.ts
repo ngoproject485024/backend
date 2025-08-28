@@ -1277,7 +1277,6 @@ export class AppService {
         // let hasSubPage = body.hasSubPage;
         let newPage = new this.customPAgeRepository({
           Children: [],
-          parent : [],
           peTitle: body.peTitle,
           enTitle: body.enTitle,
           ruTitle: body.ruTitle,
@@ -1292,7 +1291,7 @@ export class AppService {
         .populate('Children');
         console.log('updated saved page isssss', updated)
         parentPage.updateOne({$push:{Children : savedPage._id}})
-        updated.updateOne({$push : {parent : parentPage._id}})
+        updated.updateOne( {parent : parentPage._id})
         let fianlContentRespons = await this.addContent(updated._id.toString(), { peContent: body.peContent, enContent: body.enContent, ruContent: body.ruContent })
         console.log('after creation content for page', fianlContentRespons)
         return {
