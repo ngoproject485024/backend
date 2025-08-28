@@ -1049,6 +1049,15 @@ export class AppController {
     return this.appService.charts(req, res, name);
   }
 
+
+  @Get('custompages/del')
+  async deleteAllCustomPages(){
+      return this.appService.refreshAllDynamicPages()
+  }
+
+
+  refreshAllDynamicPages
+
   // @Get('/lang/:tt')
   // async testLang(@Req() req: any,
   //   @Res() res: any,

@@ -1606,5 +1606,26 @@ export class AppService {
     };
   }
 
+
+
+
+
+
+  /**
+   * its a api for deleting all pages
+   * @returns 
+   */
+  async refreshAllDynamicPages(){
+      await this.customPAgeRepository.deleteMany({})
+      await this.pagesContentRepository.deleteMany({})
+      return {
+        message : 'done',
+        statusCode : 200,
+      }
+  }
+
+
+
+
   /////////////// final line //////////////////////
 }
