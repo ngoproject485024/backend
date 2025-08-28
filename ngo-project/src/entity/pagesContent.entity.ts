@@ -11,7 +11,7 @@ export interface pageContentsInterface extends Document {
     }]
     enContent: [{
         title: title,
-        content: string |string[];
+        content: string | string[];
     }]
     ruContent: [{
         title: title,
@@ -30,6 +30,9 @@ export class pageContents {
         type: [
             {
                 title: { type: String },
+                content: {
+                    type: mongoose.Schema.Types.Mixed
+                }
             }
         ]
     })
@@ -42,6 +45,9 @@ export class pageContents {
         type: [
             {
                 title: { type: String },
+                content: {
+                    type: mongoose.Schema.Types.Mixed
+                }
             }
         ]
     })
@@ -54,12 +60,15 @@ export class pageContents {
         type: [
             {
                 title: { type: String },
+                content: {
+                    type: mongoose.Schema.Types.Mixed
+                }
             }
         ]
     })
     ruContent: {
         title: title,
-        content: string | string[];
+        content: string | string[]
     }[]
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'customPage' })
