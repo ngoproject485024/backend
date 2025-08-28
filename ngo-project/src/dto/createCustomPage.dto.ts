@@ -161,4 +161,13 @@ export class updatePageContentDto{
     })
     ruContent: []
 
+    @IsNotEmpty()
+    @IsBoolean()
+    @ApiProperty({
+        example: [],
+        required: true
+    })
+    show: boolean
+    
+
 }
