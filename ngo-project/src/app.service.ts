@@ -1267,14 +1267,42 @@ export class AppService {
   ): Promise<responseInterface> {
     try {
       body.path = body.path.trim().replaceAll(' ', '-');
-      if (pageId && pageId != 'undefined'){
-        console.log('page id is completed >>>>>>>> ' , pageId)  
-      } 
-      console.log('page body isssssss >>>> ', body);
       let admin = await this.adminModel.findOne({
         userName: req.user.userName,
       });
-      let hasSubPage = body.hasSubPage;
+      if (pageId && pageId != 'undefined') {
+        console.log('page id is completed >>>>>>>> ', JSON.parse(pageId))
+        let parentPage = await this.customPAgeRepository.findById(pageId)
+        console.log('page body isssssss >>>> ', body);
+        // let hasSubPage = body.hasSubPage;
+        let newPage = new this.customPAgeRepository({
+          Children: [],
+          parent : [],
+          peTitle: body.peTitle,
+          enTitle: body.enTitle,
+          ruTitle: body.ruTitle,
+          path: body.path,
+          hasSubPage: body.hasSubPage,
+          admin: admin._id,
+        });
+        let savedPage = await newPage.save();
+        
+        let updated = await this.customPAgeRepository
+        .findById(savedPage._id)
+        .populate('Children');
+        console.log('updated saved page isssss', updated)
+        parentPage.updateOne({$push:{Children : savedPage._id}})
+        updated.updateOne({$push : {parent : parentPage._id}})
+        let fianlContentRespons = await this.addContent(updated._id.toString(), { peContent: body.peContent, enContent: body.enContent, ruContent: body.ruContent })
+        console.log('after creation content for page', fianlContentRespons)
+        return {
+          message: 'ایجاد صفحه جدید با موفقیت انجام شد',
+          statusCode: 200,
+          data: updated,
+        };
+      } 
+      console.log('page body isssssss >>>> ', body);
+      // let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
         Children: [],
         peTitle: body.peTitle,
