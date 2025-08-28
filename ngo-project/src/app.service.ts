@@ -1291,8 +1291,8 @@ export class AppService {
         .populate('Children');
         console.log('updated saved page isssss', parentPage)
         console.log('updated saved page isssss', updated)
-        parentPage.updateOne({$push:{Children : savedPage._id}})
-        updated.updateOne({parent : parentPage._id})
+        await parentPage.updateOne({$push:{Children : savedPage._id}})
+        await updated.updateOne({parent : parentPage._id})
         let fianlContentRespons = await this.addContent(updated._id.toString(), { peContent: body.peContent, enContent: body.enContent, ruContent: body.ruContent })
         console.log('after creation content for page', fianlContentRespons)
         return {
