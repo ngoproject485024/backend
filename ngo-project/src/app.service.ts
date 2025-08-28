@@ -1480,7 +1480,7 @@ export class AppService {
     try {
       let pages = await this.customPAgeRepository
         .find()
-        .populate('pagesContent');
+        .populate('content');
       return {
         message: 'گرفتن دیتاهای صفحه ها موفق بود',
         statusCode: 200,
