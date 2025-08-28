@@ -1365,8 +1365,6 @@ export class AppService {
           error : 'صفحه مورد نظر یافت نشد'
         }
       }      
-      await page.updateOne({show : body.show})
-      delete body.show;
       let pageContent= await this.pagesContentRepository.findById(page.content)
       if (!pageContent){
         return {
@@ -1375,7 +1373,10 @@ export class AppService {
           error : 'محتوای صفحه مورد نظر یافت نشد'
         }
       }
-
+      
+      await page.updateOne({show : body.show})
+      delete body.show;
+      
       await this.pagesContentRepository.findByIdAndUpdate(page.content , body)
       let updated = await this.pagesContentRepository.findById(page.content)
       return {
