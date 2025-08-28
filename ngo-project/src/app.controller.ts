@@ -1056,8 +1056,6 @@ export class AppController {
   }
 
 
-  refreshAllDynamicPages
-
   // @Get('/lang/:tt')
   // async testLang(@Req() req: any,
   //   @Res() res: any,

@@ -7,15 +7,15 @@ type title = "title" | "description" | "image";
 export interface pageContentsInterface extends Document {
     peContent: [{
         title: title,
-        content: string;
+        content: string | string[];
     }]
     enContent: [{
         title: title,
-        content: string;
+        content: string |string[];
     }]
     ruContent: [{
         title: title,
-        content: string;
+        content: string | string[];
     }]
     page: mongoose.Types.ObjectId
 }
@@ -30,45 +30,36 @@ export class pageContents {
         type: [
             {
                 title: { type: String },
-                content: {
-                    type: String
-                }
             }
         ]
     })
     peContent: {
         title: title,
-        content: string;
+        content: string | string[];
     }[];
 
     @Prop({
         type: [
             {
                 title: { type: String },
-                content: {
-                    type: String
-                }
             }
         ]
     })
     enContent: {
         title: title,
-        content: string;
+        content: string | string[];
     }[]
 
     @Prop({
         type: [
             {
                 title: { type: String },
-                content: {
-                    type: String
-                }
             }
         ]
     })
     ruContent: {
         title: title,
-        content: string
+        content: string | string[];
     }[]
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'customPage' })
