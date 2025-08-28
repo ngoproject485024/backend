@@ -1289,9 +1289,10 @@ export class AppService {
         let updated = await this.customPAgeRepository
         .findById(savedPage._id)
         .populate('Children');
+        console.log('updated saved page isssss', parentPage)
         console.log('updated saved page isssss', updated)
         parentPage.updateOne({$push:{Children : savedPage._id}})
-        updated.updateOne( {parent : parentPage._id})
+        updated.updateOne({parent : parentPage._id})
         let fianlContentRespons = await this.addContent(updated._id.toString(), { peContent: body.peContent, enContent: body.enContent, ruContent: body.ruContent })
         console.log('after creation content for page', fianlContentRespons)
         return {
@@ -1347,6 +1348,7 @@ export class AppService {
       console.log('id and page issss>>>' , id , page)
       content['page'] = page._id;
       let newContentForPage = await this.pagesContentRepository.create(content)
+      console.log('content is >>> ' , newContentForPage)
       return true;
     } catch (error) {
       console.log('error in fucking content page creation', error)
