@@ -1271,7 +1271,7 @@ export class AppService {
         userName: req.user.userName,
       });
       if (pageId && pageId != 'undefined') {
-        console.log('page id is completed >>>>>>>> ', JSON.parse(pageId))
+        console.log('page id is completed >>>>>>>> ', pageId)
         let parentPage = await this.customPAgeRepository.findById(pageId)
         console.log('page body isssssss >>>> ', body);
         // let hasSubPage = body.hasSubPage;
