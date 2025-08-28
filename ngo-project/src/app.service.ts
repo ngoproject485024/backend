@@ -1349,6 +1349,7 @@ export class AppService {
       content['page'] = page._id;
       let newContentForPage = await this.pagesContentRepository.create(content)
       console.log('content is >>> ' , newContentForPage)
+      await page.updateOne({content : newContentForPage._id})
       return true;
     } catch (error) {
       console.log('error in fucking content page creation', error)
