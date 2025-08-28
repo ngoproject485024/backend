@@ -133,3 +133,32 @@ export class createCustomPageDto {
     // }
 
 }
+
+
+
+export class updatePageContentDto{
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example: [],
+        required: true
+    })
+    peContent: []
+
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example: [],
+        required: true
+    })
+    enContent: []
+
+    @IsNotEmpty()
+    @IsArray()
+    @ApiProperty({
+        example: [],
+        required: true
+    })
+    ruContent: []
+
+}

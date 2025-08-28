@@ -12,7 +12,7 @@ import {
   pageDescriptionDto,
 } from './dto/homePage.dto';
 import { NgoService } from './ngo/ngo.service';
-import { createCustomPageDto } from './dto/createCustomPage.dto';
+import { createCustomPageDto, updatePageContentDto } from './dto/createCustomPage.dto';
 import { customPagesInterface } from './entity/customPage.entity';
 import { adminInterface } from './admin/entities/admin.entity';
 import { pageContentsInterface } from './entity/pagesContent.entity';
@@ -1354,6 +1354,43 @@ export class AppService {
     }
   }
 
+
+  async updatePagecontent(pageId : string , body:updatePageContentDto){
+    try {
+      let page = await this.customPAgeRepository.findById(pageId)
+      if (!page){
+        return {
+          message : 'ٌصفحه مورد نظر یافت نشد',
+          statusCode : 400,
+          error : 'صفحه مورد نظر یافت نشد'
+        }
+      }      
+
+      let pageContent= await this.pagesContentRepository.findById(page.content)
+      if (!pageContent){
+        return {
+          message : 'محتوای صفحه مورد نظر یافت نشد',
+          statusCode : 400,
+          error : 'محتوای صفحه مورد نظر یافت نشد'
+        }
+      }
+
+      await this.pagesContentRepository.findByIdAndUpdate(page.content , body)
+      let updated = await this.pagesContentRepository.findById(page.content)
+      return {
+        message : 'محتوای صفحه با موفقیت اپدیت شد',
+        statusCode : 200,
+        data : updated
+      }
+    } catch (error) {
+        console.log('error in updating page content' , error)
+        return {
+          message : 'خطای داخلی سیستم',
+          statusCode : 500,
+          error : 'خطای داخلی سیستم'
+        }
+    }
+  }
 
   /**
    * this end point is for add content to page

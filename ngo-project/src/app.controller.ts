@@ -30,7 +30,7 @@ import {
   pageDescriptionDto,
   setFooterDto,
 } from './dto/homePage.dto';
-import { createCustomPageDto } from './dto/createCustomPage.dto';
+import { createCustomPageDto, updatePageContentDto } from './dto/createCustomPage.dto';
 import { createPagesContentDto } from './dto/createPagesContent.dto';
 import { responseInterface } from './interfaces/interfaces.interface';
 import langDetection from './services/langDetection';
@@ -795,6 +795,18 @@ export class AppController {
   ): Promise<responseInterface> {
     return this.appService.createNewPageV2(req, res, body ,pageId);
   }
+
+
+  @Post('/v2/update/:pageId')
+  async updatePageContent(
+    @Req() req: any,
+    @Res() res: any,
+    @Body(new ValidationPipe()) body: updatePageContentDto,
+    @Param('pageId') pageId: string
+  ) {
+    return this.appService.updatePagecontent(pageId , body)
+  }
+
 
   /**
    * this rout is for adding content of customed pages by admin

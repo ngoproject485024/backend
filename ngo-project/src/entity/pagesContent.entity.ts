@@ -25,7 +25,6 @@ export interface pageContentsInterface extends Document {
 
 @Schema({ timestamps: true })
 export class pageContents {
-
     @Prop({
         type: [
             {
@@ -40,7 +39,6 @@ export class pageContents {
         title: title,
         content: string | string[];
     }[];
-
     @Prop({
         type: [
             {
@@ -55,7 +53,6 @@ export class pageContents {
         title: title,
         content: string | string[];
     }[]
-
     @Prop({
         type: [
             {
