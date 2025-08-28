@@ -1469,6 +1469,7 @@ export class AppService {
     };
   }
 
+
   /**
    * this endpoint is for getting all customs pages by admin
    * @param req
@@ -1478,7 +1479,7 @@ export class AppService {
   async getAllCustomsPages(req: any, res: any): Promise<responseInterface> {
     try {
       let pages = await this.customPAgeRepository
-        .find({ parent: null })
+        .find()
         .populate('Children');
       return {
         message: 'گرفتن دیتاهای صفحه ها موفق بود',
