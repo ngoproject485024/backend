@@ -14,19 +14,30 @@ import { EventsSchema } from 'src/events-educations/entities/events.entity';
 import { auth } from 'src/auth/auth.middleware';
 import { pagesSchema } from 'src/entity/pages.entity';
 import { EmailService } from 'src/email/email.service';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
-  imports : [MongooseModule.forRoot('') , 
-      MongooseModule.forFeature([{name : 'educations' , schema : EducationSchema},{name : 'pages' , schema : pagesSchema} , {name : 'events' , schema : EventsSchema},{name : 'ngo' , schema : ngoSchema} , {name : 'document' , schema : documentSchema} , {name : 'project' , schema : projectSchema}]),
-      JwtModule.registerAsync({
-          imports: [ConfigModule],
-          useFactory: async (configService: ConfigService) => ({
-            secret: process.env.JWT_SECRET,
-          }),
-        }),
+  imports: [MongooseModule.forRoot(''),
+  MongooseModule.forFeature([{ name: 'educations', schema: EducationSchema }, { name: 'pages', schema: pagesSchema }, { name: 'events', schema: EventsSchema }, { name: 'ngo', schema: ngoSchema }, { name: 'document', schema: documentSchema }, { name: 'project', schema: projectSchema }]),
+  JwtModule.registerAsync({
+    imports: [ConfigModule],
+    useFactory: async (configService: ConfigService) => ({
+      secret: process.env.JWT_SECRET,
+    }),
+  }), MailerModule.forRoot({
+    transport: {
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'ngo485024@gmail.com',
+        pass: 'gigu jpyz sqxo gmer',
+      },
+    },
+  })
   ],
   controllers: [NgoController],
-  providers: [NgoService , jwtService , EventsEducationsService , EmailService],
+  providers: [NgoService, jwtService, EventsEducationsService, EmailService],
 })
 
 
@@ -39,7 +50,7 @@ export class NgoModule implements NestModule {
       { path: '/ngo/project/create', method: RequestMethod.POST },
       { path: '/ngo/project/update/:id', method: RequestMethod.POST },
       { path: '/ngo/project/ongoing/:id', method: RequestMethod.POST },
-      { path: '/ngo/project/delete/:id', method: RequestMethod.POST },  
+      { path: '/ngo/project/delete/:id', method: RequestMethod.POST },
       { path: '/ngo/project/complete/:projectId', method: RequestMethod.POST },
       { path: '/ngo/pannel/documents', method: RequestMethod.GET },
       { path: '/ngo/token/check', method: RequestMethod.GET },
