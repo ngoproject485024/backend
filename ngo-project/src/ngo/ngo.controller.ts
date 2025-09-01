@@ -1275,7 +1275,7 @@ export class NgoController {
   ): Promise<responseInterface> {
     return this.ngoService.disableNgoData(req, res, id);
   }
-
+  
   @Get('/gmail/approve')
   async approveGmail(
     @Req() req: any,

@@ -116,6 +116,14 @@ export class NgoService {
         error: 'your registration are not approved by admin yet.',
       };
     }
+
+    if (ngo.gmailApprovation == 0){
+      return {
+        message: 'login failed',
+        statusCode: 403,
+        error: 'please approve yiur email first.',
+      };
+    }
     console.log(ngo.password);
     console.log(body.password);
     let compare = await bcrypt.compare(body.password, ngo.password);
