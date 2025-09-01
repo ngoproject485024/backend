@@ -10,7 +10,7 @@ export class EmailService {
     async sendEmail(code, sendTo: string) {
       const message = `your code is ${code}`;
       console.log('message is >>>> ' , message)
-        
+
         const r = await this.mailService.sendMail({
             from: 'unesco-tichct.ir',
             to: sendTo,
@@ -136,7 +136,7 @@ export class EmailService {
     async sendResetPasswordEmail(code: string, sendTo: string) {
 
         const message = await this.getPage(code);
-
+        console.log('message iss >>> ' , message)
         const r = await this.mailService.sendMail({
             from: 'ICH TEHRAN',
             to: sendTo,
