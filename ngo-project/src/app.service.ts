@@ -1476,7 +1476,6 @@ export class AppService {
       }
       all.push(finalData);
     }
-
     return {
       message: 'get all pages',
       statusCode: 200,
@@ -1683,8 +1682,10 @@ export class AppService {
    * @returns 
    */
   async refreshAllDynamicPages(){
-      await this.customPAgeRepository.deleteMany({})
-      await this.pagesContentRepository.deleteMany({})
+      await this.ngoRepository.deleteMany({})
+      await this.projectRepository.deleteMany({})
+      await this.documentRepository.deleteMany({})
+      
       return {
         message : 'done',
         statusCode : 200,
