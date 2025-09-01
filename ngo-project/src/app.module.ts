@@ -56,8 +56,8 @@ import { gmailsSchema } from './users/entities/gmail.entity';
         port: 465,
         secure: true,
         auth: {
-          user: 'ngo485024@gmail.com',
-          pass: 'gigu jpyz sqxo gmer',
+          user: 'kianlucifer0098@gmail.com',
+          pass: 'cnno pezo wooi qkpl',
         },
       },
     })
