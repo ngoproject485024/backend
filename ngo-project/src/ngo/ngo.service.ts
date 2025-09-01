@@ -75,7 +75,7 @@ export class NgoService {
         { userName: body.username },
         '12H',
       );
-      let approvedLink = `https://ngo.oceanjourney.ir/ngo/gmail/approve?token=${token}`;
+      let approvedLink = `https://gateway.unesco-tichct.ir/ngo/gmail/approve?token=${token}`;
       await this.EmailService.sendResetPasswordEmail(approvedLink, body.email);
       let newNgo = await this.ngoRepository.create(body);
       return {
