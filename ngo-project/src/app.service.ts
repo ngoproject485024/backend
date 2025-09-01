@@ -537,7 +537,7 @@ export class AppService {
       let url = `https://cdn.unesco-tichct.ir/${element.filename}`;
       pathes.push(url);
     });
-
+    
     return {
       message: 'uploading pictures',
       statusCode: 200,

@@ -451,7 +451,7 @@ export class NgoService {
   async getAllNgo(req: any, res: any): Promise<responseInterface> {
     let page = await this.pageRepository.find();
     let ngoTabel = await this.ngoRepository.find({
-      $and: [{ approved: 1 }, { disable: false }],
+      $and: [{ approved: 1 } , {gmailApprovation : 1} , { disable: false }],
     });
     console.log(ngoTabel[0]);
     let mapNgo = await this.ngoMaps();
@@ -952,6 +952,7 @@ export class NgoService {
       };
     }
 
+
     await ngo.updateOne({ approved: 1 });
 
     return {
@@ -1049,8 +1050,8 @@ export class NgoService {
         username: decoded.userName,
       });
       if (user) {
-        user.approved = 1;
-        await user.updateOne({ approved: 1 });
+        user.gmailApprovation = 1;
+        await user.updateOne({ gmailApprovation: 1 });
         let page = await this.EmailService.getSucceedPage();
         return res.status(200).send(page);
       }

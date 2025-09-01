@@ -26,6 +26,8 @@ export interface ngoInterface extends Document {
 
   email: string;
 
+  gmailApprovation: number;    
+
   website: string;
 
   areaAndScope: string[];
@@ -178,7 +180,10 @@ export class Ngo {
   disable: boolean;
 
   @Prop({ type: Number, default: 2 })
-  approved: number;
+  approved: number;      
+
+  @Prop({ type: Number, default: 0 })
+  gmailApprovation: number;    
 
   @Prop({ type: [String] })
   documentsFile: string[];
