@@ -84,6 +84,7 @@ export class NgoService {
         data: newNgo,
       };
     } catch (error) {
+      console.log('errorrrrr' , error)
       return {
         message: 'registering failed.',
         statusCode: 500,
