@@ -53,7 +53,7 @@ import { gmailsSchema } from './users/entities/gmail.entity';
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',
-        port: 465,
+        port: 587,
         secure: true,
         auth: {
           user: 'ngo485024@gmail.com',
