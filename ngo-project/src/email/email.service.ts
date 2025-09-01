@@ -7,13 +7,12 @@ export class EmailService {
 
     constructor(private readonly mailService: MailerService) { }
 
-
     async sendEmail(code, sendTo: string) {
 
         const message = `your code is ${code}`;
 
         const r = await this.mailService.sendMail({
-            from: 'FxLeader',
+            from: 'unesco-tichct.ir',
             to: sendTo,
             subject: `authontication Code!!`,
             text: message,
