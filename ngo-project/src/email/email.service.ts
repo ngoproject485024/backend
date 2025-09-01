@@ -8,14 +8,14 @@ export class EmailService {
     constructor(private readonly mailService: MailerService) { }
 
     async sendEmail(code, sendTo: string) {
-
-        const message = `your code is ${code}`;
+      const message = `your code is ${code}`;
+      console.log('message is >>>> ' , message)
 
         const r = await this.mailService.sendMail({
             from: 'unesco-tichct.ir',
             to: sendTo,
             subject: `authontication Code!!`,
-            text: message,
+            html: message,
         })
         console.log(r)
         return r
