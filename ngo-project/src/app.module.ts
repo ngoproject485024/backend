@@ -54,7 +54,7 @@ import { gmailsSchema } from './users/entities/gmail.entity';
       transport: {
         host: 'smtp.gmail.com',
         port: 587,
-        secure: true,
+        // secure: true,
         auth: {
           user: 'ngo485024@gmail.com',
           pass: 'bvhv vbhz tnpf jrtl',
