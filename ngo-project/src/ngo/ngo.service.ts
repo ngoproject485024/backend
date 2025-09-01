@@ -121,7 +121,7 @@ export class NgoService {
       return {
         message: 'login failed',
         statusCode: 403,
-        error: 'please approve yiur email first.',
+        error: 'please approve your email first.',
       };
     }
     console.log(ngo.password);
