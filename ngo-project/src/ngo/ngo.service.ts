@@ -64,24 +64,32 @@ export class NgoService {
     res: any,
     body: CreateNgoDto,
   ): Promise<responseInterface> {
-    console.log(body);
-    body.country =
-      body.country.includes('Iran') || body.country.includes('iran')
-        ? 'Iran'
-        : body.country;
-    body.password = await bcrypt.hash(body.password, this.saltRounds);
-    let token = await this.jwtService.refrshTokenize(
-      { userName: body.username },
-      '12H',
-    );
-    let approvedLink = `https://ngo.oceanjourney.ir/ngo/gmail/approve?token=${token}`;
-    await this.EmailService.sendResetPasswordEmail(approvedLink, body.email);
-    let newNgo = await this.ngoRepository.create(body);
-    return {
-      message: 'ngo created successfully',
-      statusCode: 200,
-      data: newNgo,
-    };
+    try {
+      console.log(body);
+      body.country =
+        body.country.includes('Iran') || body.country.includes('iran')
+          ? 'Iran'
+          : body.country;
+      body.password = await bcrypt.hash(body.password, this.saltRounds);
+      let token = await this.jwtService.refrshTokenize(
+        { userName: body.username },
+        '12H',
+      );
+      let approvedLink = `https://ngo.oceanjourney.ir/ngo/gmail/approve?token=${token}`;
+      await this.EmailService.sendResetPasswordEmail(approvedLink, body.email);
+      let newNgo = await this.ngoRepository.create(body);
+      return {
+        message: 'ngo created successfully',
+        statusCode: 200,
+        data: newNgo,
+      };
+    } catch (error) {
+      return {
+        message: 'registering failed.',
+        statusCode: 500,
+        error: `${error}`
+      }
+    }
   }
 
   /**
