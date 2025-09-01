@@ -57,7 +57,7 @@ import { gmailsSchema } from './users/entities/gmail.entity';
         secure: true,
         auth: {
           user: 'ngo485024@gmail.com',
-          pass: 'gigu jpyz sqxo gmer',
+          pass: 'bvhv vbhz tnpf jrtl',
         },
       },
     })
