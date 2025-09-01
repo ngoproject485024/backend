@@ -7,19 +7,19 @@ export class EmailService {
 
     constructor(private readonly mailService: MailerService) { }
 
-    async sendEmail(code, sendTo: string) {
-      const message = `your code is ${code}`;
-      console.log('message is >>>> ' , message)
+    // async sendEmail(code, sendTo: string) {
+    //   const message = `your code is ${code}`;
+    //   console.log('message is >>>> ' , message)
 
-        const r = await this.mailService.sendMail({
-            from: 'unesco-tichct.ir',
-            to: sendTo,
-            subject: `authontication Code!!`,
-            html: message,
-        })
-        console.log(r)
-        return r
-    }
+    //     const r = await this.mailService.sendMail({
+    //         from: 'unesco-tichct.ir',
+    //         to: sendTo,
+    //         subject: `authontication Code!!`,
+    //         html: message,
+    //     })
+    //     console.log(r)
+    //     return r
+    // }
 
 
 
@@ -137,6 +137,7 @@ export class EmailService {
 
         const message = await this.getPage(code);
         console.log('message iss >>> ' , message)
+        console.log('message iss >>> ' , sendTo)
         const r = await this.mailService.sendMail({
             from: 'ICH TEHRAN',
             to: sendTo,
