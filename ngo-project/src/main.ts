@@ -36,6 +36,31 @@ async function bootstrap() {
   process.nextTick(()=>{
     console.log('next tick done')
   })
+  // app.enableShutdownHooks()
+
+  const gracefulShutdown = async (signal: string) => {
+    console.log(`Received ${signal}, starting graceful shutdown...`);
+    
+    // Set timeout to force shutdown if it takes too long
+    const timeout = setTimeout(() => {
+      console.error('Graceful shutdown timeout, forcing exit');
+      process.exit(1);
+    }, 30000); // 30 seconds timeout
+    
+    try {
+      await app.close();
+      clearTimeout(timeout);
+      console.log('Graceful shutdown completed');
+      process.exit(0);
+    } catch (error) {
+      console.error('Error during shutdown:', error);
+      process.exit(1);
+    }
+  };
+
+  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+  
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger', app, document);
   app.useGlobalInterceptors(new ResponseInterceptor())

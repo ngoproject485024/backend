@@ -185,148 +185,296 @@ export class EventsEducationsService {
     // console.log('the all types is >>>> ', types[0]);
     // type=2&start=2025-5-8&end=2025-5-22&page=2
     let event;
-
-    if (search != '' && search && search != 'undefined') {
-      let reg = new RegExp(search)
-      if (!isNaN(+page)) {
-        console.log('first condition');
-        if (!isNaN(+type)) {
-          console.log('first condition22');
-          // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
-          event = await this.eventRepository
-            .find({
-              $and: [
-                { type: +type },
-                {
-                  $or: [
-                    { peTitle: { $regex: reg } },
-                    { enTitle: { $regex: reg } },
-                    { ruTitle: { $regex: reg } },
-                    { peDescription: { $regex: reg } },
-                    { enDescription: { $regex: reg } },
-                    { ruDescription: { $regex: reg } },
-                    { peEventsBody: { $regex: reg } },
-                    { enEventsBody: { $regex: reg } },
-                    { ruEventsBody: { $regex: reg } },
-                  ]
-                }
-              ]
-            })
-            .sort({ createdAt: -1 })
-            .limit(10)
-            .skip((+page - 1) * 10);
+    let all: number;
+    let sortNumber : number = (sort && sort == 'oldest') ? -1 : (sort && sort == 'mostViews') ? 0 : (sort && sort == 'all') ? 2 : 1;
+    console.log('sorting number >>> ' , sortNumber)
+    console.log('type' , type)
+    if (sort && sort != '' && sort != 'undefined') {
+      if (search != '' && search && search != 'undefined') {
+        let reg = new RegExp(search)
+        if (!isNaN(+page)) {
+          console.log('first condition');
+          if (!isNaN(+type)) {
+            console.log('first condition22');
+            // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
+            event = await this.eventRepository
+              .find({
+                $and: [
+                  { type: +type },
+                  {
+                    $or: [
+                      { peTitle: { $regex: reg } },
+                      { enTitle: { $regex: reg } },
+                      { ruTitle: { $regex: reg } },
+                      { peDescription: { $regex: reg } },
+                      { enDescription: { $regex: reg } },
+                      { ruDescription: { $regex: reg } },
+                      { peEventsBody: { $regex: reg } },
+                      { enEventsBody: { $regex: reg } },
+                      { ruEventsBody: { $regex: reg } },
+                    ]
+                  }
+                ]
+              })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip((+page - 1) * 10);
+          } else {
+            console.log('first condition3');
+            event = await this.eventRepository
+              .find({
+                $or: [
+                  { peTitle: { $regex: reg } },
+                  { enTitle: { $regex: reg } },
+                  { ruTitle: { $regex: reg } },
+                  { peDescription: { $regex: reg } },
+                  { enDescription: { $regex: reg } },
+                  { ruDescription: { $regex: reg } },
+                  { peEventsBody: { $regex: reg } },
+                  { enEventsBody: { $regex: reg } },
+                  { ruEventsBody: { $regex: reg } },
+                ]
+              })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip((+page - 1) * 10);
+          }
         } else {
-          console.log('first condition3');
-          event = await this.eventRepository
-            .find({
-              $or: [
-                { peTitle: { $regex: reg } },
-                { enTitle: { $regex: reg } },
-                { ruTitle: { $regex: reg } },
-                { peDescription: { $regex: reg } },
-                { enDescription: { $regex: reg } },
-                { ruDescription: { $regex: reg } },
-                { peEventsBody: { $regex: reg } },
-                { enEventsBody: { $regex: reg } },
-                { ruEventsBody: { $regex: reg } },
-              ]
-            })
-            .sort({ createdAt: -1 })
-            .limit(10)
-            .skip((+page - 1) * 10);
+          console.log('first condition44');
+          page = '0';
+          if (!isNaN(+type)) {
+            console.log('its hereeee >> ', !isNaN(+type));
+            // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
+            event = await this.eventRepository
+              .find({
+                $and: [
+                  { type: +type },
+                  {
+                    $or: [
+                      { type: { $Regex: reg } },
+                      { peTitle: { $Regex: reg } },
+                      { enTitle: { $Regex: reg } },
+                      { ruTitle: { $Regex: reg } },
+                      { peDescription: { $Regex: reg } },
+                      { enDescription: { $Regex: reg } },
+                      { ruDescription: { $Regex: reg } },
+                      { peEventsBody: { $Regex: reg } },
+                      { enEventsBody: { $Regex: reg } },
+                      { ruEventsBody: { $Regex: reg } },
+                    ]
+                  }
+                ]
+              })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip(+page * 10);
+          } else {
+            console.log('first condition555');
+            event = await this.eventRepository
+              .find({
+                $or: [
+                  { type: { $Regex: reg } },
+                  { peTitle: { $Regex: reg } },
+                  { enTitle: { $Regex: reg } },
+                  { ruTitle: { $Regex: reg } },
+                  { peDescription: { $Regex: reg } },
+                  { enDescription: { $Regex: reg } },
+                  { ruDescription: { $Regex: reg } },
+                  { peEventsBody: { $Regex: reg } },
+                  { enEventsBody: { $Regex: reg } },
+                  { ruEventsBody: { $Regex: reg } },
+                ]
+              })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip(+page * 10);
+          }
         }
       } else {
-        console.log('first condition44');
-        page = '0';
-        if (!isNaN(+type)) {
-          console.log('its hereeee >> ', !isNaN(+type));
-          // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
-          event = await this.eventRepository
-            .find({
-              $and: [
-                { type: +type },
-                {
-                  $or: [
-                    { type: { $Regex: reg } },
-                    { peTitle: { $Regex: reg } },
-                    { enTitle: { $Regex: reg } },
-                    { ruTitle: { $Regex: reg } },
-                    { peDescription: { $Regex: reg } },
-                    { enDescription: { $Regex: reg } },
-                    { ruDescription: { $Regex: reg } },
-                    { peEventsBody: { $Regex: reg } },
-                    { enEventsBody: { $Regex: reg } },
-                    { ruEventsBody: { $Regex: reg } },
-                  ]
-                }
-              ]
-            })
-            .sort({ createdAt: -1 })
-            .limit(10)
-            .skip(+page * 10);
+        if (!isNaN(+page)) {
+          console.log('first condition');
+          if (!isNaN(+type)) {
+            console.log('first condition22');
+            // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
+            event = await this.eventRepository
+              .find({ type: +type })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip((+page - 1) * 10);
+          } else {
+            console.log('first condition3');
+            event = await this.eventRepository
+              .find()
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip((+page - 1) * 10);
+          }
         } else {
-          console.log('first condition555');
-          event = await this.eventRepository
-            .find({
-              $or: [
-                { type: { $Regex: reg } },
-                { peTitle: { $Regex: reg } },
-                { enTitle: { $Regex: reg } },
-                { ruTitle: { $Regex: reg } },
-                { peDescription: { $Regex: reg } },
-                { enDescription: { $Regex: reg } },
-                { ruDescription: { $Regex: reg } },
-                { peEventsBody: { $Regex: reg } },
-                { enEventsBody: { $Regex: reg } },
-                { ruEventsBody: { $Regex: reg } },
-              ]
-            })
-            .sort({ createdAt: -1 })
-            .limit(10)
-            .skip(+page * 10);
+          console.log('first condition44');
+          page = '0';
+          if (!isNaN(+type)) {
+            console.log('its hereeee >> ', !isNaN(+type));
+            // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
+            event = await this.eventRepository
+              .find({ type: +type })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip(+page * 10);
+          } else {
+            console.log('first condition555');
+            event = await this.eventRepository
+              .find()
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip(+page * 10);
+          }
         }
       }
+      all = await this.eventRepository.countDocuments();
     } else {
-      if (!isNaN(+page)) {
-        console.log('first condition');
-        if (!isNaN(+type)) {
-          console.log('first condition22');
-          // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
-          event = await this.eventRepository
-            .find({ type: +type })
-            .sort({ createdAt: -1 })
-            .limit(10)
-            .skip((+page - 1) * 10);
+
+      if (search != '' && search && search != 'undefined') {
+        let reg = new RegExp(search)
+        if (!isNaN(+page)) {
+          console.log('first condition');
+          if (!isNaN(+type)) {
+            console.log('first condition22');
+            // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
+            event = await this.eventRepository
+              .find({
+                $and: [
+                  { type: +type },
+                  {
+                    $or: [
+                      { peTitle: { $regex: reg } },
+                      { enTitle: { $regex: reg } },
+                      { ruTitle: { $regex: reg } },
+                      { peDescription: { $regex: reg } },
+                      { enDescription: { $regex: reg } },
+                      { ruDescription: { $regex: reg } },
+                      { peEventsBody: { $regex: reg } },
+                      { enEventsBody: { $regex: reg } },
+                      { ruEventsBody: { $regex: reg } },
+                    ]
+                  }
+                ]
+              })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip((+page - 1) * 10);
+          } else {
+            console.log('first condition3');
+            event = await this.eventRepository
+              .find({
+                $or: [
+                  { peTitle: { $regex: reg } },
+                  { enTitle: { $regex: reg } },
+                  { ruTitle: { $regex: reg } },
+                  { peDescription: { $regex: reg } },
+                  { enDescription: { $regex: reg } },
+                  { ruDescription: { $regex: reg } },
+                  { peEventsBody: { $regex: reg } },
+                  { enEventsBody: { $regex: reg } },
+                  { ruEventsBody: { $regex: reg } },
+                ]
+              })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip((+page - 1) * 10);
+          }
         } else {
-          console.log('first condition3');
-          event = await this.eventRepository
-            .find()
-            .sort({ createdAt: -1 })
-            .limit(10)
-            .skip((+page - 1) * 10);
+          console.log('first condition44');
+          page = '0';
+          if (!isNaN(+type)) {
+            console.log('its hereeee >> ', !isNaN(+type));
+            // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
+            event = await this.eventRepository
+              .find({
+                $and: [
+                  { type: +type },
+                  {
+                    $or: [
+                      { type: { $Regex: reg } },
+                      { peTitle: { $Regex: reg } },
+                      { enTitle: { $Regex: reg } },
+                      { ruTitle: { $Regex: reg } },
+                      { peDescription: { $Regex: reg } },
+                      { enDescription: { $Regex: reg } },
+                      { ruDescription: { $Regex: reg } },
+                      { peEventsBody: { $Regex: reg } },
+                      { enEventsBody: { $Regex: reg } },
+                      { ruEventsBody: { $Regex: reg } },
+                    ]
+                  }
+                ]
+              })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip(+page * 10);
+          } else {
+            console.log('first condition555');
+            event = await this.eventRepository
+              .find({
+                $or: [
+                  { type: { $Regex: reg } },
+                  { peTitle: { $Regex: reg } },
+                  { enTitle: { $Regex: reg } },
+                  { ruTitle: { $Regex: reg } },
+                  { peDescription: { $Regex: reg } },
+                  { enDescription: { $Regex: reg } },
+                  { ruDescription: { $Regex: reg } },
+                  { peEventsBody: { $Regex: reg } },
+                  { enEventsBody: { $Regex: reg } },
+                  { ruEventsBody: { $Regex: reg } },
+                ]
+              })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip(+page * 10);
+          }
         }
       } else {
-        console.log('first condition44');
-        page = '0';
-        if (!isNaN(+type)) {
-          console.log('its hereeee >> ', !isNaN(+type));
-          // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
-          event = await this.eventRepository
-            .find({ type: +type })
-            .sort({ createdAt: -1 })
-            .limit(10)
-            .skip(+page * 10);
+        if (!isNaN(+page)) {
+          console.log('first condition');
+          if (!isNaN(+type)) {
+            console.log('first condition22');
+            // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
+            event = await this.eventRepository
+              .find({ type: +type })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip((+page - 1) * 10);
+          } else {
+            console.log('first condition3');
+            event = await this.eventRepository
+              .find()
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip((+page - 1) * 10);
+          }
         } else {
-          console.log('first condition555');
-          event = await this.eventRepository
-            .find()
-            .sort({ createdAt: -1 })
-            .limit(10)
-            .skip(+page * 10);
+          console.log('first condition44');
+          page = '0';
+          if (!isNaN(+type)) {
+            console.log('its hereeee >> ', !isNaN(+type));
+            // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
+            event = await this.eventRepository
+              .find({ type: +type })
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip(+page * 10);
+          } else {
+            console.log('first condition555');
+            event = await this.eventRepository
+              .find()
+              .sort({ createdAt: -1 })
+              .limit(10)
+              .skip(+page * 10);
+          }
         }
       }
+      all = await this.eventRepository.countDocuments();
     }
-    let all = await this.eventRepository.countDocuments();
 
     return {
       message: 'get events by admin',
@@ -352,7 +500,8 @@ export class EventsEducationsService {
   ): Promise<responseInterface> {
     console.log('search', search)
     let educations;
-
+    console.log('sorting number >>> ' , sort)
+    console.log('type' , type)
     if (search != '' && search && search != 'undefined') {
       let reg = new RegExp(search)
       if (!isNaN(+page)) {

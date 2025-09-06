@@ -117,6 +117,15 @@ export class NgoService {
       };
     }
 
+    if (ngo.disable) {
+      return {
+        message: 'login failed',
+        statusCode: 403,
+        error: 'your account blocked by admin, please contact with support.',
+      };
+
+    }
+
     if (ngo.gmailApprovation == 0){
       return {
         message: 'login failed',

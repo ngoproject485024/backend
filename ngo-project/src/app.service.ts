@@ -35,7 +35,7 @@ export class AppService {
     @InjectModel('events') private eventRepository: Model<EventsInterface>,
     @InjectModel('admin') private adminModel: Model<adminInterface>,
     @InjectModel('pages') private pageRepository: Model<pagesInterface>,
-  ) { }
+  ) { }  
 
   /**
    * here is for setting home page data

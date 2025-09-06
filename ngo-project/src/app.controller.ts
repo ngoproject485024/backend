@@ -41,7 +41,7 @@ import langDetection from './services/langDetection';
 @Controller('page')
 export class AppController {
   constructor(private readonly appService: AppService
-  ) {}
+  ) {}  
 
   @Post('uploadFile')
   @UseInterceptors(
