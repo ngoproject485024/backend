@@ -186,10 +186,11 @@ export class EventsEducationsService {
     // type=2&start=2025-5-8&end=2025-5-22&page=2
     let event;
     let all: number;
-    let sortNumber : number = (sort && sort == 'oldest') ? -1 : (sort && sort == 'mostViews') ? 0 : (sort && sort == 'all') ? 2 : 1;
+    let sortNumber : number = (sort && sort == 'oldest') ? 1 : (sort && sort == 'mostViews') ? 0 : (sort && sort == 'all') ? 2 : -1;
     console.log('sorting number >>> ' , sortNumber)
     console.log('type' , type)
     if (sort && sort != '' && sort != 'undefined') {
+
       if (search != '' && search && search != 'undefined') {
         let reg = new RegExp(search)
         if (!isNaN(+page)) {
@@ -476,12 +477,15 @@ export class EventsEducationsService {
       all = await this.eventRepository.countDocuments();
     }
 
+    let sortedData = (sortNumber == 1) ? event.reverse() : (sortNumber == -1) ? event : (sortNumber == 2) ? event : event
+
     return {
       message: 'get events by admin',
       statusCode: 200,
-      data: { all, event },
+      data: { all, sortedData },
     };
   }
+
 
   /**
    * get all educations by user
@@ -500,6 +504,7 @@ export class EventsEducationsService {
   ): Promise<responseInterface> {
     console.log('search', search)
     let educations;
+    let sortNumber : number = (sort && sort == 'oldest') ? 1 : (sort && sort == 'mostViews') ? 0 : (sort && sort == 'all') ? 2 : -1;
     console.log('sorting number >>> ' , sort)
     console.log('type' , type)
     if (search != '' && search && search != 'undefined') {
@@ -560,11 +565,12 @@ export class EventsEducationsService {
     }
 
     let all = await this.educationRepository.countDocuments();
+    let sortedData = (sortNumber == 1) ? educations.reverse() : (sortNumber == -1) ? educations : (sortNumber == 2) ? educations : educations.reverse()
 
     return {
       message: 'get educations by admin',
       statusCode: 200,
-      data: { all, educations },
+      data: { all, sortedData },
     };
   }
 
@@ -582,6 +588,11 @@ export class EventsEducationsService {
   ): Promise<responseInterface> {
     let education = await this.educationRepository.findById(educationId);
     let similar = await this.educationRepository.find().limit(5);
+    
+    process.nextTick(()=>{
+      console.log('next tick done >>> ')
+    })
+    
     return {
       message: 'get specific education',
       statusCode: 200,
