@@ -65,7 +65,7 @@ export class CreateNgoDto {
   })
   country: string;
 
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @IsString()
   @ApiProperty({
     example: 'iranian ngo',
@@ -81,7 +81,7 @@ export class CreateNgoDto {
   })
   establishmentYear: string;
 
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @IsArray()
   @ApiProperty({
     example: 'iranian ngo',

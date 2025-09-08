@@ -574,6 +574,7 @@ export class EventsEducationsService {
     };
   }
 
+  
   /**
    * for getting specific education by user in website
    * @param req
