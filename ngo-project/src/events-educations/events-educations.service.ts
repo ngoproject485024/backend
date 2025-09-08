@@ -482,7 +482,7 @@ export class EventsEducationsService {
     return {
       message: 'get events by admin',
       statusCode: 200,
-      data: { all, sortedData },
+      data: { all, event : sortedData },
     };
   }
 
@@ -570,7 +570,7 @@ export class EventsEducationsService {
     return {
       message: 'get educations by admin',
       statusCode: 200,
-      data: { all, sortedData },
+      data: { all, educations : sortedData },
     };
   }
 
