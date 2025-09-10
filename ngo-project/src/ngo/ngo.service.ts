@@ -499,7 +499,7 @@ export class NgoService {
     }
     console.log(ngo);
     let project = await this.ngoProject
-      .find()
+      .find({ngo : ngo._id})
       .populate({
         path: 'ngo',
         select: {
