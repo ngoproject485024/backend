@@ -477,12 +477,12 @@ export class AppService {
           {ruPictures: { $ne: [] } },
           {pePictures: { $ne: [] } },
           {enPictures: { $ne: [] } },
-        ] },
+        ]},
         {homeEvenets : true}
       ]})
       .sort({ createdAt: -1 })
       .limit(3)
-      .select(['_id', 'ruPictures']);
+      .select(['_id', 'ruPictures' , 'enPictures' , 'pePictures']);
     // console.log('event is >>>>> ' , events)
     // home.middleImages = events
     delete home.middleImages;
