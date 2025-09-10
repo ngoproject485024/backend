@@ -34,6 +34,8 @@ export interface EventsInterface extends Document {
 
     ruPictures: string[]
 
+    homeEvenets : boolean
+
     admin: { userName: string, firstName: string, lastName: string }
 
 }
@@ -90,6 +92,9 @@ export class Events {
 
     @Prop({ type: [String] })
     ruPictures: string[]
+
+    @Prop({type :Boolean , default : false})
+    homeEvenets : boolean
 
     @Prop({ type: { userName: { type: String }, firstName: { type: String }, lastName: { type: String } } })
     admin: { userName: string, firstName: string, lastName: string }
