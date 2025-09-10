@@ -42,6 +42,9 @@ export interface projectsInterface extends Document {
 
     ngo : mongoose.Types.ObjectId;
 
+    otherGoalAndAchievements : string
+
+
 }
 
 
@@ -101,6 +104,9 @@ export class projects {
     
     @Prop({type : String})
     moreInformation : string;
+
+    @Prop({type : String , default : ''})
+    otherGoalAndAchievements : string
 
     @Prop({ type: Number, default: 0 })
     state: number;            // 0 : not approved      1 : approved       // 2: rejecte

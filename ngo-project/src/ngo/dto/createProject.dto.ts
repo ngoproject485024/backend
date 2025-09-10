@@ -26,6 +26,10 @@ export class createProject {
     // })
     // endDate: string;
 
+    @IsString()
+    otherGoalAndAchievements : string
+
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
