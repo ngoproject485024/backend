@@ -512,8 +512,8 @@ export class NgoService {
           logo: 1,
         },
       })
-      .limit(5);
-    let Document = await this.ngoDocument.find().limit(5);
+      .limit(10);
+    let Document = await this.ngoDocument.find({ngo : ngo._id}).limit(10);
     // ngo.ownDocuments = Document;
     let newData = {
       ...ngo.toObject(),
