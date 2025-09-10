@@ -473,7 +473,11 @@ export class AppService {
 
     let events = await this.eventRepository
       .find({$and : [
-        { ruPictures: { $ne: [] } },
+        { $or : [
+          {ruPictures: { $ne: [] } },
+          {pePictures: { $ne: [] } },
+          {enPictures: { $ne: [] } },
+        ] },
         {homeEvenets : true}
       ]})
       .sort({ createdAt: -1 })
