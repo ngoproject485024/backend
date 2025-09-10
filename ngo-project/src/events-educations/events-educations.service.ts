@@ -488,6 +488,47 @@ export class EventsEducationsService {
 
 
   /**
+   * this rout is for seting event to show in home page
+   * @param id 
+   */
+  async setEventToHomePage(id : string){  
+   try {
+     let event = await this.eventRepository.findById(id)
+    if (!event){
+      return {
+        message : 'رویداد مورد نظر یافت نشد',
+        statusCode : 400,
+        error : 'رویداد مورد نظر یافت نشد'
+      }
+    }
+
+    if (event.homeEvenets) {
+      await event.updateOne({ homeEvenets: false })
+      return {
+        message: 'رویداد مورد نظر از لیست رویداد های صفحه اصلی سایت حذف شد',
+        statusCode: 200,
+        data: null
+      }
+    }
+
+    await event.updateOne({ homeEvenets: true })
+    return {
+      message: 'رویداد مورد نظر برای نمایش در صفحه اصلی سایت تنظیم شد',
+      statusCode: 200,
+      data : null
+    }
+   } catch (error) {
+      console.log('error in setting event to home show' , error)
+     return {
+      message: 'خطای داخلی سیستم',
+      error: 'خطای داخلی سیستم',
+      statusCode: 400,
+    } 
+   }
+  }
+
+
+  /**
    * get all educations by user
    * @param req
    * @param res

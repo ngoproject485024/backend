@@ -10,6 +10,7 @@ import {
   Res,
   ValidationPipe,
   Query,
+  Put,
 } from '@nestjs/common';
 import { EventsEducationsService } from './events-educations.service';
 // import { UpdateEventsEducationDto } from './dto/update-events-education.dto';
@@ -499,6 +500,16 @@ export class EventsEducationsController {
       page,
       search
     );
+  }
+
+  
+  @Put('event/show/home/:id')
+  async setEventToHomePage(
+    @Req() req: any,
+    @Res() res: any,
+    @Param('id') id: string,
+  ){
+    return this.eventsEducationsService.setEventToHomePage(id)
   }
 
   @Get('/education/:educationId')
