@@ -638,6 +638,7 @@ export class AppService {
       let reg = new RegExp(search)
       console.log('reg is ', reg)
       if (isNaN(+page)) {
+        console.log('its here after page >>> ' , page)
         if (status && status == 'ongoing') {
           projects = await this.projectRepository
             .find({
@@ -800,7 +801,7 @@ export class AppService {
             });
         }
       } else {
-        if (status && status == 'ongoind') {
+        if (status && status == 'ongoing') {
           projects = await this.projectRepository
             .find({ $and: [{ $and: [{ status: { $in: 'ongoing' } }, { status: { $nin: 'completed' } }] }, { state: 1 }] })
             .populate({
