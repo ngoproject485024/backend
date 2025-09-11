@@ -692,13 +692,34 @@ export class NgoService {
    */
   async getNgosDocument(req: any, res: any): Promise<responseInterface> {
     let ngoId: string = req.user.id;
-    let ngo = await this.ngoRepository.findById(ngoId).populate('ownDocuments');
-    console.log(ngoId);
-    console.log(ngo);
+    let ngo = await this.ngoRepository.findById(ngoId)
+    let pending = await this.ngoDocument.find({
+      $and : [
+        {ngo : ngo._id },
+        {state : 0}
+      ]
+    }).sort({'createdAt' : -1})
+    let approved = await this.ngoDocument.find({
+      $and : [
+        {ngo : ngo._id },
+        {state : 1}
+      ]
+    }).sort({'createdAt' : -1})
+    let rejected = await this.ngoDocument.find({
+      $and : [
+        {ngo : ngo._id },
+        {state : 2}
+      ]
+    }).sort({'createdAt' : -1})
+
     return {
       message: 'get ngo documents successfully',
       statusCode: 200,
-      data: ngo.ownDocuments.reverse(),
+      data: {
+        pending , 
+        approved , 
+        rejected
+      },
     };
   }
 
