@@ -502,6 +502,8 @@ export class EventsEducationsService {
       }
     }
 
+    
+
     if (event.homeEvenets) {
       await event.updateOne({ homeEvenets: false })
       return {
@@ -511,7 +513,16 @@ export class EventsEducationsService {
       }
     }
 
+    let homeShowEvents = await this.eventRepository.find({
+      homeEvenets : true
+    })
+
+    if (homeShowEvents.length == 3){
+      await homeShowEvents[2].updateOne({homeEvenets : false})  
+    }
+
     await event.updateOne({ homeEvenets: true })
+
     return {
       message: 'رویداد مورد نظر برای نمایش در صفحه اصلی سایت تنظیم شد',
       statusCode: 200,
