@@ -518,7 +518,7 @@ export class EventsEducationsService {
     })
 
     if (homeShowEvents.length == 3){
-      await homeShowEvents[2].updateOne({homeEvenets : false})  
+      await homeShowEvents[0].updateOne({homeEvenets : false})  
     }
 
     await event.updateOne({ homeEvenets: true })
