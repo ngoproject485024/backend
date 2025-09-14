@@ -123,5 +123,11 @@ export class CreateEvetsDto {
         required: true
     })
     ruPictures: string[]
+
+    @IsArray()
+    @ApiProperty({
+        example : [0,1,2]
+    })
+    eventSubject : []
 }
 

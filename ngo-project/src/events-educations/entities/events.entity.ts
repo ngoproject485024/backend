@@ -22,6 +22,8 @@ export interface EventsInterface extends Document {
 
     ruEventsBody:string;
 
+    eventSubject : number[]
+
     peVideo: string[];
 
     enVideo: string[];
@@ -71,6 +73,8 @@ export class Events {
     @Prop({ type: String})
     enEventsBody:string;
     
+    @Prop({type : [Number]})
+    eventSubject : number[]
 
     @Prop({ type: String})
     ruEventsBody:string;
