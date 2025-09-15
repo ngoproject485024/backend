@@ -121,7 +121,7 @@ export class EventsEducationsService {
         lastName: req.user.lastName,
       },
     });
-
+    
     return {
       message: 'رویداد با موفقیت ایجاد شد',
       statusCode: 200,

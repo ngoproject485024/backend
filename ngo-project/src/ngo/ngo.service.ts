@@ -19,6 +19,8 @@ import { completeProject } from './dto/completeProject.dto';
 import { error } from 'console';
 import { pagesInterface } from 'src/entity/pages.entity';
 import { EmailService } from 'src/email/email.service';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class NgoService {
@@ -30,6 +32,7 @@ export class NgoService {
     private EmailService: EmailService,
     @InjectModel('pages') private pageRepository: Model<pagesInterface>,
     private readonly jwtService: jwtService,
+    @Inject(CACHE_MANAGER) private cacheManager : Cache
   ) {}
 
   async ngoMaps(): Promise<any[]> {
@@ -137,6 +140,10 @@ export class NgoService {
     console.log(body.password);
     let compare = await bcrypt.compare(body.password, ngo.password);
     if (!compare) {
+      let responseOfPasswordChecker = await this.checkPasswordLocking(body.username)
+      if (responseOfPasswordChecker){
+        await ngo.updateOne({disable:true})
+      }
       return {
         message: 'login failed!',
         statusCode: 403,
@@ -183,6 +190,26 @@ export class NgoService {
       },
     };
   }
+
+
+
+  private async checkPasswordLocking(userName : string){
+      let passWordChecker = await this.cacheManager.get(`pass::${userName}`)
+      if (!passWordChecker){
+        await this.cacheManager.set(`pass::${userName}` , '1' , 1000*5*60)
+        return false
+      }else{
+        if (+passWordChecker+1 > 3){
+          await this.cacheManager.del(`pass::${userName}`)
+          return true
+        }else{
+          await this.cacheManager.del(`pass::${userName}`)
+          await this.cacheManager.set(`pass::${userName}` , +passWordChecker+1 , 1000*5*60)
+          return false
+        }
+      }
+}
+
 
   /**
    * its for creating new documents by ngo in his pannel

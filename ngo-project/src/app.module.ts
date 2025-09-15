@@ -26,12 +26,18 @@ import { EmailService } from './email/email.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { UsersModule } from './users/users.module';
 import { gmailsSchema } from './users/entities/gmail.entity';
+import { CacheModule } from '@nestjs/cache-manager';
 
 
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true, envFilePath: 'config.env' }), MulterModule.register({ dest: './ngo-uploads' }),
   MongooseModule.forRoot('mongodb://localhost:27017'),
+  CacheModule.register({
+      ttl: 1000*60*3, // Cache expiration time in milliseconds
+      max: 1000, // Maximum number of items in cache
+      isGlobal : true
+    }),
   MongooseModule.forFeature([{ name: 'ngo', schema: ngoSchema },
     { name: 'gmail', schema: gmailsSchema },
     , { name: 'educations', schema: EducationSchema }
