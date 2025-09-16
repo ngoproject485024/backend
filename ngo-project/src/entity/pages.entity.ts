@@ -31,7 +31,9 @@ export interface pagesInterface extends Document {
     enSecondBannerDescription: string
     ruSecondBannerDescription: string
     permitedToShowSecondBanner: boolean
-
+    peEventPartDescription: string;
+    enEventPartDescription: string;
+    ruEventPartDescription: string;
   };
 
   aboutUs: {
@@ -224,7 +226,11 @@ export class pages {
       enSecondBannerDescription: { type: String },
       ruSecondBannerDescription: { type: String },
       permitedToShowSecondBanner: { type: Boolean },
-      ngoAlgo: { type: Number, default: 0 }
+      ngoAlgo: { type: Number, default: 0 },
+      peEventPartDescription: { type: String },
+      enEventPartDescription: { type: String },
+      ruEventPartDescription: { type: String }
+
     },
   })
   homPage: {
@@ -257,6 +263,9 @@ export class pages {
     ruSecondBannerDescription: string
     permitedToShowSecondBanner: boolean
     ngoAlgo: number
+    peEventPartDescription: string
+    enEventPartDescription: string
+    ruEventPartDescription: string
   };
 
   @Prop({

@@ -13,6 +13,27 @@ export class homePage {
     })
     mainImages: string[]
 
+    // @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'best events',
+        required : true
+    })
+    peEventPartDescription : string;
+    // @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'best events',
+        required : true
+    })
+    enEventPartDescription : string;
+    // @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        example : 'best events',
+        required : true
+    })
+    ruEventPartDescription : string;
 
 
     @IsArray()
