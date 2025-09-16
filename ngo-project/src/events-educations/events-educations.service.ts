@@ -186,6 +186,8 @@ export class EventsEducationsService {
     // type=2&start=2025-5-8&end=2025-5-22&page=2
     let event;
     let all: number;
+    
+    let newType = (type && type != 'undefined' ? type : '') 
     let sortNumber : number = (sort && sort == 'oldest') ? 1 : (sort && sort == 'mostViews') ? 0 : (sort && sort == 'all') ? 2 : -1;
     console.log('sorting number >>> ' , sortNumber)
     console.log('type' , type)
@@ -201,7 +203,7 @@ export class EventsEducationsService {
             event = await this.eventRepository
               .find({
                 $and: [
-                  { type: +type },
+                  { eventSubject: {$in : +type} },
                   {
                     $or: [
                       { peTitle: { $regex: reg } },
@@ -249,7 +251,7 @@ export class EventsEducationsService {
             event = await this.eventRepository
               .find({
                 $and: [
-                  { type: +type },
+                  { eventSubject: { $in : +type} },
                   {
                     $or: [
                       { type: { $Regex: reg } },
@@ -298,7 +300,7 @@ export class EventsEducationsService {
             console.log('first condition22');
             // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
             event = await this.eventRepository
-              .find({ type: +type })
+              .find({ eventSubject: {$in : +type} })
               .sort({ createdAt: -1 })
               .limit(10)
               .skip((+page - 1) * 10);
@@ -317,7 +319,7 @@ export class EventsEducationsService {
             console.log('its hereeee >> ', !isNaN(+type));
             // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
             event = await this.eventRepository
-              .find({ type: +type })
+              .find({ eventSubject: {$in : +type} })
               .sort({ createdAt: -1 })
               .limit(10)
               .skip(+page * 10);
@@ -344,7 +346,7 @@ export class EventsEducationsService {
             event = await this.eventRepository
               .find({
                 $and: [
-                  { type: +type },
+                  { eventSubject: {$in : +type} },
                   {
                     $or: [
                       { peTitle: { $regex: reg } },
@@ -392,7 +394,7 @@ export class EventsEducationsService {
             event = await this.eventRepository
               .find({
                 $and: [
-                  { type: +type },
+                  { eventSubject: {$in : +type} },
                   {
                     $or: [
                       { type: { $Regex: reg } },
@@ -441,7 +443,7 @@ export class EventsEducationsService {
             console.log('first condition22');
             // let mainType = +type == 1 ? 'Education' : (+type == 2) ? "Youth" :  (+type == 3) ? "Women" : "Climate Change"
             event = await this.eventRepository
-              .find({ type: +type })
+              .find({ eventSubject: {$in : +type} })
               .sort({ createdAt: -1 })
               .limit(10)
               .skip((+page - 1) * 10);
@@ -460,7 +462,7 @@ export class EventsEducationsService {
             console.log('its hereeee >> ', !isNaN(+type));
             // let type = +type == 1 ? 'Education' : (+type == 2) ? "Youth" : (+type == 3) ? "Women" : "Climate Change"
             event = await this.eventRepository
-              .find({ type: +type })
+              .find({ eventSubject: {$in : +type} })
               .sort({ createdAt: -1 })
               .limit(10)
               .skip(+page * 10);
