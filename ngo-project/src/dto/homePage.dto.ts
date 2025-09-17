@@ -13,6 +13,15 @@ export class homePage {
     })
     mainImages: string[]
 
+    @IsString()
+    @ApiProperty({})
+    secondBannerLink : string
+    
+    @IsString()
+    @ApiProperty({})
+    firstBannerLink : string
+
+
     // @IsNotEmpty()
     @IsString()
     @ApiProperty({

@@ -20,7 +20,8 @@ export interface pagesInterface extends Document {
     ruAboutUsDescription: string;
     ruNgoDescription: string;
     admin: string;
-
+    secondBannerLink: string;
+    firstBannerLink: string;
     firstBannerImage: string[],
     peFirstBannerDescription: string
     enFirstBannerDescription: string
@@ -229,8 +230,9 @@ export class pages {
       ngoAlgo: { type: Number, default: 0 },
       peEventPartDescription: { type: String },
       enEventPartDescription: { type: String },
-      ruEventPartDescription: { type: String }
-
+      ruEventPartDescription: { type: String },
+      secondBannerLink: { type: String },
+      firstBannerLink: { type: String }
     },
   })
   homPage: {
@@ -256,7 +258,8 @@ export class pages {
     peFirstBannerDescription: string
     enFirstBannerDescription: string
     ruFirstBannerDescription: string
-
+    secondBannerLink: string,
+    firstBannerLink: string
     secondBannerImage: string[],
     peSecondBannerDescription: string
     enSecondBannerDescription: string
