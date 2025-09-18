@@ -1460,11 +1460,13 @@ export class AppService {
       let label = [elem.peTitle, elem.enTitle, elem.ruTitle];
       let href = elem.path;
       let chilren = [];
+      let show = elem.show
       if (elem.Children.length > 0) {
         elem.Children.forEach((rr: any) => {
           let data = {
             label: [rr.peTitle, rr.enTitle, rr.ruTitle],
             href: rr.path,
+            show : elem.show
           };
           chilren.push(data);
         });
@@ -1474,12 +1476,14 @@ export class AppService {
         finalData = {
           label: label,
           href: href,
+          show,
           children: chilren,
         };
       } else {
         finalData = {
           label: label,
           href: href,
+          show
         };
       }
       all.push(finalData);
