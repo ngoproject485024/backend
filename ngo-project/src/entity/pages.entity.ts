@@ -78,7 +78,10 @@ export interface pagesInterface extends Document {
     enSecondManagerFooterDescription: string
     ruFirstManagerFooterDescription: string
     ruSecondManagerFooterDescription: string
-
+    EducationCardLink: string
+    YouthCardLink: string
+    WomenCardLink: string
+    climateChangeCardLink: string
   };
 
   completProjects: {
@@ -308,8 +311,11 @@ export class pages {
       ruFirstManagerFooterDescription: { type: String },
       ruSecondManagerFooterDescription: { type: String },
       permitedToShowFirstManager: { type: Boolean, default: true },
-      permitedToShowSecondManager: { type: Boolean, default: true }
-
+      permitedToShowSecondManager: { type: Boolean, default: true },
+      EducationCardLink: { type: String, default: '' },
+      YouthCardLink: { type: String, default: '' },
+      WomenCardLink: { type: String, default: '' },
+      climateChangeCardLink: { type: String, default: '' }
     },
   })
   aboutUs: {
@@ -349,6 +355,10 @@ export class pages {
     ruSecondManagerFooterDescription: string
     permitedToShowFirstManager: boolean
     permitedToShowSecondManager: boolean
+    EducationCardLink: string
+    YouthCardLink: string
+    WomenCardLink: string
+    climateChangeCardLink: string
   };
 
   @Prop({

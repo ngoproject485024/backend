@@ -379,8 +379,30 @@ export class aboutUsDto{
     })
     middleImages: string[]
 
-
+    @IsString()
+    @ApiProperty({
+        example : ''
+    })
+    EducationCardLink: string
     
+    @IsString()
+    @ApiProperty({
+        example : ''
+    })
+    YouthCardLink: string
+    
+    @IsString()
+    @ApiProperty({
+        example : ''
+    })
+    WomenCardLink: string
+    
+    @IsString()
+    @ApiProperty({
+        example : ''
+    })
+    climateChangeCardLink: string
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty({

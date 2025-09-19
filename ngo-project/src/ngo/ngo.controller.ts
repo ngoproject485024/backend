@@ -97,8 +97,10 @@ export class NgoController {
   ): Promise<responseInterface> {
     return this.ngoService.createNewNgo(req, res, body);
   }
+
+
   @Post('/update/:ngoId')
-  @ApiOperation({ summary: 'وقتی سمن ها میخان ثبت نام کنن' })
+  @ApiOperation({ summary: 'وقتی سمن ها میخان  پروفایلشونو آپدیت کنن' })
   @ApiResponse({
     status: 200,
     description: 'the ngos created successfully',
