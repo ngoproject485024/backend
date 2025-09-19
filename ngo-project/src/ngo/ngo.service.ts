@@ -96,6 +96,35 @@ export class NgoService {
     }
   }
 
+
+
+  async updateNewNgo(body: UpdateNgoDto, ngoId: string): Promise<responseInterface> {
+    try {
+      let ngo = await this.ngoRepository.findById(ngoId)
+      if (!ngo) {
+        return {
+          message: 'ngo not found',
+          statusCode: 400,
+          error: 'ngo not found'
+        }
+      }
+      await ngo.updateOne(body)
+      return {
+        message: 'done',
+        statusCode: 200,
+      }
+    } catch (error) {
+      console.log('error is in the update ngo', error)
+      return {
+        message: 'internal server error',
+        statusCode: 500,
+        error: 'internal server error'
+      }
+    }
+  }
+
+
+
   /**
    * this rout is for login the ngos
    * @param req

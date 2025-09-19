@@ -97,6 +97,67 @@ export class NgoController {
   ): Promise<responseInterface> {
     return this.ngoService.createNewNgo(req, res, body);
   }
+  @Post('/update/:ngoId')
+  @ApiOperation({ summary: 'وقتی سمن ها میخان ثبت نام کنن' })
+  @ApiResponse({
+    status: 200,
+    description: 'the ngos created successfully',
+    schema: {
+      example: {
+        success: true,
+        message: 'the ngo created successfully',
+        error: null,
+        data: Ngo,
+      },
+    },
+  })
+  // @ApiResponse({
+  //   status: 403, description: 'Forbidden.',
+  //   schema: {
+  //     example: {
+  //       success: false,
+  //       message: 'the ngo creation failed',
+  //       error: 'forbidden user',
+  //       data: null
+  //     }
+  //   },
+  // })
+  @ApiResponse({
+    status: 409,
+    description: 'duplicate data',
+    schema: {
+      example: {
+        success: false,
+        message: 'this ngo already has an account',
+        error: 'duplicate account',
+        data: null,
+      },
+    },
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'internal service error',
+    schema: {
+      example: {
+        success: false,
+        message: 'internal error',
+        error: 'internal service error',
+        data: null,
+      },
+    },
+  })
+  @ApiBody({
+    type: CreateNgoDto,
+    description: 'Json structure for ngo object',
+  })
+  update(
+    @Req() req: any,
+    @Res() res: any,
+    @Param('ngoId') ngoId : string,
+    @Body(new ValidationPipe()) body: UpdateNgoDto,
+  ): Promise<responseInterface> {
+    return this.ngoService.updateNewNgo(body , ngoId);
+  }
 
 
   
