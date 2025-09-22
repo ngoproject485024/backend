@@ -1278,6 +1278,20 @@ export class AppService {
       let admin = await this.adminModel.findOne({
         userName: req.user.userName,
       });
+
+      let existancePath = await this.customPAgeRepository.find({
+        path : body.path
+      })
+
+      if (existancePath.length > 0) {
+        return {
+          message : 'این مسیر قبلا ساخته شده است',
+          statusCode : 400,
+          error : 'این مسیر قبلا ساخته شده است'
+        }
+      }
+
+
       if (pageId && pageId != 'undefined') {
         console.log('page id is completed >>>>>>>> ', pageId)
         let parentPage = await this.customPAgeRepository.findById(pageId)
@@ -1310,7 +1324,18 @@ export class AppService {
           data: updated,
         };
       } 
-      console.log('page body isssssss >>>> ', body);
+
+      let allShownPage = await this.customPAgeRepository.find({
+        show: true
+      })
+      if (allShownPage.length > 3) {
+        return {
+          message: 'تعداد صفحاتی که میخاهید نمایش دهید نمیتواند بیشتر از 3 صفحه باشد.',
+          statusCode: 400,
+          error: 'تعداد صفحاتی که میخاهید نمایش دهید نمیتواند بیشتر از 3 صفحه باشد.'
+        }
+      }
+
       // let hasSubPage = body.hasSubPage;
       let newPage = new this.customPAgeRepository({
         Children: [],
