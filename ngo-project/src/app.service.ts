@@ -1675,6 +1675,12 @@ export class AppService {
           existancePage.content._id,
         );
       }
+
+      if (existancePage.parent){
+        let parent = await this.customPAgeRepository.findOne(existancePage.parent)
+        await parent.updateOne({$pull : {Children:pageId}})
+      }
+
       await this.customPAgeRepository.findByIdAndDelete(pageId);
       return {
         message: 'صفحه مورد نظر یا موفقیت حذف شد',
