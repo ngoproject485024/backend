@@ -51,7 +51,7 @@ export interface ngoInterface extends Document {
   license: { has: boolean; description: Boolean };
 
   // issuedBy : boolean;
-  
+
   code : string;
 
   expiryDate: string;
@@ -133,7 +133,7 @@ export class Ngo {
   @Prop({ type: [String] })
   specificActiveAreas: string[];
 
-  @Prop({type : String})
+  @Prop({type : String , default : '+98'})
   code : string;
 
   @Prop({ type: [String] })
