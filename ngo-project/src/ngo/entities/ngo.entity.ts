@@ -207,5 +207,6 @@ export class Ngo {
   projects: mongoose.Types.ObjectId[];
 }
 
+
 export const ngoSchema = SchemaFactory.createForClass(Ngo);
 

@@ -108,7 +108,13 @@ export class NgoService {
           error: 'ngo not found'
         }
       }
-      await ngo.updateOne(body)
+      if (body.password && body.password != 'undefined' && body.password != ''){
+        body.password = await bcrypt.hash(body.password, this.saltRounds);
+        await ngo.updateOne(body)
+      }else{
+        delete body.password;
+        await ngo.updateOne(body)
+      }
       return {
         message: 'done',
         statusCode: 200,
