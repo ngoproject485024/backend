@@ -35,7 +35,7 @@ export class AppService {
     @InjectModel('events') private eventRepository: Model<EventsInterface>,
     @InjectModel('admin') private adminModel: Model<adminInterface>,
     @InjectModel('pages') private pageRepository: Model<pagesInterface>,
-  ) { }  
+  ) { }
 
   /**
    * here is for setting home page data
@@ -472,17 +472,21 @@ export class AppService {
     }
 
     let events = await this.eventRepository
-      .find({$and : [
-        { $or : [
-          {ruPictures: { $ne: [] } },
-          {pePictures: { $ne: [] } },
-          {enPictures: { $ne: [] } },
-        ]},
-        {homeEvenets : true}
-      ]})
+      .find({
+        $and: [
+          {
+            $or: [
+              { ruPictures: { $ne: [] } },
+              { pePictures: { $ne: [] } },
+              { enPictures: { $ne: [] } },
+            ]
+          },
+          { homeEvenets: true }
+        ]
+      })
       .sort({ createdAt: -1 })
       .limit(3)
-      .select(['_id', 'ruPictures' , 'enPictures' , 'pePictures']);
+      .select(['_id', 'ruPictures', 'enPictures', 'pePictures']);
     // console.log('event is >>>>> ' , events)
     // home.middleImages = events
     delete home.middleImages;
@@ -544,7 +548,7 @@ export class AppService {
       let url = `https://cdn.unesco-tichct.ir/${element.filename}`;
       pathes.push(url);
     });
-    
+
     return {
       message: 'uploading pictures',
       statusCode: 200,
@@ -645,7 +649,7 @@ export class AppService {
       let reg = new RegExp(search)
       console.log('reg is ', reg)
       if (isNaN(+page)) {
-        console.log('its here after page >>> ' , page)
+        console.log('its here after page >>> ', page)
         if (status && status == 'ongoing') {
           projects = await this.projectRepository
             .find({
@@ -1280,14 +1284,14 @@ export class AppService {
       });
 
       let existancePath = await this.customPAgeRepository.find({
-        path : body.path
+        path: body.path
       })
 
       if (existancePath.length > 0) {
         return {
-          message : 'این مسیر قبلا ساخته شده است',
-          statusCode : 400,
-          error : 'این مسیر قبلا ساخته شده است'
+          message: 'این مسیر قبلا ساخته شده است',
+          statusCode: 400,
+          error: 'این مسیر قبلا ساخته شده است'
         }
       }
 
@@ -1301,21 +1305,21 @@ export class AppService {
           Children: [],
           peTitle: body.peTitle,
           enTitle: body.enTitle,
-          show : body.show,
+          show: body.show,
           ruTitle: body.ruTitle,
           path: body.path,
           hasSubPage: body.hasSubPage,
           admin: admin._id,
         });
         let savedPage = await newPage.save();
-        
+
         let updated = await this.customPAgeRepository
-        .findById(savedPage._id)
-        .populate('Children');
+          .findById(savedPage._id)
+          .populate('Children');
         console.log('updated saved page isssss', parentPage)
         console.log('updated saved page isssss', updated)
-        await parentPage.updateOne({$push:{Children : savedPage._id} , hasSubPage:true})
-        await updated.updateOne({parent : parentPage._id})
+        await parentPage.updateOne({ $push: { Children: savedPage._id }, hasSubPage: true })
+        await updated.updateOne({ parent: parentPage._id })
         let fianlContentRespons = await this.addContent(updated._id.toString(), { peContent: body.peContent, enContent: body.enContent, ruContent: body.ruContent })
         console.log('after creation content for page', fianlContentRespons)
         return {
@@ -1323,7 +1327,7 @@ export class AppService {
           statusCode: 200,
           data: updated,
         };
-      } 
+      }
 
       let allShownPage = await this.customPAgeRepository.find({
         show: true
@@ -1342,7 +1346,7 @@ export class AppService {
         peTitle: body.peTitle,
         enTitle: body.enTitle,
         ruTitle: body.ruTitle,
-        show : body.show,
+        show: body.show,
         path: body.path,
         hasSubPage: body.hasSubPage,
         admin: admin._id,
@@ -1376,11 +1380,11 @@ export class AppService {
   private async addContent(id: string, content: {}) {
     try {
       let page = await this.customPAgeRepository.findById(id)
-      console.log('id and page issss>>>' , id , page)
+      console.log('id and page issss>>>', id, page)
       content['page'] = page._id;
       let newContentForPage = await this.pagesContentRepository.create(content)
-      console.log('content is >>> ' , newContentForPage)
-      await page.updateOne({content : newContentForPage._id})
+      console.log('content is >>> ', newContentForPage)
+      await page.updateOne({ content: newContentForPage._id })
       return true;
     } catch (error) {
       console.log('error in fucking content page creation', error)
@@ -1389,42 +1393,42 @@ export class AppService {
   }
 
 
-  async updatePagecontent(pageId : string , body:updatePageContentDto){
+  async updatePagecontent(pageId: string, body: updatePageContentDto) {
     try {
       let page = await this.customPAgeRepository.findById(pageId)
-      if (!page){
+      if (!page) {
         return {
-          message : 'ٌصفحه مورد نظر یافت نشد',
-          statusCode : 400,
-          error : 'صفحه مورد نظر یافت نشد'
-        }
-      }      
-      let pageContent= await this.pagesContentRepository.findById(page.content)
-      if (!pageContent){
-        return {
-          message : 'محتوای صفحه مورد نظر یافت نشد',
-          statusCode : 400,
-          error : 'محتوای صفحه مورد نظر یافت نشد'
+          message: 'ٌصفحه مورد نظر یافت نشد',
+          statusCode: 400,
+          error: 'صفحه مورد نظر یافت نشد'
         }
       }
-      
-      await page.updateOne({show : body.show})
+      let pageContent = await this.pagesContentRepository.findById(page.content)
+      if (!pageContent) {
+        return {
+          message: 'محتوای صفحه مورد نظر یافت نشد',
+          statusCode: 400,
+          error: 'محتوای صفحه مورد نظر یافت نشد'
+        }
+      }
+
+      await page.updateOne({ show: body.show })
       delete body.show;
-      
-      await this.pagesContentRepository.findByIdAndUpdate(page.content , body)
+
+      await this.pagesContentRepository.findByIdAndUpdate(page.content, body)
       let updated = await this.pagesContentRepository.findById(page.content)
       return {
-        message : 'محتوای صفحه با موفقیت اپدیت شد',
-        statusCode : 200,
-        data : updated
+        message: 'محتوای صفحه با موفقیت اپدیت شد',
+        statusCode: 200,
+        data: updated
       }
     } catch (error) {
-        console.log('error in updating page content' , error)
-        return {
-          message : 'خطای داخلی سیستم',
-          statusCode : 500,
-          error : 'خطای داخلی سیستم'
-        }
+      console.log('error in updating page content', error)
+      return {
+        message: 'خطای داخلی سیستم',
+        statusCode: 500,
+        error: 'خطای داخلی سیستم'
+      }
     }
   }
 
@@ -1492,7 +1496,7 @@ export class AppService {
           let data = {
             label: [rr.peTitle, rr.enTitle, rr.ruTitle],
             href: rr.path,
-            show : elem.show
+            show: elem.show
           };
           chilren.push(data);
         });
@@ -1676,9 +1680,9 @@ export class AppService {
         );
       }
 
-      if (existancePage.parent){
+      if (existancePage.parent) {
         let parent = await this.customPAgeRepository.findOne(existancePage.parent)
-        await parent.updateOne({$pull : {Children:pageId}})
+        await parent.updateOne({ $pull: { Children: pageId } })
       }
 
       await this.customPAgeRepository.findByIdAndDelete(pageId);
@@ -1717,27 +1721,20 @@ export class AppService {
   }
 
 
-
-
-
-
   /**
    * its a api for deleting all pages
    * @returns 
    */
-  async refreshAllDynamicPages(){
-      await this.ngoRepository.deleteMany({})
-      await this.projectRepository.deleteMany({})
-      await this.documentRepository.deleteMany({})
-      
-      return {
-        message : 'done',
-        statusCode : 200,
-      }
+  async refreshAllDynamicPages() {
+    await this.ngoRepository.deleteMany({})
+    await this.projectRepository.deleteMany({})
+    await this.documentRepository.deleteMany({})
+
+    return {
+      message: 'done',
+      statusCode: 200,
+    }
   }
-
-
-
 
   /////////////// final line //////////////////////
 }

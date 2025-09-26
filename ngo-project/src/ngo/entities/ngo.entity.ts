@@ -51,6 +51,8 @@ export interface ngoInterface extends Document {
   license: { has: boolean; description: Boolean };
 
   // issuedBy : boolean;
+  
+  code : string;
 
   expiryDate: string;
 
@@ -58,7 +60,7 @@ export interface ngoInterface extends Document {
 
   publishImages : string[]
 
-  conditionAndConfirm: string[];
+  conditonAndConfirm: string[];
 
   disable: boolean;
 
@@ -131,6 +133,9 @@ export class Ngo {
   @Prop({ type: [String] })
   specificActiveAreas: string[];
 
+  @Prop({type : String})
+  code : string;
+
   @Prop({ type: [String] })
   areaOfExpertise: string[];
 
@@ -189,7 +194,7 @@ export class Ngo {
   documentsFile: string[];
 
   @Prop({ type: [String] })
-  termsAndCondition: string[];
+  conditonAndConfirm: string[];
 
   @Prop({
     type: [mongoose.Schema.Types.ObjectId],
@@ -203,3 +208,4 @@ export class Ngo {
 }
 
 export const ngoSchema = SchemaFactory.createForClass(Ngo);
+

@@ -240,7 +240,15 @@ export class CreateNgoDto {
     example: [],
     required: true,
   })
-  publishImages : string[]
+  publishImages: string[]
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    required: true,
+    example: '+98'
+  })
+  code: string;
 
   @IsNotEmpty()
   @IsArray()
