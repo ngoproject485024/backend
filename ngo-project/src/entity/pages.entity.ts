@@ -234,12 +234,12 @@ export class pages {
       ruEventPartDescription: { type: String },
       secondBannerLink: { type: String },
       firstBannerLink: { type: String },
-      firstPeEventPartDescription: { type: String , default : '' },
-      firstEnEventPartDescription: { type: String , default : '' },
-      firstRuEventPartDescription: { type: String , default : '' },
-      secondPeEventPartDescription: { type: String , default : '' },
-      secondEnEventPartDescription: { type: String , default : '' },
-      secondRuEventPartDescription: { type: String , default : '' },
+      firstPeEventPartDescription: { type: String, default: '' },
+      firstEnEventPartDescription: { type: String, default: '' },
+      firstRuEventPartDescription: { type: String, default: '' },
+      secondPeEventPartDescription: { type: String, default: '' },
+      secondEnEventPartDescription: { type: String, default: '' },
+      secondRuEventPartDescription: { type: String, default: '' },
     },
   })
   homPage: {
