@@ -96,8 +96,6 @@ export class NgoService {
     }
   }
 
-
-
   async updateNewNgo(body: UpdateNgoDto, ngoId: string): Promise<responseInterface> {
     try {
       let ngo = await this.ngoRepository.findById(ngoId)

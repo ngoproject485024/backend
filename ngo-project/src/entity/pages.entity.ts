@@ -26,7 +26,6 @@ export interface pagesInterface extends Document {
     peFirstBannerDescription: string
     enFirstBannerDescription: string
     ruFirstBannerDescription: string
-
     secondBannerImage: string[],
     peSecondBannerDescription: string
     enSecondBannerDescription: string
@@ -224,7 +223,6 @@ export class pages {
       peFirstBannerDescription: { type: String },
       enFirstBannerDescription: { type: String },
       ruFirstBannerDescription: { type: String },
-
       secondBannerImage: { type: [String] },
       peSecondBannerDescription: { type: String },
       enSecondBannerDescription: { type: String },
@@ -235,7 +233,13 @@ export class pages {
       enEventPartDescription: { type: String },
       ruEventPartDescription: { type: String },
       secondBannerLink: { type: String },
-      firstBannerLink: { type: String }
+      firstBannerLink: { type: String },
+      firstPeEventPartDescription: { type: String },
+      firstEnEventPartDescription: { type: String },
+      firstRuEventPartDescription: { type: String },
+      secondPeEventPartDescription: { type: String },
+      secondEnEventPartDescription: { type: String },
+      secondRuEventPartDescription: { type: String },
     },
   })
   homPage: {
@@ -272,6 +276,12 @@ export class pages {
     peEventPartDescription: string
     enEventPartDescription: string
     ruEventPartDescription: string
+    firstPeEventPartDescription: string;
+    firstEnEventPartDescription: string;
+    firstRuEventPartDescription: string;
+    secondPeEventPartDescription: string;
+    secondEnEventPartDescription: string;
+    secondRuEventPartDescription: string;
   };
 
   @Prop({

@@ -41,7 +41,7 @@ import langDetection from './services/langDetection';
 @Controller('page')
 export class AppController {
   constructor(private readonly appService: AppService
-  ) {}  
+  ) { }
 
   @Post('uploadFile')
   @UseInterceptors(
@@ -546,7 +546,7 @@ export class AppController {
     @Query('page') page: string,
     @Query('search') search: string,
   ): Promise<responseInterface> {
-    return this.appService.specificProjectsByStatus(req, res, status, +page , search);
+    return this.appService.specificProjectsByStatus(req, res, status, +page, search);
   }
 
   /**this is project page data by category */
@@ -791,9 +791,9 @@ export class AppController {
     @Req() req: any,
     @Res() res: any,
     @Body(new ValidationPipe()) body: createCustomPageDto,
-    @Query('pageId') pageId : string
+    @Query('pageId') pageId: string
   ): Promise<responseInterface> {
-    return this.appService.createNewPageV2(req, res, body ,pageId);
+    return this.appService.createNewPageV2(req, res, body, pageId);
   }
 
 
@@ -804,7 +804,7 @@ export class AppController {
     @Body(new ValidationPipe()) body: updatePageContentDto,
     @Param('pageId') pageId: string
   ) {
-    return this.appService.updatePagecontent(pageId , body)
+    return this.appService.updatePagecontent(pageId, body)
   }
 
 
@@ -969,7 +969,7 @@ export class AppController {
     return this.appService.getPathes(req, res);
   }
 
-  
+
   /**
    * this rout is for get all customs pages by admin
    * @param req
@@ -1063,8 +1063,8 @@ export class AppController {
 
 
   @Get('custompages/del')
-  async deleteAllCustomPages(){
-      return this.appService.refreshAllDynamicPages()
+  async deleteAllCustomPages() {
+    return this.appService.refreshAllDynamicPages()
   }
 
 
@@ -1083,9 +1083,6 @@ export class AppController {
   //   }
 
 
-
-
-
-  
   /////////////////////////final line!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 }
